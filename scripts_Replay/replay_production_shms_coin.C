@@ -11,7 +11,7 @@ void replay_production_shms_coin (Int_t RunNumber = 0, Int_t MaxEvent = 0) {
     cin >> MaxEvent;
     if(MaxEvent == 0) {
       cerr << "...Invalid entry\n";
-      exit;
+      //exit;
     }
   }
 
@@ -156,7 +156,7 @@ void replay_production_shms_coin (Int_t RunNumber = 0, Int_t MaxEvent = 0) {
   // Define output ROOT file
   analyzer->SetOutFile(ROOTFileName.Data());
   // Define DEF-file
-  analyzer->SetOdefFile("UITL_KAONLT/DEF-files/shms_kin.def");
+  analyzer->SetOdefFile("UTIL_KAONLT/DEF-files/shms_kin.def");
   // Define cuts file
   analyzer->SetCutFile("DEF-files/SHMS/PRODUCTION/CUTS/pstackana_production_cuts.def");  // optional
   // File to record accounting information for cuts

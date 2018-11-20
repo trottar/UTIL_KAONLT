@@ -54,8 +54,8 @@ void LumiYield::SlaveBegin(TTree * /*tree*/)
   TString option = GetOption();
   TString PS1_temp = option(0,option.Index("."));
   TString PS3_temp = option(option.Index(".")+1,option.Length());
-  //PS1 = PS1_temp.Atof();
-  //PS3 = PS3_temp.Atof();
+  PS1 = PS1_temp.Atof();
+  PS3 = PS3_temp.Atof();
    
   h_ecut_before = new TH1F("h_ecut_before","HMS CER counts before electron cut",100,0.0,20);
   h_ecut_after  = new TH1F("h_ecut_after" ,"HMS CER counts after electron cut", 100,0.0,20);
@@ -63,20 +63,31 @@ void LumiYield::SlaveBegin(TTree * /*tree*/)
   p_ecut_before = new TH1F("p_ecut_before","SHMS HGC counts before hadron cut",200,0.0,50);
   p_ecut_after  = new TH1F("p_ecut_after" ,"SHMS HGC counts after hadron cut", 200,0.0,50);
   p_ecut_eff    = new TH1F("p_ecut_eff"   ,"SHMS HGC counts after PID cut",      200,0.0,50);
-  
+
+  p_dp_before   = new TH1F("p_dp_before"  ,"Counts before delta cut",  100,-30,30);
+  p_dp_after    = new TH1F("p_dp_after"   ,"Counts after delta cut",   100,-30,30);  
   h_dp_before   = new TH1F("h_dp_before"  ,"Counts before delta cut",  100,-30,30);
   h_dp_after    = new TH1F("h_dp_after"   ,"Counts after delta cut",   100,-30,30);
 
+  p_th_before   = new TH1F("p_th_before"  ,"Counts before theta cut",  100,-0.1,0.1);
+  p_th_after    = new TH1F("p_th_after"   ,"Counts after theta cut",   100,-0.1,0.1);
   h_th_before   = new TH1F("h_th_before"  ,"Counts before theta cut",  100,-0.1,0.1);
   h_th_after    = new TH1F("h_th_after"   ,"Counts after theta cut",   100,-0.1,0.1);
 
+  p_ph_before   = new TH1F("p_ph_before"  ,"Counts before phi cut",  100,-0.1,0.1);
+  p_ph_after    = new TH1F("p_ph_after"   ,"Counts after phi cut",   100,-0.1,0.1);
   h_ph_before   = new TH1F("h_ph_before"  ,"Counts before phi cut",  100,-0.1,0.1);
   h_ph_after    = new TH1F("h_ph_after"   ,"Counts after phi cut",   100,-0.1,0.1);
 
-  h_show_before = new TH1F("h_show_before","Counts in HMS CAL before etotnorm cut",100,0.0,2.0);
-  h_show_after  = new TH1F("h_show_after" ,"Counts in HMS CAL after etotnorm cut",100,0.0,2.0);
   p_show_before = new TH1F("p_show_before","Counts in SHMS CAL before etotnorm cut",100,0.0,2.0);
   p_show_after  = new TH1F("p_show_after" ,"Counts in SHMS CAL after etotnorm cut",100,0.0,2.0);
+  h_show_before = new TH1F("h_show_before","Counts in HMS CAL before etotnorm cut",100,0.0,2.0);
+  h_show_after  = new TH1F("h_show_after" ,"Counts in HMS CAL after etotnorm cut",100,0.0,2.0);
+
+  h_cer_cal_before    = new TH2F("h_cer_cal_before","Cer vs Cal before cuts", 200, 0.0, 2.0, 200, 0.0, 20);  
+  h_cer_cal_after     = new TH2F("h_cer_cal_after","Cer vs Cal after cuts", 200, 0.0, 2.0, 200, 0.0, 20); 
+  p_hg_cal_before     = new TH2F("p_hg_cal_before","HGC vs Cal before cuts", 200, 0.0, 2.0, 200, 0.0, 50);
+  p_hg_cal_after      = new TH2F("p_hg_cal_after","HGC vs Cal after cuts", 200, 0.0, 2.0, 200, 0.0, 50); 
   
   h_track_before   = new TH1F("h_track_before"   ,"Counts before track cut HMS",200,0.0,16.0);
   h_track_after    = new TH1F("h_track_after"    ,"Counts after track cut HMS",200,0.0,16.0);
@@ -123,6 +134,10 @@ void LumiYield::SlaveBegin(TTree * /*tree*/)
   GetOutputList()->Add(h_show_after);
   GetOutputList()->Add(p_show_before);
   GetOutputList()->Add(p_show_after);
+  GetOutputList()->Add(h_cer_cal_before);
+  GetOutputList()->Add(p_hg_cal_before);
+  GetOutputList()->Add(h_cer_cal_after);
+  GetOutputList()->Add(p_hg_cal_after);
   GetOutputList()->Add(h_track_before);
   GetOutputList()->Add(h_track_after);
   GetOutputList()->Add(h_etrack_before);
@@ -150,6 +165,7 @@ void LumiYield::SlaveBegin(TTree * /*tree*/)
   GetOutputList()->Add(TRIG1_cut);
   GetOutputList()->Add(TRIG3_cut);
   GetOutputList()->Add(TRIG5_cut);
+
 }
 
 Bool_t LumiYield::Process(Long64_t entry)
@@ -184,16 +200,22 @@ Bool_t LumiYield::Process(Long64_t entry)
   if (*T_coin_pTRIG5_ROC2_tdcTime!=0.0) TRIG5->Fill(*T_coin_pTRIG5_ROC2_tdcTime);
   EventType->Fill(*EvtType);
   
-  if ( /*T_coin_pTRIG1_ROC2_tdcTime>=388.0 && 
-	*T_coin_pTRIG1_ROC2_tdcTime<=395.0 &&*/ *EvtType==1 &&
-       *T_coin_pEDTM_tdcTime>140.0 && *T_coin_pEDTM_tdcTime<144.0)
+  if ( *EvtType==1 
+       && *T_coin_pTRIG1_ROC2_tdcTime > 0
+       //&& ((*T_coin_pTRIG1_ROC2_tdcTime>=388.0 && *T_coin_pTRIG1_ROC2_tdcTime<=395.0) 
+       //&& (*T_coin_pTRIG1_ROC2_tdcTime>=185.0 && *T_coin_pTRIG1_ROC2_tdcTime<=235.00) 
+       //&& *T_coin_pEDTM_tdcTime>140.0 && *T_coin_pEDTM_tdcTime<144.0
+       )
     {
       SHMS_EDTM->Fill(*T_coin_pEDTM_tdcTime);
     }
 
-  if (*EvtType==1/**T_coin_pTRIG1_ROC2_tdcTime>=388.0 && 
-      *T_coin_pTRIG1_ROC2_tdcTime<=395.0 && *EvtType==1 && 
-      (*T_coin_pEDTM_tdcTime<140.0 || *T_coin_pEDTM_tdcTime>144.0)*/) // Event was an SHMS Single
+  if ( *EvtType==1 
+       && *T_coin_pTRIG1_ROC2_tdcTime > 0
+       //&& ((*T_coin_pTRIG1_ROC2_tdcTime>=388.0 && *T_coin_pTRIG1_ROC2_tdcTime<=395.0) 
+       //&& (*T_coin_pTRIG1_ROC2_tdcTime>=185.0 && *T_coin_pTRIG1_ROC2_tdcTime<=235.00) 
+       //&& *T_coin_pEDTM_tdcTime>140.0 && *T_coin_pEDTM_tdcTime<144.0
+       ) // Event was an SHMS Single
     {
       TRIG1_cut->Fill(*T_coin_pTRIG1_ROC2_tdcTime);
     
@@ -207,7 +229,7 @@ Bool_t LumiYield::Process(Long64_t entry)
 	   P_dc_2v1_nhit[0] + P_dc_2x2_nhit[0] + P_dc_2v2_nhit[0]) < 20)
 	{
 	  p_track_before->Fill(P_dc_ntrack[0]);
-	  if (/*P_cal_etotnorm[0] <= 0.6 &&*/ P_cal_etotnorm[0] > 0.05) 
+	  if (P_cal_etotnorm[0] <= 0.6 && P_cal_etotnorm[0] > 0.05) 
 	    {
 	      p_hadtrack_before->Fill(P_dc_ntrack[0]);
 	      if (P_hgcer_npeSum[0] > 1.5) 
@@ -226,10 +248,10 @@ Bool_t LumiYield::Process(Long64_t entry)
 		    }
 		}
 	    }
-	  if (P_dc_ntrack[0] > 0.0) //Requirement that a good track was actually found,, don't require tracking to calculate tracking
-	       {
+	  if (P_dc_ntrack[0] > 0.0) 
+	      {
 	      p_track_after->Fill(P_dc_ntrack[0]);
-	      if (/*P_cal_etotnorm[0] <= 0.6 &&*/ P_cal_etotnorm[0] > 0.05) 
+	      if (P_cal_etotnorm[0] <= 0.6 && P_cal_etotnorm[0] > 0.05) 
 		{
 		  p_hadtrack_after->Fill(P_dc_ntrack[0]);
 		  if (P_hgcer_npeSum[0] > 1.5) 
@@ -251,41 +273,49 @@ Bool_t LumiYield::Process(Long64_t entry)
 	      }
 	}
 	
-      if (P_hod_goodscinhit[0] == 1 && P_hod_betanotrack[0] > 0.5 && P_hod_betanotrack[0] < 1.4)
-	{
-	  p_ecut_before->Fill(P_hgcer_npeSum[0]);/*
-						   p_dp_before->Fill(P_gtr_dp[0]);
-						   p_th_before->Fill(P_tr_tg_th[0]);
-						   p_ph_before->Fill(P_tr_tg_ph[0]);*/
+	  p_ecut_before->Fill(P_hgcer_npeSum[0]);
+	  p_dp_before->Fill(P_gtr_dp[0]);
+	  p_th_before->Fill(P_gtr_th[0]);
+	  p_ph_before->Fill(P_gtr_ph[0]);
 	  p_show_before->Fill(P_cal_etotnorm[0]);
 
-	  if (P_cal_etotnorm[0] > 0.7) return kTRUE;
+	  p_hg_cal_before->Fill(P_cal_etotnorm[0], P_hgcer_npeSum[0]);
+
+	  if (P_cal_etotnorm[0] < 0.05) return kTRUE;//.7
+	  //if (P_cal_etotnorm[0] >= 0.6) return kTRUE;
 	  p_ecut_after->Fill(P_hgcer_npeSum[0]);
-	  if (P_hgcer_npeSum[0] > 1.5) return kTRUE;
-	  if (P_aero_npeSum[0] < 1.5) return kTRUE;
-	  if (P_gtr_dp[0] < -10.0 || P_gtr_dp[0] > 20.0) return kTRUE;
-	  if (TMath::Abs(P_gtr_th[0]) > 0.080) return kTRUE;
-	  if (TMath::Abs(P_gtr_ph[0]) > 0.035) return kTRUE;
+	  //if (P_hod_betanotrack[0] < 0.5) return kTRUE;
+	  //if (P_hod_betanotrack[0] > 1.4) return kTRUE;
+	  if (P_hgcer_npeSum[0] < 1.5) return kTRUE;
+	  //if (P_aero_npeSum[0] < 1.5) return kTRUE;
+	  //if (P_gtr_dp[0] < -10.0 || P_gtr_dp[0] > 20.0) return kTRUE;
+	  //if (TMath::Abs(P_gtr_th[0]) > 0.080) return kTRUE;
+	  //if (TMath::Abs(P_gtr_ph[0]) > 0.035) return kTRUE;
 
-
-	  p_ecut_eff->Fill(P_hgcer_npeSum[0]);/*
-						p_dp_after->Fill(P_gtr_dp[0]);
-						p_th_after->Fill(P_tr_tg_th[0]);
-						p_ph_after->Fill(P_tr_tg_ph[0]);*/
+	  p_dp_after->Fill(P_gtr_dp[0]);
+	  p_th_after->Fill(P_gtr_th[0]);
+	  p_ph_after->Fill(P_gtr_ph[0]);
 	  p_show_after->Fill(P_cal_etotnorm[0]);
-	}
+
+	  p_ecut_eff->Fill(P_hgcer_npeSum[0]);
+
+	  p_hg_cal_after->Fill(P_cal_etotnorm[0], P_hgcer_npeSum[0]);
     }
 
-  if (/*T_coin_pTRIG3_ROC2_tdcTime>=830.0 && 
-       *T_coin_pTRIG3_ROC2_tdcTime<=870.0 &&*/ *EvtType==2 &&
-      *T_coin_pEDTM_tdcTime>140.0 && *T_coin_pEDTM_tdcTime<144.0)
+  if (*EvtType==2 
+      && *T_coin_pTRIG3_ROC2_tdcTime > 0
+      //&& (*T_coin_pTRIG3_ROC2_tdcTime>=830.0 && *T_coin_pTRIG3_ROC2_tdcTime<=870.0) 
+      //&& *T_coin_pEDTM_tdcTime>140.0 && *T_coin_pEDTM_tdcTime<144.0
+      )
     {
       HMS_EDTM->Fill(*T_coin_pEDTM_tdcTime);
     }
 
-  if (*EvtType==2/*T_coin_pTRIG3_ROC2_tdcTime>=830.0 && 
-      *T_coin_pTRIG3_ROC2_tdcTime<=870.0 && *EvtType==2 && 
-      (*T_coin_pEDTM_tdcTime<140.0 || *T_coin_pEDTM_tdcTime>144.0)*/) // Event was an HMS Single
+  if (*EvtType==2 
+      && *T_coin_pTRIG3_ROC2_tdcTime > 0
+      //&& (*T_coin_pTRIG3_ROC2_tdcTime>=830.0 && *T_coin_pTRIG3_ROC2_tdcTime<=870.0) 
+      //&& *T_coin_pEDTM_tdcTime>140.0 && *T_coin_pEDTM_tdcTime<144.0
+      ) // Event was an HMS Single
     {
       
       TRIG3_cut->Fill(*T_coin_pTRIG3_ROC2_tdcTime);
@@ -304,38 +334,41 @@ Bool_t LumiYield::Process(Long64_t entry)
 	    h_etrack_before->Fill(H_dc_ntrack[0]);
 	  }
        
-	  if (H_dc_ntrack[0] > 0.0) //Requirement that a good track was actually found, don't require tracking to calculate tracking
-	    {
+	  if (H_dc_ntrack[0] > 0.0) 
+	      {
 	      h_track_after->Fill(H_dc_ntrack[0]);
 	      if (H_cer_npeSum[0] > 0.5 && H_cal_etotnorm[0] > 0.6 && H_cal_etotnorm[0] < 2.0) {
 		h_etrack_after->Fill(H_dc_ntrack[0]);
 	      }
-	    }
+	     }
 	}
    
       h_ecut_before->Fill(H_cer_npeSum[0]);
       h_dp_before->Fill(H_gtr_dp[0]);
-      h_th_before->Fill(H_tr_tg_th[0]);
-      h_ph_before->Fill(H_tr_tg_ph[0]);
+      h_th_before->Fill(H_gtr_th[0]);
+      h_ph_before->Fill(H_gtr_ph[0]);
       h_show_before->Fill(H_cal_etotnorm[0]);
 
-      if (H_cal_etotnorm[0] < 0.6) return kTRUE; //.9
-      if (H_cal_etotnorm[0] > 2.0) return kTRUE; //1.5
-      if (H_cer_npeSum[0] < 1.5) return kTRUE;
-      if (TMath::Abs(H_gtr_dp[0]) > 8.0) return kTRUE;
-      if (TMath::Abs(H_tr_tg_th[0]) > 0.080) return kTRUE;
-      if (TMath::Abs(H_tr_tg_ph[0]) > 0.035) return kTRUE;
+      h_cer_cal_before->Fill(H_cal_etotnorm[0], H_cer_npeSum[0]);
 
-
+      if (H_cal_etotnorm[0] < 0.6) return kTRUE; 
+      if (H_cal_etotnorm[0] > 2.0) return kTRUE; 
       h_ecut_after->Fill(H_cer_npeSum[0]);
+      //if (H_hod_betanotrack[0] < 0.8) return kTRUE;
+      //if (H_hod_betanotrack[0] > 1.3) return kTRUE;
+      if (H_cer_npeSum[0] < 2.0) return kTRUE;
+      //if (TMath::Abs(H_gtr_dp[0]) > 8.0) return kTRUE;
+      //if (TMath::Abs(H_gtr_th[0]) > 0.080) return kTRUE;
+      //if (TMath::Abs(H_gtr_ph[0]) > 0.035) return kTRUE;
+
       h_dp_after->Fill(H_gtr_dp[0]);
-      h_th_after->Fill(H_tr_tg_th[0]);
-      h_ph_after->Fill(H_tr_tg_ph[0]);
+      h_th_after->Fill(H_gtr_th[0]);
+      h_ph_after->Fill(H_gtr_ph[0]);
       h_show_after->Fill(H_cal_etotnorm[0]);
 
-      if (H_cer_npeSum[0] < 1.5) return kTRUE;
-
       h_ecut_eff->Fill(H_cer_npeSum[0]);
+
+      h_cer_cal_after->Fill(H_cal_etotnorm[0], H_cer_npeSum[0]);
     }
 
   return kTRUE;
@@ -382,6 +415,24 @@ void LumiYield::Terminate()
   cout << Form("Calculated kaon tracking efficiency: %f +/- %f\n",p_Ktrack_after->GetEntries()/p_Ktrack_before->GetEntries(),(p_Ktrack_after->GetEntries()/p_Ktrack_before->GetEntries())*sqrt((1/p_Ktrack_after->GetEntries()) + (1/p_Ktrack_before->GetEntries())));
   cout << Form("Calculated proton tracking efficiency: %f +/- %f\n",p_ptrack_after->GetEntries()/p_ptrack_before->GetEntries(),(p_ptrack_after->GetEntries()/p_ptrack_before->GetEntries())*sqrt((1/p_ptrack_after->GetEntries()) + (1/p_ptrack_before->GetEntries())));
   //cout << Form("Calculated SHMS Cherenkov efficiency: %f +/- %f\n\n",p_ecut_eff->GetEntries()/p_ecut_after->GetEntries(),(p_ecut_eff->GetEntries()/p_ecut_after->GetEntries())*sqrt((1/p_ecut_eff->GetEntries()) + (1/p_ecut_after->GetEntries())));
+
+  outputpdf = foutname + ".pdf";
+  outputhist = foutname + ".root";
+  rootFile = new TFile(outputhist, "recreate");
+  gFile = rootFile;
+  
+  TCanvas *c_plot;
+  c_plot = new TCanvas("c_plot","PID");
+  c_plot->Divide(2,2);
+  c_plot->cd(1);
+  h_cer_cal_before->Draw();
+  c_plot->cd(2);
+  h_cer_cal_after->Draw();
+  c_plot->cd(3);
+  p_hg_cal_before->Draw();
+  c_plot->cd(4);
+  p_hg_cal_after->Draw(); 
+  c_plot->Print(outputpdf +"(");
    
   TCanvas *c_ID_cut;
   c_ID_cut = new TCanvas("c_ID_cut","Particle ID Information");
@@ -401,6 +452,7 @@ void LumiYield::Terminate()
   c_ID_cut->cd(6);
   gPad->SetLogy();
   p_ecut_eff->Draw();
+  c_ID_cut->Print(outputpdf);
 
   TCanvas *c_etot_cut;
   c_etot_cut = new TCanvas("c_etot_cut","Calorimeter Energy Information");
@@ -413,6 +465,7 @@ void LumiYield::Terminate()
   p_show_before->Draw();
   c_etot_cut->cd(4);
   p_show_after->Draw();
+  c_etot_cut->Print(outputpdf);
   
   TCanvas *c_track_cut;
   c_track_cut = new TCanvas("c_track_cut","Good Track Information");
@@ -429,6 +482,7 @@ void LumiYield::Terminate()
   c_track_cut->cd(4);
   gPad->SetLogy();
   p_hadtrack_after->Draw();
+  c_track_cut->Print(outputpdf);
 
   TCanvas *c_bcm_cut;
   c_bcm_cut = new TCanvas("c_bcm_cut","Beam Current Monitor Information");
@@ -437,8 +491,10 @@ void LumiYield::Terminate()
   bcm_before->Draw();
   c_bcm_cut->cd(2);
   bcm_after->Draw();
+  c_bcm_cut->Print(outputpdf);
 
-  TCanvas *c_EventType = new TCanvas("Event Type","Event Type Information");
+  TCanvas *c_EventType; 
+  c_EventType = new TCanvas("Event Type","Event Type Information");
   c_EventType->Divide(2,2);
   c_EventType->cd(1);
   EventType->Draw();
@@ -448,7 +504,60 @@ void LumiYield::Terminate()
   TRIG1->Draw();
   c_EventType->cd(4);
   TRIG3->Draw();
- 
+  c_EventType->Print(outputpdf +")");
+
+
+  h_ecut_before->Write();
+  h_ecut_after->Write();
+  h_ecut_eff->Write();
+  p_ecut_before->Write();
+  p_ecut_after->Write();
+  p_ecut_eff->Write();
+  h_dp_before->Write();
+  h_dp_after->Write();
+  h_th_before->Write();
+  h_th_after->Write();
+  h_ph_before->Write();
+  h_ph_after->Write();
+  h_show_before->Write();
+  h_show_after->Write();
+  p_show_before->Write();
+  p_show_after->Write();
+  h_cer_cal_before->Write();
+  p_hg_cal_before->Write();
+  h_cer_cal_after->Write();
+  p_hg_cal_after->Write();
+  h_track_before->Write();
+  h_track_after->Write();
+  h_etrack_before->Write();
+  h_etrack_after->Write();
+  p_track_before->Write();
+  p_track_after->Write();
+  p_hadtrack_before->Write();
+  p_hadtrack_after->Write();
+  p_pitrack_before->Write();
+  p_pitrack_after->Write();
+  p_Ktrack_before->Write();
+  p_Ktrack_after->Write();
+  p_ptrack_before->Write();
+  p_ptrack_after->Write();
+
+  EventType->Write();
+  bcm_before->Write();
+  bcm_after->Write();
+  EDTM->Write();
+  HMS_EDTM->Write();
+  SHMS_EDTM->Write();
+  TRIG1->Write();
+  TRIG3->Write();
+  TRIG5->Write();
+  TRIG1_cut->Write();
+  TRIG3_cut->Write();
+  TRIG5_cut->Write();
+
+  //rootFile->Print();
+
+
   ofstream myfile1;
   myfile1.open ("Yield_Data.dat", fstream::app);
   myfile1 << Form("%.0f %.0f %.0f %.0f %.4f %.4f %.4f %.4f %.4f %.4f %.4f %.4f %.4f %.4f %.4f %.4f %.4f %.4f %.0f %.0f %.0f ",

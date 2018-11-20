@@ -26,8 +26,13 @@ class LumiYield : public TSelector {
  public :
   TTreeReader     fReader;  //!the tree reader
   TTree          *fChain = 0;   //!pointer to the analyzed TTree or TChain
+  TFile          *rootFile;
 
   Bool_t          fFullShow = kFALSE;
+
+  TString foutname = "/home/trottar/Analysis/hallc_replay/UTIL_KAONLT/scripts_Luminosity/OUTPUT/Luminosity_PID";
+  TString outputpdf;
+  TString outputhist;
 
   Double_t        PS1;
   Double_t        PS3;
@@ -43,6 +48,10 @@ class LumiYield : public TSelector {
   TH1F           *h_ph_after;
   TH1F           *h_show_before;
   TH1F           *h_show_after;
+  TH2F           *h_cer_cal_before;
+  TH2F           *p_hg_cal_before;
+  TH2F           *h_cer_cal_after;
+  TH2F           *p_hg_cal_after;
   TH1F           *h_track_before;
   TH1F           *h_track_after;
   TH1F           *h_etrack_before;
@@ -87,8 +96,8 @@ class LumiYield : public TSelector {
   TTreeReaderArray<Double_t> H_cal_etotnorm          = {fReader, "H.cal.etotnorm"};
   TTreeReaderArray<Double_t> H_cer_npeSum            = {fReader, "H.cer.npeSum"};
   TTreeReaderArray<Double_t> H_gtr_dp                = {fReader, "H.gtr.dp"};
-  TTreeReaderArray<Double_t> H_tr_tg_th              = {fReader, "H.gtr.th"};
-  TTreeReaderArray<Double_t> H_tr_tg_ph              = {fReader, "H.gtr.ph"};
+  TTreeReaderArray<Double_t> H_gtr_th              = {fReader, "H.gtr.th"};
+  TTreeReaderArray<Double_t> H_gtr_ph              = {fReader, "H.gtr.ph"};
   TTreeReaderArray<Double_t> H_tr_beta               = {fReader, "H.tr.beta"};
   TTreeReaderArray<Double_t> H_tr_chi2               = {fReader, "H.tr.chi2"};
   TTreeReaderArray<Double_t> H_tr_ndof               = {fReader, "H.tr.ndof"};
@@ -148,7 +157,7 @@ class LumiYield : public TSelector {
   
   TTreeReaderValue<Int_t> EvtType                    = {fReader, "fEvtHdr.fEvtType"};
 
-  LumiYield(TTree * /*tree*/ =0) {h_ecut_before = 0, h_ecut_after = 0, h_ecut_eff = 0, h_dp_before = 0, h_dp_after = 0, h_th_before = 0, h_th_after = 0, h_ph_before = 0, h_ph_after =0, h_show_before=0, h_show_after=0, h_track_before=0, h_track_after=0, h_etrack_before=0, h_etrack_after=0, p_ecut_before = 0, p_ecut_after = 0, p_ecut_eff = 0, p_dp_before = 0, p_dp_after = 0, p_th_before = 0, p_th_after = 0, p_ph_before = 0, p_ph_after =0, p_show_before=0, p_show_after=0, p_track_before=0, p_track_after=0, p_hadtrack_before=0, p_hadtrack_after=0, p_pitrack_before=0, p_pitrack_after=0, p_Ktrack_before=0, p_Ktrack_after=0, p_ptrack_before=0, p_ptrack_after=0, bcm_before=0, bcm_after=0, EventType=0, EDTM=0, SHMS_EDTM=0, HMS_EDTM=0, TRIG1=0,TRIG3=0,TRIG5=0, TRIG1_cut=0,TRIG3_cut=0,TRIG5_cut=0;}
+  LumiYield(TTree * /*tree*/ =0) {h_ecut_before = 0, h_ecut_after = 0, h_ecut_eff = 0, h_dp_before = 0, h_dp_after = 0, h_th_before = 0, h_th_after = 0, h_ph_before = 0, h_ph_after =0, h_show_before=0, h_show_after=0, h_cer_cal_before=0, p_hg_cal_before=0, h_cer_cal_after=0, p_hg_cal_after=0, h_track_before=0, h_track_after=0, h_etrack_before=0, h_etrack_after=0, p_ecut_before = 0, p_ecut_after = 0, p_ecut_eff = 0, p_dp_before = 0, p_dp_after = 0, p_th_before = 0, p_th_after = 0, p_ph_before = 0, p_ph_after =0, p_show_before=0, p_show_after=0, p_track_before=0, p_track_after=0, p_hadtrack_before=0, p_hadtrack_after=0, p_pitrack_before=0, p_pitrack_after=0, p_Ktrack_before=0, p_Ktrack_after=0, p_ptrack_before=0, p_ptrack_after=0, bcm_before=0, bcm_after=0, EventType=0, EDTM=0, SHMS_EDTM=0, HMS_EDTM=0, TRIG1=0,TRIG3=0,TRIG5=0, TRIG1_cut=0,TRIG3_cut=0,TRIG5_cut=0;}
   virtual ~LumiYield() { }
   virtual Int_t   Version() const { return 2; }
   virtual void    Begin(TTree *tree);

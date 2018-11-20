@@ -11,7 +11,7 @@ void replay_production_hms_coin(Int_t RunNumber=0, Int_t MaxEvent=0) {
     cin >> MaxEvent;
     if(MaxEvent == 0) {
       cerr << "...Invalid entry\n";
-      exit;
+      //exit;
     }
   }
 
