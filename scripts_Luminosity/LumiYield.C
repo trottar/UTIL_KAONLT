@@ -201,9 +201,10 @@ Bool_t LumiYield::Process(Long64_t entry)
   EventType->Fill(*EvtType);
   
   if ( *EvtType==1 
-       && *T_coin_pTRIG1_ROC2_tdcTime > 0
-       //&& ((*T_coin_pTRIG1_ROC2_tdcTime>=388.0 && *T_coin_pTRIG1_ROC2_tdcTime<=395.0) 
-       //&& (*T_coin_pTRIG1_ROC2_tdcTime>=185.0 && *T_coin_pTRIG1_ROC2_tdcTime<=235.00) 
+       || *EvtType==3
+       //&& ((*T_coin_pTRIG1_ROC2_tdcTime > 0 && *T_coin_pTRIG1_ROC2_tdcTime<=185.0)
+       //|| (*T_coin_pTRIG1_ROC2_tdcTime>=235.00 && *T_coin_pTRIG1_ROC2_tdcTime<=388.0) 
+       //|| *T_coin_pTRIG1_ROC2_tdcTime>=395.0)
        //&& *T_coin_pEDTM_tdcTime>140.0 && *T_coin_pEDTM_tdcTime<144.0
        )
     {
@@ -211,9 +212,10 @@ Bool_t LumiYield::Process(Long64_t entry)
     }
 
   if ( *EvtType==1 
-       && *T_coin_pTRIG1_ROC2_tdcTime > 0
-       //&& ((*T_coin_pTRIG1_ROC2_tdcTime>=388.0 && *T_coin_pTRIG1_ROC2_tdcTime<=395.0) 
-       //&& (*T_coin_pTRIG1_ROC2_tdcTime>=185.0 && *T_coin_pTRIG1_ROC2_tdcTime<=235.00) 
+       || *EvtType==3
+       //&& ((*T_coin_pTRIG1_ROC2_tdcTime > 0 && *T_coin_pTRIG1_ROC2_tdcTime<=185.0)
+       //|| (*T_coin_pTRIG1_ROC2_tdcTime>=235.00 && *T_coin_pTRIG1_ROC2_tdcTime<=388.0) 
+       //|| *T_coin_pTRIG1_ROC2_tdcTime>=395.0)
        //&& *T_coin_pEDTM_tdcTime>140.0 && *T_coin_pEDTM_tdcTime<144.0
        ) // Event was an SHMS Single
     {
@@ -303,18 +305,20 @@ Bool_t LumiYield::Process(Long64_t entry)
     }
 
   if (*EvtType==2 
-      && *T_coin_pTRIG3_ROC2_tdcTime > 0
-      //&& (*T_coin_pTRIG3_ROC2_tdcTime>=830.0 && *T_coin_pTRIG3_ROC2_tdcTime<=870.0) 
-      //&& *T_coin_pEDTM_tdcTime>140.0 && *T_coin_pEDTM_tdcTime<144.0
+      || *EvtType==3
+      //&& ((*T_coin_pTRIG3_ROC2_tdcTime > 0 && *T_coin_pTRIG3_ROC2_tdcTime<=830.0) 
+      //|| *T_coin_pTRIG3_ROC2_tdcTime>=870.0) 
+      //&& *T_coin_pEDTM_tdcTime>140.0 && *T_coin_pEDTM_tdcTime<144.0with TDC cuts
       )
     {
       HMS_EDTM->Fill(*T_coin_pEDTM_tdcTime);
     }
 
   if (*EvtType==2 
-      && *T_coin_pTRIG3_ROC2_tdcTime > 0
-      //&& (*T_coin_pTRIG3_ROC2_tdcTime>=830.0 && *T_coin_pTRIG3_ROC2_tdcTime<=870.0) 
-      //&& *T_coin_pEDTM_tdcTime>140.0 && *T_coin_pEDTM_tdcTime<144.0
+      || *EvtType==3
+      //&& ((*T_coin_pTRIG3_ROC2_tdcTime > 0 && *T_coin_pTRIG3_ROC2_tdcTime<=830.0) 
+      //|| *T_coin_pTRIG3_ROC2_tdcTime>=870.0) 
+      //&& *T_coin_pEDTM_tdcTime>140.0 && *T_coin_pEDTM_tdcTime<144.0with TDC cuts
       ) // Event was an HMS Single
     {
       
@@ -560,7 +564,7 @@ void LumiYield::Terminate()
 
   ofstream myfile1;
   myfile1.open ("Yield_Data.dat", fstream::app);
-  myfile1 << Form("%.0f %.0f %.0f %.0f %.4f %.4f %.4f %.4f %.4f %.4f %.4f %.4f %.4f %.4f %.4f %.4f %.4f %.4f %.0f %.0f %.0f ",
+  myfile1 << Form("%.0f %.0f %.0f %.0f %.4f %.4f %.4f %.4f %.4f %.4f %.4f %.4f %.4f %.4f %.4f %.4f %.4f %.4f %.0f %.0f %.0f %.0f %.0f ",
 		  //HMS Evts
 		  (h_ecut_eff->GetEntries()),sqrt(h_ecut_eff->GetEntries()),
 		  //SHMS Evts
@@ -581,6 +585,10 @@ void LumiYield::Terminate()
 		  p_ptrack_after->GetEntries()/p_ptrack_before->GetEntries(),(p_ptrack_after->GetEntries()/p_ptrack_before->GetEntries())*sqrt((1/p_ptrack_after->GetEntries()) + (1/p_ptrack_before->GetEntries())),
 		  //Accept EDTM
 		  (SHMS_EDTM->Integral() + HMS_EDTM->Integral()),
+		  //TRIG1_cut
+		  TRIG1_cut->GetEntries(),
+		  //TRIG3_cut
+		  TRIG3_cut->GetEntries(),		  
 		  //PS1
 		  PS1,
 		  //PS3

@@ -1,10 +1,10 @@
-block H.gtr.beta
-block H.gtr.th
-block H.gtr.ph
+block H.gtr.*
 block H.cal.etotnorm
 block H.cer.npeSum
 block H.gtr.dp
 block H.kin.*
+block H.dc.*
+block H.react.*
 
 
 begin epics
