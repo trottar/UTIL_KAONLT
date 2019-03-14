@@ -1,7 +1,13 @@
 *~
-*#*#
+#*#
 *.pcm
 *.so
 *.d
 *.png
 *.pdf
+
+# Directories
+REPORT_OUTPUT
+HISTOGRAMS
+ROOTfiles
+OUTPUT
