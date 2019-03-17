@@ -419,7 +419,7 @@ for value in (tmpCurr):
         row += 1
     end = row+1
     # Going back to sheet one so we can 'link' second sheet values
-    s2.write('A%s' % (end), 'Total',bold)
+    s2.write('B%s' % (end), 'Total',bold)
     s2.write_formula('C%s' % (end), '=SUM(C%s:C%s)' % (curNum+l2,end-1) ,bold)
     s2.write('E%s' % (end), current,bold)
     s2.write('G%s' % (end), tPAC,bold)
@@ -443,7 +443,7 @@ s1.write_formula('F%s' % (curNum), '=D%s/3600/E%s' % (curNum-1,endCur-1))
 s1.write_formula('I%s' % (curNum), '=B%s/G%s' % (curNum,qPAC))
 s1.write_formula('M%s' % (curNum), '=L%s/K%s' % (curNum,evntPAC))
 
-s1.write('A%s' % (endCur), 'Total',bold)
+s1.write('B%s' % (endCur), 'Total',bold)
 s1.write_formula('D%s' % (endCur), '=SUM(D%s:D%s)' % (curNum-1,endCur-1),bold)
 s1.write('E%s' % (endCur), tPACPrime,bold)
 s1.write_formula('F%s' % (endCur), 'D%s/3600/E%s' % (endCur,endCur),bold)
@@ -482,7 +482,7 @@ for value in (tmpCurr):
         row += 1
     end = row+1
     # Going back to sheet one so we can 'link' second sheet values
-    s2.write('A%s' % (end), 'Total',bold)
+    s2.write('B%s' % (end), 'Total',bold)
     s2.write_formula('C%s' % (end), '=SUM(C%s:C%s)' % (curNum+l2,end-1) ,bold)
     s2.write('E%s' % (end), current,bold)
     s2.write('G%s' % (end), tPAC,bold)
@@ -506,7 +506,7 @@ s1.write_formula('F%s' % (curNum), '=D%s/3600/E%s' % (curNum-1,endCur-1))
 s1.write_formula('I%s' % (curNum), '=B%s/G%s' % (curNum,qPAC))
 s1.write_formula('M%s' % (curNum), '=L%s/K%s' % (curNum,evntPAC))
 
-s1.write('A%s' % (endCur), 'Total',bold)
+s1.write('B%s' % (endCur), 'Total',bold)
 s1.write_formula('D%s' % (endCur), '=SUM(D%s:D%s)' % (curNum-1,endCur-1),bold)
 s1.write('E%s' % (endCur), tPACPrime,bold)
 s1.write_formula('F%s' % (endCur), 'D%s/3600/E%s' % (endCur,endCur),bold)
@@ -549,7 +549,7 @@ for value in (tmpCurr):
         row += 1
     end = row+1
     # Going back to sheet one so we can 'link' second sheet values
-    s2.write('A%s' % (end), 'Total',bold)
+    s2.write('B%s' % (end), 'Total',bold)
     s2.write_formula('C%s' % (end), '=SUM(C%s:C%s)' % (curNum+l2,end-1) ,bold)
     s2.write('E%s' % (end), current,bold)
     s2.write('G%s' % (end), tPAC,bold)
@@ -571,7 +571,7 @@ for value in (tmpCurr):
     curNum += 1
 endCur =  curNum
 l1 = endCur+1
-s1.write('A%s' % (endCur), 'Total',bold)
+s1.write('B%s' % (endCur), 'Total',bold)
 s1.write_formula('D%s' % (endCur), '=SUM(D%s:D%s)' % (curNum-1,endCur-1),bold)
 s1.write('E%s' % (endCur), tPACPrime,bold)
 s1.write_formula('F%s' % (endCur), 'D%s/3600/E%s' % (endCur,endCur),bold)
@@ -610,7 +610,7 @@ for value in (tmpCurr):
         row += 1
     end = row+1
     # Going back to sheet one so we can 'link' second sheet values
-    s2.write('A%s' % (end), 'Total',bold)
+    s2.write('B%s' % (end), 'Total',bold)
     s2.write_formula('C%s' % (end), '=SUM(C%s:C%s)' % (curNum+l2,end-1) ,bold)
     s2.write('E%s' % (end), current,bold)
     s2.write('G%s' % (end), tPAC,bold)
@@ -634,7 +634,7 @@ s1.write_formula('F%s' % (curNum), '=D%s/3600/E%s' % (curNum-1,endCur-1))
 s1.write_formula('I%s' % (curNum), '=B%s/G%s' % (curNum,qPAC))
 s1.write_formula('M%s' % (curNum), '=L%s/K%s' % (curNum,evntPAC))
 
-s1.write('A%s' % (endCur), 'Total',bold)
+s1.write('B%s' % (endCur), 'Total',bold)
 s1.write_formula('D%s' % (endCur), '=SUM(D%s:D%s)' % (curNum-1,endCur-1),bold)
 s1.write('E%s' % (endCur), tPACPrime,bold)
 s1.write_formula('F%s' % (endCur), 'D%s/3600/E%s' % (endCur,endCur),bold)
@@ -708,7 +708,7 @@ for value in (tmpCurr):
         row += 1
     end = row+1
     # Going back to sheet one so we can 'link' second sheet values
-    s2a.write('A%s' % (end), 'Total',bold)
+    s2a.write('B%s' % (end), 'Total',bold)
     s2a.write_formula('C%s' % (end), '=SUM(C%s:C%s)' % (curNum+l2,end-1) ,bold)
     s2a.write('E%s' % (end), current,bold)
     s2a.write('G%s' % (end), tPAC,bold)
@@ -732,7 +732,7 @@ s1.write_formula('F%s' % (curNum), '=D%s/3600/E%s' % (curNum-1,endCur-1))
 s1.write_formula('I%s' % (curNum), '=B%s/G%s' % (curNum,qPAC))
 s1.write_formula('M%s' % (curNum), '=L%s/K%s' % (curNum,evntPAC))
 
-s1.write('A%s' % (endCur), 'Total',bold)
+s1.write('B%s' % (endCur), 'Total',bold)
 s1.write_formula('D%s' % (endCur), '=SUM(D%s:D%s)' % (curNum-1,endCur-1),bold)
 s1.write('E%s' % (endCur), tPACPrime,bold)
 s1.write_formula('F%s' % (endCur), 'D%s/3600/E%s' % (endCur,endCur),bold)
@@ -771,7 +771,7 @@ for value in (tmpCurr):
         row += 1
     end = row+1
     # Going back to sheet one so we can 'link' second sheet values
-    s2a.write('A%s' % (end), 'Total',bold)
+    s2a.write('B%s' % (end), 'Total',bold)
     s2a.write_formula('C%s' % (end), '=SUM(C%s:C%s)' % (curNum+l2,end-1) ,bold)
     s2a.write('E%s' % (end), current,bold)
     s2a.write('G%s' % (end), tPAC,bold)
@@ -795,7 +795,7 @@ s1.write_formula('F%s' % (curNum), '=D%s/3600/E%s' % (curNum-1,endCur-1))
 s1.write_formula('I%s' % (curNum), '=B%s/G%s' % (curNum,qPAC))
 s1.write_formula('M%s' % (curNum), '=L%s/K%s' % (curNum,evntPAC))
 
-s1.write('A%s' % (endCur), 'Total',bold)
+s1.write('B%s' % (endCur), 'Total',bold)
 s1.write_formula('D%s' % (endCur), '=SUM(D%s:D%s)' % (curNum-1,endCur-1),bold)
 s1.write('E%s' % (endCur), tPACPrime,bold)
 s1.write_formula('F%s' % (endCur), 'D%s/3600/E%s' % (endCur,endCur),bold)
@@ -837,7 +837,7 @@ for value in (tmpCurr):
         row += 1
     end = row+1
     # Going back to sheet one so we can 'link' second sheet values
-    s2a.write('A%s' % (end), 'Total',bold)
+    s2a.write('B%s' % (end), 'Total',bold)
     s2a.write_formula('C%s' % (end), '=SUM(C%s:C%s)' % (curNum+l2,end-1) ,bold)
     s2a.write('E%s' % (end), current,bold)
     s2a.write('G%s' % (end), tPAC,bold)
@@ -859,7 +859,7 @@ for value in (tmpCurr):
     curNum += 1
 endCur =  curNum
 l1 = endCur+1
-s1.write('A%s' % (endCur), 'Total',bold)
+s1.write('B%s' % (endCur), 'Total',bold)
 s1.write_formula('D%s' % (endCur), '=SUM(D%s:D%s)' % (curNum-1,endCur-1),bold)
 s1.write('E%s' % (endCur), tPACPrime,bold)
 s1.write_formula('F%s' % (endCur), 'D%s/3600/E%s' % (endCur,endCur),bold)
@@ -898,7 +898,7 @@ for value in (tmpCurr):
         row += 1
     end = row+1
     # Going back to sheet one so we can 'link' second sheet values
-    s2a.write('A%s' % (end), 'Total',bold)
+    s2a.write('B%s' % (end), 'Total',bold)
     s2a.write_formula('C%s' % (end), '=SUM(C%s:C%s)' % (curNum+l2,end-1) ,bold)
     s2a.write('E%s' % (end), current,bold)
     s2a.write('G%s' % (end), tPAC,bold)
@@ -922,7 +922,7 @@ s1.write_formula('F%s' % (curNum), '=D%s/3600/E%s' % (curNum-1,endCur-1))
 s1.write_formula('I%s' % (curNum), '=B%s/G%s' % (curNum,qPAC))
 s1.write_formula('M%s' % (curNum), '=L%s/K%s' % (curNum,evntPAC))
 
-s1.write('A%s' % (endCur), 'Total',bold)
+s1.write('B%s' % (endCur), 'Total',bold)
 s1.write_formula('D%s' % (endCur), '=SUM(D%s:D%s)' % (curNum-1,endCur-1),bold)
 s1.write('E%s' % (endCur), tPACPrime,bold)
 s1.write_formula('F%s' % (endCur), 'D%s/3600/E%s' % (endCur,endCur),bold)
@@ -1028,7 +1028,7 @@ for value in (tmpCurr):
         row += 1
     end = row+1
     # Going back to sheet one so we can 'link' second sheet values
-    s4.write('A%s' % (end), 'Total',bold)
+    s4.write('B%s' % (end), 'Total',bold)
     s4.write_formula('C%s' % (end), '=SUM(C%s:C%s)' % (curNum+l2,end-1) ,bold)
     s4.write('E%s' % (end), current,bold)
     s4.write('G%s' % (end), tPAC,bold)
@@ -1052,7 +1052,7 @@ s3.write_formula('F%s' % (curNum), '=D%s/3600/E%s' % (curNum-1,endCur-1))
 s3.write_formula('I%s' % (curNum), '=B%s/G%s' % (curNum,qPAC))
 s3.write_formula('M%s' % (curNum), '=L%s/K%s' % (curNum,evntPAC))
 
-s3.write('A%s' % (endCur), 'Total',bold)
+s3.write('B%s' % (endCur), 'Total',bold)
 s3.write_formula('D%s' % (endCur), '=SUM(D%s:D%s)' % (curNum-1,endCur-1),bold)
 s3.write('E%s' % (endCur), tPACPrime,bold)
 s3.write_formula('F%s' % (endCur), 'D%s/3600/E%s' % (endCur,endCur),bold)
@@ -1091,7 +1091,7 @@ for value in (tmpCurr):
         row += 1
     end = row+1
     # Going back to sheet one so we can 'link' second sheet values
-    s4.write('A%s' % (end), 'Total',bold)
+    s4.write('B%s' % (end), 'Total',bold)
     s4.write_formula('C%s' % (end), '=SUM(C%s:C%s)' % (curNum+l2,end-1) ,bold)
     s4.write('E%s' % (end), current,bold)
     s4.write('G%s' % (end), tPAC,bold)
@@ -1115,7 +1115,7 @@ s3.write_formula('F%s' % (curNum), '=D%s/3600/E%s' % (curNum-1,endCur-1))
 s3.write_formula('I%s' % (curNum), '=B%s/G%s' % (curNum,qPAC))
 s3.write_formula('M%s' % (curNum), '=L%s/K%s' % (curNum,evntPAC))
 
-s3.write('A%s' % (endCur), 'Total',bold)
+s3.write('B%s' % (endCur), 'Total',bold)
 s3.write_formula('D%s' % (endCur), '=SUM(D%s:D%s)' % (curNum-1,endCur-1),bold)
 s3.write('E%s' % (endCur), tPACPrime,bold)
 s3.write_formula('F%s' % (endCur), 'D%s/3600/E%s' % (endCur,endCur),bold)
@@ -1157,7 +1157,7 @@ for value in (tmpCurr):
         row += 1
     end = row+1
     # Going back to sheet one so we can 'link' second sheet values
-    s4.write('A%s' % (end), 'Total',bold)
+    s4.write('B%s' % (end), 'Total',bold)
     s4.write_formula('C%s' % (end), '=SUM(C%s:C%s)' % (curNum+l2,end-1) ,bold)
     s4.write('E%s' % (end), current,bold)
     s4.write('G%s' % (end), tPAC,bold)
@@ -1179,7 +1179,7 @@ for value in (tmpCurr):
     curNum += 1
 endCur =  curNum
 l1 = endCur+1
-s3.write('A%s' % (endCur), 'Total',bold)
+s3.write('B%s' % (endCur), 'Total',bold)
 s3.write_formula('D%s' % (endCur), '=SUM(D%s:D%s)' % (curNum-1,endCur-1),bold)
 s3.write('E%s' % (endCur), tPACPrime,bold)
 s3.write_formula('F%s' % (endCur), 'D%s/3600/E%s' % (endCur,endCur),bold)
@@ -1218,7 +1218,7 @@ for value in (tmpCurr):
         row += 1
     end = row+1
     # Going back to sheet one so we can 'link' second sheet values
-    s4.write('A%s' % (end), 'Total',bold)
+    s4.write('B%s' % (end), 'Total',bold)
     s4.write_formula('C%s' % (end), '=SUM(C%s:C%s)' % (curNum+l2,end-1) ,bold)
     s4.write('E%s' % (end), current,bold)
     s4.write('G%s' % (end), tPAC,bold)
@@ -1242,7 +1242,7 @@ s3.write_formula('F%s' % (curNum), '=D%s/3600/E%s' % (curNum-1,endCur-1))
 s3.write_formula('I%s' % (curNum), '=B%s/G%s' % (curNum,qPAC))
 s3.write_formula('M%s' % (curNum), '=L%s/K%s' % (curNum,evntPAC))
 
-s3.write('A%s' % (endCur), 'Total',bold)
+s3.write('B%s' % (endCur), 'Total',bold)
 s3.write_formula('D%s' % (endCur), '=SUM(D%s:D%s)' % (curNum-1,endCur-1),bold)
 s3.write('E%s' % (endCur), tPACPrime,bold)
 s3.write_formula('F%s' % (endCur), 'D%s/3600/E%s' % (endCur,endCur),bold)
@@ -1315,7 +1315,7 @@ for value in (tmpCurr):
         row += 1
     end = row+1
     # Going back to sheet one so we can 'link' second sheet values
-    s4a.write('A%s' % (end), 'Total',bold)
+    s4a.write('B%s' % (end), 'Total',bold)
     s4a.write_formula('C%s' % (end), '=SUM(C%s:C%s)' % (curNum+l2,end-1) ,bold)
     s4a.write('E%s' % (end), current,bold)
     s4a.write('G%s' % (end), tPAC,bold)
@@ -1339,7 +1339,7 @@ s3.write_formula('F%s' % (curNum), '=D%s/3600/E%s' % (curNum-1,endCur-1))
 s3.write_formula('I%s' % (curNum), '=B%s/G%s' % (curNum,qPAC))
 s3.write_formula('M%s' % (curNum), '=L%s/K%s' % (curNum,evntPAC))
 
-s3.write('A%s' % (endCur), 'Total',bold)
+s3.write('B%s' % (endCur), 'Total',bold)
 s3.write_formula('D%s' % (endCur), '=SUM(D%s:D%s)' % (curNum-1,endCur-1),bold)
 s3.write('E%s' % (endCur), tPACPrime,bold)
 s3.write_formula('F%s' % (endCur), 'D%s/3600/E%s' % (endCur,endCur),bold)
@@ -1378,7 +1378,7 @@ for value in (tmpCurr):
         row += 1
     end = row+1
     # Going back to sheet one so we can 'link' second sheet values
-    s4a.write('A%s' % (end), 'Total',bold)
+    s4a.write('B%s' % (end), 'Total',bold)
     s4a.write_formula('C%s' % (end), '=SUM(C%s:C%s)' % (curNum+l2,end-1) ,bold)
     s4a.write('E%s' % (end), current,bold)
     s4a.write('G%s' % (end), tPAC,bold)
@@ -1402,7 +1402,7 @@ s3.write_formula('F%s' % (curNum), '=D%s/3600/E%s' % (curNum-1,endCur-1))
 s3.write_formula('I%s' % (curNum), '=B%s/G%s' % (curNum,qPAC))
 s3.write_formula('M%s' % (curNum), '=L%s/K%s' % (curNum,evntPAC))
 
-s3.write('A%s' % (endCur), 'Total',bold)
+s3.write('B%s' % (endCur), 'Total',bold)
 s3.write_formula('D%s' % (endCur), '=SUM(D%s:D%s)' % (curNum-1,endCur-1),bold)
 s3.write('E%s' % (endCur), tPACPrime,bold)
 s3.write_formula('F%s' % (endCur), 'D%s/3600/E%s' % (endCur,endCur),bold)
@@ -1444,7 +1444,7 @@ for value in (tmpCurr):
         row += 1
     end = row+1
     # Going back to sheet one so we can 'link' second sheet values
-    s4a.write('A%s' % (end), 'Total',bold)
+    s4a.write('B%s' % (end), 'Total',bold)
     s4a.write_formula('C%s' % (end), '=SUM(C%s:C%s)' % (curNum+l2,end-1) ,bold)
     s4a.write('E%s' % (end), current,bold)
     s4a.write('G%s' % (end), tPAC,bold)
@@ -1466,7 +1466,7 @@ for value in (tmpCurr):
     curNum += 1
 endCur =  curNum
 l1 = endCur+1
-s3.write('A%s' % (endCur), 'Total',bold)
+s3.write('B%s' % (endCur), 'Total',bold)
 s3.write_formula('D%s' % (endCur), '=SUM(D%s:D%s)' % (curNum-1,endCur-1),bold)
 s3.write('E%s' % (endCur), tPACPrime,bold)
 s3.write_formula('F%s' % (endCur), 'D%s/3600/E%s' % (endCur,endCur),bold)
@@ -1505,7 +1505,7 @@ for value in (tmpCurr):
         row += 1
     end = row+1
     # Going back to sheet one so we can 'link' second sheet values
-    s4a.write('A%s' % (end), 'Total',bold)
+    s4a.write('B%s' % (end), 'Total',bold)
     s4a.write_formula('C%s' % (end), '=SUM(C%s:C%s)' % (curNum+l2,end-1) ,bold)
     s4a.write('E%s' % (end), current,bold)
     s4a.write('G%s' % (end), tPAC,bold)
@@ -1529,7 +1529,7 @@ s3.write_formula('F%s' % (curNum), '=D%s/3600/E%s' % (curNum-1,endCur-1))
 s3.write_formula('I%s' % (curNum), '=B%s/G%s' % (curNum,qPAC))
 s3.write_formula('M%s' % (curNum), '=L%s/K%s' % (curNum,evntPAC))
 
-s3.write('A%s' % (endCur), 'Total',bold)
+s3.write('B%s' % (endCur), 'Total',bold)
 s3.write_formula('D%s' % (endCur), '=SUM(D%s:D%s)' % (curNum-1,endCur-1),bold)
 s3.write('E%s' % (endCur), tPACPrime,bold)
 s3.write_formula('F%s' % (endCur), 'D%s/3600/E%s' % (endCur,endCur),bold)
@@ -1602,7 +1602,7 @@ for value in (tmpCurr):
         row += 1
     end = row+1
     # Going back to sheet one so we can 'link' second sheet values
-    s4b.write('A%s' % (end), 'Total',bold)
+    s4b.write('B%s' % (end), 'Total',bold)
     s4b.write_formula('C%s' % (end), '=SUM(C%s:C%s)' % (curNum+l2,end-1) ,bold)
     s4b.write('E%s' % (end), current,bold)
     s4b.write('G%s' % (end), tPAC,bold)
@@ -1626,7 +1626,7 @@ s3.write_formula('F%s' % (curNum), '=D%s/3600/E%s' % (curNum-1,endCur-1))
 s3.write_formula('I%s' % (curNum), '=B%s/G%s' % (curNum,qPAC))
 s3.write_formula('M%s' % (curNum), '=L%s/K%s' % (curNum,evntPAC))
 
-s3.write('A%s' % (endCur), 'Total',bold)
+s3.write('B%s' % (endCur), 'Total',bold)
 s3.write_formula('D%s' % (endCur), '=SUM(D%s:D%s)' % (curNum-1,endCur-1),bold)
 s3.write('E%s' % (endCur), tPACPrime,bold)
 s3.write_formula('F%s' % (endCur), 'D%s/3600/E%s' % (endCur,endCur),bold)
@@ -1665,7 +1665,7 @@ for value in (tmpCurr):
         row += 1
     end = row+1
     # Going back to sheet one so we can 'link' second sheet values
-    s4b.write('A%s' % (end), 'Total',bold)
+    s4b.write('B%s' % (end), 'Total',bold)
     s4b.write_formula('C%s' % (end), '=SUM(C%s:C%s)' % (curNum+l2,end-1) ,bold)
     s4b.write('E%s' % (end), current,bold)
     s4b.write('G%s' % (end), tPAC,bold)
@@ -1689,7 +1689,7 @@ s3.write_formula('F%s' % (curNum), '=D%s/3600/E%s' % (curNum-1,endCur-1))
 s3.write_formula('I%s' % (curNum), '=B%s/G%s' % (curNum,qPAC))
 s3.write_formula('M%s' % (curNum), '=L%s/K%s' % (curNum,evntPAC))
 
-s3.write('A%s' % (endCur), 'Total',bold)
+s3.write('B%s' % (endCur), 'Total',bold)
 s3.write_formula('D%s' % (endCur), '=SUM(D%s:D%s)' % (curNum-1,endCur-1),bold)
 s3.write('E%s' % (endCur), tPACPrime,bold)
 s3.write_formula('F%s' % (endCur), 'D%s/3600/E%s' % (endCur,endCur),bold)
@@ -1731,7 +1731,7 @@ for value in (tmpCurr):
         row += 1
     end = row+1
     # Going back to sheet one so we can 'link' second sheet values
-    s4b.write('A%s' % (end), 'Total',bold)
+    s4b.write('B%s' % (end), 'Total',bold)
     s4b.write_formula('C%s' % (end), '=SUM(C%s:C%s)' % (curNum+l2,end-1) ,bold)
     s4b.write('E%s' % (end), current,bold)
     s4b.write('G%s' % (end), tPAC,bold)
@@ -1753,7 +1753,7 @@ for value in (tmpCurr):
     curNum += 1
 endCur =  curNum
 l1 = endCur+1
-s3.write('A%s' % (endCur), 'Total',bold)
+s3.write('B%s' % (endCur), 'Total',bold)
 s3.write_formula('D%s' % (endCur), '=SUM(D%s:D%s)' % (curNum-1,endCur-1),bold)
 s3.write('E%s' % (endCur), tPACPrime,bold)
 s3.write_formula('F%s' % (endCur), 'D%s/3600/E%s' % (endCur,endCur),bold)
@@ -1792,7 +1792,7 @@ for value in (tmpCurr):
         row += 1
     end = row+1
     # Going back to sheet one so we can 'link' second sheet values
-    s4b.write('A%s' % (end), 'Total',bold)
+    s4b.write('B%s' % (end), 'Total',bold)
     s4b.write_formula('C%s' % (end), '=SUM(C%s:C%s)' % (curNum+l2,end-1) ,bold)
     s4b.write('E%s' % (end), current,bold)
     s4b.write('G%s' % (end), tPAC,bold)
@@ -1816,7 +1816,7 @@ s3.write_formula('F%s' % (curNum), '=D%s/3600/E%s' % (curNum-1,endCur-1))
 s3.write_formula('I%s' % (curNum), '=B%s/G%s' % (curNum,qPAC))
 s3.write_formula('M%s' % (curNum), '=L%s/K%s' % (curNum,evntPAC))
 
-s3.write('A%s' % (endCur), 'Total',bold)
+s3.write('B%s' % (endCur), 'Total',bold)
 s3.write_formula('D%s' % (endCur), '=SUM(D%s:D%s)' % (curNum-1,endCur-1),bold)
 s3.write('E%s' % (endCur), tPACPrime,bold)
 s3.write_formula('F%s' % (endCur), 'D%s/3600/E%s' % (endCur,endCur),bold)
