@@ -326,7 +326,7 @@ kin8p2DUM_left3_Values = (
      0]
 )
 
-wb = xlsxwriter.Workbook('test.ods')
+wb = xlsxwriter.Workbook('test.xls')
 
 # Add first sheet in spreadsheet
 s1 = wb.add_worksheet('6.2 GeV Summary')
