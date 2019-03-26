@@ -39,8 +39,8 @@ while true; do
 		# echo "TRACK: analysis" >> ${batch}
 		echo "TRACK: debug" >> ${batch}
 		echo "JOBNAME: KaonLT_${runNum}" >> ${batch}
-		#echo "MEMORY: 2000 MB" >> ${batch}
-		echo "MEMORY: 2500 MB" >> ${batch}
+		echo "MEMORY: 1500 MB" >> ${batch}
+		# echo "MEMORY: 2500 MB" >> ${batch} 
 		echo "OS: centos7" >> ${batch}
 		echo "CPU: 2" >> ${batch}
 		#echo "TIME: 1" >> ${batch}
@@ -120,8 +120,7 @@ while true; do
 			    echo " " >> ${output}
 			    eval "jobinfo $j 2>/dev/null" >> ${output}
 			    echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" >> ${output}
-			    echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" >> ${output}
-			    mv ${output} batch_OUTPUT/
+			    echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" >> ${output}		
 			    memused[$l]=$(cut -d "=" -f2 <<< $(grep -oh -m 1 "\w*resources_used.vmem=\w*" batch_OUTPUT/${output}))
 			    memlist[$l]=$(cut -d "=" -f2 <<< $(grep -oh -m 1 "\w*Resource_List.vmem=\w*" batch_OUTPUT/${output}))
 			    echo "_"
@@ -141,9 +140,6 @@ while true; do
 	    ) 2>&1 | tee ${historyfile}
 
 	    echo ""
-
-	    mv ${historyfile} batch_OUTPUT/
-
 	    echo "###############################################################################################################"
 	    echo "############################################# ALL JOBS COMPLETED ##############################################"
 	    echo "###############################################################################################################"
@@ -220,8 +216,7 @@ while true; do
 			    echo " " >> ${output}
 			    eval "jobinfo $j 2>/dev/null" >> ${output}
 			    echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" >> ${output}
-			    echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" >> ${output}
-			    mv ${output} batch_OUTPUT/
+			    echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" >> ${output}			    
 			    memused[$l]=$(cut -d "=" -f2 <<< $(grep -oh -m 1 "\w*resources_used.vmem=\w*" batch_OUTPUT/${output}))
 			    memlist[$l]=$(cut -d "=" -f2 <<< $(grep -oh -m 1 "\w*Resource_List.vmem=\w*" batch_OUTPUT/${output}))
 			    echo "_"

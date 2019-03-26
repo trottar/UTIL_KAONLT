@@ -1,0 +1,8 @@
+PROJECT: e01011
+TRACK: debug
+JOBNAME: KaonLT_7887
+MEMORY: 1500 MB
+OS: centos7
+CPU: 2
+COMMAND:/home/trottar/Analysis/hallc_replay_kaonlt/UTIL_KAONLT/KaonYield_batch.sh 7887
+MAIL: trotta@cua.edu

@@ -1,0 +1,31 @@
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Errors...
+ 
+Error in <THaFormula::Compile>:  Bad numerical expression : "whenselectingstubforchamber"
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Job info...
+ 
+
+Auger JobId: 65354267 [PBS JobId: 50533029]
+
+03/26/2019 13:49:39  A     Name=KaonLT_7873;User=trottar;queue=priority
+03/26/2019 13:58:40  A     Stagin started
+03/26/2019 13:58:40  A     Job started
+03/26/2019 14:34:07  A     Job started
+03/26/2019 14:34:07  A     Job completed
+
+Job: 50533029.farmpbs14
+
+03/26/2019 13:50:11  S    enqueuing into priority, state 2 hop 1
+03/26/2019 13:50:11  S    Holds u released at request of trottar@farmpbs14
+03/26/2019 13:50:11  A    queue=priority
+03/26/2019 13:58:39  S    Job Run at request of root@farmpbs14
+03/26/2019 13:58:39  A    user=trottar group=enp account=hallc jobname=KaonLT_7873 queue=priority ctime=1553622611 qtime=1553622611 etime=1553622611 start=1553623119 owner=trottar@farmpbs14 exec_host=farm13009/4+farm13009/5 Resource_List.arch=centos7 Resource_List.file=2929687kb Resource_List.mem=750mb Resource_List.neednodes=1:ppn=2 Resource_List.nodect=1 Resource_List.nodes=1:ppn=2 Resource_List.vmem=1500mb Resource_List.walltime=04:00:00 
+03/26/2019 14:34:09  S    Exit_status=0 resources_used.cput=00:34:01 resources_used.mem=273840kb resources_used.vmem=986140kb resources_used.walltime=00:35:30
+03/26/2019 14:34:09  S    on_job_exit valid pjob: 50533029.farmpbs14 (substate=50)
+03/26/2019 14:34:09  S    dequeuing from priority, state COMPLETE
+03/26/2019 14:34:09  A    user=trottar group=enp account=hallc jobname=KaonLT_7873 queue=priority ctime=1553622611 qtime=1553622611 etime=1553622611 start=1553623119 owner=trottar@farmpbs14 exec_host=farm13009/4+farm13009/5 Resource_List.arch=centos7 Resource_List.file=2929687kb Resource_List.mem=750mb Resource_List.neednodes=1:ppn=2 Resource_List.nodect=1 Resource_List.nodes=1:ppn=2 Resource_List.vmem=1500mb Resource_List.walltime=04:00:00 session=14623 end=1553625249 Exit_status=0 resources_used.cput=00:34:01 resources_used.mem=273840kb resources_used.vmem=986140kb resources_used.walltime=00:35:30
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

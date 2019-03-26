@@ -1,0 +1,467 @@
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Run number read from file: 7871
+
+Job 1/14
+Running trotta_Job.txt for 7871
+Submitting batch
+Parsing script ... (it may take while)
+<jsub><request><index>30823941</index><jobIndex>65306873</jobIndex></request></jsub>
+ 
+7871 has an AugerID of 65306873
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Run number read from file: 7872
+
+Job 2/14
+Running trotta_Job.txt for 7872
+Submitting batch
+Parsing script ... (it may take while)
+<jsub><request><index>30823942</index><jobIndex>65306874</jobIndex></request></jsub>
+ 
+7872 has an AugerID of 65306874
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Run number read from file: 7873
+
+Job 3/14
+Running trotta_Job.txt for 7873
+Submitting batch
+Parsing script ... (it may take while)
+<jsub><request><index>30823943</index><jobIndex>65306875</jobIndex></request></jsub>
+ 
+7873 has an AugerID of 65306875
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Run number read from file: 7874
+
+Job 4/14
+Running trotta_Job.txt for 7874
+Submitting batch
+Parsing script ... (it may take while)
+<jsub><request><index>30823944</index><jobIndex>65306876</jobIndex></request></jsub>
+ 
+7874 has an AugerID of 65306876
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Run number read from file: 7875
+
+Job 5/14
+Running trotta_Job.txt for 7875
+Submitting batch
+Parsing script ... (it may take while)
+<jsub><request><index>30823945</index><jobIndex>65306877</jobIndex></request></jsub>
+ 
+7875 has an AugerID of 65306877
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Run number read from file: 7875
+
+Job 6/14
+Running trotta_Job.txt for 7875
+Submitting batch
+Parsing script ... (it may take while)
+<jsub><request><index>30823946</index><jobIndex>65306878</jobIndex></request></jsub>
+ 
+7875 has an AugerID of 65306877
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Run number read from file: 7876
+
+Job 7/14
+Running trotta_Job.txt for 7876
+Submitting batch
+Parsing script ... (it may take while)
+<jsub><request><index>30823947</index><jobIndex>65306879</jobIndex></request></jsub>
+ 
+7876 has an AugerID of 65306879
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Run number read from file: 7877
+
+Job 8/14
+Running trotta_Job.txt for 7877
+Submitting batch
+Parsing script ... (it may take while)
+<jsub><request><index>30823950</index><jobIndex>65306891</jobIndex></request></jsub>
+ 
+7877 has an AugerID of 65306891
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Run number read from file: 7882
+
+Job 9/14
+Running trotta_Job.txt for 7882
+Submitting batch
+Parsing script ... (it may take while)
+<jsub><request><index>30823951</index><jobIndex>65306892</jobIndex></request></jsub>
+ 
+7882 has an AugerID of 65306892
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Run number read from file: 7883
+
+Job 10/14
+Running trotta_Job.txt for 7883
+Submitting batch
+Parsing script ... (it may take while)
+<jsub><request><index>30823952</index><jobIndex>65306893</jobIndex></request></jsub>
+ 
+7883 has an AugerID of 65306893
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Run number read from file: 7884
+
+Job 11/14
+Running trotta_Job.txt for 7884
+Submitting batch
+Parsing script ... (it may take while)
+<jsub><request><index>30823953</index><jobIndex>65306894</jobIndex></request></jsub>
+ 
+7884 has an AugerID of 65306894
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Run number read from file: 7885
+
+Job 12/14
+Running trotta_Job.txt for 7885
+Submitting batch
+Parsing script ... (it may take while)
+<jsub><request><index>30823954</index><jobIndex>65306895</jobIndex></request></jsub>
+ 
+7885 has an AugerID of 65306895
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Run number read from file: 7886
+
+Job 13/14
+Running trotta_Job.txt for 7886
+Submitting batch
+Parsing script ... (it may take while)
+<jsub><request><index>30823955</index><jobIndex>65306896</jobIndex></request></jsub>
+ 
+7886 has an AugerID of 65306896
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Run number read from file: 7887
+
+Job 14/14
+Running trotta_Job.txt for 7887
+Submitting batch
+Parsing script ... (it may take while)
+<jsub><request><index>30823956</index><jobIndex>65306897</jobIndex></request></jsub>
+ 
+7887 has an AugerID of 65306897
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 
+###############################################################################################################
+############################################ END OF JOB SUBMISSIONS ###########################################
+###############################################################################################################
+ 
+7871 has an AugerID of 65306873
+7872 has an AugerID of 65306874
+7873 has an AugerID of 65306875
+7874 has an AugerID of 65306876
+7875 has an AugerID of 65306877
+7875 has an AugerID of 65306877
+7876 has an AugerID of 65306879
+7877 has an AugerID of 65306891
+7882 has an AugerID of 65306892
+7883 has an AugerID of 65306893
+7884 has an AugerID of 65306894
+7885 has an AugerID of 65306895
+7886 has an AugerID of 65306896
+7887 has an AugerID of 65306897
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+JOB_ID    USER      STAT    QUEUE      EXEC_HOST   JOB_NAME         SUBMIT_TIME   CPU_TIME  WALLTIME  ACCOUNT    
+65306873  trottar     R    priority    farm12014  KaonLT_7871       Mar 25 11:50  00:00:00   00:01:43   hallc     
+65306874  trottar     R    priority    farm12014  KaonLT_7872       Mar 25 11:50  00:00:00   00:01:43   hallc     
+65306875  trottar     R    priority    farm12014  KaonLT_7873       Mar 25 11:50  00:00:00   00:01:43   hallc     
+65306876  trottar     R    priority    farm12014  KaonLT_7874       Mar 25 11:50  00:00:00   00:01:43   hallc     
+65306877  trottar     R    priority    farm12014  KaonLT_7875       Mar 25 11:50  00:00:00   00:01:43   hallc     
+65306878  trottar     R    priority    farm12014  KaonLT_7875       Mar 25 11:50  00:00:00   00:01:43   hallc     
+65306879  trottar     R    priority    farm12014  KaonLT_7876       Mar 25 11:50  00:00:00   00:01:43   hallc     
+65306891  trottar     R    priority    farm12014  KaonLT_7877       Mar 25 11:50  00:00:00   00:01:43   hallc     
+65306892  trottar     A    priority    --         KaonLT_7882       Mar 25 11:49  --         --         hallc     
+65306893  trottar     A    priority    --         KaonLT_7883       Mar 25 11:50  --         --         hallc     
+65306894  trottar     A    priority    --         KaonLT_7884       Mar 25 11:50  --         --         hallc     
+65306895  trottar     A    priority    --         KaonLT_7885       Mar 25 11:51  --         --         hallc     
+65306896  trottar     A    priority    --         KaonLT_7886       Mar 25 11:51  --         --         hallc     
+65306897  trottar     A    priority    --         KaonLT_7887       Mar 25 11:52  --         --         hallc     
+ 
+There are 14 jobs remaining
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+JOB_ID    USER      STAT    QUEUE      EXEC_HOST   JOB_NAME         SUBMIT_TIME   CPU_TIME  WALLTIME  ACCOUNT    
+65306873  trottar     R    priority    farm12014  KaonLT_7871       Mar 25 11:50  00:00:00   00:01:43   hallc     
+65306874  trottar     R    priority    farm12014  KaonLT_7872       Mar 25 11:50  00:00:00   00:01:43   hallc     
+65306875  trottar     R    priority    farm12014  KaonLT_7873       Mar 25 11:50  00:00:00   00:01:43   hallc     
+65306876  trottar     R    priority    farm12014  KaonLT_7874       Mar 25 11:50  00:00:00   00:01:43   hallc     
+65306877  trottar     R    priority    farm12014  KaonLT_7875       Mar 25 11:50  00:00:00   00:01:43   hallc     
+65306878  trottar     R    priority    farm12014  KaonLT_7875       Mar 25 11:50  00:00:00   00:01:43   hallc     
+65306879  trottar     R    priority    farm12014  KaonLT_7876       Mar 25 11:50  00:00:00   00:01:43   hallc     
+65306891  trottar     R    priority    farm12014  KaonLT_7877       Mar 25 11:50  00:00:00   00:01:43   hallc     
+65306892  trottar     A    priority    --         KaonLT_7882       Mar 25 11:49  --         --         hallc     
+65306893  trottar     A    priority    --         KaonLT_7883       Mar 25 11:50  --         --         hallc     
+65306894  trottar     A    priority    --         KaonLT_7884       Mar 25 11:50  --         --         hallc     
+65306895  trottar     A    priority    --         KaonLT_7885       Mar 25 11:51  --         --         hallc     
+65306896  trottar     A    priority    --         KaonLT_7886       Mar 25 11:51  --         --         hallc     
+65306897  trottar     A    priority    --         KaonLT_7887       Mar 25 11:52  --         --         hallc     
+ 
+There are 14 jobs remaining
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+JOB_ID    USER      STAT    QUEUE      EXEC_HOST   JOB_NAME         SUBMIT_TIME   CPU_TIME  WALLTIME  ACCOUNT    
+65306873  trottar     R    priority    farm12014  KaonLT_7871       Mar 25 11:50  00:00:00   00:03:58   hallc     
+65306874  trottar     R    priority    farm12014  KaonLT_7872       Mar 25 11:50  00:00:00   00:03:58   hallc     
+65306875  trottar     R    priority    farm12014  KaonLT_7873       Mar 25 11:50  00:00:00   00:03:58   hallc     
+65306876  trottar     R    priority    farm12014  KaonLT_7874       Mar 25 11:50  00:00:00   00:03:58   hallc     
+65306877  trottar     R    priority    farm12014  KaonLT_7875       Mar 25 11:50  00:00:00   00:03:58   hallc     
+65306878  trottar     R    priority    farm12014  KaonLT_7875       Mar 25 11:50  00:00:00   00:03:58   hallc     
+65306879  trottar     R    priority    farm12014  KaonLT_7876       Mar 25 11:50  00:00:00   00:03:58   hallc     
+65306891  trottar     R    priority    farm12014  KaonLT_7877       Mar 25 11:50  00:00:00   00:03:58   hallc     
+65306892  trottar     A    priority    --         KaonLT_7882       Mar 25 11:49  --         --         hallc     
+65306893  trottar     A    priority    --         KaonLT_7883       Mar 25 11:50  --         --         hallc     
+65306894  trottar     A    priority    --         KaonLT_7884       Mar 25 11:50  --         --         hallc     
+65306895  trottar     A    priority    --         KaonLT_7885       Mar 25 11:51  --         --         hallc     
+65306896  trottar     A    priority    --         KaonLT_7886       Mar 25 11:51  --         --         hallc     
+65306897  trottar     A    priority    --         KaonLT_7887       Mar 25 11:52  --         --         hallc     
+ 
+There are 14 jobs remaining
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+JOB_ID    USER      STAT    QUEUE      EXEC_HOST   JOB_NAME         SUBMIT_TIME   CPU_TIME  WALLTIME  ACCOUNT    
+65306873  trottar     R    priority    farm12014  KaonLT_7871       Mar 25 11:50  00:00:00   00:03:58   hallc     
+65306874  trottar     R    priority    farm12014  KaonLT_7872       Mar 25 11:50  00:00:00   00:03:58   hallc     
+65306875  trottar     R    priority    farm12014  KaonLT_7873       Mar 25 11:50  00:00:00   00:03:58   hallc     
+65306876  trottar     R    priority    farm12014  KaonLT_7874       Mar 25 11:50  00:00:00   00:03:58   hallc     
+65306877  trottar     R    priority    farm12014  KaonLT_7875       Mar 25 11:50  00:00:00   00:03:58   hallc     
+65306878  trottar     R    priority    farm12014  KaonLT_7875       Mar 25 11:50  00:00:00   00:03:58   hallc     
+65306879  trottar     R    priority    farm12014  KaonLT_7876       Mar 25 11:50  00:00:00   00:03:58   hallc     
+65306891  trottar     R    priority    farm12014  KaonLT_7877       Mar 25 11:50  00:00:00   00:03:58   hallc     
+65306892  trottar     A    priority    --         KaonLT_7882       Mar 25 11:49  --         --         hallc     
+65306893  trottar     A    priority    --         KaonLT_7883       Mar 25 11:50  --         --         hallc     
+65306894  trottar     A    priority    --         KaonLT_7884       Mar 25 11:50  --         --         hallc     
+65306895  trottar     A    priority    --         KaonLT_7885       Mar 25 11:51  --         --         hallc     
+65306896  trottar     A    priority    --         KaonLT_7886       Mar 25 11:51  --         --         hallc     
+65306897  trottar     A    priority    --         KaonLT_7887       Mar 25 11:52  --         --         hallc     
+ 
+There are 14 jobs remaining
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+JOB_ID    USER      STAT    QUEUE      EXEC_HOST   JOB_NAME         SUBMIT_TIME   CPU_TIME  WALLTIME  ACCOUNT    
+65306873  trottar     R    priority    farm12014  KaonLT_7871       Mar 25 11:50  00:00:00   00:05:28   hallc     
+65306874  trottar     R    priority    farm12014  KaonLT_7872       Mar 25 11:50  00:00:00   00:05:28   hallc     
+65306875  trottar     R    priority    farm12014  KaonLT_7873       Mar 25 11:50  00:00:00   00:05:28   hallc     
+65306876  trottar     R    priority    farm12014  KaonLT_7874       Mar 25 11:50  00:00:00   00:05:28   hallc     
+65306877  trottar     R    priority    farm12014  KaonLT_7875       Mar 25 11:50  00:00:00   00:05:28   hallc     
+65306878  trottar     R    priority    farm12014  KaonLT_7875       Mar 25 11:50  00:00:00   00:05:28   hallc     
+65306879  trottar     R    priority    farm12014  KaonLT_7876       Mar 25 11:50  00:00:00   00:05:28   hallc     
+65306891  trottar     R    priority    farm12014  KaonLT_7877       Mar 25 11:50  00:00:00   00:05:28   hallc     
+65306892  trottar     A    priority    --         KaonLT_7882       Mar 25 11:49  --         --         hallc     
+65306893  trottar     A    priority    --         KaonLT_7883       Mar 25 11:50  --         --         hallc     
+65306894  trottar     A    priority    --         KaonLT_7884       Mar 25 11:50  --         --         hallc     
+65306895  trottar     A    priority    --         KaonLT_7885       Mar 25 11:51  --         --         hallc     
+65306896  trottar     A    priority    --         KaonLT_7886       Mar 25 11:51  --         --         hallc     
+65306897  trottar     A    priority    --         KaonLT_7887       Mar 25 11:52  --         --         hallc     
+ 
+There are 14 jobs remaining
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+JOB_ID    USER      STAT    QUEUE      EXEC_HOST   JOB_NAME         SUBMIT_TIME   CPU_TIME  WALLTIME  ACCOUNT    
+65306873  trottar     R    priority    farm12014  KaonLT_7871       Mar 25 11:50  00:00:04   00:07:43   hallc     
+65306874  trottar     R    priority    farm12014  KaonLT_7872       Mar 25 11:50  00:00:04   00:07:43   hallc     
+65306875  trottar     R    priority    farm12014  KaonLT_7873       Mar 25 11:50  00:00:04   00:07:43   hallc     
+65306876  trottar     R    priority    farm12014  KaonLT_7874       Mar 25 11:50  00:00:04   00:07:43   hallc     
+65306877  trottar     R    priority    farm12014  KaonLT_7875       Mar 25 11:50  00:00:03   00:07:43   hallc     
+65306878  trottar     R    priority    farm12014  KaonLT_7875       Mar 25 11:50  00:00:04   00:07:43   hallc     
+65306879  trottar     R    priority    farm12014  KaonLT_7876       Mar 25 11:50  00:00:05   00:07:43   hallc     
+65306891  trottar     R    priority    farm12014  KaonLT_7877       Mar 25 11:50  00:00:04   00:07:43   hallc     
+65306892  trottar     R    priority    farm12014  KaonLT_7882       Mar 25 11:59  --         --         hallc     
+65306893  trottar     R    priority    farm12014  KaonLT_7883       Mar 25 11:59  --         --         hallc     
+65306894  trottar     R    priority    farm12014  KaonLT_7884       Mar 25 11:59  --         --         hallc     
+65306895  trottar     R    priority    farm12014  KaonLT_7885       Mar 25 11:59  --         --         hallc     
+65306896  trottar     A    priority    --         KaonLT_7886       Mar 25 11:51  --         --         hallc     
+65306897  trottar     A    priority    --         KaonLT_7887       Mar 25 11:52  --         --         hallc     
+ 
+There are 14 jobs remaining
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+JOB_ID    USER      STAT    QUEUE      EXEC_HOST   JOB_NAME         SUBMIT_TIME   CPU_TIME  WALLTIME  ACCOUNT    
+65306873  trottar     R    priority    farm12014  KaonLT_7871       Mar 25 11:50  00:00:04   00:07:43   hallc     
+65306874  trottar     R    priority    farm12014  KaonLT_7872       Mar 25 11:50  00:00:04   00:07:43   hallc     
+65306875  trottar     R    priority    farm12014  KaonLT_7873       Mar 25 11:50  00:00:04   00:07:43   hallc     
+65306876  trottar     R    priority    farm12014  KaonLT_7874       Mar 25 11:50  00:00:04   00:07:43   hallc     
+65306877  trottar     R    priority    farm12014  KaonLT_7875       Mar 25 11:50  00:00:03   00:07:43   hallc     
+65306878  trottar     R    priority    farm12014  KaonLT_7875       Mar 25 11:50  00:00:04   00:07:43   hallc     
+65306879  trottar     R    priority    farm12014  KaonLT_7876       Mar 25 11:50  00:00:05   00:07:43   hallc     
+65306891  trottar     R    priority    farm12014  KaonLT_7877       Mar 25 11:50  00:00:04   00:07:43   hallc     
+65306892  trottar     R    priority    farm12014  KaonLT_7882       Mar 25 11:59  --         --         hallc     
+65306893  trottar     R    priority    farm12014  KaonLT_7883       Mar 25 11:59  --         --         hallc     
+65306894  trottar     R    priority    farm12014  KaonLT_7884       Mar 25 11:59  --         --         hallc     
+65306895  trottar     R    priority    farm12014  KaonLT_7885       Mar 25 11:59  --         --         hallc     
+65306896  trottar     A    priority    --         KaonLT_7886       Mar 25 11:51  --         --         hallc     
+65306897  trottar     A    priority    --         KaonLT_7887       Mar 25 11:52  --         --         hallc     
+ 
+There are 14 jobs remaining
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+JOB_ID    USER      STAT    QUEUE      EXEC_HOST   JOB_NAME         SUBMIT_TIME   CPU_TIME  WALLTIME  ACCOUNT    
+65306873  trottar     R    priority    farm12014  KaonLT_7871       Mar 25 11:50  00:00:04   00:09:58   hallc     
+65306874  trottar     R    priority    farm12014  KaonLT_7872       Mar 25 11:50  00:00:04   00:09:58   hallc     
+65306875  trottar     R    priority    farm12014  KaonLT_7873       Mar 25 11:50  00:00:05   00:09:58   hallc     
+65306876  trottar     R    priority    farm12014  KaonLT_7874       Mar 25 11:50  00:00:04   00:09:58   hallc     
+65306877  trottar     R    priority    farm12014  KaonLT_7875       Mar 25 11:50  00:00:04   00:09:58   hallc     
+65306878  trottar     R    priority    farm12014  KaonLT_7875       Mar 25 11:50  00:00:04   00:09:58   hallc     
+65306879  trottar     R    priority    farm12014  KaonLT_7876       Mar 25 11:50  00:00:05   00:09:58   hallc     
+65306891  trottar     R    priority    farm12014  KaonLT_7877       Mar 25 11:50  00:00:05   00:09:58   hallc     
+65306892  trottar     R    priority    farm12014  KaonLT_7882       Mar 25 11:59  00:00:04   00:02:01   hallc     
+65306893  trottar     R    priority    farm12014  KaonLT_7883       Mar 25 11:59  00:00:04   00:02:01   hallc     
+65306894  trottar     R    priority    farm12014  KaonLT_7884       Mar 25 11:59  00:00:05   00:02:01   hallc     
+65306895  trottar     R    priority    farm12014  KaonLT_7885       Mar 25 11:59  --         --         hallc     
+65306896  trottar     A    priority    --         KaonLT_7886       Mar 25 11:51  --         --         hallc     
+65306897  trottar     A    priority    --         KaonLT_7887       Mar 25 11:52  --         --         hallc     
+ 
+There are 14 jobs remaining
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+JOB_ID    USER      STAT    QUEUE      EXEC_HOST   JOB_NAME         SUBMIT_TIME   CPU_TIME  WALLTIME  ACCOUNT    
+65306873  trottar     R    priority    farm12014  KaonLT_7871       Mar 25 11:50  00:00:04   00:12:12   hallc     
+65306874  trottar     R    priority    farm12014  KaonLT_7872       Mar 25 11:50  00:00:04   00:12:12   hallc     
+65306875  trottar     R    priority    farm12014  KaonLT_7873       Mar 25 11:50  00:00:05   00:12:12   hallc     
+65306876  trottar     R    priority    farm12014  KaonLT_7874       Mar 25 11:50  00:00:04   00:12:12   hallc     
+65306877  trottar     R    priority    farm12014  KaonLT_7875       Mar 25 11:50  00:00:04   00:12:12   hallc     
+65306878  trottar     R    priority    farm12014  KaonLT_7875       Mar 25 11:50  00:00:04   00:12:12   hallc     
+65306879  trottar     R    priority    farm12014  KaonLT_7876       Mar 25 11:50  00:00:05   00:12:12   hallc     
+65306891  trottar     R    priority    farm12014  KaonLT_7877       Mar 25 11:50  00:00:05   00:12:12   hallc     
+65306892  trottar     R    priority    farm12014  KaonLT_7882       Mar 25 11:59  00:00:04   00:02:01   hallc     
+65306893  trottar     R    priority    farm12014  KaonLT_7883       Mar 25 11:59  00:00:04   00:02:01   hallc     
+65306894  trottar     R    priority    farm12014  KaonLT_7884       Mar 25 11:59  00:00:05   00:02:01   hallc     
+65306895  trottar     R    priority    farm12014  KaonLT_7885       Mar 25 11:59  --         --         hallc     
+65306896  trottar     A    priority    --         KaonLT_7886       Mar 25 11:51  --         --         hallc     
+65306897  trottar     A    priority    --         KaonLT_7887       Mar 25 11:52  --         --         hallc     
+ 
+There are 14 jobs remaining
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+JOB_ID    USER      STAT    QUEUE      EXEC_HOST   JOB_NAME         SUBMIT_TIME   CPU_TIME  WALLTIME  ACCOUNT    
+65306873  trottar     R    priority    farm12014  KaonLT_7871       Mar 25 11:50  00:00:04   00:12:12   hallc     
+65306874  trottar     R    priority    farm12014  KaonLT_7872       Mar 25 11:50  00:00:04   00:12:12   hallc     
+65306875  trottar     R    priority    farm12014  KaonLT_7873       Mar 25 11:50  00:00:05   00:12:12   hallc     
+65306876  trottar     R    priority    farm12014  KaonLT_7874       Mar 25 11:50  00:00:04   00:12:12   hallc     
+65306877  trottar     R    priority    farm12014  KaonLT_7875       Mar 25 11:50  00:00:04   00:12:12   hallc     
+65306878  trottar     R    priority    farm12014  KaonLT_7875       Mar 25 11:50  00:00:04   00:12:12   hallc     
+65306879  trottar     R    priority    farm12014  KaonLT_7876       Mar 25 11:50  00:00:05   00:12:12   hallc     
+65306891  trottar     R    priority    farm12014  KaonLT_7877       Mar 25 11:50  00:00:05   00:12:12   hallc     
+65306892  trottar     R    priority    farm12014  KaonLT_7882       Mar 25 11:59  00:00:04   00:03:30   hallc     
+65306893  trottar     R    priority    farm12014  KaonLT_7883       Mar 25 11:59  00:00:04   00:03:30   hallc     
+65306894  trottar     R    priority    farm12014  KaonLT_7884       Mar 25 11:59  00:00:05   00:03:30   hallc     
+65306895  trottar     R    priority    farm12014  KaonLT_7885       Mar 25 11:59  00:00:05   00:03:30   hallc     
+65306896  trottar     A    priority    --         KaonLT_7886       Mar 25 11:51  --         --         hallc     
+65306897  trottar     A    priority    --         KaonLT_7887       Mar 25 11:52  --         --         hallc     
+ 
+There are 14 jobs remaining
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+JOB_ID    USER      STAT    QUEUE      EXEC_HOST   JOB_NAME         SUBMIT_TIME   CPU_TIME  WALLTIME  ACCOUNT    
+65306873  trottar     R    priority    farm12014  KaonLT_7871       Mar 25 11:50  00:00:04   00:13:43   hallc     
+65306874  trottar     R    priority    farm12014  KaonLT_7872       Mar 25 11:50  00:00:04   00:13:43   hallc     
+65306875  trottar     R    priority    farm12014  KaonLT_7873       Mar 25 11:50  00:00:05   00:13:43   hallc     
+65306876  trottar     R    priority    farm12014  KaonLT_7874       Mar 25 11:50  00:00:04   00:13:43   hallc     
+65306877  trottar     R    priority    farm12014  KaonLT_7875       Mar 25 11:50  00:00:04   00:13:43   hallc     
+65306878  trottar     R    priority    farm12014  KaonLT_7875       Mar 25 11:50  00:00:04   00:13:43   hallc     
+65306879  trottar     R    priority    farm12014  KaonLT_7876       Mar 25 11:50  00:00:05   00:13:43   hallc     
+65306891  trottar     R    priority    farm12014  KaonLT_7877       Mar 25 11:50  00:00:05   00:13:43   hallc     
+65306892  trottar     R    priority    farm12014  KaonLT_7882       Mar 25 11:59  00:00:04   00:05:46   hallc     
+65306893  trottar     R    priority    farm12014  KaonLT_7883       Mar 25 11:59  00:00:04   00:05:46   hallc     
+65306894  trottar     R    priority    farm12014  KaonLT_7884       Mar 25 11:59  00:00:05   00:05:46   hallc     
+65306895  trottar     R    priority    farm12014  KaonLT_7885       Mar 25 11:59  00:00:05   00:05:46   hallc     
+65306896  trottar     A    priority    --         KaonLT_7886       Mar 25 11:51  --         --         hallc     
+65306897  trottar     A    priority    --         KaonLT_7887       Mar 25 11:52  --         --         hallc     
+ 
+There are 14 jobs remaining
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+JOB_ID    USER      STAT    QUEUE      EXEC_HOST   JOB_NAME         SUBMIT_TIME   CPU_TIME  WALLTIME  ACCOUNT    
+65306873  trottar     R    priority    farm12014  KaonLT_7871       Mar 25 11:50  00:00:04   00:15:59   hallc     
+65306874  trottar     R    priority    farm12014  KaonLT_7872       Mar 25 11:50  00:00:04   00:13:43   hallc     
+65306875  trottar     R    priority    farm12014  KaonLT_7873       Mar 25 11:50  00:00:05   00:15:59   hallc     
+65306876  trottar     R    priority    farm12014  KaonLT_7874       Mar 25 11:50  00:00:04   00:15:59   hallc     
+65306877  trottar     R    priority    farm12014  KaonLT_7875       Mar 25 11:50  00:00:04   00:15:59   hallc     
+65306878  trottar     R    priority    farm12014  KaonLT_7875       Mar 25 11:50  00:00:04   00:15:59   hallc     
+65306879  trottar     R    priority    farm12014  KaonLT_7876       Mar 25 11:50  00:00:05   00:15:59   hallc     
+65306891  trottar     R    priority    farm12014  KaonLT_7877       Mar 25 11:50  00:00:05   00:15:59   hallc     
+65306892  trottar     R    priority    farm12014  KaonLT_7882       Mar 25 11:59  00:00:04   00:05:46   hallc     
+65306893  trottar     R    priority    farm12014  KaonLT_7883       Mar 25 11:59  00:00:04   00:05:46   hallc     
+65306894  trottar     R    priority    farm12014  KaonLT_7884       Mar 25 11:59  00:00:05   00:05:46   hallc     
+65306895  trottar     R    priority    farm12014  KaonLT_7885       Mar 25 11:59  00:00:05   00:05:46   hallc     
+65306896  trottar     A    priority    --         KaonLT_7886       Mar 25 11:51  --         --         hallc     
+65306897  trottar     A    priority    --         KaonLT_7887       Mar 25 11:52  --         --         hallc     
+ 
+There are 14 jobs remaining
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+JOB_ID    USER      STAT    QUEUE      EXEC_HOST   JOB_NAME         SUBMIT_TIME   CPU_TIME  WALLTIME  ACCOUNT    
+65306873  trottar     R    priority    farm12014  KaonLT_7871       Mar 25 11:50  00:00:04   00:15:59   hallc     
+65306874  trottar     R    priority    farm12014  KaonLT_7872       Mar 25 11:50  00:00:04   00:13:43   hallc     
+65306875  trottar     R    priority    farm12014  KaonLT_7873       Mar 25 11:50  00:00:05   00:15:59   hallc     
+65306876  trottar     R    priority    farm12014  KaonLT_7874       Mar 25 11:50  00:00:04   00:15:59   hallc     
+65306877  trottar     R    priority    farm12014  KaonLT_7875       Mar 25 11:50  00:00:04   00:15:59   hallc     
+65306878  trottar     R    priority    farm12014  KaonLT_7875       Mar 25 11:50  00:00:04   00:15:59   hallc     
+65306879  trottar     R    priority    farm12014  KaonLT_7876       Mar 25 11:50  00:00:05   00:15:59   hallc     
+65306891  trottar     R    priority    farm12014  KaonLT_7877       Mar 25 11:50  00:00:05   00:15:59   hallc     
+65306892  trottar     R    priority    farm12014  KaonLT_7882       Mar 25 11:59  00:00:04   00:08:01   hallc     
+65306893  trottar     R    priority    farm12014  KaonLT_7883       Mar 25 11:59  00:00:04   00:08:01   hallc     
+65306894  trottar     R    priority    farm12014  KaonLT_7884       Mar 25 11:59  00:00:05   00:08:01   hallc     
+65306895  trottar     R    priority    farm12014  KaonLT_7885       Mar 25 11:59  00:00:05   00:08:01   hallc     
+65306896  trottar     A    priority    --         KaonLT_7886       Mar 25 11:51  --         --         hallc     
+65306897  trottar     A    priority    --         KaonLT_7887       Mar 25 11:52  --         --         hallc     
+ 
+There are 14 jobs remaining
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+JOB_ID    USER      STAT    QUEUE      EXEC_HOST   JOB_NAME         SUBMIT_TIME   CPU_TIME  WALLTIME  ACCOUNT    
+65306873  trottar     R    priority    farm12014  KaonLT_7871       Mar 25 11:50  00:00:04   00:18:14   hallc     
+65306874  trottar     R    priority    farm12014  KaonLT_7872       Mar 25 11:50  00:00:04   00:13:43   hallc     
+65306875  trottar     R    priority    farm12014  KaonLT_7873       Mar 25 11:50  00:00:05   00:15:59   hallc     
+65306876  trottar     R    priority    farm12014  KaonLT_7874       Mar 25 11:50  00:00:04   00:18:14   hallc     
+65306877  trottar     R    priority    farm12014  KaonLT_7875       Mar 25 11:50  00:00:04   00:18:14   hallc     
+65306878  trottar     R    priority    farm12014  KaonLT_7875       Mar 25 11:50  00:00:04   00:18:14   hallc     
+65306879  trottar     R    priority    farm12014  KaonLT_7876       Mar 25 11:50  00:00:05   00:18:14   hallc     
+65306891  trottar     R    priority    farm12014  KaonLT_7877       Mar 25 11:50  00:00:05   00:18:14   hallc     
+65306892  trottar     R    priority    farm12014  KaonLT_7882       Mar 25 11:59  00:00:04   00:09:32   hallc     
+65306893  trottar     R    priority    farm12014  KaonLT_7883       Mar 25 11:59  00:00:04   00:09:32   hallc     
+65306894  trottar     R    priority    farm12014  KaonLT_7884       Mar 25 11:59  00:00:05   00:09:32   hallc     
+65306895  trottar     R    priority    farm12014  KaonLT_7885       Mar 25 11:59  00:00:05   00:09:32   hallc     
+65306896  trottar     A    priority    --         KaonLT_7886       Mar 25 11:51  --         --         hallc     
+65306897  trottar     A    priority    --         KaonLT_7887       Mar 25 11:52  --         --         hallc     
+ 
+There are 14 jobs remaining
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+JOB_ID    USER      STAT    QUEUE      EXEC_HOST   JOB_NAME         SUBMIT_TIME   CPU_TIME  WALLTIME  ACCOUNT    
+65306873  trottar     R    priority    farm12014  KaonLT_7871       Mar 25 11:50  00:00:04   00:18:14   hallc     
+65306874  trottar     R    priority    farm12014  KaonLT_7872       Mar 25 11:50  00:00:04   00:13:43   hallc     
+65306875  trottar     R    priority    farm12014  KaonLT_7873       Mar 25 11:50  00:00:05   00:15:59   hallc     
+65306876  trottar     R    priority    farm12014  KaonLT_7874       Mar 25 11:50  00:00:04   00:19:43   hallc     
+65306877  trottar     R    priority    farm12014  KaonLT_7875       Mar 25 11:50  00:00:04   00:19:43   hallc     
+65306878  trottar     R    priority    farm12014  KaonLT_7875       Mar 25 11:50  00:00:04   00:19:43   hallc     
+65306879  trottar     R    priority    farm12014  KaonLT_7876       Mar 25 11:50  00:00:05   00:19:43   hallc     
+65306891  trottar     R    priority    farm12014  KaonLT_7877       Mar 25 11:50  00:00:05   00:19:43   hallc     
+65306892  trottar     R    priority    farm12014  KaonLT_7882       Mar 25 11:59  00:00:04   00:09:32   hallc     
+65306893  trottar     R    priority    farm12014  KaonLT_7883       Mar 25 11:59  00:00:04   00:09:32   hallc     
+65306894  trottar     R    priority    farm12014  KaonLT_7884       Mar 25 11:59  00:00:05   00:09:32   hallc     
+65306895  trottar     R    priority    farm12014  KaonLT_7885       Mar 25 11:59  00:00:05   00:09:32   hallc     
+65306896  trottar     R    priority    farm12014  KaonLT_7886       Mar 25 12:11  --         --         hallc     
+65306897  trottar     R    priority    farm12014  KaonLT_7887       Mar 25 12:11  --         --         hallc     
+ 
+There are 14 jobs remaining
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+JOB_ID    USER      STAT    QUEUE      EXEC_HOST   JOB_NAME         SUBMIT_TIME   CPU_TIME  WALLTIME  ACCOUNT    
+65306873  trottar     R    priority    farm12014  KaonLT_7871       Mar 25 11:50  00:00:04   00:18:14   hallc     
+65306874  trottar     R    priority    farm12014  KaonLT_7872       Mar 25 11:50  00:00:04   00:13:43   hallc     
+65306875  trottar     R    priority    farm12014  KaonLT_7873       Mar 25 11:50  00:00:05   00:15:59   hallc     
+65306876  trottar     R    priority    farm12014  KaonLT_7874       Mar 25 11:50  00:00:04   00:19:43   hallc     
+65306877  trottar     R    priority    farm12014  KaonLT_7875       Mar 25 11:50  00:00:04   00:19:43   hallc     
+65306878  trottar     R    priority    farm12014  KaonLT_7875       Mar 25 11:50  00:00:04   00:19:43   hallc     
+65306879  trottar     R    priority    farm12014  KaonLT_7876       Mar 25 11:50  00:00:05   00:19:43   hallc     
+65306891  trottar     R    priority    farm12014  KaonLT_7877       Mar 25 11:50  00:00:05   00:19:43   hallc     
+65306892  trottar     R    priority    farm12014  KaonLT_7882       Mar 25 11:59  00:00:04   00:11:46   hallc     
+65306893  trottar     R    priority    farm12014  KaonLT_7883       Mar 25 11:59  00:00:04   00:09:32   hallc     
+65306894  trottar     R    priority    farm12014  KaonLT_7884       Mar 25 11:59  00:00:05   00:11:46   hallc     
+65306895  trottar     R    priority    farm12014  KaonLT_7885       Mar 25 11:59  00:00:05   00:11:46   hallc     
+65306896  trottar     R    priority    farm12014  KaonLT_7886       Mar 25 12:11  --         --         hallc     
+65306897  trottar     R    priority    farm12014  KaonLT_7887       Mar 25 12:11  --         --         hallc     
+ 
+There are 14 jobs remaining
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+JOB_ID    USER      STAT    QUEUE      EXEC_HOST   JOB_NAME         SUBMIT_TIME   CPU_TIME  WALLTIME  ACCOUNT    
+65306873  trottar     R    priority    farm12014  KaonLT_7871       Mar 25 11:50  00:00:04   00:18:14   hallc     
+65306874  trottar     R    priority    farm12014  KaonLT_7872       Mar 25 11:50  00:00:04   00:13:43   hallc     
+65306875  trottar     R    priority    farm12014  KaonLT_7873       Mar 25 11:50  00:00:05   00:15:59   hallc     
+65306876  trottar     R    priority    farm12014  KaonLT_7874       Mar 25 11:50  00:00:04   00:21:59   hallc     
+65306877  trottar     R    priority    farm12014  KaonLT_7875       Mar 25 11:50  00:00:04   00:21:59   hallc     
+65306878  trottar     R    priority    farm12014  KaonLT_7875       Mar 25 11:50  00:00:04   00:21:59   hallc     
+65306879  trottar     R    priority    farm12014  KaonLT_7876       Mar 25 11:50  00:00:05   00:21:59   hallc     
+65306891  trottar     R    priority    farm12014  KaonLT_7877       Mar 25 11:50  00:00:05   00:21:59   hallc     
+65306892  trottar     R    priority    farm12014  KaonLT_7882       Mar 25 11:59  00:00:04   00:14:01   hallc     
+65306893  trottar     R    priority    farm12014  KaonLT_7883       Mar 25 11:59  00:00:04   00:09:32   hallc     
+65306894  trottar     R    priority    farm12014  KaonLT_7884       Mar 25 11:59  00:00:05   00:14:01   hallc     
+65306895  trottar     R    priority    farm12014  KaonLT_7885       Mar 25 11:59  00:00:05   00:14:01   hallc     
+65306896  trottar     R    priority    farm12014  KaonLT_7886       Mar 25 12:11  --         --         hallc     
+65306897  trottar     R    priority    farm12014  KaonLT_7887       Mar 25 12:11  --         --         hallc     
+ 
+There are 14 jobs remaining
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
