@@ -20,7 +20,7 @@ kin6p2_center1_Values = (
      # qPAC
      0,
      # lambda evnt
-     0,
+     1703,
      # lambda evntPAC
      1550]
 )
@@ -50,7 +50,7 @@ kin6p2_left1_Values = (
      # qPAC
      0,
      # lambda evnt
-     0,
+     1477,
      # lambda evntPAC
      1550]
 )
@@ -83,7 +83,7 @@ kin6p2_center2_Values = (
      # qPAC
      0,
      # lambda evnt
-     0,
+     579,
      # lambda evntPAC
      1750]
 )
@@ -113,7 +113,7 @@ kin6p2_left2_Values = (
      # qPAC
      0,
      # lambda evnt
-     0,
+     723,
      # lambda evntPAC
      1165]
 )
@@ -405,7 +405,13 @@ s2.write('A4', '%s deg LH2' % kin6p2_center1)
 print("Looking at current %s uA" % (current))
 # [RunNum,charge]
 newData = (
-    [0,0],
+    [7871, 241.648],
+    [7872, 234.072],
+    [7873, 222.282],
+    [7874, 276.079],
+    [7875, 221.651],
+    [7876, 231.678],
+    [7877, 222.27],
 )
 tmpCurr = [current]
 for value in (tmpCurr):
@@ -434,7 +440,6 @@ for value in (tmpCurr):
     s1.write_formula('D%s' % (curNum), '=\'6.2 Gev|%s\'!F%s' % (kin6p2_setting1,end))
     s1.write_formula('H%s' % (curNum), '=\'6.2 Gev|%s\'!C%s' % (kin6p2_setting1,end))
     s1.write('L%s' % (curNum), evnt)
-    s1.write_formula('N%s' % (curNum), '=M%s/I%s' % (curNum,curNum))
     curNum += 1
 endCur =  curNum
 l1 = endCur+1
@@ -453,6 +458,7 @@ s1.write_formula('I%s' % (endCur), '=H%s/G%s' % (endCur,endCur),bold)
 s1.write('K%s' % (endCur), evntPAC,bold)
 s1.write_formula('L%s' % (endCur), '=SUM(L%s:L%s)' % (curNum-1,endCur-1),bold)
 s1.write_formula('M%s' % (endCur), '=L%s/K%s' % (endCur,endCur),bold)
+s1.write_formula('N%s' % (endCur), '=M%s/I%s' % (endCur,endCur),bold)
 
 ######################################################################################################
 
@@ -468,7 +474,9 @@ evntPAC = kin6p2DUM_left1_Values[5]
 print("Looking at current %s uA" % (current))
 # [RunNum,charge]
 newData = (
-    [0,0],
+    [7878, 10.921],
+    [7879, 31.699],
+    [7880, 31.699],
 )
 tmpCurr = [current]
 for value in (tmpCurr):
@@ -497,7 +505,6 @@ for value in (tmpCurr):
     s1.write_formula('D%s' % (curNum), '=\'6.2 Gev|%s\'!F%s' % (kin6p2_setting1,end))
     s1.write_formula('H%s' % (curNum), '=\'6.2 Gev|%s\'!C%s' % (kin6p2_setting1,end))
     s1.write('L%s' % (curNum), evnt)
-    s1.write_formula('N%s' % (curNum), '=M%s/I%s' % (curNum,curNum))
     curNum += 1
 endCur =  curNum
 l1 = endCur+1
@@ -516,8 +523,11 @@ s1.write_formula('I%s' % (endCur), '=H%s/G%s' % (endCur,endCur),bold)
 s1.write('K%s' % (endCur), evntPAC,bold)
 s1.write_formula('L%s' % (endCur), '=SUM(L%s:L%s)' % (curNum-1,endCur-1),bold)
 s1.write_formula('M%s' % (endCur), '=L%s/K%s' % (endCur,endCur),bold)
+s1.write_formula('N%s' % (endCur), '=M%s/I%s' % (endCur,endCur),bold)
 
 ####################################################################################################
+# Next angle #############
+##########################
 
 curNum =1
 
@@ -535,7 +545,12 @@ s2.write('A%s' % (l2), '%s deg LH2' % kin6p2_left1)
 print("Looking at current %s uA" % (current))
 # [RunNum,charge]
 newData = (
-    [0,0],
+    [7882,209.19],
+    [7883,257.17],
+    [7884,243.51],
+    [7885,267.2],
+    [7886,266.44],
+    [7887,301.65],
 )
 tmpCurr = [current]
 for value in (tmpCurr):
@@ -567,7 +582,6 @@ for value in (tmpCurr):
     # s1.write_formula('I%s' % (curNum), '=B%s/G%s' % (curNum,curNum+1))
     s1.write('L%s' % (curNum), evnt)
     # s1.write_formula('M%s' % (curNum), '=L%s/K%s' % (curNum,curNum+1))
-    s1.write_formula('N%s' % (curNum), '=M%s/I%s' % (curNum,curNum))
     curNum += 1
 endCur =  curNum
 l1 = endCur+1
@@ -581,6 +595,7 @@ s1.write_formula('I%s' % (endCur), '=H%s/G%s' % (endCur,endCur),bold)
 s1.write('K%s' % (endCur), evntPAC,bold)
 s1.write_formula('L%s' % (endCur), '=SUM(L%s:L%s)' % (curNum-1,endCur-1),bold)
 s1.write_formula('M%s' % (endCur), '=L%s/K%s' % (endCur,endCur),bold)
+s1.write_formula('N%s' % (endCur), '=M%s/I%s' % (endCur,endCur),bold)
 
 ######################################################################################################
 
@@ -596,7 +611,8 @@ evntPAC = kin6p2DUM_center1_Values[5]
 print("Looking at current %s uA" % (current))
 # [RunNum,charge]
 newData = (
-    [0,0],
+    [7881,55.62],
+    [7888,71.48],
 )
 tmpCurr = [current]
 for value in (tmpCurr):
@@ -625,7 +641,6 @@ for value in (tmpCurr):
     s1.write_formula('D%s' % (curNum), '=\'6.2 Gev|%s\'!F%s' % (kin6p2_setting1,end))
     s1.write_formula('H%s' % (curNum), '=\'6.2 Gev|%s\'!C%s' % (kin6p2_setting1,end))
     s1.write('L%s' % (curNum), evnt)
-    s1.write_formula('N%s' % (curNum), '=M%s/I%s' % (curNum,curNum))
     curNum += 1
 endCur =  curNum
 l1 = endCur+1
@@ -644,6 +659,7 @@ s1.write_formula('I%s' % (endCur), '=H%s/G%s' % (endCur,endCur),bold)
 s1.write('K%s' % (endCur), evntPAC,bold)
 s1.write_formula('L%s' % (endCur), '=SUM(L%s:L%s)' % (curNum-1,endCur-1),bold)
 s1.write_formula('M%s' % (endCur), '=L%s/K%s' % (endCur,endCur),bold)
+s1.write_formula('N%s' % (endCur), '=M%s/I%s' % (endCur,endCur),bold)
 
 ####################################################################################################
 
@@ -694,7 +710,23 @@ s2a.write('A%s' % (l2+1), '%s deg LH2' % kin6p2_center2)
 print("Looking at current %s uA" % (current))
 # [RunNum,charge]
 newData = (
-    [0,0],
+    [7891,252.502],
+    [7891,232.9],
+    [7892,226.93],
+    [7893,195.38],
+    [7894,214.42],
+    [7895,362.67],
+    [7896,234.96],
+    [7899,260.56],
+    [7900,242.66],
+    [7901,240.04],
+    [7902,239.04],
+    [7903,253.33],
+    [7904,181.34],
+    [7905,238.33],
+    [7906,219.53],
+    [7907,219.53],
+    [7908,141.28],
 )
 tmpCurr = [current]
 for value in (tmpCurr):
@@ -723,7 +755,6 @@ for value in (tmpCurr):
     s1.write_formula('D%s' % (curNum), '=\'6.2 Gev|%s\'!F%s' % (kin6p2_setting2,end))
     s1.write_formula('H%s' % (curNum), '=\'6.2 Gev|%s\'!C%s' % (kin6p2_setting2,end))
     s1.write('L%s' % (curNum), evnt)
-    s1.write_formula('N%s' % (curNum), '=M%s/I%s' % (curNum,curNum))
     curNum += 1
 endCur =  curNum
 l1 = endCur+1
@@ -742,6 +773,7 @@ s1.write_formula('I%s' % (endCur), '=H%s/G%s' % (endCur,endCur),bold)
 s1.write('K%s' % (endCur), evntPAC,bold)
 s1.write_formula('L%s' % (endCur), '=SUM(L%s:L%s)' % (curNum-1,endCur-1),bold)
 s1.write_formula('M%s' % (endCur), '=L%s/K%s' % (endCur,endCur),bold)
+s1.write_formula('N%s' % (endCur), '=M%s/I%s' % (endCur,endCur),bold)
 
 ######################################################################################################
 
@@ -757,7 +789,8 @@ evntPAC = kin6p2DUM_left1_Values[5]
 print("Looking at current %s uA" % (current))
 # [RunNum,charge]
 newData = (
-    [0,0],
+    [7897,41.31],
+    [7898,87.38],
 )
 tmpCurr = [current]
 for value in (tmpCurr):
@@ -786,7 +819,6 @@ for value in (tmpCurr):
     s1.write_formula('D%s' % (curNum), '=\'6.2 Gev|%s\'!F%s' % (kin6p2_setting2,end))
     s1.write_formula('H%s' % (curNum), '=\'6.2 Gev|%s\'!C%s' % (kin6p2_setting2,end))
     s1.write('L%s' % (curNum), evnt)
-    s1.write_formula('N%s' % (curNum), '=M%s/I%s' % (curNum,curNum))
     curNum += 1
 endCur =  curNum
 l1 = endCur+1
@@ -805,8 +837,11 @@ s1.write_formula('I%s' % (endCur), '=H%s/G%s' % (endCur,endCur),bold)
 s1.write('K%s' % (endCur), evntPAC,bold)
 s1.write_formula('L%s' % (endCur), '=SUM(L%s:L%s)' % (curNum-1,endCur-1),bold)
 s1.write_formula('M%s' % (endCur), '=L%s/K%s' % (endCur,endCur),bold)
+s1.write_formula('N%s' % (endCur), '=M%s/I%s' % (endCur,endCur),bold)
 
 ####################################################################################################
+# Next angle #############
+##########################
 
 curNum =1
 current = kin6p2_left2_Values[0]
@@ -823,7 +858,33 @@ s2a.write('A%s' % (l2), '%s deg LH2' % kin6p2_left2)
 print("Looking at current %s uA" % (current))
 # [RunNum,charge]
 newData = (
-    [0,0],
+    [7909, 131.014],
+    [7910, 55.047],
+    [7911, 77.354],
+    [7912, 28.683],
+    [7913, 76.601],
+    [7914, 117.79],
+    [7915, 118.783],
+    [7916, 135.726],
+    [7917, 146.517],
+    [7918, 27.966],
+    [7919, 142.475],
+    [7920, 116.507],
+    [7921, 182.834],
+    [7925, 170.95],
+    [7926, 183.094],
+    [7927, 143.944],
+    [7928, 72.459],
+    [7930, 13.966],
+    [7931, 175.929],
+    [7932, 171.455],
+    [7933, 168.158],
+    [7934, 176.0],
+    [7935, 158.969],
+    [7936, 151.628],
+    [7937, 164.136],
+    [7938, 143.332],
+
 )
 tmpCurr = [current]
 for value in (tmpCurr):
@@ -855,7 +916,6 @@ for value in (tmpCurr):
     # s1.write_formula('I%s' % (curNum), '=B%s/G%s' % (curNum,curNum+1))
     s1.write('L%s' % (curNum), evnt)
     # s1.write_formula('M%s' % (curNum), '=L%s/K%s' % (curNum,curNum+1))
-    s1.write_formula('N%s' % (curNum), '=M%s/I%s' % (curNum,curNum))
     curNum += 1
 endCur =  curNum
 l1 = endCur+1
@@ -869,6 +929,7 @@ s1.write_formula('I%s' % (endCur), '=H%s/G%s' % (endCur,endCur),bold)
 s1.write('K%s' % (endCur), evntPAC,bold)
 s1.write_formula('L%s' % (endCur), '=SUM(L%s:L%s)' % (curNum-1,endCur-1),bold)
 s1.write_formula('M%s' % (endCur), '=L%s/K%s' % (endCur,endCur),bold)
+s1.write_formula('N%s' % (endCur), '=M%s/I%s' % (endCur,endCur),bold)
 
 ######################################################################################################
 
@@ -884,7 +945,10 @@ evntPAC = kin6p2DUM_center1_Values[5]
 print("Looking at current %s uA" % (current))
 # [RunNum,charge]
 newData = (
-    [0,0],
+    [7922, 23.781],
+    [7923, 198.331],
+    [7924, 100.607],
+    
 )
 tmpCurr = [current]
 for value in (tmpCurr):
@@ -913,7 +977,6 @@ for value in (tmpCurr):
     s1.write_formula('D%s' % (curNum), '=\'6.2 Gev|%s\'!F%s' % (kin6p2_setting2,end))
     s1.write_formula('H%s' % (curNum), '=\'6.2 Gev|%s\'!C%s' % (kin6p2_setting2,end))
     s1.write('L%s' % (curNum), evnt)
-    s1.write_formula('N%s' % (curNum), '=M%s/I%s' % (curNum,curNum))
     curNum += 1
 endCur =  curNum
 l1 = endCur+1
@@ -932,6 +995,7 @@ s1.write_formula('I%s' % (endCur), '=H%s/G%s' % (endCur,endCur),bold)
 s1.write('K%s' % (endCur), evntPAC,bold)
 s1.write_formula('L%s' % (endCur), '=SUM(L%s:L%s)' % (curNum-1,endCur-1),bold)
 s1.write_formula('M%s' % (endCur), '=L%s/K%s' % (endCur,endCur),bold)
+s1.write_formula('N%s' % (endCur), '=M%s/I%s' % (endCur,endCur),bold)
 
 ####################################################################################################
 
@@ -1043,7 +1107,6 @@ for value in (tmpCurr):
     s3.write_formula('D%s' % (curNum), '=\'8.2 Gev|%s\'!F%s' % (kin8p2_setting1,end))
     s3.write_formula('H%s' % (curNum), '=\'8.2 Gev|%s\'!C%s' % (kin8p2_setting1,end))
     s3.write('L%s' % (curNum), evnt)
-    s3.write_formula('N%s' % (curNum), '=M%s/I%s' % (curNum,curNum))
     curNum += 1
 endCur =  curNum
 l1 = endCur+1
@@ -1062,6 +1125,7 @@ s3.write_formula('I%s' % (endCur), '=H%s/G%s' % (endCur,endCur),bold)
 s3.write('K%s' % (endCur), evntPAC,bold)
 s3.write_formula('L%s' % (endCur), '=SUM(L%s:L%s)' % (curNum-1,endCur-1),bold)
 s3.write_formula('M%s' % (endCur), '=L%s/K%s' % (endCur,endCur),bold)
+s3.write_formula('N%s' % (endCur), '=M%s/I%s' % (endCur,endCur),bold)
 
 ######################################################################################################
 
@@ -1106,7 +1170,6 @@ for value in (tmpCurr):
     s3.write_formula('D%s' % (curNum), '=\'8.2 Gev|%s\'!F%s' % (kin8p2_setting1,end))
     s3.write_formula('H%s' % (curNum), '=\'8.2 Gev|%s\'!C%s' % (kin8p2_setting1,end))
     s3.write('L%s' % (curNum), evnt)
-    s3.write_formula('N%s' % (curNum), '=M%s/I%s' % (curNum,curNum))
     curNum += 1
 endCur =  curNum
 l1 = endCur+1
@@ -1125,8 +1188,11 @@ s3.write_formula('I%s' % (endCur), '=H%s/G%s' % (endCur,endCur),bold)
 s3.write('K%s' % (endCur), evntPAC,bold)
 s3.write_formula('L%s' % (endCur), '=SUM(L%s:L%s)' % (curNum-1,endCur-1),bold)
 s3.write_formula('M%s' % (endCur), '=L%s/K%s' % (endCur,endCur),bold)
+s3.write_formula('N%s' % (endCur), '=M%s/I%s' % (endCur,endCur),bold)
 
 ####################################################################################################
+# Next angle #############
+##########################
 
 curNum =1
 current = kin8p2_left1_Values[0]
@@ -1175,7 +1241,6 @@ for value in (tmpCurr):
     # s3.write_formula('I%s' % (curNum), '=B%s/G%s' % (curNum,curNum+1))
     s3.write('L%s' % (curNum), evnt)
     # s3.write_formula('M%s' % (curNum), '=L%s/K%s' % (curNum,curNum+1))
-    s3.write_formula('N%s' % (curNum), '=M%s/I%s' % (curNum,curNum))
     curNum += 1
 endCur =  curNum
 l1 = endCur+1
@@ -1189,6 +1254,7 @@ s3.write_formula('I%s' % (endCur), '=H%s/G%s' % (endCur,endCur),bold)
 s3.write('K%s' % (endCur), evntPAC,bold)
 s3.write_formula('L%s' % (endCur), '=SUM(L%s:L%s)' % (curNum-1,endCur-1),bold)
 s3.write_formula('M%s' % (endCur), '=L%s/K%s' % (endCur,endCur),bold)
+s3.write_formula('N%s' % (endCur), '=M%s/I%s' % (endCur,endCur),bold)
 
 ######################################################################################################
 
@@ -1233,7 +1299,6 @@ for value in (tmpCurr):
     s3.write_formula('D%s' % (curNum), '=\'8.2 Gev|%s\'!F%s' % (kin8p2_setting1,end))
     s3.write_formula('H%s' % (curNum), '=\'8.2 Gev|%s\'!C%s' % (kin8p2_setting1,end))
     s3.write('L%s' % (curNum), evnt)
-    s3.write_formula('N%s' % (curNum), '=M%s/I%s' % (curNum,curNum))
     curNum += 1
 endCur =  curNum
 l1 = endCur+1
@@ -1252,6 +1317,7 @@ s3.write_formula('I%s' % (endCur), '=H%s/G%s' % (endCur,endCur),bold)
 s3.write('K%s' % (endCur), evntPAC,bold)
 s3.write_formula('L%s' % (endCur), '=SUM(L%s:L%s)' % (curNum-1,endCur-1),bold)
 s3.write_formula('M%s' % (endCur), '=L%s/K%s' % (endCur,endCur),bold)
+s3.write_formula('N%s' % (endCur), '=M%s/I%s' % (endCur,endCur),bold)
 
 ####################################################################################################
 
@@ -1330,7 +1396,6 @@ for value in (tmpCurr):
     s3.write_formula('D%s' % (curNum), '=\'8.2 Gev|%s\'!F%s' % (kin8p2_setting2,end))
     s3.write_formula('H%s' % (curNum), '=\'8.2 Gev|%s\'!C%s' % (kin8p2_setting2,end))
     s3.write('L%s' % (curNum), evnt)
-    s3.write_formula('N%s' % (curNum), '=M%s/I%s' % (curNum,curNum))
     curNum += 1
 endCur =  curNum
 l1 = endCur+1
@@ -1349,6 +1414,7 @@ s3.write_formula('I%s' % (endCur), '=H%s/G%s' % (endCur,endCur),bold)
 s3.write('K%s' % (endCur), evntPAC,bold)
 s3.write_formula('L%s' % (endCur), '=SUM(L%s:L%s)' % (curNum-1,endCur-1),bold)
 s3.write_formula('M%s' % (endCur), '=L%s/K%s' % (endCur,endCur),bold)
+s3.write_formula('N%s' % (endCur), '=M%s/I%s' % (endCur,endCur),bold)
 
 ######################################################################################################
 
@@ -1393,7 +1459,6 @@ for value in (tmpCurr):
     s3.write_formula('D%s' % (curNum), '=\'8.2 Gev|%s\'!F%s' % (kin8p2_setting2,end))
     s3.write_formula('H%s' % (curNum), '=\'8.2 Gev|%s\'!C%s' % (kin8p2_setting2,end))
     s3.write('L%s' % (curNum), evnt)
-    s3.write_formula('N%s' % (curNum), '=M%s/I%s' % (curNum,curNum))
     curNum += 1
 endCur =  curNum
 l1 = endCur+1
@@ -1412,8 +1477,11 @@ s3.write_formula('I%s' % (endCur), '=H%s/G%s' % (endCur,endCur),bold)
 s3.write('K%s' % (endCur), evntPAC,bold)
 s3.write_formula('L%s' % (endCur), '=SUM(L%s:L%s)' % (curNum-1,endCur-1),bold)
 s3.write_formula('M%s' % (endCur), '=L%s/K%s' % (endCur,endCur),bold)
+s3.write_formula('N%s' % (endCur), '=M%s/I%s' % (endCur,endCur),bold)
 
 ####################################################################################################
+# Next angle #############
+##########################
 
 curNum =1
 current = kin8p2_left2_Values[0]
@@ -1462,7 +1530,6 @@ for value in (tmpCurr):
     # s3.write_formula('I%s' % (curNum), '=B%s/G%s' % (curNum,curNum+1))
     s3.write('L%s' % (curNum), evnt)
     # s3.write_formula('M%s' % (curNum), '=L%s/K%s' % (curNum,curNum+1))
-    s3.write_formula('N%s' % (curNum), '=M%s/I%s' % (curNum,curNum))
     curNum += 1
 endCur =  curNum
 l1 = endCur+1
@@ -1476,6 +1543,7 @@ s3.write_formula('I%s' % (endCur), '=H%s/G%s' % (endCur,endCur),bold)
 s3.write('K%s' % (endCur), evntPAC,bold)
 s3.write_formula('L%s' % (endCur), '=SUM(L%s:L%s)' % (curNum-1,endCur-1),bold)
 s3.write_formula('M%s' % (endCur), '=L%s/K%s' % (endCur,endCur),bold)
+s3.write_formula('N%s' % (endCur), '=M%s/I%s' % (endCur,endCur),bold)
 
 ######################################################################################################
 
@@ -1520,7 +1588,6 @@ for value in (tmpCurr):
     s3.write_formula('D%s' % (curNum), '=\'8.2 Gev|%s\'!F%s' % (kin8p2_setting2,end))
     s3.write_formula('H%s' % (curNum), '=\'8.2 Gev|%s\'!C%s' % (kin8p2_setting2,end))
     s3.write('L%s' % (curNum), evnt)
-    s3.write_formula('N%s' % (curNum), '=M%s/I%s' % (curNum,curNum))
     curNum += 1
 endCur =  curNum
 l1 = endCur+1
@@ -1539,6 +1606,7 @@ s3.write_formula('I%s' % (endCur), '=H%s/G%s' % (endCur,endCur),bold)
 s3.write('K%s' % (endCur), evntPAC,bold)
 s3.write_formula('L%s' % (endCur), '=SUM(L%s:L%s)' % (curNum-1,endCur-1),bold)
 s3.write_formula('M%s' % (endCur), '=L%s/K%s' % (endCur,endCur),bold)
+s3.write_formula('N%s' % (endCur), '=M%s/I%s' % (endCur,endCur),bold)
 
 ####################################################################################################
 
@@ -1617,7 +1685,6 @@ for value in (tmpCurr):
     s3.write_formula('D%s' % (curNum), '=\'8.2 Gev|%s\'!F%s' % (kin8p2_setting3,end))
     s3.write_formula('H%s' % (curNum), '=\'8.2 Gev|%s\'!C%s' % (kin8p2_setting3,end))
     s3.write('L%s' % (curNum), evnt)
-    s3.write_formula('N%s' % (curNum), '=M%s/I%s' % (curNum,curNum))
     curNum += 1
 endCur =  curNum
 l1 = endCur+1
@@ -1636,6 +1703,7 @@ s3.write_formula('I%s' % (endCur), '=H%s/G%s' % (endCur,endCur),bold)
 s3.write('K%s' % (endCur), evntPAC,bold)
 s3.write_formula('L%s' % (endCur), '=SUM(L%s:L%s)' % (curNum-1,endCur-1),bold)
 s3.write_formula('M%s' % (endCur), '=L%s/K%s' % (endCur,endCur),bold)
+s3.write_formula('N%s' % (endCur), '=M%s/I%s' % (endCur,endCur),bold)
 
 ######################################################################################################
 
@@ -1680,7 +1748,6 @@ for value in (tmpCurr):
     s3.write_formula('D%s' % (curNum), '=\'8.2 Gev|%s\'!F%s' % (kin8p2_setting3,end))
     s3.write_formula('H%s' % (curNum), '=\'8.2 Gev|%s\'!C%s' % (kin8p2_setting3,end))
     s3.write('L%s' % (curNum), evnt)
-    s3.write_formula('N%s' % (curNum), '=M%s/I%s' % (curNum,curNum))
     curNum += 1
 endCur =  curNum
 l1 = endCur+1
@@ -1699,8 +1766,11 @@ s3.write_formula('I%s' % (endCur), '=H%s/G%s' % (endCur,endCur),bold)
 s3.write('K%s' % (endCur), evntPAC,bold)
 s3.write_formula('L%s' % (endCur), '=SUM(L%s:L%s)' % (curNum-1,endCur-1),bold)
 s3.write_formula('M%s' % (endCur), '=L%s/K%s' % (endCur,endCur),bold)
+s3.write_formula('N%s' % (endCur), '=M%s/I%s' % (endCur,endCur),bold)
 
 ####################################################################################################
+# Next angle #############
+##########################
 
 curNum =1
 current = kin8p2_left3_Values[0]
@@ -1749,7 +1819,6 @@ for value in (tmpCurr):
     # s3.write_formula('I%s' % (curNum), '=B%s/G%s' % (curNum,curNum+1))
     s3.write('L%s' % (curNum), evnt)
     # s3.write_formula('M%s' % (curNum), '=L%s/K%s' % (curNum,curNum+1))
-    s3.write_formula('N%s' % (curNum), '=M%s/I%s' % (curNum,curNum))
     curNum += 1
 endCur =  curNum
 l1 = endCur+1
@@ -1763,6 +1832,7 @@ s3.write_formula('I%s' % (endCur), '=H%s/G%s' % (endCur,endCur),bold)
 s3.write('K%s' % (endCur), evntPAC,bold)
 s3.write_formula('L%s' % (endCur), '=SUM(L%s:L%s)' % (curNum-1,endCur-1),bold)
 s3.write_formula('M%s' % (endCur), '=L%s/K%s' % (endCur,endCur),bold)
+s3.write_formula('N%s' % (endCur), '=M%s/I%s' % (endCur,endCur),bold)
 
 ######################################################################################################
 
@@ -1807,7 +1877,6 @@ for value in (tmpCurr):
     s3.write_formula('D%s' % (curNum), '=\'8.2 Gev|%s\'!F%s' % (kin8p2_setting3,end))
     s3.write_formula('H%s' % (curNum), '=\'8.2 Gev|%s\'!C%s' % (kin8p2_setting3,end))
     s3.write('L%s' % (curNum), evnt)
-    s3.write_formula('N%s' % (curNum), '=M%s/I%s' % (curNum,curNum))
     curNum += 1
 endCur =  curNum
 l1 = endCur+1
@@ -1826,8 +1895,8 @@ s3.write_formula('I%s' % (endCur), '=H%s/G%s' % (endCur,endCur),bold)
 s3.write('K%s' % (endCur), evntPAC,bold)
 s3.write_formula('L%s' % (endCur), '=SUM(L%s:L%s)' % (curNum-1,endCur-1),bold)
 s3.write_formula('M%s' % (endCur), '=L%s/K%s' % (endCur,endCur),bold)
+s3.write_formula('N%s' % (endCur), '=M%s/I%s' % (endCur,endCur),bold)
 
 ####################################################################################################
 
 wb.close()
-
