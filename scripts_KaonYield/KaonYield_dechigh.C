@@ -1,5 +1,5 @@
-#define KaonYield_cxx
-// The class definition in KaonYield.h has been generated automatically
+#define KaonYield_dechigh_cxx
+// The class definition in KaonYield_dechigh.h has been generated automatically
 // by the ROOT utility TTree::MakeSelector(). This class is derived
 // from the ROOT class TSelector. For more information on the TSelector
 // framework see $ROOTSYS/README/README.SELECTOR or the ROOT User Manual.
@@ -19,20 +19,22 @@
 //
 // To use this file, try the following session on your Tree T:
 //
-// root> T->Process("KaonYield.C")
-// root> T->Process("KaonYield.C","some options")
-// root> T->Process("KaonYield.C+")
+// root> T->Process("KaonYield_dechigh.C")
+// root> T->Process("KaonYield_dechigh.C","some options")
+// root> T->Process("KaonYield_dechigh.C+")
 //
 
 
-#include "KaonYield.h"
+#include "KaonYield_dechigh.h"
 #include <TStyle.h>
 #include <TCanvas.h>
 #include <TLine.h>
 #include <TMath.h>
 #include <TPaveText.h>
+#include <TGaxis.h>
+#include <TArc.h>
 
-void KaonYield::Begin(TTree * /*tree*/)
+void KaonYield_dechigh::Begin(TTree * /*tree*/)
 {
   // The Begin() function is called at the start of the query.
   // When running with PROOF Begin() is only called on the client.
@@ -45,7 +47,7 @@ void KaonYield::Begin(TTree * /*tree*/)
   
 }
 
-void KaonYield::SlaveBegin(TTree * /*tree*/)
+void KaonYield_dechigh::SlaveBegin(TTree * /*tree*/)
 {
   // The SlaveBegin() function is called after the Begin() function.
   // When running with PROOF SlaveBegin() is called on each slave server.
@@ -53,7 +55,8 @@ void KaonYield::SlaveBegin(TTree * /*tree*/)
 
   TString option = GetOption();
 
-  h1missKcut_CT   = new TH2F("h1missKcut_CT","Kaon Missing mass vs Coincidence Time;Time (ns);Mass (GeV/c^{2})^{2}",400,-10,10,100,0.8,1.4);
+  h1missKcut_CT   = new TH2F("h1missKcut_CT","Kaon Missing mass vs Coincidence Time;Time (ns);Mass (GeV/c^{2})^{2}",400,-10,10,100,0.8,1.8);
+  // h1missKcut_CT   = new TH2F("h1missKcut_CT","Kaon Missing mass vs SHMS #delta;SHMS #delta;Mass (GeV/c^{2})^{2}",400,-20,20,100,0.8,1.8);
 
   h2ROC1_Coin_Beta_noID_kaon = new TH2F("ROC1_Coin_Beta_noCut_kaon","Kaon Coincident Time vs #beta for ROC1 (w/ particle ID);Time (ns);#beta",800,-40,40,200,0.0,2.0);
   h2ROC1_Coin_Beta_kaon = new TH2F("ROC1_Coin_Beta_kaon","Kaon Coincident Time vs #beta for ROC1;Time (ns);#beta",800,-40,40,200,0.0,2.0);
@@ -100,42 +103,45 @@ void KaonYield::SlaveBegin(TTree * /*tree*/)
 
   h1mmissK                = new TH1F("mmissK","Kaon Missing mass;Mass (GeV/c^{2});Counts",200,0.0,2.0);
   h1mmissK->Sumw2();
-  h1mmissK_rand           = new TH1F("mmissK_rand","Kaon Missing mass from Random Coincidence;Mass (GeV/c^{2});Counts",200,0.8,1.4);
+  h1mmissK_rand           = new TH1F("mmissK_rand","Kaon Missing mass from Random Coincidence;Mass (GeV/c^{2});Counts",200,0.8,1.8);
   // h1mmissK_rand           = new TH1F("mmissK_rand","Kaon Missing mass from Random Coincidence;Mass (GeV/c^{2});Counts",200,0.,10);
   h1mmissK_rand->Sumw2();
-  h1mmissK_cut            = new TH1F("mmissK_cut","Kaon Missing mass with Cuts;Mass (GeV/c^{2});Counts",200,0.8,1.4);
+  h1mmissK_cut            = new TH1F("mmissK_cut","Kaon Missing mass with Cuts;Mass (GeV/c^{2});Counts",200,0.8,1.8);
   // h1mmissK_cut            = new TH1F("mmissK_cut","Kaon Missing mass with Cuts;Mass (GeV/c^{2});Counts",200,0.,10);
   h1mmissK_cut->Sumw2();
-  h1mmissK_remove         = new TH1F("mmissK_remove","Kaon Missing mass with Cuts (Random Subtracted);Mass (GeV/c^{2});Counts",200,0.8,1.4);
+  h1mmissK_remove         = new TH1F("mmissK_remove","Kaon Missing mass with Cuts (Random Subtracted);Mass (GeV/c^{2});Counts",200,0.8,1.8);
   // h1mmissK_remove         = new TH1F("mmissK_remove","Kaon Missing mass with Cuts (Random Subtracted);Mass (GeV/c^{2});Counts",200,0.,10);
   h1mmissK_remove->Sumw2();
 
   ///////////////////////////////////////////////
   h2ROC1_Coin_pion_kaon = new TH2F("ROC1_Coin_pion_kaon","pi/Kaon Coincident Time vs #beta for ROC1 (w/ particle ID);Time (ns);#beta",800,-40,40,200,0.0,2.0);
   h2ROC1_Coin_pion_kaon_noID = new TH2F("ROC1_Coin_pion_kaon_noID","pi/Kaon Coincident Time vs #beta for ROC1 (w/ particle ID);Time (ns);#beta",800,-40,40,200,0.0,2.0);
-  h1mmisspiK               = new TH1F("mmisspiK","Pi/k Missing mass squared;Mass^{2} (GeV/c^{2})^{2};Counts",200,0.8,1.4);
+  h1mmisspiK               = new TH1F("mmisspiK","Pi/k Missing mass squared;Mass^{2} (GeV/c^{2})^{2};Counts",200,0.8,1.8);
   h1mmisspiK->Sumw2();
-  h1mmisspiK_rand          = new TH1F("mmisspiK_rand","Pi/k Missing mass squared from Random Coincidence;Mass^{2} (GeV/c^{2})^{2};Counts",200,0.8,1.4);
+  h1mmisspiK_rand          = new TH1F("mmisspiK_rand","Pi/k Missing mass squared from Random Coincidence;Mass^{2} (GeV/c^{2})^{2};Counts",200,0.8,1.8);
   h1mmisspiK_rand->Sumw2();
-  h1mmisspiK_cut           = new TH1F("mmisspiK_cut","Pi/k Missing mass squared with Cuts;Mass^{2} (GeV/c^{2})^{2};Counts",200,0.8,1.4);
+  h1mmisspiK_cut           = new TH1F("mmisspiK_cut","Pi/k Missing mass squared with Cuts;Mass^{2} (GeV/c^{2})^{2};Counts",200,0.8,1.8);
   h1mmisspiK_cut->Sumw2();
-  h1mmisspiK_remove        = new TH1F("mmisspiK_remove","Pi/k Missing mass squared with Cuts (Random Subtracted);Mass^{2} (GeV/c^{2})^{2};Counts",200,0.8,1.4);
+  h1mmisspiK_remove        = new TH1F("mmisspiK_remove","Pi/k Missing mass squared with Cuts (Random Subtracted);Mass^{2} (GeV/c^{2})^{2};Counts",200,0.8,1.8);
   h1mmisspiK_remove->Sumw2();
   ///////////////////////////////////////////////
 
 
-  h1mmisspi               = new TH1F("mmisspi","Pion Missing mass squared;Mass^{2} (GeV/c^{2})^{2};Counts",200,0.8,1.4);
-  h1mmisspi_rand          = new TH1F("mmisspi_rand","Pion Missing mass squared from Random Coincidence;Mass^{2} (GeV/c^{2})^{2};Counts",200,0.8,1.4);
-  h1mmisspi_cut           = new TH1F("mmisspi_cut","Pion Missing mass squared with Cuts;Mass^{2} (GeV/c^{2})^{2};Counts",200,0.8,1.4);
-  h1mmisspi_remove        = new TH1F("mmisspi_remove","Pion Missing mass squared with Cuts (Random Subtracted);Mass^{2} (GeV/c^{2})^{2};Counts",200,0.8,1.4);
+  h1mmisspi               = new TH1F("mmisspi","Pion Missing mass squared;Mass^{2} (GeV/c^{2})^{2};Counts",200,0.8,1.8);
+  h1mmisspi_rand          = new TH1F("mmisspi_rand","Pion Missing mass squared from Random Coincidence;Mass^{2} (GeV/c^{2})^{2};Counts",200,0.8,1.8);
+  h1mmisspi_cut           = new TH1F("mmisspi_cut","Pion Missing mass squared with Cuts;Mass^{2} (GeV/c^{2})^{2};Counts",200,0.8,1.8);
+  h1mmisspi_remove        = new TH1F("mmisspi_remove","Pion Missing mass squared with Cuts (Random Subtracted);Mass^{2} (GeV/c^{2})^{2};Counts",200,0.8,1.8);
 
   h1mmissp                = new TH1F("mmissp","Proton Missing mass squared;Mass^{2} (GeV/c^{2})^{2};Counts",200,-0.5,2.0);
   h1mmissp_rand           = new TH1F("mmissp_rand","Proton Missing mass squared from Random Coincidence;Mass^{2} (GeV/c^{2})^{2};Counts",200,-0.5,2.0);
   h1mmissp_cut            = new TH1F("mmissp_cut","Proton Missing mass squared with Cuts;Mass^{2} (GeV/c^{2})^{2};Counts",200,-0.5,2.0);
   h1mmissp_remove         = new TH1F("mmissp_remove","Proton Missing mass squared with Cuts (Random Subtracted);Mass^{2} (GeV/c^{2})^{2};Counts",200,-0.5,2.0);
 
-  h2WvsQ2                 = new TH2F("WvsQ2","Q2 vs W;Q2;W",480,0.0,1.0,90,2.0,3.0);
-  h2tvsph_q               = new TH2F("tvsph_q",";#phi;t",12,-3.14,3.14,16,0.0,0.3);
+  h2WvsQ2                 = new TH2F("WvsQ2","Q2 vs W;Q2;W",480,0.0,7.0,90,0.0,4.0);
+  // h2WvsQ2                 = new TH2F("WvsQ2","Q2 vs W;Q2;W",480,2.0,4.0,200,2.0,3.0);//Q3,w2.32
+  // h2WvsQ2                 = new TH2F("WvsQ2","Q2 vs W;Q2;W",480,1.5,3.0,200,2.5,3.5);//Q2.1,w2.95
+  // h2tvsph_q               = new TH2F("tvsph_q",";#phi;t",12,-3.14,3.14,16,0.0,0.3);
+  h2tvsph_q               = new TH2F("tvsph_q",";#phi;t",12,-3.14,3.14,16,0.0,2.0);
   h1epsilon               = new TH1F("epsilon","Plot of Epsilon;#epsilon;Counts",100,0.0,1.0);
 
   h1EDTM                  = new TH1F("EDTM","EDTM Time;EDTM TDC Time;Counts",10000,-5000,5000);
@@ -207,7 +213,7 @@ void KaonYield::SlaveBegin(TTree * /*tree*/)
   GetOutputList()->Add(h3SHMS_HGC);
 }
 
-Bool_t KaonYield::Process(Long64_t entry)
+Bool_t KaonYield_dechigh::Process(Long64_t entry)
 {
   // The Process() function is called for each entry in the tree (or possibly
   // keyed object in the case of PROOF) to be processed. The entry argument
@@ -230,7 +236,7 @@ Bool_t KaonYield::Process(Long64_t entry)
   //if (*fEvtType != 4) return kTRUE;
 
   h1EDTM->Fill(*pEDTM);
-  //h1TRIG5->Fill(*pTRIG5);
+  // h1TRIG5->Fill(Q2[0]);
   
   h2HMS_electron->Fill(H_cal_etotnorm[0],H_cer_npeSum[0]);
   h1SHMS_electron->Fill(P_cal_etotnorm[0]);
@@ -281,36 +287,82 @@ Bool_t KaonYield::Process(Long64_t entry)
   h1HMS_ph_cut->Fill(H_gtr_ph[0]);
 
   /*if (P_hgcer_xAtCer[0] < 10.0) return kTRUE;*/
+
   ///////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  /*if (P_hgcer_xAtCer[0] < 10.0) return kTRUE;*/
+  //if (P_aero_npeSum[0] > 1.5 && P_hgcer_npeSum[0] < 0.5) { //Event identified as Kaon
   if (P_aero_npeSum[0] > 1.5 && P_hgcer_npeSum[0] < 1.5) { //Event identified as Kaon
-    h2ROC1_Coin_Beta_noID_kaon->Fill((CTime_eKCoinTime_ROC1[0] - 43),P_gtr_beta[0]); 
-    // h2ROC1_Coin_pion_kaon_noID->Fill((CTime_eKCoinTime_ROC1[0] - 43),P_gtr_beta[0]); 
-
+    //if (sqrt(pow(emiss[0],2)-pow(pmiss[0],2)) > 1.05 && sqrt(pow(emiss[0],2)-pow(pmiss[0],2)) < 1.15) { //Event identified as Kaon
+    
+    h2ROC1_Coin_Beta_noID_kaon->Fill((CTime_eKCoinTime_ROC1[0] - 47.5),P_gtr_beta[0]); 
+    //    h2ROC1_Coin_Beta_noID_kaon->Fill((CTime_eKCoinTime_ROC1[0] - 44.5),P_gtr_beta[0]); 
+    
     if (abs(P_gtr_beta[0]-1.00) > 0.1) return kTRUE;
+    
+    h1missKcut_CT->Fill( CTime_eKCoinTime_ROC1[0] - 47.5, sqrt(pow(emiss[0],2)-pow(pmiss[0],2))); 
+    // h2XY->Fill(CTime_eKCoinTime_ROC1[0]-48.0,P_hgcer_xAtCer[0]);
+    //    if (abs((CTime_eKCoinTime_ROC1[0] - 47.5)) < 1.25) {
+    //if ( (CTime_eKCoinTime_ROC1[0] - 47.5) > -0.5 &&  (CTime_eKCoinTime_ROC1[0] - 47.5) < 0.95) {
+    //if ( (CTime_eKCoinTime_ROC1[0] - 47.5) > -0.4 &&  (CTime_eKCoinTime_ROC1[0] - 47.5) < 1.05) {
+    // if ( (CTime_eKCoinTime_ROC1[0] - 47.5) > -0.5 &&  (CTime_eKCoinTime_ROC1[0] - 47.5) < 1.05) {//
+    if ( (CTime_eKCoinTime_ROC1[0] - 47.5) > 0.0 &&  (CTime_eKCoinTime_ROC1[0] - 47.5) < 1.5) {//
+      // h2missdelta->Fill(P_gtr_dp[0],sqrt(pow(emiss[0],2)-pow(pmiss[0],2)));
+      // h2missbeta->Fill(P_gtr_beta[0],sqrt(pow(emiss[0],2)-pow(pmiss[0],2)));
 
-    h1missKcut_CT->Fill( CTime_eKCoinTime_ROC1[0] - 43, sqrt(pow(emiss[0],2)-pow(pmiss[0],2)));
-
-    // if ( abs((CTime_eKCoinTime_ROC1[0] - 43)) < 1.) {
-    if ( (CTime_eKCoinTime_ROC1[0] - 43) > -1. && (CTime_eKCoinTime_ROC1[0] - 43) < 1.) {
-      h2ROC1_Coin_Beta_kaon->Fill((CTime_eKCoinTime_ROC1[0] - 43),P_gtr_beta[0]);
+      h2ROC1_Coin_Beta_kaon->Fill((CTime_eKCoinTime_ROC1[0] - 47.5),P_gtr_beta[0]);
       h2SHMSK_kaon_cut->Fill(P_aero_npeSum[0],P_hgcer_npeSum[0]);
       h2SHMSK_pion_cut->Fill(P_cal_etotnorm[0],P_hgcer_npeSum[0]);
+      // SHMS_HGC_kaon->Fill(P_hgcer_npeSum[0]);
+
       h1mmissK_cut->Fill(sqrt(pow(emiss[0],2)-pow(pmiss[0],2)));
 
       h2WvsQ2->Fill(Q2[0],W[0]);
       h2tvsph_q->Fill(ph_q[0],-MandelT[0]);
       h1epsilon->Fill(epsilon[0]);
+      
     }
-
-
-    // if ((((CTime_eKCoinTime_ROC1[0] - 43) > -6.0 && (CTime_eKCoinTime_ROC1[0] - 43) < -3.0)) ||
-    // 	(((CTime_eKCoinTime_ROC1[0] - 43) > 1.5 && (CTime_eKCoinTime_ROC1[0] - 43) < 4.5))) {
-    if ((((CTime_eKCoinTime_ROC1[0] - 43) > -21.0 && (CTime_eKCoinTime_ROC1[0] - 43) < -9.0))) {
+ 
+    // if ((abs((CTime_eKCoinTime_ROC1[0] - 47.5)) > -32.0 && abs((CTime_eKCoinTime_ROC1[0] - 47.5)) < -18.0)
+	// || (abs((CTime_eKCoinTime_ROC1[0] - 47.5)) > 14.0 && abs((CTime_eKCoinTime_ROC1[0] - 47.5)) < 28.0) 
+    if ((abs((CTime_eKCoinTime_ROC1[0] - 47.5)) > -24.0 && abs((CTime_eKCoinTime_ROC1[0] - 47.5)) < -18.0)
+	|| (abs((CTime_eKCoinTime_ROC1[0] - 47.5)) > 14.0 && abs((CTime_eKCoinTime_ROC1[0] - 47.5)) < 20.0) 
+	) {
       h1mmissK_rand->Fill(sqrt(pow(emiss[0],2)-pow(pmiss[0],2)));
-      h1mmissK_remove->Fill(sqrt(pow(emiss[0],2)-pow(pmiss[0],2)));
+      //h1mmissK_remove->Fill(sqrt(pow(emiss[0],2)-pow(pmiss[0],2)));
     }
-
   }
+
+  ///////////////////////////////////////////////////////////////////////////HERE
+
+  // if (P_aero_npeSum[0] > 1.5 && P_hgcer_npeSum[0] < 1.5) { //Event identified as Kaon
+  //   h2ROC1_Coin_Beta_noID_kaon->Fill((CTime_eKCoinTime_ROC1[0] - 44),P_gtr_beta[0]); 
+
+  //   // if (abs(P_gtr_beta[0]-1.00) > 0.1) return kTRUE;
+  //   if (abs(P_gtr_beta[0]-1.00) > 0.15) return kTRUE;
+
+  //   h1missKcut_CT->Fill( CTime_eKCoinTime_ROC1[0] - 44, sqrt(pow(emiss[0],2)-pow(pmiss[0],2)));
+  
+  //   if (abs((CTime_eKCoinTime_ROC1[0] - 44)) < 2.5) {
+  //   // if ((CTime_eKCoinTime_ROC1[0] - 44) > -1.0 && (CTime_eKCoinTime_ROC1[0] - 44) < 2.0) {
+  //     h2ROC1_Coin_Beta_kaon->Fill((CTime_eKCoinTime_ROC1[0] - 44),P_gtr_beta[0]);
+  //     h2SHMSK_kaon_cut->Fill(P_aero_npeSum[0],P_hgcer_npeSum[0]);
+  //     h2SHMSK_pion_cut->Fill(P_cal_etotnorm[0],P_hgcer_npeSum[0]);
+  //     h1mmissK_cut->Fill(sqrt(pow(emiss[0],2)-pow(pmiss[0],2)));
+
+  //     h2WvsQ2->Fill(Q2[0],W[0]);
+  //     h2tvsph_q->Fill(ph_q[0],-MandelT[0]);
+  //     h1epsilon->Fill(epsilon[0]);
+  //   }
+
+  //   if ((CTime_eKCoinTime_ROC1[0] - 44) > 10.5 && (CTime_eKCoinTime_ROC1[0] - 44) < 31.5) {
+  //   // if ((((CTime_eKCoinTime_ROC1[0] - 44) > -21.0 && (CTime_eKCoinTime_ROC1[0] - 44) < -9.0))) {
+  //     h1mmissK_rand->Fill(sqrt(pow(emiss[0],2)-pow(pmiss[0],2)));
+  //     //h1mmissK_remove->Fill(sqrt(pow(emiss[0],2)-pow(pmiss[0],2)));
+  //   }
+  // }
+
+  ///////////////////////////////////////////////////////////////////////////HERE
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
   // if (P_aero_npeSum[0] > 1.5 && P_hgcer_npeSum[0] < 0.5) { //Event identified as Kaon
@@ -386,7 +438,7 @@ Bool_t KaonYield::Process(Long64_t entry)
   return kTRUE;
 }
 
-void KaonYield::SlaveTerminate()
+void KaonYield_dechigh::SlaveTerminate()
 {
   // The SlaveTerminate() function is called after all entries or objects
   // have been processed. When running with PROOF SlaveTerminate() is called
@@ -394,7 +446,7 @@ void KaonYield::SlaveTerminate()
 
 }
 
-void KaonYield::Terminate()
+void KaonYield_dechigh::Terminate()
 {
 
   Info("Terminate", "Outputting Good Kaon Selection");
@@ -410,8 +462,8 @@ void KaonYield::Terminate()
 
 
   //Perform Random Subtraction
-  //h1mmissK_rand->Scale(0.725/7.0);
-  h1mmissK_rand->Scale(1./12);
+  // h1mmissK_rand->Scale(1.0/14.0);
+  h1mmissK_rand->Scale(1./6);
   // h1mmisspiK_rand->Scale(1./3.);//
   h1mmisspi_rand->Scale(1.25/7.0);
   h1mmissp_rand->Scale(1.25/7.0);
@@ -421,36 +473,37 @@ void KaonYield::Terminate()
   h1mmissp_remove->Add(h1mmissp_cut,h1mmissp_rand,1,-1);
 
   //Perform Background Subtraction
-  /*TF1 *Back_Fit = new TF1("Back_Fit","[0]*exp(-0.5*((x-[1])/[2])*((x-[1])/[2]))",1.3,1.8);
+  /*TF1 *Back_Fit = new TF1("Back_Fit","[0]*exp(-0.5*((x-[1])/[2])*((x-[1])/[2]))",1.3,1.4);
   Back_Fit->SetParName(0,"Amplitude");
   Back_Fit->SetParName(1,"Mean");
   Back_Fit->SetParName(2,"Sigma");
   Back_Fit->SetParLimits(0,0.0,10000.0);
-  Back_Fit->SetParLimits(1,1.3,1.8);
+  Back_Fit->SetParLimits(1,1.3,1.4);
   Back_Fit->SetParLimits(2,0.0,1.0);
   Back_Fit->SetParameter(0,20);
   Back_Fit->SetParameter(1,1.44);
   Back_Fit->SetParameter(2,0.16);*/
   
-  //TF1 *Back_Fit = new TF1("Back_Fit","[A] + [B]*x + [C]*pow(x,2)",1.07,1.15);
-  TF1 *Back_Fit = new TF1("Back_Fit","[A] + [B]*x",1.05,1.18);
-  //Back_Fit->FixParameter(1,0);
+   //TF1 *Back_Fit = new TF1("Back_Fit","[A] + [B]*x + [C]*pow(x,2)",1.07,1.15);
+  TF1 *Back_Fit = new TF1("Back_Fit","[A] + [B]*x",1.07,1.15);
+  // Back_Fit->FixParameter(1,0.);
   h1mmissK_remove->Fit("Back_Fit","RMQN");
   
+  //->Blue
   //TF1 *GausBack = new TF1("GausBack","[Constant]*exp(-0.5*((x-[Mean])/[Sigma])*((x-[Mean])/[Sigma])) + [A] + [B]*x + [C]*pow(x,2)",1.07,1.15);
-  TF1 *GausBack = new TF1("GausBack","[Constant]*exp(-0.5*((x-[Mean])/[Sigma])*((x-[Mean])/[Sigma])) + [A] + [B]*x",1.05,1.18);
+  TF1 *GausBack = new TF1("GausBack","[Constant]*exp(-0.5*((x-[Mean])/[Sigma])*((x-[Mean])/[Sigma])) + [A] + [B]*x",1.07,1.15);
   //TF1 *GausBack = new TF1("GausBack","[0]*TMath::Landau(x,[1],[2]) + [A] + [B]*x",1.05,1.18);
+  GausBack->SetParLimits(2,0,5000);
+  GausBack->SetParLimits(3,1.105,1.13);
+  GausBack->SetParLimits(4,0.001,0.1);
   GausBack->FixParameter(0,Back_Fit->GetParameter(0));
   GausBack->FixParameter(1,Back_Fit->GetParameter(1));  
   GausBack->SetParameter(2,500);
-  GausBack->SetParameter(3,1.12);
-  GausBack->SetParameter(4,0.004);
-  GausBack->SetParLimits(2,0,5000);
-  GausBack->SetParLimits(3,1.10,1.13);
-  GausBack->SetParLimits(4,0.001,0.01);
+  GausBack->SetParameter(3,1.115);
+  GausBack->SetParameter(4,0.008);
   h1mmissK_remove->Fit("GausBack","RMQN");
 
-  TF1 *Gauss_Fit = new TF1("Gauss_Fit","[Constant]*exp(-0.5*((x-[Mean])/[Sigma])*((x-[Mean])/[Sigma]))",1.0,1.2);
+  TF1 *Gauss_Fit = new TF1("Gauss_Fit","[Constant]*exp(-0.5*((x-[Mean])/[Sigma])*((x-[Mean])/[Sigma]))",1.0,1.25);
   //TF1 *Gauss_Fit = new TF1("Gauss_Fit","[0]*TMath::Landau(x,[1],[2])",1.0,1.2);
   Gauss_Fit->FixParameter(0,GausBack->GetParameter(2));
   Gauss_Fit->FixParameter(1,GausBack->GetParameter(3));
@@ -460,19 +513,20 @@ void KaonYield::Terminate()
   h1mmissK_noback->Add(Back_Fit,-1);
 
   //Fit the Lambda Missing Mass
-  TF1 *Lambda_Fit = new TF1("Lambda_Fit","[0]*exp(-0.5*((x-[1])/[2])*((x-[1])/[2]))",1.105,1.15);
+  TF1 *Lambda_Fit = new TF1("Lambda_Fit","[0]*exp(-0.5*((x-[1])/[2])*((x-[1])/[2]))",1.095,1.145);
   // TF1 *Lambda_Fit = new TF1("Lambda_Fit","[0]*TMath::Landau(x,[1],[2])",1.105,1.15);
   Lambda_Fit->SetParName(0,"Amplitude");
   Lambda_Fit->SetParName(1,"Mean");
   Lambda_Fit->SetParName(2,"Sigma");
   Lambda_Fit->SetParLimits(0,0.0,10000.0);
-  Lambda_Fit->SetParLimits(1,1.10,1.15);
+  Lambda_Fit->SetParLimits(1,1.105,1.13);
   Lambda_Fit->SetParLimits(2,0.0,0.1);
   Lambda_Fit->SetParameter(0,100);
-  Lambda_Fit->SetParameter(1,1.1075);
-  Lambda_Fit->SetParameter(2,0.011);
+  Lambda_Fit->SetParameter(1,1.115);
+  Lambda_Fit->SetParameter(2,0.008);
   h1mmissK_remove->Fit("Lambda_Fit","RMQN");
 
+  //->Green
   TF1 *Lambda_Fit_Full = new TF1("Lambda_Fit_Full","[0]*exp(-0.5*((x-[1])/[2])*((x-[1])/[2]))",1.0,1.25);
   // TF1 *Lambda_Fit_Full = new TF1("Lambda_Fit_Full","[0]*TMath::Landau(x,[1],[2])",1.0,1.25);
   Lambda_Fit_Full->SetParName(0,"Amplitude");
@@ -481,6 +535,54 @@ void KaonYield::Terminate()
   Lambda_Fit_Full->SetParameter(0,Lambda_Fit->GetParameter(0));
   Lambda_Fit_Full->SetParameter(1,Lambda_Fit->GetParameter(1));
   Lambda_Fit_Full->SetParameter(2,Lambda_Fit->GetParameter(2));
+
+  ///////////////////////////////////////////////////////////////////////////HERE
+
+  // TF1 *Back_Fit = new TF1("Back_Fit","[A] + [B]*x",1.0,1.4);
+  // Back_Fit->FixParameter(1,0);
+  // h1mmissK_remove->Fit("Back_Fit","RMQN");
+  
+  // TF1 *GausBack = new TF1("GausBack","[Constant]*exp(-0.5*((x-[Mean])/[Sigma])*((x-[Mean])/[Sigma])) + [A] + [B]*x",1.0,1.4);
+  // GausBack->FixParameter(0,Back_Fit->GetParameter(0));
+  // GausBack->FixParameter(1,Back_Fit->GetParameter(1));  
+  // GausBack->SetParameter(2,500);
+  // GausBack->SetParameter(3,1.105);
+  // GausBack->SetParameter(4,0.015);
+  // GausBack->SetParLimits(2,0,5000);
+  // GausBack->SetParLimits(3,1.08,1.12);
+  // GausBack->SetParLimits(4,0.01,0.1);
+  // h1mmissK_remove->Fit("GausBack","RMQN");
+
+  // TF1 *Gauss_Fit = new TF1("Gauss_Fit","[Constant]*exp(-0.5*((x-[Mean])/[Sigma])*((x-[Mean])/[Sigma]))",1.0,1.4);
+  // Gauss_Fit->FixParameter(0,GausBack->GetParameter(2));
+  // Gauss_Fit->FixParameter(1,GausBack->GetParameter(3));
+  // Gauss_Fit->FixParameter(2,GausBack->GetParameter(4));
+
+  // TH1F *h1mmissK_noback = (TH1F*) h1mmissK_remove->Clone();
+  // h1mmissK_noback->Add(Back_Fit,-1);
+
+  // //Fit the Lambda Missing Mass
+  // TF1 *Lambda_Fit = new TF1("Lambda_Fit","[0]*exp(-0.5*((x-[1])/[2])*((x-[1])/[2]))",1.10,1.15);
+  // Lambda_Fit->SetParName(0,"Amplitude");
+  // Lambda_Fit->SetParName(1,"Mean");
+  // Lambda_Fit->SetParName(2,"Sigma");
+  // Lambda_Fit->SetParLimits(0,0.0,10000.0);
+  // Lambda_Fit->SetParLimits(1,1.10,1.15);
+  // Lambda_Fit->SetParLimits(2,0.0,0.1);
+  // Lambda_Fit->SetParameter(0,100);
+  // Lambda_Fit->SetParameter(1,1.1075);
+  // Lambda_Fit->SetParameter(2,0.011);
+  // h1mmissK_remove->Fit("Lambda_Fit","RMQN");
+  // TF1 *Lambda_Fit_Full = new TF1("Lambda_Fit_Full","[0]*exp(-0.5*((x-[1])/[2])*((x-[1])/[2]))",1.0,1.25);
+  // Lambda_Fit_Full->SetParName(0,"Amplitude");
+  // Lambda_Fit_Full->SetParName(1,"Mean");
+  // Lambda_Fit_Full->SetParName(2,"Sigma");
+  // Lambda_Fit_Full->SetParameter(0,Lambda_Fit->GetParameter(0));
+  // Lambda_Fit_Full->SetParameter(1,Lambda_Fit->GetParameter(1));
+  // Lambda_Fit_Full->SetParameter(2,Lambda_Fit->GetParameter(2));
+
+
+  ///////////////////////////////////////////////////////////////////////////HERE
 
   /*
   //Start of Canvas Painting
@@ -493,8 +595,12 @@ void KaonYield::Terminate()
   SHMS_HGC_proton->Draw("same");
   */
   //Int_t current = 35;
-  TString foutname = Form("../OUTPUT/Kinematics_Run%i",option.Atoi());
-  // TString foutname = "../OUTPUT/Kinematics_1uA_allPlots";
+  // TString foutname = Form("../OUTPUT/Kinematics_Run%i",option.Atoi());
+  TString foutname = "../OUTPUT/Kinematics_1uA_allPlots";
+
+  TString outputpng = foutname + ".png";
+
+  TString outputpng_coin = foutname + "_coin.png";
 
   TString outputpdf = foutname + ".pdf";
   
@@ -510,17 +616,17 @@ void KaonYield::Terminate()
   cCuts->cd(8); h1SHMS_electron_cut->Draw();
   cCuts->Print(outputpdf + '(');
 
-  // TCanvas *cAngles = new TCanvas("Angles","Summary of Angular Cuts");
-  // cAngles->Divide(2,4);
-  // cAngles->cd(1); h1HMS_th->Draw();
-  // cAngles->cd(2); h1HMS_th_cut->Draw();
-  // cAngles->cd(3); h1HMS_ph->Draw();
-  // cAngles->cd(4); h1HMS_ph_cut->Draw();
-  // cAngles->cd(5); h1SHMS_th->Draw();
-  // cAngles->cd(6); h1SHMS_th_cut->Draw();
-  // cAngles->cd(7); h1SHMS_ph->Draw();
-  // cAngles->cd(8); h1SHMS_ph_cut->Draw();
-  // cAngles->Print(outputpdf);
+  TCanvas *cAngles = new TCanvas("Angles","Summary of Angular Cuts");
+  cAngles->Divide(2,4);
+  cAngles->cd(1); h1HMS_th->Draw();
+  cAngles->cd(2); h1HMS_th_cut->Draw();
+  cAngles->cd(3); h1HMS_ph->Draw();
+  cAngles->cd(4); h1HMS_ph_cut->Draw();
+  cAngles->cd(5); h1SHMS_th->Draw();
+  cAngles->cd(6); h1SHMS_th_cut->Draw();
+  cAngles->cd(7); h1SHMS_ph->Draw();
+  cAngles->cd(8); h1SHMS_ph_cut->Draw();
+  cAngles->Print(outputpdf);
 
   /*
   TCanvas *cRand = new TCanvas("Rand","Summary of Random Correction");
@@ -559,25 +665,25 @@ void KaonYield::Terminate()
   // LowerRand->SetLineColor(kRed); LowerRand->SetLineWidth(1); LowerRand->Draw();
   // TLine *UpperRand = new TLine(22.0,gPad->GetUymin(),22.0,gPad->GetUymax()); 
   // UpperRand->SetLineColor(kRed); UpperRand->SetLineWidth(1); UpperRand->Draw();
-  TLine *LowerRand = new TLine(-21.0,gPad->GetUymin(),-21.0,gPad->GetUymax()); 
+  TLine *LowerRand = new TLine(-24.0,gPad->GetUymin(),-24.0,gPad->GetUymax()); 
   LowerRand->SetLineColor(kRed); LowerRand->SetLineWidth(1); LowerRand->Draw();
-  TLine *UpperRand = new TLine(-9.0,gPad->GetUymin(),-9.0,gPad->GetUymax()); 
+  TLine *UpperRand = new TLine(-18.0,gPad->GetUymin(),-18.0,gPad->GetUymax()); 
   UpperRand->SetLineColor(kRed); UpperRand->SetLineWidth(1); UpperRand->Draw();
-  // TLine *LowerRand1 = new TLine(8.0,gPad->GetUymin(),8.0,gPad->GetUymax()); 
-  // LowerRand1->SetLineColor(kRed); LowerRand1->SetLineWidth(1); LowerRand1->Draw();
-  // TLine *UpperRand1 = new TLine(22.0,gPad->GetUymin(),22.0,gPad->GetUymax()); 
-  // UpperRand1->SetLineColor(kRed); UpperRand1->SetLineWidth(1); UpperRand1->Draw();
+  TLine *LowerRand1 = new TLine(14.0,gPad->GetUymin(),14.0,gPad->GetUymax()); 
+  LowerRand1->SetLineColor(kRed); LowerRand1->SetLineWidth(1); LowerRand1->Draw();
+  TLine *UpperRand1 = new TLine(20.0,gPad->GetUymin(),20.0,gPad->GetUymax()); 
+  UpperRand1->SetLineColor(kRed); UpperRand1->SetLineWidth(1); UpperRand1->Draw();
   cID->cd(6); h2ROC1_Coin_Beta_kaon->Draw("Colz");
   cID->cd(7); h1mmissK->Draw();
   cID->cd(8); h1mmissK_remove->Draw("hist");
   cID->Update();
   TLine *LambdaMass = new TLine(1.1156,0,1.1156,gPad->GetUymax()); 
-  LambdaMass->SetLineColor(kBlack); LambdaMass->SetLineWidth(1); LambdaMass->SetLineStyle(2);
+  LambdaMass->SetLineColor(kBlack); LambdaMass->SetLineWidth(1);
   LambdaMass->Draw();
-  Lambda_Fit->SetLineColor(kBlack); Lambda_Fit->SetLineWidth(3);
+  Lambda_Fit->SetLineColor(kGreen); Lambda_Fit->SetLineWidth(1);
   Lambda_Fit->Draw("same");
   Lambda_Fit_Full->SetLineColor(kGreen); Lambda_Fit_Full->SetLineWidth(1);
-  Lambda_Fit_Full->Draw("same");
+  // Lambda_Fit_Full->Draw("same");
   //Lambda_Fit_Full->Draw("same");
   Back_Fit->SetLineColor(kRed); Back_Fit->SetLineWidth(1);
   Back_Fit->DrawClone("same");
@@ -613,8 +719,8 @@ void KaonYield::Terminate()
   // Neutron_Fit->FixParameter(1,0.93957);
   // Neutron_Fit->SetParameter(2,0.011);
   // h1mmisspi_remove->Fit("Neutron_Fit","RMQ");
-  // Neutron_Fit->Draw("same");
-  
+  // Neutron_Fit->Draw("same"); 
+
   // TCanvas *cpID = new TCanvas("pID","Summary of Proton Particle ID Cuts");
   // cpID->Divide(2,4);
   // cpID->cd(1); h2SHMSp_kaon->Draw("Colz");
@@ -640,6 +746,7 @@ void KaonYield::Terminate()
   h1mmissK_remove->Draw();
   cCoinTime->cd(4);
   h1missKcut_CT->Draw("COLZ");
+  cCoinTime->Print(outputpng_coin);
   cCoinTime->Print(outputpdf);
 
   ///////////////////////////////////////////////
@@ -670,12 +777,11 @@ void KaonYield::Terminate()
   cKine->Divide(2,2);
   cKine->cd(1); h2WvsQ2->Draw("Colz"); 
   h2WvsQ2->SetTitleOffset(1.0,"Y");
-  cKine->cd(3); h2tvsph_q->Draw("SURF1 POL");
+  cKine->cd(3); h2tvsph_q->Draw("SURF2 POL");
+  // cKine->cd(3); h2tvsph_q->Draw("SURF2");
   gPad->SetTheta(90); gPad->SetPhi(180);
   TPaveText *tvsphi_title = new TPaveText(0.0277092,0.89779,0.096428,0.991854,"NDC");
   tvsphi_title->AddText("t vs #phi"); tvsphi_title->Draw();
-  TLine *phizero = new TLine(0,0,1,0); 
-  phizero->SetLineColor(kBlack); phizero->SetLineWidth(2); phizero->Draw();  
   TPaveText *ptphizero = new TPaveText(0.923951,0.513932,0.993778,0.574551,"NDC");
   ptphizero->AddText("#phi = 0"); ptphizero->Draw();
   TLine *phihalfpi = new TLine(0,0,0,1); 
@@ -690,25 +796,49 @@ void KaonYield::Terminate()
   phithreepi->SetLineColor(kBlack); phithreepi->SetLineWidth(2); phithreepi->Draw();  
   TPaveText *ptphithreepi = new TPaveText(0.419517,0.00514928,0.487128,0.0996315,"NDC");
   ptphithreepi->AddText("#phi = #frac{3#pi}{2}"); ptphithreepi->Draw();
+  TArc *arc1 = new TArc();
+  arc1->SetFillStyle(0); arc1->SetLineWidth(2);arc1->DrawArc(0,0,0.575/(10),0.,360.,"same");
+  TArc *arc2 = new TArc();
+  arc2->SetFillStyle(0); arc2->SetLineWidth(2);arc2->DrawArc(0,0,0.575*2/(10),0.,360.,"same");
+  TArc *arc3 = new TArc();
+  arc3->SetFillStyle(0); arc3->SetLineWidth(2);arc3->DrawArc(0,0,0.575*3/(10),0.,360.,"same");
+  TArc *arc4 = new TArc();
+  arc4->SetFillStyle(0); arc4->SetLineWidth(2);arc4->DrawArc(0,0,0.575*4/(10),0.,360.,"same");
+  TArc *arc5 = new TArc();
+  arc5->SetFillStyle(0); arc5->SetLineWidth(2);arc5->DrawArc(0,0,0.575*5/(10),0.,360.,"same");
+  TArc *arc6 = new TArc();
+  arc6->SetFillStyle(0); arc6->SetLineWidth(2);arc6->DrawArc(0,0,0.575*6/(10),0.,360.,"same");
+  TArc *arc7 = new TArc();
+  arc7->SetFillStyle(0); arc7->SetLineWidth(2);arc7->DrawArc(0,0,0.575*7/(10),0.,360.,"same");
+  TArc *arc8 = new TArc();
+  arc8->SetFillStyle(0); arc8->SetLineWidth(2);arc8->DrawArc(0,0,0.575*8/(10),0.,360.,"same");
+  TArc *arc9 = new TArc();
+  arc9->SetFillStyle(0); arc9->SetLineWidth(2);arc9->DrawArc(0,0,0.575*9/(10),0.,360.,"same");
+  TArc *arc10 = new TArc();
+  arc10->SetFillStyle(0); arc10->SetLineWidth(2);arc10->DrawArc(0,0,0.575*10/(10),0.,360.,"same");
+  TGaxis *tradius = new TGaxis(0,0,0.575,0,0,2,10,"-+");
+  tradius->SetLineColor(2);tradius->SetLabelColor(2);tradius->Draw();
+  TLine *phizero = new TLine(0,0,1,0); 
+  phizero->SetLineColor(kBlack); phizero->SetLineWidth(2); phizero->Draw(); 
   cKine->cd(2); h1epsilon->Draw();
   h1epsilon->SetTitleOffset(1.0,"Y");
   cKine->cd(4); h1mmissK_remove->Draw("hist"); 
   Lambda_Fit_Full->SetLineColor(kGreen); Lambda_Fit_Full->SetLineWidth(2);
-  //Lambda_Fit_Full->Draw("same"); 
+  // Lambda_Fit_Full->Draw("same"); 
   Gauss_Fit->SetLineColor(kBlack); Gauss_Fit->SetLineWidth(1);
   Gauss_Fit->DrawClone("same"); 
   cKine->Update();
   h1mmissK_remove->SetTitleOffset(1.0,"Y"); /*h1mmissK_remove->SetAxisRange(1.0,1.25,"X");*/// h1mmissK_remove->SetAxisRange(0.0,gPad->GetUymax(),"Y");
   cKine->Update();
   TLine *LambdaMass_Full = new TLine(1.1156,gPad->GetUymin(),1.1156,gPad->GetUymax()); 
-  LambdaMass_Full->SetLineColor(kBlack); LambdaMass_Full->SetLineWidth(3); LambdaMass_Full->SetLineStyle(2);
+  LambdaMass_Full->SetLineColor(kRed); LambdaMass_Full->SetLineWidth(2);
   LambdaMass_Full->Draw();
   TPaveText *ptLambdaEvt = new TPaveText(0.58934,0.715354,0.80000,0.81576,"NDC");
   //ptLambdaEvt->AddText(Form("# of #Lambda Events: %.0f",200*Lambda_Fit_Full->Integral(1.0,1.25))); ptLambdaEvt->Draw();
   //ptLambdaEvt->AddText(Form("# of #Lambda Events: %.0f",h1mmissK_remove->Integral(h1mmissK_remove->GetXaxis()->FindBin(1.06),h1mmissK_remove->GetXaxis()->FindBin(1.16)) - (Back_Fit->Integral(1.06,1.16) / 0.005))); ptLambdaEvt->Draw();
   //ptLambdaEvt->AddText(Form("Run: %i",option.Atoi()));
   //ptLambdaEvt->AddText(Form("Current: %i uA",current));
-  ptLambdaEvt->AddText(Form("Run Number: %i",option.Atoi()));
+  // ptLambdaEvt->AddText(Form("Current: %i uA",option.Atoi()));
   //ptLambdaEvt->AddText(Form("binlo: %.0d", h1mmissK_remove->GetXaxis()->FindBin(.89)));
   //ptLambdaEvt->AddText(Form("binhi: %.0d", h1mmissK_remove->GetXaxis()->FindBin(.93)));
   // ptLambdaEvt->AddText(Form("hsum: %.0f", h1mmissK_remove->Integral(1,199)));
@@ -722,7 +852,7 @@ void KaonYield::Terminate()
   //Start output of .root file with all histograms
   
   // Save TCanvas
-  // cKine->Print(Form("../OUTPUT/Kinematics_Run%i.pdf",option.Atoi()));
+  cKine->Print(outputpng);
   cKine->Print(outputpdf + ')');
 
   TFile *Histogram_file = new TFile(Form("../HISTOGRAMS/KaonLT_Run%i.root",option.Atoi()),"RECREATE");

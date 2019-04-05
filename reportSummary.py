@@ -60,12 +60,13 @@ for line in f:
                 fout.write(str(elec_LT))
             else :
                 fout.write(data[0] + ' : ' + data[1])
-COIN_LT = float(COIN_ACC[0]) / float(COIN_RAW[0])
+COIN_LT = 100-(float(COIN_ACC[0]) / float(COIN_RAW[0]))
 fout.write('\nComputer Live Time for COIN Trigger (%): ')
 fout.write(str(COIN_LT))
 f.close()
 
-shms_file = '../REPORT_OUTPUT/SHMS/PRODUCTION/replay_shms_coin_production_%s_50000.report' % (runNo)
+#shms_file = '../REPORT_OUTPUT/SHMS/PRODUCTION/replay_shms_coin_production_%s_50000.report' % (runNo)
+shms_file = '../MON_OUTPUT/REPORT/reportMonitor_shms_%s_50000.txt' % (runNo)
 #print('./REPORT_OUTPUT/COIN/PRODUCTION/output_coin_production_%s_%s.report' % (runNo, evenNo))
 f    = open(shms_file)
 fout.write('\n\n')
