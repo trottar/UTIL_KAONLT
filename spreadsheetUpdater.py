@@ -148,7 +148,7 @@ kin8p2_center1_Values = (
      # qPAC
      0,
      # lambda evnt
-     0,
+     2728,
      # lambda evntPAC
      2500]
 )
@@ -178,7 +178,7 @@ kin8p2_left1_Values = (
      # qPAC
      0,
      # lambda evnt
-     0,
+     4046,
      # lambda evntPAC
      2250]
 )
@@ -212,9 +212,9 @@ kin8p2_center2_Values = (
      0,
 
      # lambda evnt
-     0,
+     7245,
      # lambda evntPAC
-     9000]
+     8200]
 )
 kin8p2DUM_center2 = '6.89'
 kin8p2DUM_center2_Values = (
@@ -243,9 +243,9 @@ kin8p2_left2_Values = (
      # qPAC
      0,
      # lambda evnt
-     0,
+     143,
      # lambda evntPAC
-     6650]
+     6100]
 )
 kin8p2DUM_left2 = '9.89'
 kin8p2DUM_left2_Values = (
@@ -278,7 +278,7 @@ kin8p2_center3_Values = (
      # lambda evnt
      0,
      # lambda evntPAC
-     580]
+     525]
 )
 kin8p2DUM_center3 = '5.90'
 kin8p2DUM_center3_Values = (
@@ -308,7 +308,7 @@ kin8p2_left3_Values = (
      # lambda evnt
      0,
      # lambda evntPAC
-     580]
+     525]
 )
 kin8p2DUM_left3 = '8.48'
 kin8p2DUM_left3_Values = (
@@ -494,7 +494,7 @@ for value in (tmpCurr):
     s2.write_formula('C%s' % (end), '=SUM(C%s:C%s)' % (curNum+l2,end-1) ,bold)
     s2.write('E%s' % (end), current,bold)
     s2.write('G%s' % (end), tPAC,bold)
-    s2.write_formula('I%s' % (end),'=G%s*3600*0.000070*1000' % (end) ,bold)
+    s2.write_formula('I%s' % (end),'=G%s*3600*0.000004*1000' % (end) ,bold)
     s2.write_formula('J%s' % (end), '=C%s/I%s' % (end,end),bold)
     l2 = end+1
     curNum = l1
@@ -630,7 +630,7 @@ for value in (tmpCurr):
     s2.write_formula('C%s' % (end), '=SUM(C%s:C%s)' % (curNum+l2,end-1) ,bold)
     s2.write('E%s' % (end), current,bold)
     s2.write('G%s' % (end), tPAC,bold)
-    s2.write_formula('I%s' % (end),'=G%s*3600*0.000070*1000' % (end) ,bold)
+    s2.write_formula('I%s' % (end),'=G%s*3600*0.000040*1000' % (end) ,bold)
     s2.write_formula('J%s' % (end), '=C%s/I%s' % (end,end),bold)
     l2 = end+1
     curNum = l1
@@ -808,7 +808,7 @@ for value in (tmpCurr):
     s2a.write_formula('C%s' % (end), '=SUM(C%s:C%s)' % (curNum+l2,end-1) ,bold)
     s2a.write('E%s' % (end), current,bold)
     s2a.write('G%s' % (end), tPAC,bold)
-    s2a.write_formula('I%s' % (end),'=G%s*3600*0.000070*1000' % (end) ,bold)
+    s2a.write_formula('I%s' % (end),'=G%s*3600*0.000040*1000' % (end) ,bold)
     s2a.write_formula('J%s' % (end), '=C%s/I%s' % (end,end),bold)
     l2 = end+1
     curNum = l1
@@ -902,7 +902,7 @@ for value in (tmpCurr):
     s2a.write_formula('C%s' % (end), '=SUM(C%s:C%s)' % (curNum+l2,end-1) ,bold)
     s2a.write('E%s' % (end), current,bold)
     s2a.write('G%s' % (end), tPAC,bold)
-    s2a.write_formula('I%s' % (end),'=G%s*3600*0.000070*1000' % (end) ,bold)
+    s2a.write_formula('I%s' % (end),'=G%s*3600*0.000055*1000' % (end) ,bold)
     s2a.write_formula('J%s' % (end), '=C%s/I%s' % (end,end),bold)
     l2 = end+1
     curNum = 1+l1
@@ -966,7 +966,7 @@ for value in (tmpCurr):
     s2a.write_formula('C%s' % (end), '=SUM(C%s:C%s)' % (curNum+l2,end-1) ,bold)
     s2a.write('E%s' % (end), current,bold)
     s2a.write('G%s' % (end), tPAC,bold)
-    s2a.write_formula('I%s' % (end),'=G%s*3600*0.000070*1000' % (end) ,bold)
+    s2a.write_formula('I%s' % (end),'=G%s*3600*0.000040*1000' % (end) ,bold)
     s2a.write_formula('J%s' % (end), '=C%s/I%s' % (end,end),bold)
     l2 = end+1
     curNum = l1
@@ -1078,7 +1078,27 @@ s4.write('A4', '%s deg LH2' % kin8p2_center1)
 print("Looking at current %s uA" % (current))
 # [RunNum,charge]
 newData = (
-    [0,0],
+    [7978, 214.524],
+    [7979, 240.132],
+    [7980, 214.37],
+    [7981, 161.841],
+    [7982, 169.908],
+    [7983, 187.538],
+    [7984, 143.949],
+    [7985, 162.07],
+    [7986, 163.603],
+    [7987, 158.75],
+    [7988, 76.21],
+    [7989, 135.083],
+    [7994, 98.43],
+    [7995, 192.309],
+    [7996, 60.322],
+    [7997, 208.632],
+    [7999, 183.021],
+    [8000, 233.727],
+    [8001, 352.742],
+    [8002, 253.60],
+
 )
 tmpCurr = [current]
 for value in (tmpCurr):
@@ -1141,7 +1161,11 @@ evntPAC = kin8p2DUM_left1_Values[5]
 print("Looking at current %s uA" % (current))
 # [RunNum,charge]
 newData = (
-    [0,0],
+    [7990, 50.669],
+    [7991, 11.696],
+    [7992, 52.025],
+    [7993, 34.495],
+    
 )
 tmpCurr = [current]
 for value in (tmpCurr):
@@ -1159,7 +1183,7 @@ for value in (tmpCurr):
     s4.write_formula('C%s' % (end), '=SUM(C%s:C%s)' % (curNum+l2,end-1) ,bold)
     s4.write('E%s' % (end), current,bold)
     s4.write('G%s' % (end), tPAC,bold)
-    s4.write_formula('I%s' % (end),'=G%s*3600*0.000070*1000' % (end) ,bold)
+    s4.write_formula('I%s' % (end),'=G%s*3600*0.000040*1000' % (end) ,bold)
     s4.write_formula('J%s' % (end), '=C%s/I%s' % (end,end),bold)
     l2 = end+1
     curNum = l1
@@ -1209,7 +1233,40 @@ s4.write('A%s' % (l2), '%s deg LH2' % kin8p2_left1)
 print("Looking at current %s uA" % (current))
 # [RunNum,charge]
 newData = (
-    [0,0],
+    [8003, 180.185],
+    [8004, 159.999],
+    [8005, 235.155],
+    [8006, 228.774],
+    [8007, 218.061],
+    [8008, 225.288],
+    [8009, 228.907],
+    [8010, 243.926],
+    [8011, 217.279],
+    [8012, 220.949],
+    [8013, 241.701],
+    [8014, 193.19],
+    [8015, 193.07],
+    [8016, 172.213],
+    [8018, 111.1],
+    [8020, 223.047],
+    [8021, 176.946],
+    [8022, 235.45],
+    [8023, 235.158],
+    [8024, 233.889],
+    [8025, 218.253],
+    [8026, 79.13],
+    [8027, 157.283],
+    [8028, 211.372],
+    [8029, 240.039],
+    [8030, 235.859],
+    [8031, 187.966],
+    [8032, 210.45],
+    [8033, 219.095],
+    [8034, 231.974],
+    [8035, 189.29],
+    [8036, 215.511],
+    [8037, 140.592],
+    
 )
 tmpCurr = [current]
 for value in (tmpCurr):
@@ -1270,7 +1327,8 @@ evntPAC = kin8p2DUM_center1_Values[5]
 print("Looking at current %s uA" % (current))
 # [RunNum,charge]
 newData = (
-    [0,0],
+    [8017, 136.855],
+    
 )
 tmpCurr = [current]
 for value in (tmpCurr):
@@ -1288,7 +1346,7 @@ for value in (tmpCurr):
     s4.write_formula('C%s' % (end), '=SUM(C%s:C%s)' % (curNum+l2,end-1) ,bold)
     s4.write('E%s' % (end), current,bold)
     s4.write('G%s' % (end), tPAC,bold)
-    s4.write_formula('I%s' % (end),'=G%s*3600*0.000070*1000' % (end) ,bold)
+    s4.write_formula('I%s' % (end),'=G%s*3600*0.000040*1000' % (end) ,bold)
     s4.write_formula('J%s' % (end), '=C%s/I%s' % (end,end),bold)
     l2 = end+1
     curNum = l1
@@ -1367,7 +1425,70 @@ s4a.write('A%s' % (l2+1), '%s deg LH2' % kin8p2_center2)
 print("Looking at current %s uA" % (current))
 # [RunNum,charge]
 newData = (
-    [0,0],
+    [8039, 155.804],
+    [8040, 191.976],
+    [8041, 202.001],
+    [8042, 96.63],
+    [8044, 194.738],
+    [8045, 223.798],
+    [8046, 214.824],
+    [8047, 194.687],
+    [8048, 94.077],
+    [8050, 175.587],
+    [8051, 199.966],
+    [8052, 146.862],
+    [8053, 125.793],
+    [8055, 113.889],
+    [8056, 126.542],
+    [8057, 125.178],
+    [8058, 129.321],
+    [8059, 130.933],
+    [8060, 140.512],
+    [8061, 138.577],
+    [8063, 85.809],
+    [8064, 147.373],
+    [8065, 59.271],
+    [8067, 180.147],
+    [8068, 177.385],
+    [8069, 83.98],
+    [8070, 94.503],
+    [8071, 284.747],
+    [8073, 58.465],
+    [8074, 99.723],
+    [8075, 147.195],
+    [8076, 170.587],
+    [8077, 80.611],
+    [8078, 149.917],
+    [8079, 154.711],
+    [8080, 220.534],
+    [8081, 254.68],
+    [8082, 206.891],
+    [8083, 191.653],
+    [8084, 177.094],
+    [8088, 137.815],
+    [8089, 113.382],
+    [8090, 211.722],
+    [8091, 222.139],
+    [8092, 158.727],
+    [8093, 168.769],
+    [8094, 220.165],
+    [8095, 193.911],
+    [8096, 222.749],
+    [8097, 210.592],
+    [8098, 202.41],
+    [8099, 188.346],
+    [8101, 214.803],
+    [8100, 200.664],
+    [8102, 218.965],
+    [8103, 154.992],
+    [8104, 164.39],
+    [8105, 131.937],
+    [8106, 139.146],
+    [8107, 189.923],
+    [8108, 170.793],
+    [8109, 167.665],
+    [8110, 78.048],
+    
 )
 tmpCurr = [current]
 for value in (tmpCurr):
@@ -1430,7 +1551,10 @@ evntPAC = kin8p2DUM_left1_Values[5]
 print("Looking at current %s uA" % (current))
 # [RunNum,charge]
 newData = (
-    [0,0],
+    [8085, 134.753],
+    [8086, 123.302],
+    [8087, 180.56],
+    
 )
 tmpCurr = [current]
 for value in (tmpCurr):
@@ -1448,7 +1572,7 @@ for value in (tmpCurr):
     s4a.write_formula('C%s' % (end), '=SUM(C%s:C%s)' % (curNum+l2,end-1) ,bold)
     s4a.write('E%s' % (end), current,bold)
     s4a.write('G%s' % (end), tPAC,bold)
-    s4a.write_formula('I%s' % (end),'=G%s*3600*0.000070*1000' % (end) ,bold)
+    s4a.write_formula('I%s' % (end),'=G%s*3600*0.000040*1000' % (end) ,bold)
     s4a.write_formula('J%s' % (end), '=C%s/I%s' % (end,end),bold)
     l2 = end+1
     curNum = l1
@@ -1498,7 +1622,9 @@ s4a.write('A%s' % (l2), '%s deg LH2' % kin8p2_left2)
 print("Looking at current %s uA" % (current))
 # [RunNum,charge]
 newData = (
-    [0,0],
+    [8111, 57.184],
+    [8112, 239.403],
+    
 )
 tmpCurr = [current]
 for value in (tmpCurr):
@@ -1577,7 +1703,7 @@ for value in (tmpCurr):
     s4a.write_formula('C%s' % (end), '=SUM(C%s:C%s)' % (curNum+l2,end-1) ,bold)
     s4a.write('E%s' % (end), current,bold)
     s4a.write('G%s' % (end), tPAC,bold)
-    s4a.write_formula('I%s' % (end),'=G%s*3600*0.000070*1000' % (end) ,bold)
+    s4a.write_formula('I%s' % (end),'=G%s*3600*0.000040*1000' % (end) ,bold)
     s4a.write_formula('J%s' % (end), '=C%s/I%s' % (end,end),bold)
     l2 = end+1
     curNum = l1
@@ -1737,7 +1863,7 @@ for value in (tmpCurr):
     s4b.write_formula('C%s' % (end), '=SUM(C%s:C%s)' % (curNum+l2,end-1) ,bold)
     s4b.write('E%s' % (end), current,bold)
     s4b.write('G%s' % (end), tPAC,bold)
-    s4b.write_formula('I%s' % (end),'=G%s*3600*0.000070*1000' % (end) ,bold)
+    s4b.write_formula('I%s' % (end),'=G%s*3600*0.000040*1000' % (end) ,bold)
     s4b.write_formula('J%s' % (end), '=C%s/I%s' % (end,end),bold)
     l2 = end+1
     curNum = l1
@@ -1866,7 +1992,7 @@ for value in (tmpCurr):
     s4b.write_formula('C%s' % (end), '=SUM(C%s:C%s)' % (curNum+l2,end-1) ,bold)
     s4b.write('E%s' % (end), current,bold)
     s4b.write('G%s' % (end), tPAC,bold)
-    s4b.write_formula('I%s' % (end),'=G%s*3600*0.000070*1000' % (end) ,bold)
+    s4b.write_formula('I%s' % (end),'=G%s*3600*0.000040*1000' % (end) ,bold)
     s4b.write_formula('J%s' % (end), '=C%s/I%s' % (end,end),bold)
     l2 = end+1
     curNum = l1
