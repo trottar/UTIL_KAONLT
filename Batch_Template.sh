@@ -6,15 +6,15 @@
 echo "Starting Kaon Yield Estimation"
 echo "I take as arguments the Run Number and max number of events!"
 RUNNUMBER=$1
-MAXEVENTS=-1
-# MAXEVENTS=50000
+# MAXEVENTS=-1
+MAXEVENTS=50000
 if [[ $1 -eq "" ]]; then
     echo "I need a Run Number!"
     exit 2
 fi
 
 #Initialize enviroment
-#export OSRELEASE="Linux_CentOS7.2.1511-x86_64-gcc5.2.0"
+# export OSRELEASE="Linux_CentOS7.2.1511-x86_64-gcc5.2.0"
 source /site/12gev_phys/softenv.sh 2.1
 
 #Initialize hcana
