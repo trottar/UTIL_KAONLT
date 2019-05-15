@@ -28,7 +28,7 @@ void replay_ADC_HMS(Int_t RunNumber=0, Int_t MaxEvent=0) {
   // Load Global parameters
   // Add variables to global list.
   gHcParms->Define("gen_run_number", "Run Number", RunNumber);
-  gHcParms->AddString("g_ctp_database_filename", "DBASE/HMS/standard.database");
+  gHcParms->AddString("g_ctp_database_filename", "DBASE/COIN/standard.database");
   gHcParms->Load(gHcParms->GetString("g_ctp_database_filename"), RunNumber);
   gHcParms->Load(gHcParms->GetString("g_ctp_parm_filename"));
   gHcParms->Load(gHcParms->GetString("g_ctp_kinematics_filename"), RunNumber);
@@ -40,6 +40,8 @@ void replay_ADC_HMS(Int_t RunNumber=0, Int_t MaxEvent=0) {
   // Load the Hall C detector map
   gHcDetectorMap = new THcDetectorMap();
   gHcDetectorMap->Load("MAPS/HMS/DETEC/STACK/hms_stack.map");
+  // Dec data
+  gHaApps->Add(new Podd::DecData("D","Decoder raw data"));
 
   // Set up the equipment to be analyzed.
   THcHallCSpectrometer* HMS = new THcHallCSpectrometer("H", "HMS");
@@ -144,6 +146,7 @@ void replay_ADC_HMS(Int_t RunNumber=0, Int_t MaxEvent=0) {
   analyzer->SetCountMode(2);  // 0 = counter is # of physics triggers
                               // 1 = counter is # of all decode reads
                               // 2 = counter is event number
+  
   analyzer->SetEvent(event);
   // Set EPICS event type
   analyzer->SetEpicsEvtType(182);

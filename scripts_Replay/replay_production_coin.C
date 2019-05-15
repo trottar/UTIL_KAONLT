@@ -48,7 +48,9 @@ void replay_production_coin (Int_t RunNumber = 0, Int_t MaxEvent = 0) {
   //=:=:=:=
   // SHMS 
   //=:=:=:=
-
+     // Dec data
+   gHaApps->Add(new Podd::DecData("D","Decoder raw data"));
+ 
   // Set up the equipment to be analyzed.
   THcHallCSpectrometer* SHMS = new THcHallCSpectrometer("P", "SHMS");
   SHMS->SetEvtType(1);

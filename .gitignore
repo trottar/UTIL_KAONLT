@@ -1,22 +1,27 @@
-*~
-#*#
-*#
-*.pcm
-*.so
+# File extensions
+*#*#*
 *.d
+*.so
+*.pcm
 *.png
+*.ps
+*.eps
 *.pdf
-*.nfs*
-replay_pid*
-hs_err_pid*
-sjdkay_Job.txt
-*_Job.txt
-AugerID.tmp
-tmp
-batch/tmp
+.nfs*
+*.root
 
 # Directories
+RAID
 REPORT_OUTPUT
 HISTOGRAMS
+MON_OUTPUT
 ROOTfiles
 OUTPUT
+.root_history
+raw
+raw.copiedtotape
+cache
+
+# Symbolic links
+hcana
+scratch
