@@ -45,7 +45,7 @@ while true; do
                 ##Creation of batch script for submission##                                                                                                                                                       
                 echo "PROJECT: c-kaonlt" >> ${batch}
                 echo "TRACK: analysis" >> ${batch} ## Use this track for production running
-                #echo "TRACK: debug" >> ${batch} ### Use this track for testing, higher priority
+                # echo "TRACK: debug" >> ${batch} ### Use this track for testing, higher priority
                 echo "JOBNAME: KaonLT_${runNum}" >> ${batch} ## Change to be more specific if you want
                 # Read the tape stub and check the .dat file size. Request disk space dependening upon this. For trunctuated replays edit the + 25 GB buffer down as needed
 		# Note, unless this is set typically replays will produce broken root files
@@ -54,7 +54,7 @@ while true; do
                 echo "OS: centos7" >> ${batch}
                 echo "CPU: 1" >> ${batch} ### hcana is single core, setting CPU higher will lower priority and gain you nothing!
 		echo "INPUT_FILES: ${tape_file}" >> ${batch}
-                echo "COMMAND:/u/group/c-kaonlt/USERS/${USER}/hallc_replay_kaonlt/UTIL_KAONLT/SCRIPT.sh${runNum}" >> ${batch} ### Insert your script at end!                                            
+                echo "COMMAND:/u/group/c-kaonlt/USERS/${USER}/hallc_replay_kaonlt/UTIL_KAONLT/Batch_Template.sh ${runNum}" >> ${batch} ### Insert your script at end!                                            
                 echo "MAIL: ${USER}@jlab.org" >> ${batch} ## Consider commenting out for large runs unless you enjoy 1k email spam
                 echo "Submitting batch"
                 eval "jsub ${batch} 2>/dev/null"
