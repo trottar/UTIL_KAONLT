@@ -1,0 +1,133 @@
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Run number read from file: 7871
+
+Job 1/1
+Running trotta_Job.txt for 7871
+Submitting batch
+Parsing script ... (it may take while)
+<jsub><request><index>30821122</index><jobIndex>65297795</jobIndex></request></jsub>
+ 
+7871 has an AugerID of 65297795
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 
+###############################################################################################################
+############################################ END OF JOB SUBMISSIONS ###########################################
+###############################################################################################################
+ 
+7871 has an AugerID of 65297795
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+JOB_ID    USER      STAT    QUEUE      EXEC_HOST   JOB_NAME         SUBMIT_TIME   CPU_TIME  WALLTIME  ACCOUNT    
+65297795  trottar     A    priority    --         KaonLT_7871       Mar 25 03:52  --         --         hallc     
+ 
+There is 1 job remaining
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+JOB_ID    USER      STAT    QUEUE      EXEC_HOST   JOB_NAME         SUBMIT_TIME   CPU_TIME  WALLTIME  ACCOUNT    
+65297795  trottar     R    priority    farm160139 KaonLT_7871       Mar 25 03:54  --         --         hallc     
+ 
+There is 1 job remaining
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+JOB_ID    USER      STAT    QUEUE      EXEC_HOST   JOB_NAME         SUBMIT_TIME   CPU_TIME  WALLTIME  ACCOUNT    
+65297795  trottar     R    priority    farm160139 KaonLT_7871       Mar 25 03:54  --         --         hallc     
+ 
+There is 1 job remaining
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+JOB_ID    USER      STAT    QUEUE      EXEC_HOST   JOB_NAME         SUBMIT_TIME   CPU_TIME  WALLTIME  ACCOUNT    
+65297795  trottar     R    priority    farm160139 KaonLT_7871       Mar 25 03:54  00:00:00   00:01:42   hallc     
+ 
+There is 1 job remaining
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+JOB_ID    USER      STAT    QUEUE      EXEC_HOST   JOB_NAME         SUBMIT_TIME   CPU_TIME  WALLTIME  ACCOUNT    
+65297795  trottar     R    priority    farm160139 KaonLT_7871       Mar 25 03:54  00:00:00   00:01:42   hallc     
+ 
+There is 1 job remaining
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+JOB_ID    USER      STAT    QUEUE      EXEC_HOST   JOB_NAME         SUBMIT_TIME   CPU_TIME  WALLTIME  ACCOUNT    
+65297795  trottar     R    priority    farm160139 KaonLT_7871       Mar 25 03:54  00:00:00   00:01:42   hallc     
+ 
+There is 1 job remaining
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+JOB_ID    USER      STAT    QUEUE      EXEC_HOST   JOB_NAME         SUBMIT_TIME   CPU_TIME  WALLTIME  ACCOUNT    
+65297795  trottar     R    priority    farm160139 KaonLT_7871       Mar 25 03:54  00:00:00   00:01:42   hallc     
+ 
+There is 1 job remaining
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+JOB_ID    USER      STAT    QUEUE      EXEC_HOST   JOB_NAME         SUBMIT_TIME   CPU_TIME  WALLTIME  ACCOUNT    
+65297795  trottar     R    priority    farm160139 KaonLT_7871       Mar 25 03:54  00:00:00   00:01:42   hallc     
+ 
+There is 1 job remaining
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+JOB_ID    USER      STAT    QUEUE      EXEC_HOST   JOB_NAME         SUBMIT_TIME   CPU_TIME  WALLTIME  ACCOUNT    
+65297795  trottar     R    priority    farm160139 KaonLT_7871       Mar 25 03:54  00:00:00   00:01:42   hallc     
+ 
+There is 1 job remaining
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+JOB_ID    USER      STAT    QUEUE      EXEC_HOST   JOB_NAME         SUBMIT_TIME   CPU_TIME  WALLTIME  ACCOUNT    
+65297795  trottar     R    priority    farm160139 KaonLT_7871       Mar 25 03:54  00:00:00   00:01:42   hallc     
+ 
+There is 1 job remaining
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+JOB_ID    USER      STAT    QUEUE      EXEC_HOST   JOB_NAME         SUBMIT_TIME   CPU_TIME  WALLTIME  ACCOUNT    
+65297795  trottar     R    priority    farm160139 KaonLT_7871       Mar 25 03:54  00:00:00   00:01:42   hallc     
+ 
+There is 1 job remaining
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+JOB_ID    USER      STAT    QUEUE      EXEC_HOST   JOB_NAME         SUBMIT_TIME   CPU_TIME  WALLTIME  ACCOUNT    
+65297795  trottar     R    priority    farm160139 KaonLT_7871       Mar 25 03:54  00:00:00   00:01:42   hallc     
+ 
+There is 1 job remaining
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+JOB_ID    USER      STAT    QUEUE      EXEC_HOST   JOB_NAME         SUBMIT_TIME   CPU_TIME  WALLTIME  ACCOUNT    
+65297795  trottar     R    priority    farm160139 KaonLT_7871       Mar 25 03:54  00:00:00   00:01:42   hallc     
+ 
+There is 1 job remaining
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+JOB_ID    USER      STAT    QUEUE      EXEC_HOST   JOB_NAME         SUBMIT_TIME   CPU_TIME  WALLTIME  ACCOUNT    
+65297795  trottar     R    priority    farm160139 KaonLT_7871       Mar 25 03:54  00:00:00   00:01:42   hallc     
+ 
+There is 1 job remaining
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+JOB_ID    USER      STAT    QUEUE      EXEC_HOST   JOB_NAME         SUBMIT_TIME   CPU_TIME  WALLTIME  ACCOUNT    
+65297795  trottar     R    priority    farm160139 KaonLT_7871       Mar 25 03:54  00:00:00   00:17:27   hallc     
+ 
+There is 1 job remaining
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+JOB_ID    USER      STAT    QUEUE      EXEC_HOST   JOB_NAME         SUBMIT_TIME   CPU_TIME  WALLTIME  ACCOUNT    
+65297795  trottar     R    priority    farm160139 KaonLT_7871       Mar 25 03:54  00:00:00   00:19:42   hallc     
+ 
+There is 1 job remaining
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+JOB_ID    USER      STAT    QUEUE      EXEC_HOST   JOB_NAME         SUBMIT_TIME   CPU_TIME  WALLTIME  ACCOUNT    
+65297795  trottar     R    priority    farm160139 KaonLT_7871       Mar 25 03:54  00:00:00   00:21:57   hallc     
+ 
+There is 1 job remaining
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+JOB_ID    USER      STAT    QUEUE      EXEC_HOST   JOB_NAME         SUBMIT_TIME   CPU_TIME  WALLTIME  ACCOUNT    
+65297795  trottar     R    priority    farm160139 KaonLT_7871       Mar 25 03:54  00:00:00   00:21:57   hallc     
+ 
+There is 1 job remaining
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+JOB_ID    USER      STAT    QUEUE      EXEC_HOST   JOB_NAME         SUBMIT_TIME   CPU_TIME  WALLTIME  ACCOUNT    
+65297795  trottar     R    priority    farm160139 KaonLT_7871       Mar 25 03:54  00:00:00   00:23:27   hallc     
+ 
+There is 1 job remaining
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+JOB_ID    USER      STAT    QUEUE      EXEC_HOST   JOB_NAME         SUBMIT_TIME   CPU_TIME  WALLTIME  ACCOUNT    
+65297795  trottar     R    priority    farm160139 KaonLT_7871       Mar 25 03:54  00:00:01   00:25:42   hallc     
+ 
+There is 1 job remaining
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+JOB_ID    USER      STAT    QUEUE      EXEC_HOST   JOB_NAME         SUBMIT_TIME   CPU_TIME  WALLTIME  ACCOUNT    
+65297795  trottar     R    priority    farm160139 KaonLT_7871       Mar 25 03:54  00:00:05   00:27:57   hallc     
+ 
+There is 1 job remaining
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+JOB_ID    USER      STAT    QUEUE      EXEC_HOST   JOB_NAME         SUBMIT_TIME   CPU_TIME  WALLTIME  ACCOUNT    
+65297795  trottar     R    priority    farm160139 KaonLT_7871       Mar 25 03:54  00:00:05   00:27:57   hallc     
+ 
+There is 1 job remaining
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+JOB_ID    USER      STAT    QUEUE      EXEC_HOST   JOB_NAME         SUBMIT_TIME   CPU_TIME  WALLTIME  ACCOUNT    
+65297795  trottar     R    priority    farm160139 KaonLT_7871       Mar 25 03:54  00:00:07   00:30:11   hallc     
+ 
+There is 1 job remaining
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

@@ -1,0 +1,53 @@
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Run number read from file: 7871
+
+Job 1/1
+Running trotta_Job.txt for 7871
+Submitting batch
+Parsing script ... (it may take while)
+<jsub><request><index>30823741</index><jobIndex>65306326</jobIndex></request></jsub>
+ 
+7871 has an AugerID of 65306326
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 
+###############################################################################################################
+############################################ END OF JOB SUBMISSIONS ###########################################
+###############################################################################################################
+ 
+7871 has an AugerID of 65306326
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+JOB_ID    USER      STAT    QUEUE      EXEC_HOST   JOB_NAME         SUBMIT_TIME   CPU_TIME  WALLTIME  ACCOUNT    
+65306326  trottar     A    priority    --         KaonLT_7871       Mar 25 10:40  --         --         hallc     
+ 
+There is 1 job remaining
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+JOB_ID    USER      STAT    QUEUE      EXEC_HOST   JOB_NAME         SUBMIT_TIME   CPU_TIME  WALLTIME  ACCOUNT    
+65306326  trottar     A    priority    --         KaonLT_7871       Mar 25 10:40  --         --         hallc     
+ 
+There is 1 job remaining
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+JOB_ID    USER      STAT    QUEUE      EXEC_HOST   JOB_NAME         SUBMIT_TIME   CPU_TIME  WALLTIME  ACCOUNT    
+65306326  trottar     R    priority    farm180109 KaonLT_7871       Mar 25 10:43  --         --         hallc     
+ 
+There is 1 job remaining
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+JOB_ID    USER      STAT    QUEUE      EXEC_HOST   JOB_NAME         SUBMIT_TIME   CPU_TIME  WALLTIME  ACCOUNT    
+65306326  trottar     R    priority    farm180109 KaonLT_7871       Mar 25 10:43  --         --         hallc     
+ 
+There is 1 job remaining
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+JOB_ID    USER      STAT    QUEUE      EXEC_HOST   JOB_NAME         SUBMIT_TIME   CPU_TIME  WALLTIME  ACCOUNT    
+65306326  trottar     R    priority    farm180109 KaonLT_7871       Mar 25 10:43  00:00:04   00:02:01   hallc     
+ 
+There is 1 job remaining
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+JOB_ID    USER      STAT    QUEUE      EXEC_HOST   JOB_NAME         SUBMIT_TIME   CPU_TIME  WALLTIME  ACCOUNT    
+65306326  trottar     R    priority    farm180109 KaonLT_7871       Mar 25 10:43  00:00:04   00:03:31   hallc     
+ 
+There are 0 jobs remaining
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+grep: batch_OUTPUT/KaonLT_7871.out: No such file or directory
+grep: batch_OUTPUT/KaonLT_7871.out: No such file or directory
+_
+|ID-65306326 (run 7871) has printed batch job information to file
+|Amount of allocated memory used: /
