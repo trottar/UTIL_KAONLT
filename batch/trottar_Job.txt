@@ -1,10 +1,10 @@
 PROJECT: c-kaonlt
 TRACK: analysis
-JOBNAME: KaonLT_6749
-DISK_SPACE: 20 GB
+JOBNAME: KaonLT_8041
+DISK_SPACE: 26 GB
 MEMORY: 2500 MB
 OS: centos7
 CPU: 1
-INPUT_FILES: /mss/hallc/spring17/raw/coin_all_06749.dat
-COMMAND:/u/group/c-kaonlt/USERS/trottar/hallc_replay_kaonlt/UTIL_KAONLT/Batch_Template.sh 6749
+INPUT_FILES: /mss/hallc/spring17/raw/coin_all_08041.dat
+COMMAND:/u/group/c-kaonlt/USERS/trottar/hallc_replay_kaonlt/UTIL_KAONLT/Batch_Template.sh 8041
 MAIL: trottar@jlab.org

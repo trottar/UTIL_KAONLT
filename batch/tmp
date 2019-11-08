@@ -1,3 +1,1 @@
-JOB_ID     Batch_ID   USER        STAT  QUEUE       EXEC_HOST   CORE    JOB_NAME       SUBMIT_TIME   WALLTIME    ACCOUNT   PRIORITY    
-5633475    5496223    trottar     CA    production farm140140    1   KaonLT_6749       Oct-14 23:23  00:04:45    hallc       9552      
-
+JOB_ID     Batch_ID   USER        STAT  QUEUE          EXEC_HOST   CORE    JOB_NAME              SUBMIT_TIME WALLTIME    ACCOUNT   PRIORITY    
