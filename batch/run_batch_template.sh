@@ -13,7 +13,7 @@ batch="${USER}_Job.txt"
 
 ##Input run numbers##                                                                      
 ##Point this to the location of your input run list, see templates folder for examples ##                                                                                                                       
-inputFile="/u/group/c-kaonlt/USERS/${USER}/hallc_replay_kaonlt/UTIL_KAONLT/batch/inputRuns"
+inputFile="/u/group/c-kaonlt/USERS/${USER}/hallc_replay_lt/UTIL_KAONLT/batch/inputRuns"
 
 ## Tape stub                                                                                                                                                                                                      
 MSSstub='/mss/hallc/spring17/raw/coin_all_%05d.dat'
