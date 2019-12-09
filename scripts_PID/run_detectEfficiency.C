@@ -4,7 +4,7 @@
 #include <string>
 #include <stdio.h>
 
-void run_KaonYield(Int_t RunNumber = 0, Int_t MaxEvent = 0, TString spec = "", TString detec = "")
+void run_KaonYield(Int_t RunNumber = 0, Int_t MaxEvent = 0, string spec = "", string detec = "")
 {
   // Get RunNumber, MaxEvent, and current threshold if not provided.
   if(RunNumber == 0) {
