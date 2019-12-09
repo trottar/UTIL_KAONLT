@@ -29,11 +29,6 @@ void run_KaonYield(Int_t RunNumber = 0, Int_t MaxEvent = 0, string spec = "", st
     cin >> detec;
   }
 
-  ofstream myfile1;
-  myfile1.open ("kaonyieldVar", fstream::app);
-  myfile1 << left << RunNumber << "   " << pscal << "   ";
-  myfile1.close();
-
   TChain ch("T");
   ch.Add(Form("/u/group/c-kaonlt/USERS/trottar/hallc_replay_lt/UTIL_KAONLT/ROOTfiles/%s_%s_PID_%i_%i.root",spec,detec,RunNumber,MaxEvent));
   TString option = Form("%i",RunNumber);
