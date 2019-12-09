@@ -29,6 +29,11 @@ void run_KaonYield(Int_t RunNumber = 0, Int_t MaxEvent = 0, string spec = "", st
     cin >> detec;
   }
 
+
+  //Begin Scaler Efficiency Calculation
+  TString rootFileNameString = Form("/u/group/c-kaonlt/USERS/trottar/hallc_replay_kaonlt/UTIL_KAONLT/ROOTfiles/KaonLT_coin_replay_production_%i_%i.root",RunNumber,MaxEvent);
+  TString runNum = Form("%d",RunNumber);
+  
   TChain ch("T");
   ch.Add(Form("/u/group/c-kaonlt/USERS/trottar/hallc_replay_lt/UTIL_KAONLT/ROOTfiles/%s_%s_PID_%i_%i.root",spec,detec,RunNumber,MaxEvent));
   TString option = Form("%i",RunNumber);
