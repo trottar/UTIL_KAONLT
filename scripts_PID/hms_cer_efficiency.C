@@ -55,8 +55,10 @@ void hms_cer_efficiency::SlaveBegin(TTree * /*tree*/)
 
   h1missKcut_CT   = new TH2F("h1missKcut_CT","Kaon Missing mass vs Coincidence Time;Time (ns);Mass (GeV/c^{2})^{2}",400,-10,10,100,0.8,1.4);
 
-  h2ROC1_Coin_Beta_noID_electron = new TH2F("ROC1_Coin_Beta_noCut_electron","Electron Coincident Time vs #beta for ROC1 (w/ particle ID);Time (ns);#beta",800,-40,40,200,0.0,2.0);
-  h2ROC1_Coin_Beta_electron = new TH2F("ROC1_Coin_Beta_electron","Electron Coincident Time vs #beta for ROC1;Time (ns);#beta",800,-40,40,200,0.0,2.0);
+  // h2ROC1_Coin_Beta_noID_electron = new TH2F("ROC1_Coin_Beta_noCut_electron","Electron Coincident Time vs #beta for ROC1 (w/ particle ID);Time (ns);#beta",800,-40,40,200,0.0,2.0);
+  // h2ROC1_Coin_Beta_electron = new TH2F("ROC1_Coin_Beta_electron","Electron Coincident Time vs #beta for ROC1;Time (ns);#beta",800,-40,40,200,0.0,2.0);
+  h2ROC1_Coin_Beta_noID_electron = new TH2F("ROC1_Coin_Beta_noCut_electron","Electron Coincident Time vs #beta for ROC1 (w/ particle ID);Time (ns);#beta",50,0.1,25,50,0.1,10);
+  h2ROC1_Coin_Beta_electron = new TH2F("ROC1_Coin_Beta_electron","Electron Coincident Time vs #beta for ROC1;Time (ns);#beta",50,0.1,25,50,0.1,10);
   
   h2ROC1_Coin_Beta_noID_kaon = new TH2F("ROC1_Coin_Beta_noCut_kaon","Kaon Coincident Time vs #beta for ROC1 (w/ particle ID);Time (ns);#beta",800,-40,40,200,0.0,2.0);
   h2ROC1_Coin_Beta_kaon = new TH2F("ROC1_Coin_Beta_kaon","Kaon Coincident Time vs #beta for ROC1;Time (ns);#beta",800,-40,40,200,0.0,2.0);
