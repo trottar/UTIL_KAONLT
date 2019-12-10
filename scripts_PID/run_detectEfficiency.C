@@ -29,8 +29,8 @@ void run_KaonYield(Int_t RunNumber = 0, Int_t MaxEvent = 0, TString spec = "", T
     cin >> detec;
   }
 
-  TString Detec = Form("%f",detec);
-  TString Spec = Form("%f",spec);
+  TString Detec = Form("%s",detec);
+  TString Spec = Form("%s",spec);
   
   TChain ch("T");
   ch.Add(Form("/u/group/c-kaonlt/USERS/trottar/hallc_replay_lt/UTIL_KAONLT/ROOTfiles/PID_%i_%i.root",RunNumber,MaxEvent));
