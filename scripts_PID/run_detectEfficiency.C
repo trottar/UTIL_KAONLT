@@ -43,7 +43,7 @@ void run_detectEfficiency(Int_t RunNumber = 0, Int_t MaxEvent = 0, string spec =
   TString option = Form("%i",RunNumber);
   ch->Add(Form("/u/group/c-kaonlt/USERS/trottar/hallc_replay_lt/UTIL_KAONLT/ROOTfiles/PID_%i_%i.root",RunNumber,MaxEvent));
   
-  TProof *proof = TProof::Open("workers=4");
+  TProof *proof = TProof::Open("workers=8");
   //proof->SetProgressDialog(0);  
   ch->SetProof();
   ch->Process(Form("%s_%s_efficiency.C+",spec.c_str(),detec.c_str()),option);
