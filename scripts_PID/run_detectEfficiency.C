@@ -5,7 +5,7 @@
 #include <string>
 #include <stdio.h>
 
-void run_detectEfficiency(Int_t RunNumber = 0, Int_t MaxEvent = 0, const char* spec = "", const char* detec = "", Double_t threshold_cut = 5, Int_t pscal = 1)
+void run_detectEfficiency(Int_t RunNumber = 0, Int_t MaxEvent = 0, string spec = "", string detec = "")
 {
   // Get RunNumber, MaxEvent, and current threshold if not provided.
   if(RunNumber == 0) {
@@ -21,14 +21,14 @@ void run_detectEfficiency(Int_t RunNumber = 0, Int_t MaxEvent = 0, const char* s
       exit;
     }
   }
-  // if(spec == "") {
-  //   cout << "Enter spec (hms or shms): ";
-  //   cin >> spec;
-  // }
-  // if(detec == "") {
-  //   cout << "Enter detector: ";
-  //   cin >> detec;
-  // }
+  if(spec == "") {
+    cout << "Enter spec (hms or shms): ";
+    cin >> spec;
+  }
+  if(detec == "") {
+    cout << "Enter detector: ";
+    cin >> detec;
+  }
 
   //Begin Scaler Efficiency Calculation
   // TString rootFileNameString = Form("/u/group/c-kaonlt/USERS/trottar/hallc_replay_kaonlt/UTIL_KAONLT/ROOTfiles/PID_%i_%i.root",RunNumber,MaxEvent);
@@ -46,7 +46,7 @@ void run_detectEfficiency(Int_t RunNumber = 0, Int_t MaxEvent = 0, const char* s
   TProof *proof = TProof::Open("workers=4");
   //proof->SetProgressDialog(0);  
   ch->SetProof();
-  ch->Process(Form("%s_%s_efficiency.C+",spec,detec),option);
+  ch->Process(Form("%s_%s_efficiency.C+",spec.c_str(),detec.c_str()),option);
   proof->Close();
   
   TChain *sc = new TChain("TSH");
