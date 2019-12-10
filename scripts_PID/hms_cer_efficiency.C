@@ -426,8 +426,8 @@ void hms_cer_efficiency::Terminate()
 
   TCanvas *cID = new TCanvas("ID","Summary of Electron Particle ID Cuts");
   cID->Divide(1,2);
-  cID->cd(1); h2ROC1_Coin_Beta_noID_kaon->Draw("Colz");
-  cID->cd(2); h2ROC1_Coin_Beta_kaon->Draw("Colz");
+  cID->cd(1); h2ROC1_Coin_Beta_noID_electron->Draw("Colz");
+  cID->cd(2); h2ROC1_Coin_Beta_electron->Draw("Colz");
   cID->Update();
   cID->Print(outputpdf);
   
