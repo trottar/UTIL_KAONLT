@@ -38,7 +38,7 @@ void run_KaonYield(Int_t RunNumber = 0, Int_t MaxEvent = 0, const char* spec = "
   // TString line2 = "coin_cut t(\"" + rootFileNameString + "\")";
   // TString line3 = "t.Loop(\"" + runNum + "\"," + threshold + "," + prescal + ")";
   
-  TChain ch("T");
+  TChain *ch = new TChain("T");
   TString option = Form("%i",RunNumber);
   ch.Add(Form("/u/group/c-kaonlt/USERS/trottar/hallc_replay_lt/UTIL_KAONLT/ROOTfiles/PID_%i_%i.root",RunNumber,MaxEvent));
   
@@ -48,7 +48,7 @@ void run_KaonYield(Int_t RunNumber = 0, Int_t MaxEvent = 0, const char* spec = "
   ch.Process(Form("%s_%s_efficiency.C+",spec,detec),option);
   proof->Close();
   
-  TChain sc("TSH");
+  TChain *sc = new TChain("TSH");
   ch.Add(Form("/u/group/c-kaonlt/USERS/trottar/hallc_replay_lt/UTIL_KAONLT/ROOTfiles/PID_%i_%i.root",RunNumber,MaxEvent));
   sc.Process("HMS_Scalers.C+",option);
 }
