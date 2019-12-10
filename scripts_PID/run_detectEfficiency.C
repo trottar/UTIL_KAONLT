@@ -20,14 +20,14 @@ void run_KaonYield(Int_t RunNumber = 0, Int_t MaxEvent = 0, const char* spec = "
       exit;
     }
   }
-  if(spec == "") {
-    cout << "Enter spec (hms or shms): ";
-    cin >> spec;
-  }
-  if(detec == "") {
-    cout << "Enter detector: ";
-    cin >> detec;
-  }
+  // if(spec == "") {
+  //   cout << "Enter spec (hms or shms): ";
+  //   cin >> spec;
+  // }
+  // if(detec == "") {
+  //   cout << "Enter detector: ";
+  //   cin >> detec;
+  // }
   
   TChain ch("T");
   ch.Add(Form("/u/group/c-kaonlt/USERS/trottar/hallc_replay_lt/UTIL_KAONLT/ROOTfiles/PID_%i_%i.root",RunNumber,MaxEvent));
