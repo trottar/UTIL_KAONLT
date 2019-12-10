@@ -28,9 +28,6 @@ void run_KaonYield(Int_t RunNumber = 0, Int_t MaxEvent = 0, const char* spec = "
     cout << "Enter detector: ";
     cin >> detec;
   }
-
-  TString Detec = Form("%s",detec);
-  TString Spec = Form("%s",spec);
   
   TChain ch("T");
   ch.Add(Form("/u/group/c-kaonlt/USERS/trottar/hallc_replay_lt/UTIL_KAONLT/ROOTfiles/PID_%i_%i.root",RunNumber,MaxEvent));
@@ -39,7 +36,7 @@ void run_KaonYield(Int_t RunNumber = 0, Int_t MaxEvent = 0, const char* spec = "
   TProof *proof = TProof::Open("workers=4");
   //proof->SetProgressDialog(0);  
   ch.SetProof();
-  ch.Process(Form("%s_%s_efficiency.C+",Spec,Detec),option);
+  ch.Process(Form("%s_%s_efficiency.C+",spec,detec),option);
   proof->Close();
   
   TChain sc("TSH");
