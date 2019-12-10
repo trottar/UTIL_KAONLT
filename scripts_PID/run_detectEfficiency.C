@@ -5,7 +5,7 @@
 #include <string>
 #include <stdio.h>
 
-void run_KaonYield(Int_t RunNumber = 0, Int_t MaxEvent = 0, const char* spec = "", const char* detec = "", Double_t threshold_cut = 5, Int_t pscal = 1)
+void run_detectEfficiency(Int_t RunNumber = 0, Int_t MaxEvent = 0, const char* spec = "", const char* detec = "", Double_t threshold_cut = 5, Int_t pscal = 1)
 {
   // Get RunNumber, MaxEvent, and current threshold if not provided.
   if(RunNumber == 0) {
