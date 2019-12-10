@@ -1,3 +1,4 @@
+#include <TChain.h>
 #include <TProof.h>
 #include <iostream>
 #include <fstream>
