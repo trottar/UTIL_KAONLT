@@ -270,7 +270,7 @@ Bool_t shms_aero_efficiency::Process(Long64_t entry)
     h2ROC1_Coin_Beta_noID_electron->Fill((CTime_eKCoinTime_ROC1[0] - 47.5),sqrt(pow(emiss[0],2)-pow(pmiss[0],2)));
   }
 
-  if(P_cal_etotnorm[0] > 0.7 || P_hgcer_npeSum[0] > 1.5 || P_aero_npeSum[0] > 1.5){
+  if(P_cal_etotnorm[0] > 0.7 || P_hgcer_npeSum[0] > 6.0 || P_aero_npeSum[0] > 1.5){
     h2ROC1_Coin_Beta_electron->Fill((CTime_eKCoinTime_ROC1[0] - 47.5),sqrt(pow(emiss[0],2)-pow(pmiss[0],2)));
   }
   
