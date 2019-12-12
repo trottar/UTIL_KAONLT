@@ -266,7 +266,7 @@ Bool_t hms_cer_efficiency::Process(Long64_t entry)
 
   /*h3SHMS_HGC->Fill(P_hgcer_xAtCer[0],P_hgcer_yAtCer[0],P_hgcer_npeSum[0]);*/
 
-  h2ROC1_Coin_Beta_noID_electron->Fill((CTime_ePositronCoinTime_ROC1[0] - 39),sqrt(pow(emiss[0],2)-pow(pmiss[0],2)));
+  h2ROC1_Coin_Beta_noID_electron->Fill((CTime_ePositronCoinTime_ROC1[0] - 48),sqrt(pow(emiss[0],2)-pow(pmiss[0],2)));
   
   if (H_cal_etotnorm[0] < 0.7 || H_cer_npeSum[0] < 1.5) return kTRUE;
   if (P_cal_etotnorm[0] > 0.6) return kTRUE;
@@ -282,7 +282,7 @@ Bool_t hms_cer_efficiency::Process(Long64_t entry)
   h2HMS_electron_cut->Fill(H_cal_etotnorm[0],H_cer_npeSum[0]);
   h1SHMS_electron_cut->Fill(P_cal_etotnorm[0]);
 
-  h2ROC1_Coin_Beta_electron->Fill((CTime_ePositronCoinTime_ROC1[0] - 39),sqrt(pow(emiss[0],2)-pow(pmiss[0],2)));
+  h2ROC1_Coin_Beta_electron->Fill((CTime_ePositronCoinTime_ROC1[0] - 48),sqrt(pow(emiss[0],2)-pow(pmiss[0],2)));
   
   h1SHMS_delta_cut->Fill(P_gtr_dp[0]);
   h1HMS_delta_cut->Fill(H_gtr_dp[0]);
