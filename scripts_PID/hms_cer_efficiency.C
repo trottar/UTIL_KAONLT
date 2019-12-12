@@ -266,7 +266,7 @@ Bool_t hms_cer_efficiency::Process(Long64_t entry)
 
   /*h3SHMS_HGC->Fill(P_hgcer_xAtCer[0],P_hgcer_yAtCer[0],P_hgcer_npeSum[0]);*/
   
-  if (P_cal_etotnorm[0] > 0.1) return kTRUE;
+  if (P_cal_etotnorm[0] > 0.2) return kTRUE;
 
   if (TMath::Abs(H_gtr_dp[0]) > 10.0) return kTRUE;
   if (P_gtr_dp[0] > 20.0 || P_gtr_dp[0] < -10.0) return kTRUE;
