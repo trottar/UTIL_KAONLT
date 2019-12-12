@@ -57,8 +57,8 @@ void hms_cer_efficiency::SlaveBegin(TTree * /*tree*/)
 
   // h2ROC1_Coin_Beta_noID_electron = new TH2F("ROC1_Coin_Beta_noCut_electron","Electron Coincident Time vs #beta for ROC1 (w/ particle ID);Time (ns);#beta",800,-40,40,200,0.0,2.0);
   // h2ROC1_Coin_Beta_electron = new TH2F("ROC1_Coin_Beta_electron","Electron Coincident Time vs #beta for ROC1;Time (ns);#beta",800,-40,40,200,0.0,2.0);
-  h2ROC1_Coin_Beta_noID_electron = new TH2F("ROC1_Coin_Beta_noCut_electron","Electron Coincident Time vs Mass (GeV/c^{2}) for ROC1 (w/ particle ID);Time (ns);Mass (GeV/c^{2})",800,-10,10,200,0.0,2.0);
-  h2ROC1_Coin_Beta_electron = new TH2F("ROC1_Coin_Beta_electron","Electron Coincident Time vs Mass (GeV/c^{2}) for ROC1 (w/ particle ID);Time (ns);Mass (GeV/c^{2})",800,-10,10,200,0.0,2.0);
+  h2ROC1_Coin_Beta_noID_electron = new TH2F("ROC1_Coin_Beta_noCut_electron","Electron Coincident Time vs Mass (GeV/c^{2}) for ROC1 (w/ particle ID);Time (ns);Mass (GeV/c^{2})",800,-5,5,200,0.0,2.0);
+  h2ROC1_Coin_Beta_electron = new TH2F("ROC1_Coin_Beta_electron","Electron Coincident Time vs Mass (GeV/c^{2}) for ROC1 (w/ particle ID);Time (ns);Mass (GeV/c^{2})",800,-5,5,200,0.0,2.0);
   
   h2ROC1_Coin_Beta_noID_kaon = new TH2F("ROC1_Coin_Beta_noCut_kaon","Kaon Coincident Time vs #beta for ROC1 (w/ particle ID);Time (ns);#beta",800,-40,40,200,0.0,2.0);
   h2ROC1_Coin_Beta_kaon = new TH2F("ROC1_Coin_Beta_kaon","Kaon Coincident Time vs #beta for ROC1;Time (ns);#beta",800,-40,40,200,0.0,2.0);
@@ -265,10 +265,8 @@ Bool_t hms_cer_efficiency::Process(Long64_t entry)
   h1mmissp->Fill(pow(emiss[0] + sqrt(pow(0.493677,2) + pow(P_gtr_p[0],2)) - sqrt(pow(0.93828,2) + pow(P_gtr_p[0],2)),2)-pow(pmiss[0],2));
 
   /*h3SHMS_HGC->Fill(P_hgcer_xAtCer[0],P_hgcer_yAtCer[0],P_hgcer_npeSum[0]);*/
-
-  h2ROC1_Coin_Beta_noID_electron->Fill((CTime_ePositronCoinTime_ROC1[0] - 48),sqrt(pow(emiss[0],2)-pow(pmiss[0],2)));
   
-  if (H_cal_etotnorm[0] < 0.7 || H_cer_npeSum[0] < 1.5) return kTRUE;
+  if (H_cal_etotnorm[0] < 0.7) return kTRUE;
   if (P_cal_etotnorm[0] > 0.6) return kTRUE;
 
   if (TMath::Abs(H_gtr_dp[0]) > 10.0) return kTRUE;
@@ -279,10 +277,14 @@ Bool_t hms_cer_efficiency::Process(Long64_t entry)
   if (TMath::Abs(H_gtr_th[0]) > 0.080) return kTRUE;
   if (TMath::Abs(H_gtr_ph[0]) > 0.035) return kTRUE;
 
+  h2ROC1_Coin_Beta_electron->Fill((CTime_ePositronCoinTime_ROC1[0] - 48),sqrt(pow(emiss[0],2)-pow(pmiss[0],2)));
+
+  if (H_cer_npeSum[0] < 1.5) return kTRUE;
+
+  h2ROC1_Coin_Beta_noID_electron->Fill((CTime_ePositronCoinTime_ROC1[0] - 48),sqrt(pow(emiss[0],2)-pow(pmiss[0],2)));
+  
   h2HMS_electron_cut->Fill(H_cal_etotnorm[0],H_cer_npeSum[0]);
   h1SHMS_electron_cut->Fill(P_cal_etotnorm[0]);
-
-  h2ROC1_Coin_Beta_electron->Fill((CTime_ePositronCoinTime_ROC1[0] - 48),sqrt(pow(emiss[0],2)-pow(pmiss[0],2)));
   
   h1SHMS_delta_cut->Fill(P_gtr_dp[0]);
   h1HMS_delta_cut->Fill(H_gtr_dp[0]);
