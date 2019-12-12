@@ -267,7 +267,7 @@ Bool_t hms_cer_efficiency::Process(Long64_t entry)
 
   if (P_cal_etotnorm[0] > 0.6) return kTRUE;
 
-  if(H_cal_etotnorm[0] > 1.2){
+  if(H_cal_etotnorm[0] > 1.1){
     h2ROC1_Coin_Beta_noID_electron->Fill((CTime_ePositronCoinTime_ROC1[0] - 48.5),sqrt(pow(emiss[0],2)-pow(pmiss[0],2)));
   }
 
