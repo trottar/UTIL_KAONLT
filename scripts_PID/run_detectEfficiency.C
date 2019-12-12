@@ -29,15 +29,6 @@ void run_detectEfficiency(Int_t RunNumber = 0, Int_t MaxEvent = 0, string spec =
     cout << "Enter detector: ";
     cin >> detec;
   }
-
-  //Begin Scaler Efficiency Calculation
-  // TString rootFileNameString = Form("/u/group/c-kaonlt/USERS/trottar/hallc_replay_kaonlt/UTIL_KAONLT/ROOTfiles/PID_%i_%i.root",RunNumber,MaxEvent);
-  // TString threshold = Form("%f",threshold_cut);
-  // TString runNum = Form("%d",RunNumber);
-  // TString prescal = Form("%d", pscal);
-  // TString line1 = ".L coin_cut.C+";
-  // TString line2 = "coin_cut t(\"" + rootFileNameString + "\")";
-  // TString line3 = "t.Loop(\"" + runNum + "\"," + threshold + "," + prescal + ")";
   
   TChain *ch = new TChain("T");
   TString option = Form("%i",RunNumber);
