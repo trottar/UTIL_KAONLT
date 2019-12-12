@@ -266,19 +266,19 @@ Bool_t hms_cer_efficiency::Process(Long64_t entry)
 
   /*h3SHMS_HGC->Fill(P_hgcer_xAtCer[0],P_hgcer_yAtCer[0],P_hgcer_npeSum[0]);*/
 
-  if(H_cal_etotnorm[0] < 0.3){
-    h2ROC1_Coin_Beta_noID_electron->Fill((CTime_ePositronCoinTime_ROC1[0] - 48.5),sqrt(pow(emiss[0],2)-pow(pmiss[0],2)));
-  }
-
-  if(H_cal_etotnorm[0] < 0.3 || H_cer_npeSum[0] < 1.5){
-    h2ROC1_Coin_Beta_electron->Fill((CTime_ePositronCoinTime_ROC1[0] - 48.5),sqrt(pow(emiss[0],2)-pow(pmiss[0],2)));
-  }
-
   if (P_cal_etotnorm[0] > 0.2) return kTRUE;
   
   if (TMath::Abs(H_gtr_dp[0]) > 10.0) return kTRUE;
   if (P_gtr_dp[0] > 20.0 || P_gtr_dp[0] < -10.0) return kTRUE;
 
+  if(H_cal_etotnorm[0] < 0.7){
+    h2ROC1_Coin_Beta_noID_electron->Fill((CTime_ePositronCoinTime_ROC1[0] - 48.5),sqrt(pow(emiss[0],2)-pow(pmiss[0],2)));
+  }
+
+  if(H_cal_etotnorm[0] < 0.7 || H_cer_npeSum[0] < 1.5){
+    h2ROC1_Coin_Beta_electron->Fill((CTime_ePositronCoinTime_ROC1[0] - 48.5),sqrt(pow(emiss[0],2)-pow(pmiss[0],2)));
+  }
+  
   if (TMath::Abs(P_gtr_th[0]) > 0.040) return kTRUE;
   if (TMath::Abs(P_gtr_ph[0]) > 0.024) return kTRUE;
   if (TMath::Abs(H_gtr_th[0]) > 0.080) return kTRUE;
