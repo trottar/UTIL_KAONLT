@@ -271,7 +271,7 @@ Bool_t hms_cer_efficiency::Process(Long64_t entry)
     h2ROC1_Coin_Beta_noID_electron->Fill((CTime_ePositronCoinTime_ROC1[0] - 48.5),sqrt(pow(emiss[0],2)-pow(pmiss[0],2)));
   }
 
-  if(H_cer_npeSum[0] > 1.5){
+  if(H_cer_npeSum[0] > 2.0){
     h2ROC1_Coin_Beta_electron->Fill((CTime_ePositronCoinTime_ROC1[0] - 48.5),sqrt(pow(emiss[0],2)-pow(pmiss[0],2)));
   }
 
