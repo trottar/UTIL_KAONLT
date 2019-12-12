@@ -266,7 +266,7 @@ Bool_t shms_aero_efficiency::Process(Long64_t entry)
 
   if (H_cal_etotnorm[0] < 0.7 || H_cer_npeSum[0] < 1.5) return kTRUE;
 
-  if(P_hgcer_npeSum[0] > 3.0){
+  if(P_hgcer_npeSum[0] > 10.0){
   // if(P_cal_etotnorm[0] > 0.7 || P_hgcer_npeSum[0] > 1.5){
     h2ROC1_Coin_Beta_noID_electron->Fill((CTime_eKCoinTime_ROC1[0] - 47.5),sqrt(pow(emiss[0],2)-pow(pmiss[0],2)));
   }
