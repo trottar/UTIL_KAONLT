@@ -278,11 +278,11 @@ Bool_t hms_cer_efficiency::Process(Long64_t entry)
 
   if (H_cal_etotnorm[0] < 0.7) return kTRUE;
 
-  h2ROC1_Coin_Beta_noID_electron->Fill((CTime_ePositronCoinTime_ROC1[0] - 50),sqrt(pow(emiss[0],2)-pow(pmiss[0],2)));
+  h2ROC1_Coin_Beta_noID_electron->Fill((CTime_ePositronCoinTime_ROC1[0] - 49),sqrt(pow(emiss[0],2)-pow(pmiss[0],2)));
 
   if (H_cer_npeSum[0] < 1.5) return kTRUE;
 
-  h2ROC1_Coin_Beta_electron->Fill((CTime_ePositronCoinTime_ROC1[0] - 50),sqrt(pow(emiss[0],2)-pow(pmiss[0],2)));
+  h2ROC1_Coin_Beta_electron->Fill((CTime_ePositronCoinTime_ROC1[0] - 49),sqrt(pow(emiss[0],2)-pow(pmiss[0],2)));
   
   h2HMS_electron_cut->Fill(H_cal_etotnorm[0],H_cer_npeSum[0]);
   h1SHMS_electron_cut->Fill(P_cal_etotnorm[0]);
