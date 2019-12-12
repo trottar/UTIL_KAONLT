@@ -276,7 +276,7 @@ Bool_t hms_cer_efficiency::Process(Long64_t entry)
   if (TMath::Abs(H_gtr_th[0]) > 0.080) return kTRUE;
   if (TMath::Abs(H_gtr_ph[0]) > 0.035) return kTRUE;
 
-  if (H_cal_etotnorm[0] < 0.0) return kTRUE;
+  if (H_cal_etotnorm[0] < 0.7) return kTRUE;
 
   h2ROC1_Coin_Beta_noID_electron->Fill((CTime_ePositronCoinTime_ROC1[0] - 48.5),sqrt(pow(emiss[0],2)-pow(pmiss[0],2)));
 
