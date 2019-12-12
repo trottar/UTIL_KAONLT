@@ -265,6 +265,14 @@ Bool_t hms_cer_efficiency::Process(Long64_t entry)
   h1mmissp->Fill(pow(emiss[0] + sqrt(pow(0.493677,2) + pow(P_gtr_p[0],2)) - sqrt(pow(0.93828,2) + pow(P_gtr_p[0],2)),2)-pow(pmiss[0],2));
 
   /*h3SHMS_HGC->Fill(P_hgcer_xAtCer[0],P_hgcer_yAtCer[0],P_hgcer_npeSum[0]);*/
+
+  if(H_cal_etotnorm[0] < 0.7){
+    h2ROC1_Coin_Beta_noID_electron->Fill((CTime_ePositronCoinTime_ROC1[0] - 48.5),sqrt(pow(emiss[0],2)-pow(pmiss[0],2)));
+  }
+
+  if(H_cal_etotnorm[0] < 0.7 || H_cer_npeSum[0] < 1.5){
+    h2ROC1_Coin_Beta_electron->Fill((CTime_ePositronCoinTime_ROC1[0] - 48.5),sqrt(pow(emiss[0],2)-pow(pmiss[0],2)));
+  }
   
   if (P_cal_etotnorm[0] > 0.2) return kTRUE;
 
@@ -286,14 +294,6 @@ Bool_t hms_cer_efficiency::Process(Long64_t entry)
   h1SHMS_ph_cut->Fill(P_gtr_ph[0]);
   h1HMS_th_cut->Fill(H_gtr_th[0]);
   h1HMS_ph_cut->Fill(H_gtr_ph[0]);
-
-  if(H_cal_etotnorm[0] < 0.7){
-    h2ROC1_Coin_Beta_noID_electron->Fill((CTime_ePositronCoinTime_ROC1[0] - 48.5),sqrt(pow(emiss[0],2)-pow(pmiss[0],2)));
-  }
-
-  if(H_cal_etotnorm[0] < 0.7 || H_cer_npeSum[0] < 1.5){
-    h2ROC1_Coin_Beta_electron->Fill((CTime_ePositronCoinTime_ROC1[0] - 48.5),sqrt(pow(emiss[0],2)-pow(pmiss[0],2)));
-  }
 
   ///////////////////////////////////////////////////////////////////////////////////////////////////////
   if (P_aero_npeSum[0] > 1.5 && P_hgcer_npeSum[0] < 1.5) { //Event identified as Kaon
