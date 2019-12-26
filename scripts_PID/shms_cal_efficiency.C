@@ -264,6 +264,9 @@ Bool_t shms_cal_efficiency::Process(Long64_t entry)
   h1mmisspi->Fill(pow(emiss[0] + sqrt(pow(0.493677,2) + pow(P_gtr_p[0],2)) - sqrt(pow(0.13957018,2) + pow(P_gtr_p[0],2)),2)-pow(pmiss[0],2));
   h1mmissp->Fill(pow(emiss[0] + sqrt(pow(0.493677,2) + pow(P_gtr_p[0],2)) - sqrt(pow(0.93828,2) + pow(P_gtr_p[0],2)),2)-pow(pmiss[0],2));
 
+  if (TMath::Abs(H_gtr_dp[0]) > 10.0) return kTRUE;
+  if (P_gtr_dp[0] > 20.0 || P_gtr_dp[0] < -10.0) return kTRUE;
+  
   if (H_cal_etotnorm[0] < 0.7 || H_cer_npeSum[0] < 1.5) return kTRUE;
 
   if(P_aero_npeSum[0] > 17.0 || P_hgcer_npeSum[0] > 6.0){
@@ -273,9 +276,6 @@ Bool_t shms_cal_efficiency::Process(Long64_t entry)
   if(P_cal_etotnorm[0] > 0.7 || P_hgcer_npeSum[0] > 6.0 || P_aero_npeSum[0] > 17.0){
     h2ROC1_Coin_Beta_electron->Fill((CTime_eKCoinTime_ROC1[0] - 47.5),sqrt(pow(emiss[0],2)-pow(pmiss[0],2)));
   }
-  
-  if (TMath::Abs(H_gtr_dp[0]) > 10.0) return kTRUE;
-  if (P_gtr_dp[0] > 20.0 || P_gtr_dp[0] < -10.0) return kTRUE;
   
   if (TMath::Abs(P_gtr_th[0]) > 0.040) return kTRUE;
   if (TMath::Abs(P_gtr_ph[0]) > 0.024) return kTRUE;
