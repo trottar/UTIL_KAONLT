@@ -271,11 +271,11 @@ Bool_t hms_cal_efficiency::Process(Long64_t entry)
   if (P_cal_etotnorm[0] > 0.6) return kTRUE;
 
   if(H_cer_npeSum[0] > 1.5){
-    h2ROC1_Coin_Beta_noID_electron->Fill((CTime_ePositronCoinTime_ROC1[0] - 48.5),sqrt(pow(emiss[0],2)-pow(pmiss[0],2)));
+    h2ROC1_Coin_Beta_noID_electron->Fill((CTime_eKCoinTime_ROC1[0] - 48.5),sqrt(pow(emiss[0],2)-pow(pmiss[0],2)));
   }
 
   if(H_cal_etotnorm[0] > 1.1 || H_cer_npeSum[0] > 1.5){
-    h2ROC1_Coin_Beta_electron->Fill((CTime_ePositronCoinTime_ROC1[0] - 48.5),sqrt(pow(emiss[0],2)-pow(pmiss[0],2)));
+    h2ROC1_Coin_Beta_electron->Fill((CTime_eKCoinTime_ROC1[0] - 48.5),sqrt(pow(emiss[0],2)-pow(pmiss[0],2)));
   }
   
   if (TMath::Abs(P_gtr_th[0]) > 0.040) return kTRUE;
