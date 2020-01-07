@@ -459,9 +459,9 @@ void hms_cer_efficiency::Terminate()
   //Lambda_Fit_Full->Draw("same"); 
   Gauss_Fit->SetLineColor(kBlack); Gauss_Fit->SetLineWidth(1);
   Gauss_Fit->DrawClone("same"); 
-  cKine->Update();
+  cID->Update();
   h1mmissK_remove->SetTitleOffset(1.0,"Y"); /*h1mmissK_remove->SetAxisRange(1.0,1.25,"X");*/// h1mmissK_remove->SetAxisRange(0.0,gPad->GetUymax(),"Y");
-  cKine->Update();
+  cID->Update();
   TLine *LambdaMass_Full = new TLine(1.1156,gPad->GetUymin(),1.1156,gPad->GetUymax()); 
   LambdaMass_Full->SetLineColor(kBlack); LambdaMass_Full->SetLineWidth(3); LambdaMass_Full->SetLineStyle(2);
   LambdaMass_Full->Draw();
@@ -483,9 +483,9 @@ void hms_cer_efficiency::Terminate()
   //Lambda_Fit_Full->Draw("same"); 
   Gauss_Fit->SetLineColor(kBlack); Gauss_Fit->SetLineWidth(1);
   Gauss_Fit->DrawClone("same"); 
-  cKine->Update();
+  cID->Update();
   h1mmissK_remove->SetTitleOffset(1.0,"Y"); /*h1mmissK_remove->SetAxisRange(1.0,1.25,"X");*/// h1mmissK_remove->SetAxisRange(0.0,gPad->GetUymax(),"Y");
-  cKine->Update();
+  cID->Update();
   TLine *LambdaMass_Full = new TLine(1.1156,gPad->GetUymin(),1.1156,gPad->GetUymax()); 
   LambdaMass_Full->SetLineColor(kBlack); LambdaMass_Full->SetLineWidth(3); LambdaMass_Full->SetLineStyle(2);
   LambdaMass_Full->Draw();
