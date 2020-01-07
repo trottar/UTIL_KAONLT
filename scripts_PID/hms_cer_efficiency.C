@@ -55,10 +55,19 @@ void hms_cer_efficiency::SlaveBegin(TTree * /*tree*/)
 
   h1missKcut_CT   = new TH2F("h1missKcut_CT","Kaon Missing mass vs Coincidence Time;Time (ns);Mass (GeV/c^{2})^{2}",400,-10,10,100,0.8,1.4);
 
-  // h2ROC1_Coin_Beta_noID_electron = new TH2F("ROC1_Coin_Beta_noCut_electron","Electron Coincident Time vs #beta for ROC1 (w/ particle ID);Time (ns);#beta",800,-40,40,200,0.0,2.0);
-  // h2ROC1_Coin_Beta_electron = new TH2F("ROC1_Coin_Beta_electron","Electron Coincident Time vs #beta for ROC1;Time (ns);#beta",800,-40,40,200,0.0,2.0);
+  /**
+     electron cuts for PID efficiencies
+   **/
+
+  /////////////////////////////////////
   h2ROC1_Coin_Beta_noID_electron = new TH2F("ROC1_Coin_Beta_noCut_electron","Electron Coincident Time vs Mass (GeV/c^{2}) for ROC1 (w/out Cherenkov cuts);Time (ns);Mass (GeV/c^{2})",800,-5,5,200,0.0,2.0);
   h2ROC1_Coin_Beta_electron = new TH2F("ROC1_Coin_Beta_electron","Electron Coincident Time vs Mass (GeV/c^{2}) for ROC1 (w/ Cherenkov cuts);Time (ns);Mass (GeV/c^{2})",800,-5,5,200,0.0,2.0);
+
+  h1massElec_noID                = new TH1F("massElec","Electron Missing mass w/out cer;Mass (GeV/c^{2});Counts",200,0.0,2.0);
+  h1massElec_noID->Sumw2();
+  h1massElec_ID                = new TH1F("massElec","Electron Missing mass w/ cer;Mass (GeV/c^{2});Counts",200,0.0,2.0);
+  h1massElec_ID->Sumw2();
+  ////////////////////////////////////
   
   h2ROC1_Coin_Beta_noID_kaon = new TH2F("ROC1_Coin_Beta_noCut_kaon","Kaon Coincident Time vs #beta for ROC1 (w/ particle ID);Time (ns);#beta",800,-40,40,200,0.0,2.0);
   h2ROC1_Coin_Beta_kaon = new TH2F("ROC1_Coin_Beta_kaon","Kaon Coincident Time vs #beta for ROC1;Time (ns);#beta",800,-40,40,200,0.0,2.0);
@@ -152,8 +161,20 @@ void hms_cer_efficiency::SlaveBegin(TTree * /*tree*/)
 
   GetOutputList()->Add(h1missKcut_CT);
 
+  /**
+     electron cuts for PID efficiencies
+   **/
+
+  /////////////////////////////////////
   GetOutputList()->Add(h2ROC1_Coin_Beta_noID_electron);
   GetOutputList()->Add(h2ROC1_Coin_Beta_electron);
+
+  GetOutputList()->Add(h1massElec_noID);
+  GetOutputList()->Add(h1massElec_ID);
+  ////////////////////////////////////
+
+
+  
   GetOutputList()->Add(h2ROC1_Coin_Beta_noID_kaon);
   GetOutputList()->Add(h2ROC1_Coin_Beta_kaon);
   GetOutputList()->Add(h2ROC1_Coin_Beta_noID_pion);
@@ -271,11 +292,13 @@ Bool_t hms_cer_efficiency::Process(Long64_t entry)
 
   if(H_cal_etotnorm[0] > 1.1){
     h2ROC1_Coin_Beta_noID_electron->Fill((CTime_eKCoinTime_ROC1[0] - 48.5),sqrt(pow(emiss[0],2)-pow(pmiss[0],2)));
+    h1massElec_noID->Fill(sqrt(pow(emiss[0],2)-pow(pmiss[0],2)))
   }
 
   if(H_cal_etotnorm[0] > 1.1){
     if(H_cer_npeSum[0] > 1.5){
       h2ROC1_Coin_Beta_electron->Fill((CTime_eKCoinTime_ROC1[0] - 48.5),sqrt(pow(emiss[0],2)-pow(pmiss[0],2)));
+      h1massElec_ID->Fill(sqrt(pow(emiss[0],2)-pow(pmiss[0],2)))
     }
   }
   
@@ -425,14 +448,14 @@ void hms_cer_efficiency::Terminate()
   // TString foutname = "../OUTPUT/Kinematics_1uA_allPlots";
 
   TString outputpdf = foutname + ".pdf";
-
-
-  TCanvas *cID = new TCanvas("ID","Summary of Electron Particle ID Cuts");
-  cID->Divide(1,2);
+  
+  TCanvas *cID = new TCanvas("ID","Summary of Electron Particle PID Cuts");
+  cID->Divide(2,2);
   cID->cd(1); h2ROC1_Coin_Beta_noID_electron->Draw("Colz");
   cID->cd(2); h2ROC1_Coin_Beta_electron->Draw("Colz");
+  cID->cd(3); h1massElec_noID->Draw();
+  cID->cd(4); h1massElec_ID->Draw();
   cID->Update();
   cID->Print(outputpdf);
-  
 
 }
