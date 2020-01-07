@@ -63,9 +63,9 @@ void hms_cer_efficiency::SlaveBegin(TTree * /*tree*/)
   h2ROC1_Coin_Beta_noID_electron = new TH2F("ROC1_Coin_Beta_noCut_electron","Electron Coincident Time vs Mass (GeV/c^{2}) for ROC1 (w/out Cherenkov cuts);Time (ns);Mass (GeV/c^{2})",800,-5,5,200,0.0,2.0);
   h2ROC1_Coin_Beta_electron = new TH2F("ROC1_Coin_Beta_electron","Electron Coincident Time vs Mass (GeV/c^{2}) for ROC1 (w/ Cherenkov cuts);Time (ns);Mass (GeV/c^{2})",800,-5,5,200,0.0,2.0);
 
-  h1massElec_noID                = new TH1F("massElec","Electron Missing mass w/out cer;Mass (GeV/c^{2});Counts",200,0.0,2.0);
+  h1massElec_noID              = new TH1F("massElec_noID","Electron Missing mass w/out cer;Mass (GeV/c^{2});Counts",200,0.0,2.0);
   h1massElec_noID->Sumw2();
-  h1massElec_ID                = new TH1F("massElec","Electron Missing mass w/ cer;Mass (GeV/c^{2});Counts",200,0.0,2.0);
+  h1massElec_ID                = new TH1F("massElec_ID","Electron Missing mass w/ cer;Mass (GeV/c^{2});Counts",200,0.0,2.0);
   h1massElec_ID->Sumw2();
   ////////////////////////////////////
   
@@ -453,6 +453,7 @@ void hms_cer_efficiency::Terminate()
   cID->Divide(2,2);
   cID->cd(1); h2ROC1_Coin_Beta_noID_electron->Draw("Colz");
   cID->cd(2); h2ROC1_Coin_Beta_electron->Draw("Colz");
+  cID->Update();
   cID->cd(3); h1massElec_noID->Draw();
   cID->cd(4); h1massElec_ID->Draw();
   cID->Update();
