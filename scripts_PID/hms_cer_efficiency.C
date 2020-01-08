@@ -368,7 +368,7 @@ void hms_cer_efficiency::Terminate()
   GausBack->FixParameter(0,Back_Fit->GetParameter(0));
   GausBack->FixParameter(1,Back_Fit->GetParameter(1));  
   GausBack->SetParameter(2,500);
-  GausBack->SetParameter(3,0.94);
+  GausBack->SetParameter(3,0.93);
   GausBack->SetParameter(4,0.004);
   GausBack->SetParLimits(2,0,5000);
   GausBack->SetParLimits(3,0.65,1.00);
@@ -420,6 +420,7 @@ void hms_cer_efficiency::Terminate()
   ptLambdaEvt_noID->AddText(Form("Run Number: %i",option.Atoi()));
   ptLambdaEvt_noID->AddText(Form("Events: %.0f",Gauss_Fit->Integral(1.0,1.25) / 0.005));
   ptLambdaEvt_noID->Draw();
+  cID->Update();
   cID->cd(4); h1massElec_ID->Draw("hist");
   Lambda_Fit_Full->SetLineColor(kGreen); Lambda_Fit_Full->SetLineWidth(2);
   Lambda_Fit_Full->Draw("same"); 
