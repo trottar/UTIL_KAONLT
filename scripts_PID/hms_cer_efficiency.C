@@ -361,6 +361,8 @@ void hms_cer_efficiency::Terminate()
   Info("Terminate", "Outputting Good Kaon Selection");
 
   TString option = GetOption();
+
+  TF1 *Back_Fit = new TF1("Back_Fit","[A] + [B]*x",0.65,1.00);
   
   TF1 *GausBack = new  TF1("GausBack","[Constant]*exp(-0.5*((x-[Mean])/[Sigma])*((x-[Mean])/[Sigma])) + [A] + [B]*x",0.65,1.00);
   GausBack->FixParameter(0,Back_Fit->GetParameter(0));
@@ -372,7 +374,7 @@ void hms_cer_efficiency::Terminate()
   GausBack->SetParLimits(3,0.65,1.00);
   GausBack->SetParLimits(4,0.001,0.01);
 
-  TF1 *Gauss_Fit = new TF1("Gauss_Fit","[Constant]*exp(-0.5*((x-[Mean])/[Sigma])*((x-[Mean])/[Sigma]))",0.7,1.1);
+  TF1 *Gauss_Fit = new TF1("Gauss_Fit","[Constant]*exp(-0.5*((x-[Mean])/[Sigma])*((x-[Mean])/[Sigma]))",0.6,1.1);
   Gauss_Fit->FixParameter(0,GausBack->GetParameter(2));
   Gauss_Fit->FixParameter(1,GausBack->GetParameter(3));
   Gauss_Fit->FixParameter(2,GausBack->GetParameter(4));
