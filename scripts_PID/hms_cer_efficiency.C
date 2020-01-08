@@ -361,28 +361,16 @@ void hms_cer_efficiency::Terminate()
   Info("Terminate", "Outputting Good Kaon Selection");
 
   TString option = GetOption();
-
-  /*TH3F* SHMS_HGC = dynamic_cast<TH3F*> (GetOutputList()->FindObject("SHMS_HGC"));
-  TProfile2D *SHMS_HGC_pyx = new TProfile2D("SHMS_HGC_pyx","Profile of NPE in SHMS HGC;X Position (cm);Y Position (cm)",100,-50,50,100,-50,50,0.1,35);
-  SHMS_HGC->Project3DProfile("yx");*/
-  TH1F* EDTM = dynamic_cast<TH1F*> (GetOutputList()->FindObject("EDTM"));
-  TH2F* HMS_electron = dynamic_cast<TH2F*> (GetOutputList()->FindObject("HMS_electron"));
-  TH2F* HMS_electron_cut = dynamic_cast<TH2F*> (GetOutputList()->FindObject("HMS_electron_cut"));
-
-  TF1 *Back_Fit = new TF1("Back_Fit","[A] + [B]*x",0.75,1.00);
-  //Back_Fit->FixParameter(1,0);
-  h1mmissK_remove->Fit("Back_Fit","RMQN");
   
-  TF1 *GausBack = new  TF1("GausBack","[Constant]*exp(-0.5*((x-[Mean])/[Sigma])*((x-[Mean])/[Sigma])) + [A] + [B]*x",0.75,1.00);
+  TF1 *GausBack = new  TF1("GausBack","[Constant]*exp(-0.5*((x-[Mean])/[Sigma])*((x-[Mean])/[Sigma])) + [A] + [B]*x",0.65,1.00);
   GausBack->FixParameter(0,Back_Fit->GetParameter(0));
   GausBack->FixParameter(1,Back_Fit->GetParameter(1));  
   GausBack->SetParameter(2,500);
   GausBack->SetParameter(3,1.00);
   GausBack->SetParameter(4,0.004);
   GausBack->SetParLimits(2,0,5000);
-  GausBack->SetParLimits(3,0.75,1.00);
+  GausBack->SetParLimits(3,0.65,1.00);
   GausBack->SetParLimits(4,0.001,0.01);
-  h1mmissK_remove->Fit("GausBack","RMQN");
 
   TF1 *Gauss_Fit = new TF1("Gauss_Fit","[Constant]*exp(-0.5*((x-[Mean])/[Sigma])*((x-[Mean])/[Sigma]))",0.7,1.1);
   Gauss_Fit->FixParameter(0,GausBack->GetParameter(2));
@@ -390,19 +378,18 @@ void hms_cer_efficiency::Terminate()
   Gauss_Fit->FixParameter(2,GausBack->GetParameter(4));
 
   //Fit the Lambda Missing Mass
-  TF1 *Lambda_Fit = new TF1("Lambda_Fit","[0]*exp(-0.5*((x-[1])/[2])*((x-[1])/[2]))",0.75,1.00);
+  TF1 *Lambda_Fit = new TF1("Lambda_Fit","[0]*exp(-0.5*((x-[1])/[2])*((x-[1])/[2]))",0.65,1.00);
   Lambda_Fit->SetParName(0,"Amplitude");
   Lambda_Fit->SetParName(1,"Mean");
   Lambda_Fit->SetParName(2,"Sigma");
   Lambda_Fit->SetParLimits(0,0.0,10000.0);
-  Lambda_Fit->SetParLimits(1,0.75,0.95);
+  Lambda_Fit->SetParLimits(1,0.65,0.95);
   Lambda_Fit->SetParLimits(2,0.0,0.1);
   Lambda_Fit->SetParameter(0,100);
   Lambda_Fit->SetParameter(1,1.00);
   Lambda_Fit->SetParameter(2,0.011);
-  h1mmissK_remove->Fit("Lambda_Fit","RMQN");
 
-  TF1 *Lambda_Fit_Full = new TF1("Lambda_Fit_Full","[0]*exp(-0.5*((x-[1])/[2])*((x-[1])/[2]))",0.75,1.00);
+  TF1 *Lambda_Fit_Full = new TF1("Lambda_Fit_Full","[0]*exp(-0.5*((x-[1])/[2])*((x-[1])/[2]))",0.65,1.00);
   Lambda_Fit_Full->SetParName(0,"Amplitude");
   Lambda_Fit_Full->SetParName(1,"Mean");
   Lambda_Fit_Full->SetParName(2,"Sigma");
