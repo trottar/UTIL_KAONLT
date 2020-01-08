@@ -369,38 +369,13 @@ void hms_cer_efficiency::Terminate()
   TH2F* HMS_electron = dynamic_cast<TH2F*> (GetOutputList()->FindObject("HMS_electron"));
   TH2F* HMS_electron_cut = dynamic_cast<TH2F*> (GetOutputList()->FindObject("HMS_electron_cut"));
 
-
-  //Perform Random Subtraction
-  //h1mmissK_rand->Scale(0.725/7.0);
-  h1mmissK_rand->Scale(1./12);
-  // h1mmisspiK_rand->Scale(1./3.);//
-  h1mmisspi_rand->Scale(1.25/7.0);
-  h1mmissp_rand->Scale(1.25/7.0);
-  h1mmissK_remove->Add(h1mmissK_cut,h1mmissK_rand,1,-1);
-  // h1mmisspiK_remove->Add(h1mmisspiK_cut,h1mmisspiK_rand,1,-1);//
-  h1mmisspi_remove->Add(h1mmisspi_cut,h1mmisspi_rand,1,-1);
-  h1mmissp_remove->Add(h1mmissp_cut,h1mmissp_rand,1,-1);
-
-  //Perform Background Subtraction
-  /*TF1 *Back_Fit = new TF1("Back_Fit","[0]*exp(-0.5*((x-[1])/[2])*((x-[1])/[2]))",1.3,1.8);
-  Back_Fit->SetParName(0,"Amplitude");
-  Back_Fit->SetParName(1,"Mean");
-  Back_Fit->SetParName(2,"Sigma");
-  Back_Fit->SetParLimits(0,0.0,10000.0);
-  Back_Fit->SetParLimits(1,1.3,1.8);
-  Back_Fit->SetParLimits(2,0.0,1.0);
-  Back_Fit->SetParameter(0,20);
-  Back_Fit->SetParameter(1,1.44);
-  Back_Fit->SetParameter(2,0.16);*/
-  
-  //TF1 *Back_Fit = new TF1("Back_Fit","[A] + [B]*x + [C]*pow(x,2)",1.07,1.15);
-  TF1 *Back_Fit = new TF1("Back_Fit","[A] + [B]*x",1.05,1.18);
+  // TF1 *Back_Fit = new TF1("Back_Fit","[A] + [B]*x",1.05,1.18);
+    TF1 *Back_Fit = new TF1("Back_Fit","[A] + [B]*x",0.75,1.00);
   //Back_Fit->FixParameter(1,0);
   h1mmissK_remove->Fit("Back_Fit","RMQN");
   
-  //TF1 *GausBack = new TF1("GausBack","[Constant]*exp(-0.5*((x-[Mean])/[Sigma])*((x-[Mean])/[Sigma])) + [A] + [B]*x + [C]*pow(x,2)",1.07,1.15);
-  TF1 *GausBack = new TF1("GausBack","[Constant]*exp(-0.5*((x-[Mean])/[Sigma])*((x-[Mean])/[Sigma])) + [A] + [B]*x",1.05,1.18);
-  //TF1 *GausBack = new TF1("GausBack","[0]*TMath::Landau(x,[1],[2]) + [A] + [B]*x",1.05,1.18);
+  // TF1 *GausBack = new TF1("GausBack","[Constant]*exp(-0.5*((x-[Mean])/[Sigma])*((x-[Mean])/[Sigma])) + [A] + [B]*x",1.05,1.18);
+  TF1("GausBack","[Constant]*exp(-0.5*((x-[Mean])/[Sigma])*((x-[Mean])/[Sigma])) + [A] + [B]*x",0.75,1.00);
   GausBack->FixParameter(0,Back_Fit->GetParameter(0));
   GausBack->FixParameter(1,Back_Fit->GetParameter(1));  
   GausBack->SetParameter(2,500);
@@ -411,8 +386,10 @@ void hms_cer_efficiency::Terminate()
   GausBack->SetParLimits(4,0.001,0.01);
   h1mmissK_remove->Fit("GausBack","RMQN");
 
-  TF1 *Gauss_Fit = new TF1("Gauss_Fit","[Constant]*exp(-0.5*((x-[Mean])/[Sigma])*((x-[Mean])/[Sigma]))",1.0,1.2);
-  //TF1 *Gauss_Fit = new TF1("Gauss_Fit","[0]*TMath::Landau(x,[1],[2])",1.0,1.2);
+  // TF1 *Gauss_Fit = new TF1("Gauss_Fit","[Constant]*exp(-0.5*((x-[Mean])/[Sigma])*((x-[Mean])/[Sigma]))",1.0,1.2);
+    // TF1 *Gauss_Fit = new TF1("Gauss_Fit","[Constant]*exp(-0.5*((x-[Mean])/[Sigma])*((x-[Mean])/[Sigma]))",1.0,1.2);
+  TF1 *Gauss_Fit = new TF1("Gauss_Fit","[Constant]*exp(-0.5*((x-[Mean])/[Sigma])*((x-[Mean])/[Sigma]))",0.7,1.1);
+  Gauss_Fit->FixParamete
   Gauss_Fit->FixParameter(0,GausBack->GetParameter(2));
   Gauss_Fit->FixParameter(1,GausBack->GetParameter(3));
   Gauss_Fit->FixParameter(2,GausBack->GetParameter(4));
@@ -421,8 +398,8 @@ void hms_cer_efficiency::Terminate()
   h1mmissK_noback->Add(Back_Fit,-1);
 
   //Fit the Lambda Missing Mass
-  TF1 *Lambda_Fit = new TF1("Lambda_Fit","[0]*exp(-0.5*((x-[1])/[2])*((x-[1])/[2]))",1.105,1.15);
-  // TF1 *Lambda_Fit = new TF1("Lambda_Fit","[0]*TMath::Landau(x,[1],[2])",1.105,1.15);
+  // TF1 *Lambda_Fit = new TF1("Lambda_Fit","[0]*exp(-0.5*((x-[1])/[2])*((x-[1])/[2]))",1.105,1.15);
+  TF1 *Lambda_Fit = new TF1("Lambda_Fit","[0]*exp(-0.5*((x-[1])/[2])*((x-[1])/[2]))",0.75,1.00);
   Lambda_Fit->SetParName(0,"Amplitude");
   Lambda_Fit->SetParName(1,"Mean");
   Lambda_Fit->SetParName(2,"Sigma");
@@ -434,8 +411,8 @@ void hms_cer_efficiency::Terminate()
   Lambda_Fit->SetParameter(2,0.011);
   h1mmissK_remove->Fit("Lambda_Fit","RMQN");
 
-  TF1 *Lambda_Fit_Full = new TF1("Lambda_Fit_Full","[0]*exp(-0.5*((x-[1])/[2])*((x-[1])/[2]))",1.0,1.25);
-  // TF1 *Lambda_Fit_Full = new TF1("Lambda_Fit_Full","[0]*TMath::Landau(x,[1],[2])",1.0,1.25);
+  // TF1 *Lambda_Fit_Full = new TF1("Lambda_Fit_Full","[0]*exp(-0.5*((x-[1])/[2])*((x-[1])/[2]))",1.0,1.25);
+  TF1 *Lambda_Fit_Full = new TF1("Lambda_Fit_Full","[0]*exp(-0.5*((x-[1])/[2])*((x-[1])/[2]))",0.75,1.00);;
   Lambda_Fit_Full->SetParName(0,"Amplitude");
   Lambda_Fit_Full->SetParName(1,"Mean");
   Lambda_Fit_Full->SetParName(2,"Sigma");
