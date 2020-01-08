@@ -388,7 +388,7 @@ void hms_cer_efficiency::Terminate()
   Lambda_Fit->SetParLimits(1,0.65,0.95);
   Lambda_Fit->SetParLimits(2,0.0,0.1);
   Lambda_Fit->SetParameter(0,100);
-  Lambda_Fit->SetParameter(1,1.00);
+  Lambda_Fit->SetParameter(1,0.75);
   Lambda_Fit->SetParameter(2,0.011);
 
   TF1 *Lambda_Fit_Full = new TF1("Lambda_Fit_Full","[0]*exp(-0.5*((x-[1])/[2])*((x-[1])/[2]))",0.65,1.00);
