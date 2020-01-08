@@ -387,15 +387,10 @@ void hms_cer_efficiency::Terminate()
   h1mmissK_remove->Fit("GausBack","RMQN");
 
   // TF1 *Gauss_Fit = new TF1("Gauss_Fit","[Constant]*exp(-0.5*((x-[Mean])/[Sigma])*((x-[Mean])/[Sigma]))",1.0,1.2);
-    // TF1 *Gauss_Fit = new TF1("Gauss_Fit","[Constant]*exp(-0.5*((x-[Mean])/[Sigma])*((x-[Mean])/[Sigma]))",1.0,1.2);
   TF1 *Gauss_Fit = new TF1("Gauss_Fit","[Constant]*exp(-0.5*((x-[Mean])/[Sigma])*((x-[Mean])/[Sigma]))",0.7,1.1);
-  Gauss_Fit->FixParamete
   Gauss_Fit->FixParameter(0,GausBack->GetParameter(2));
   Gauss_Fit->FixParameter(1,GausBack->GetParameter(3));
   Gauss_Fit->FixParameter(2,GausBack->GetParameter(4));
-
-  TH1F *h1mmissK_noback = (TH1F*) h1mmissK_remove->Clone();
-  h1mmissK_noback->Add(Back_Fit,-1);
 
   //Fit the Lambda Missing Mass
   // TF1 *Lambda_Fit = new TF1("Lambda_Fit","[0]*exp(-0.5*((x-[1])/[2])*((x-[1])/[2]))",1.105,1.15);
