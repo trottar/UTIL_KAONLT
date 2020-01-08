@@ -395,7 +395,7 @@ void hms_cer_efficiency::Terminate()
   Lambda_Fit->SetParName(1,"Mean");
   Lambda_Fit->SetParName(2,"Sigma");
   Lambda_Fit->SetParLimits(0,0.0,10000.0);
-  Lambda_Fit->SetParLimits(1,0.85,0.95);
+  Lambda_Fit->SetParLimits(1,0.75,0.95);
   Lambda_Fit->SetParLimits(2,0.0,0.1);
   Lambda_Fit->SetParameter(0,100);
   Lambda_Fit->SetParameter(1,1.00);
