@@ -33,6 +33,7 @@ void run_detectEfficiency(Int_t RunNumber = 0, Int_t MaxEvent = 0, string spec =
   TChain *ch = new TChain("T");
   TString option = Form("%i",RunNumber);
   ch->Add(Form("/u/group/c-kaonlt/USERS/trottar/hallc_replay_lt/UTIL_KAONLT/ROOTfiles/PID_%i_%i.root",RunNumber,MaxEvent));
+  // ch->Add(Form("~/Analysis/hallc_replay_lt/UTIL_KAONLT/ROOTfiles/PID_%i_%i.root",RunNumber,MaxEvent));
   
   TProof *proof = TProof::Open("workers=8");
   //proof->SetProgressDialog(0);  
@@ -42,5 +43,6 @@ void run_detectEfficiency(Int_t RunNumber = 0, Int_t MaxEvent = 0, string spec =
   
   TChain *sc = new TChain("TSH");
   ch->Add(Form("/u/group/c-kaonlt/USERS/trottar/hallc_replay_lt/UTIL_KAONLT/ROOTfiles/PID_%i_%i.root",RunNumber,MaxEvent));
+  // ch->Add(Form("~/Analysis/hallc_replay_lt/UTIL_KAONLT/ROOTfiles/PID_%i_%i.root",RunNumber,MaxEvent));
   sc->Process("HMS_Scalers.C+",option);
 }
