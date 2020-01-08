@@ -368,7 +368,7 @@ void hms_cer_efficiency::Terminate()
   GausBack->FixParameter(0,Back_Fit->GetParameter(0));
   GausBack->FixParameter(1,Back_Fit->GetParameter(1));  
   GausBack->SetParameter(2,500);
-  GausBack->SetParameter(3,1.00);
+  GausBack->SetParameter(3,0.90);
   GausBack->SetParameter(4,0.004);
   GausBack->SetParLimits(2,0,5000);
   GausBack->SetParLimits(3,0.65,1.00);
