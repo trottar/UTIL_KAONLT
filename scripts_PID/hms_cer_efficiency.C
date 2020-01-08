@@ -418,7 +418,7 @@ void hms_cer_efficiency::Terminate()
   cID->Update();
   TPaveText *ptLambdaEvt_noID = new TPaveText(0.58934,0.715354,0.80000,0.81576,"NDC");
   ptLambdaEvt_noID->AddText(Form("Run Number: %i",option.Atoi()));
-  ptLambdaEvt_noID->AddText(Form("#Lambda Events: %.0f",Gauss_Fit->Integral(1.0,1.25) / 0.005));
+  ptLambdaEvt_noID->AddText(Form("Events: %.0f",Gauss_Fit->Integral(1.0,1.25) / 0.005));
   ptLambdaEvt_noID->Draw();
   cID->cd(4); h1massElec_ID->Draw("hist");
   Lambda_Fit_Full->SetLineColor(kGreen); Lambda_Fit_Full->SetLineWidth(2);
@@ -428,7 +428,7 @@ void hms_cer_efficiency::Terminate()
   cID->Update();
   TPaveText *ptLambdaEvt = new TPaveText(0.58934,0.715354,0.80000,0.81576,"NDC");
   ptLambdaEvt->AddText(Form("Run Number: %i",option.Atoi()));
-  ptLambdaEvt->AddText(Form("#Lambda Events: %.0f",Gauss_Fit->Integral(1.0,1.25) / 0.005));
+  ptLambdaEvt->AddText(Form("Events: %.0f",Gauss_Fit->Integral(1.0,1.25) / 0.005));
   ptLambdaEvt->Draw();
   cID->Update();
   cID->Print(outputpdf);
