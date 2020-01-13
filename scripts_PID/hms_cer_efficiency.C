@@ -290,8 +290,8 @@ Bool_t hms_cer_efficiency::Process(Long64_t entry)
 
   if (P_cal_etotnorm[0] > 0.6) return kTRUE;
 
-  if ( (CTime_eKCoinTime_ROC1[0] - 43) > -1. && (CTime_eKCoinTime_ROC1[0] - 43) < 1.) {
-    if(H_cal_etotnorm[0] > 0.99 || H_cal_etotnorm[0] < 1.01){
+  // if ( (CTime_eKCoinTime_ROC1[0] - 43) > -1. && (CTime_eKCoinTime_ROC1[0] - 43) < 1.) {
+    if(H_cal_etotnorm[0] > 0.99 && H_cal_etotnorm[0] < 1.01){
       h2ROC1_Coin_Beta_noID_electron->Fill((CTime_eKCoinTime_ROC1[0] - 48.5),sqrt(pow(emiss[0],2)-pow(pmiss[0],2)));
       h1massElec_noID->Fill(sqrt(pow(emiss[0],2)-pow(pmiss[0],2)));
       
@@ -300,7 +300,7 @@ Bool_t hms_cer_efficiency::Process(Long64_t entry)
 	h1massElec_ID->Fill(sqrt(pow(emiss[0],2)-pow(pmiss[0],2)));
       }
     }
-  }
+  // }
   
   if (TMath::Abs(P_gtr_th[0]) > 0.040) return kTRUE;
   if (TMath::Abs(P_gtr_ph[0]) > 0.024) return kTRUE;
