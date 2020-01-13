@@ -1,4 +1,4 @@
-#!/bin/bash                                                                                                                                                                                                      
+#! /bin/bash                                                                                                                                                                                                      
 
 ##### A batch submission script by Richard, insert the required script you want to batch run on line 53                                                                                 
 ##### Modify required resources as needed! See comments, leave CPU as 1!                                                                      
@@ -54,7 +54,7 @@ while true; do
                 echo "OS: centos7" >> ${batch}
                 echo "CPU: 1" >> ${batch} ### hcana is single core, setting CPU higher will lower priority and gain you nothing!
 		echo "INPUT_FILES: ${tape_file}" >> ${batch}
-                echo "COMMAND:/u/group/c-kaonlt/USERS/${USER}/hallc_replay_kaonlt/UTIL_KAONLT/Batch_Template.sh ${runNum}" >> ${batch} ### Insert your script at end!                                            
+                echo "COMMAND:/u/group/c-kaonlt/USERS/${USER}/hallc_replay_kaonlt/UTIL_KAONLT/pid_eff.sh ${runNum}" >> ${batch} ### Insert your script at end!                                            
                 echo "MAIL: ${USER}@jlab.org" >> ${batch} ## Consider commenting out for large runs unless you enjoy 1k email spam
                 echo "Submitting batch"
                 eval "jsub ${batch} 2>/dev/null"
