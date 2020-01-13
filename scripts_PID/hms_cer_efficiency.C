@@ -413,30 +413,16 @@ void hms_cer_efficiency::Terminate()
   cID->Update();
   cID->cd(3); h1massElec_noID->Draw("hist");
   Int_t numEvts_noID = h1massElec_noID->GetEntries();
-  // Lambda_Fit_Full->SetLineColor(kGreen); Lambda_Fit_Full->SetLineWidth(2);
-  // Lambda_Fit_Full->Draw("same"); 
-  // Gauss_Fit->SetLineColor(kBlack); Gauss_Fit->SetLineWidth(1);
-  // Gauss_Fit->DrawClone("same"); 
-  // cID->Update();
-  // TPaveText *ptLambdaEvt_noID = new TPaveText(0.58934,0.715354,0.80000,0.81576,"NDC");
-  // ptLambdaEvt_noID->AddText(Form("Run Number: %i",option.Atoi()));
-  // ptLambdaEvt_noID->AddText(Form("Events: %.0f",Gauss_Fit->Integral(1.0,1.25) / 0.005));
-  // ptLambdaEvt_noID->Draw();
-  // cID->Update();
   cID->cd(4); h1massElec_ID->Draw("hist");
   Int_t numEvts_ID = h1massElec_ID->GetEntries();
-  // Lambda_Fit_Full->SetLineColor(kGreen); Lambda_Fit_Full->SetLineWidth(2);
-  // Lambda_Fit_Full->Draw("same"); 
-  // Gauss_Fit->SetLineColor(kBlack); Gauss_Fit->SetLineWidth(1);
-  // Gauss_Fit->DrawClone("same"); 
-  // cID->Update();
-  // TPaveText *ptLambdaEvt = new TPaveText(0.58934,0.715354,0.80000,0.81576,"NDC");
-  // ptLambdaEvt->AddText(Form("Run Number: %i",option.Atoi()));
-  // ptLambdaEvt->AddText(Form("Events: %.0f",Gauss_Fit->Integral(1.0,1.25) / 0.005));
-  // ptLambdaEvt->Draw();
-  // cID->Update();
   cID->Print(outputpdf);
 
+  cout << numEvts_noID << endl;
   cout << numEvts_ID << endl;
+
+  ofstream myfile;
+  myfile1.open ("numEvts_PID", fstream::app);
+  myfile1 << Form("%i     %.0f     %.0f     \n", option.Atoi(), numEvts_noID, numEvts_ID);
+  myfile1.close();
   
 }
