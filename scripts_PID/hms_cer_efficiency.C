@@ -295,7 +295,7 @@ Bool_t hms_cer_efficiency::Process(Long64_t entry)
     h1massElec_noID->Fill(sqrt(pow(emiss[0],2)-pow(pmiss[0],2)));
   }
 
-  if(H_cal_etotnorm[0] > 1.1){
+  if(H_cal_etotnorm[0] > 0.9 || H_cal_etotnorm[0] < 1.1){
     if(H_cer_npeSum[0] > 1.5){
       h2ROC1_Coin_Beta_electron->Fill((CTime_eKCoinTime_ROC1[0] - 48.5),sqrt(pow(emiss[0],2)-pow(pmiss[0],2)));
       h1massElec_ID->Fill(sqrt(pow(emiss[0],2)-pow(pmiss[0],2)));
@@ -411,27 +411,27 @@ void hms_cer_efficiency::Terminate()
   cID->cd(2); h2ROC1_Coin_Beta_electron->Draw("Colz");
   cID->Update();
   cID->cd(3); h1massElec_noID->Draw("hist");
-  Lambda_Fit_Full->SetLineColor(kGreen); Lambda_Fit_Full->SetLineWidth(2);
-  Lambda_Fit_Full->Draw("same"); 
-  Gauss_Fit->SetLineColor(kBlack); Gauss_Fit->SetLineWidth(1);
-  Gauss_Fit->DrawClone("same"); 
-  cID->Update();
-  TPaveText *ptLambdaEvt_noID = new TPaveText(0.58934,0.715354,0.80000,0.81576,"NDC");
-  ptLambdaEvt_noID->AddText(Form("Run Number: %i",option.Atoi()));
-  ptLambdaEvt_noID->AddText(Form("Events: %.0f",Gauss_Fit->Integral(1.0,1.25) / 0.005));
-  ptLambdaEvt_noID->Draw();
-  cID->Update();
+  // Lambda_Fit_Full->SetLineColor(kGreen); Lambda_Fit_Full->SetLineWidth(2);
+  // Lambda_Fit_Full->Draw("same"); 
+  // Gauss_Fit->SetLineColor(kBlack); Gauss_Fit->SetLineWidth(1);
+  // Gauss_Fit->DrawClone("same"); 
+  // cID->Update();
+  // TPaveText *ptLambdaEvt_noID = new TPaveText(0.58934,0.715354,0.80000,0.81576,"NDC");
+  // ptLambdaEvt_noID->AddText(Form("Run Number: %i",option.Atoi()));
+  // ptLambdaEvt_noID->AddText(Form("Events: %.0f",Gauss_Fit->Integral(1.0,1.25) / 0.005));
+  // ptLambdaEvt_noID->Draw();
+  // cID->Update();
   cID->cd(4); h1massElec_ID->Draw("hist");
-  Lambda_Fit_Full->SetLineColor(kGreen); Lambda_Fit_Full->SetLineWidth(2);
-  Lambda_Fit_Full->Draw("same"); 
-  Gauss_Fit->SetLineColor(kBlack); Gauss_Fit->SetLineWidth(1);
-  Gauss_Fit->DrawClone("same"); 
-  cID->Update();
-  TPaveText *ptLambdaEvt = new TPaveText(0.58934,0.715354,0.80000,0.81576,"NDC");
-  ptLambdaEvt->AddText(Form("Run Number: %i",option.Atoi()));
-  ptLambdaEvt->AddText(Form("Events: %.0f",Gauss_Fit->Integral(1.0,1.25) / 0.005));
-  ptLambdaEvt->Draw();
-  cID->Update();
+  // Lambda_Fit_Full->SetLineColor(kGreen); Lambda_Fit_Full->SetLineWidth(2);
+  // Lambda_Fit_Full->Draw("same"); 
+  // Gauss_Fit->SetLineColor(kBlack); Gauss_Fit->SetLineWidth(1);
+  // Gauss_Fit->DrawClone("same"); 
+  // cID->Update();
+  // TPaveText *ptLambdaEvt = new TPaveText(0.58934,0.715354,0.80000,0.81576,"NDC");
+  // ptLambdaEvt->AddText(Form("Run Number: %i",option.Atoi()));
+  // ptLambdaEvt->AddText(Form("Events: %.0f",Gauss_Fit->Integral(1.0,1.25) / 0.005));
+  // ptLambdaEvt->Draw();
+  // cID->Update();
   cID->Print(outputpdf);
 
 }
