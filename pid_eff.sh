@@ -51,4 +51,8 @@ cd $REPLAYPATH
 echo -e "\n\nCalculating PID efficiencies, see scripts_PID/numEvts_PID for outputs\n\n"
 cd $REPLAYPATH/UTIL_KAONLT/scripts_PID/
 eval "go_PID.sh $RUNNUMBER"
+<< EOF
+hms
+cer
+EOF
 exit 1
