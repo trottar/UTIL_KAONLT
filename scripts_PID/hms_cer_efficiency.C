@@ -411,8 +411,8 @@ void hms_cer_efficiency::Terminate()
   cID->cd(1); h2ROC1_Coin_Beta_noID_electron->Draw("Colz");
   cID->cd(2); h2ROC1_Coin_Beta_electron->Draw("Colz");
   cID->Update();
-  cID->cd(3); h1massElec_noID->Draw(">>eventlist","hist");
-  Int_t numEvts_noID = eventlist->GetN();
+  cID->cd(3); h1massElec_noID->Draw("hist");
+  Int_t numEvts_noID = h1massElec_noID->GetEntries();
   // Lambda_Fit_Full->SetLineColor(kGreen); Lambda_Fit_Full->SetLineWidth(2);
   // Lambda_Fit_Full->Draw("same"); 
   // Gauss_Fit->SetLineColor(kBlack); Gauss_Fit->SetLineWidth(1);
@@ -423,8 +423,8 @@ void hms_cer_efficiency::Terminate()
   // ptLambdaEvt_noID->AddText(Form("Events: %.0f",Gauss_Fit->Integral(1.0,1.25) / 0.005));
   // ptLambdaEvt_noID->Draw();
   // cID->Update();
-  cID->cd(4); h1massElec_ID->Draw(">>eventlist","hist");
-  Int_t numEvts_ID = eventlist->GetN();
+  cID->cd(4); h1massElec_ID->Draw("hist");
+  Int_t numEvts_noID = h1massElec_noID->GetEntries();
   // Lambda_Fit_Full->SetLineColor(kGreen); Lambda_Fit_Full->SetLineWidth(2);
   // Lambda_Fit_Full->Draw("same"); 
   // Gauss_Fit->SetLineColor(kBlack); Gauss_Fit->SetLineWidth(1);
