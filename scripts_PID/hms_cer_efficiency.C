@@ -289,7 +289,7 @@ Bool_t hms_cer_efficiency::Process(Long64_t entry)
   if (P_gtr_dp[0] > 20.0 || P_gtr_dp[0] < -10.0) return kTRUE;
 
   if (P_cal_etotnorm[0] > 0.6) return kTRUE;
-  if (abs(P_gtr_beta[0]-1.00) > 0.1) return kTRUE;
+  // if (abs(P_gtr_beta[0]-1.00) > 0.1) return kTRUE;
 
   if ( (CTime_eKCoinTime_ROC1[0] - 47.5) > -0.3 && (CTime_eKCoinTime_ROC1[0] - 47.5) < 0.3) {
     if(H_cal_etotnorm[0] > 0.995 && H_cal_etotnorm[0] < 1.015){
