@@ -291,7 +291,7 @@ Bool_t hms_cer_efficiency::Process(Long64_t entry)
   if (P_cal_etotnorm[0] > 0.6) return kTRUE;
   if (abs(P_gtr_beta[0]-1.00) > 0.1) return kTRUE;
 
-  if ( (CTime_eKCoinTime_ROC1[0] - 47.5) > -0.8 && (CTime_eKCoinTime_ROC1[0] - 47.5) < 0.8) {
+  if ( (CTime_eKCoinTime_ROC1[0] - 47.5) > -0.6 && (CTime_eKCoinTime_ROC1[0] - 47.5) < 0.6) {
     if(H_cal_etotnorm[0] > 0.995 && H_cal_etotnorm[0] < 1.015){
       h2ROC1_Coin_Beta_noID_electron->Fill((CTime_eKCoinTime_ROC1[0] - 47.5),sqrt(pow(emiss[0],2)-pow(pmiss[0],2)));
       h1massElec_noID->Fill(sqrt(pow(emiss[0],2)-pow(pmiss[0],2)));
