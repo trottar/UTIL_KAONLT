@@ -363,46 +363,7 @@ void hms_cer_efficiency::Terminate()
 
   TString option = GetOption();
 
-  TF1 *Back_Fit = new TF1("Back_Fit","[A] + [B]*x",0.65,1.00);
-  
-  TF1 *GausBack = new  TF1("GausBack","[Constant]*exp(-0.5*((x-[Mean])/[Sigma])*((x-[Mean])/[Sigma])) + [A] + [B]*x",0.65,1.00);
-  GausBack->FixParameter(0,Back_Fit->GetParameter(0));
-  GausBack->FixParameter(1,Back_Fit->GetParameter(1));  
-  GausBack->SetParameter(2,500);
-  GausBack->SetParameter(3,0.92);
-  GausBack->SetParameter(4,0.004);
-  GausBack->SetParLimits(2,0,5000);
-  GausBack->SetParLimits(3,0.65,1.00);
-  GausBack->SetParLimits(4,0.001,0.01);
-
-  TF1 *Gauss_Fit = new TF1("Gauss_Fit","[Constant]*exp(-0.5*((x-[Mean])/[Sigma])*((x-[Mean])/[Sigma]))",0.6,1.1);
-  Gauss_Fit->FixParameter(0,GausBack->GetParameter(2));
-  Gauss_Fit->FixParameter(1,GausBack->GetParameter(3));
-  Gauss_Fit->FixParameter(2,GausBack->GetParameter(4));
-
-  //Fit the Lambda Missing Mass
-  TF1 *Lambda_Fit = new TF1("Lambda_Fit","[0]*exp(-0.5*((x-[1])/[2])*((x-[1])/[2]))",0.65,1.00);
-  Lambda_Fit->SetParName(0,"Amplitude");
-  Lambda_Fit->SetParName(1,"Mean");
-  Lambda_Fit->SetParName(2,"Sigma");
-  Lambda_Fit->SetParLimits(0,0.0,10000.0);
-  Lambda_Fit->SetParLimits(1,0.65,1.00);
-  Lambda_Fit->SetParLimits(2,0.0,0.1);
-  Lambda_Fit->SetParameter(0,100);
-  Lambda_Fit->SetParameter(1,0.92);
-  Lambda_Fit->SetParameter(2,0.011);
-
-  TF1 *Lambda_Fit_Full = new TF1("Lambda_Fit_Full","[0]*exp(-0.5*((x-[1])/[2])*((x-[1])/[2]))",0.65,1.00);
-  Lambda_Fit_Full->SetParName(0,"Amplitude");
-  Lambda_Fit_Full->SetParName(1,"Mean");
-  Lambda_Fit_Full->SetParName(2,"Sigma");
-  Lambda_Fit_Full->SetParameter(0,Lambda_Fit->GetParameter(0));
-  Lambda_Fit_Full->SetParameter(1,Lambda_Fit->GetParameter(1));
-  Lambda_Fit_Full->SetParameter(2,Lambda_Fit->GetParameter(2));
-
-  //Int_t current = 35;
-  TString foutname = Form("../OUTPUT/Kinematics_Run%i",option.Atoi());
-  // TString foutname = "../OUTPUT/Kinematics_1uA_allPlots";
+  TString foutname = Form("OUTPUTS/numEvts_PID_Run%i",option.Atoi());
 
   TString outputpdf = foutname + ".pdf";
   
@@ -422,7 +383,8 @@ void hms_cer_efficiency::Terminate()
 
   ofstream myfile;
   myfile.open ("numEvts_PID", fstream::app);
-  myfile << Form("%i     %i     %i\n", option.Atoi(), numEvts_noID, numEvts_ID);
+  myfile << Form("%i     %i     %i\n",
+		 option.Atoi(), numEvts_noID, numEvts_ID);
   myfile.close();
   
 }
