@@ -424,7 +424,7 @@ void hms_cer_efficiency::Terminate()
   // ptLambdaEvt_noID->Draw();
   // cID->Update();
   cID->cd(4); h1massElec_ID->Draw("hist");
-  Int_t numEvts_noID = h1massElec_noID->GetEntries();
+  Int_t numEvts_ID = h1massElec_ID->GetEntries();
   // Lambda_Fit_Full->SetLineColor(kGreen); Lambda_Fit_Full->SetLineWidth(2);
   // Lambda_Fit_Full->Draw("same"); 
   // Gauss_Fit->SetLineColor(kBlack); Gauss_Fit->SetLineWidth(1);
