@@ -422,7 +422,7 @@ void hms_cer_efficiency::Terminate()
 
   ofstream myfile;
   myfile.open ("numEvts_PID", fstream::app);
-  myfile << Form("%i     %.0d     %.0d     \n", option.Atoi(), numEvts_noID, numEvts_ID);
+  myfile << Form("%i     %i     %i\n", option.Atoi(), numEvts_noID, numEvts_ID);
   myfile.close();
   
 }
