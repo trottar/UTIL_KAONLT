@@ -51,7 +51,7 @@ while true; do
 		# Note, unless this is set typically replays will produce broken root files
 		echo "DISK_SPACE: $(($(sed -n '3 s/^[^=]*= *//p' < $tape_file)/1000000000 *2)) GB" >> ${batch}
 		echo "MEMORY: 2500 MB" >> ${batch} ## Note, unless NEEDED do not increase this much as it will slow your jobs down
-                echo "OS: centos7" >> ${batch}
+                echo "OS: centos77" >> ${batch}
                 echo "CPU: 1" >> ${batch} ### hcana is single core, setting CPU higher will lower priority and gain you nothing!
 		echo "INPUT_FILES: ${tape_file}" >> ${batch}
                 echo "COMMAND:/u/group/c-kaonlt/USERS/${USER}/hallc_replay_kaonlt/UTIL_KAONLT/pid_eff.sh ${runNum}" >> ${batch} ### Insert your script at end!                                            
