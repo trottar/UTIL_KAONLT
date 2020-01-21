@@ -44,8 +44,8 @@ while true; do
                 cp /dev/null ${batch}
                 ##Creation of batch script for submission##                                                                                                                                                       
                 echo "PROJECT: c-kaonlt" >> ${batch}
-                echo "TRACK: analysis" >> ${batch} ## Use this track for production running
-                # echo "TRACK: debug" >> ${batch} ### Use this track for testing, higher priority
+                # echo "TRACK: analysis" >> ${batch} ## Use this track for production running
+                echo "TRACK: debug" >> ${batch} ### Use this track for testing, higher priority
                 echo "JOBNAME: KaonLT_${runNum}" >> ${batch} ## Change to be more specific if you want
                 # Read the tape stub and check the .dat file size. Request disk space dependening upon this. For trunctuated replays edit the + 25 GB buffer down as needed
 		# Note, unless this is set typically replays will produce broken root files

@@ -46,7 +46,7 @@ fi
 cd $REPLAYPATH
 
 echo -e "\n\nStarting Replay Script\n\n"
-eval "$REPLAYPATH/hcana -l -q \"SCRIPTS/COIN/PRODUCTION/replay_production_coin_hElec_pProt.C($RUNNUMBER,$MAXEVENTS)\""
+eval "$REPLAYPATH/hcana -l -q \"SCRIPTS/COIN/PRODUCTION/replay_PID_eff.C($RUNNUMBER,$MAXEVENTS)\""
 
 echo -e "\n\nCalculating PID efficiencies, see scripts_PID/numEvts_PID for outputs\n\n"
 cd $REPLAYPATH/UTIL_KAONLT/scripts_PID/
