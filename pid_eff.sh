@@ -6,8 +6,8 @@
 echo "Starting Replay script"
 echo "I take as arguments the Run Number and max number of events!"
 RUNNUMBER=$1
-# MAXEVENTS=-1
-MAXEVENTS=10000
+MAXEVENTS=-1
+# MAXEVENTS=10000
 
 ### Check you've provided the an argument
 if [[ $1 -eq "" ]]; then
@@ -45,8 +45,8 @@ elif [[ "${HOSTNAME}" = *"phys.uregina.ca"* ]]; then
 fi
 cd $REPLAYPATH
 
-# echo -e "\n\nStarting Replay Script\n\n"
-# eval "$REPLAYPATH/hcana -l -q \"SCRIPTS/COIN/PRODUCTION/replay_production_coin_hElec_pProt.C($RUNNUMBER,$MAXEVENTS)\""
+echo -e "\n\nStarting Replay Script\n\n"
+eval "$REPLAYPATH/hcana -l -q \"SCRIPTS/COIN/PRODUCTION/replay_production_coin_hElec_pProt.C($RUNNUMBER,$MAXEVENTS)\""
 
 echo -e "\n\nCalculating PID efficiencies, see scripts_PID/numEvts_PID for outputs\n\n"
 cd $REPLAYPATH/UTIL_KAONLT/scripts_PID/
