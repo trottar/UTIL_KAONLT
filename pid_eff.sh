@@ -35,8 +35,8 @@ if [[ "${HOSTNAME}" = *"ifarm"* ]]; then
 elif [[ "${HOSTNAME}" = *"qcd"* ]]; then
     REPLAYPATH="/group/c-kaonlt/USERS/${USER}/hallc_replay_lt"
     source /site/12gev_phys/softenv.sh 2.3
-    cd "/group/c-kaonlt/hcana/"
-    source "/group/c-kaonlt/hcana/setup.sh" 
+    cd "$HCANA"
+    source "$HCANA/setup.sh" 
     cd "$REPLAYPATH"
     source "$REPLAYPATH/setup.sh" 
 elif [[ "${HOSTNAME}" = *"cdaq"* ]]; then
