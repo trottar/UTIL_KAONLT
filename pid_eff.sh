@@ -22,7 +22,7 @@ if [[ ${USER} = "cdaq" ]]; then
     exit 2
 fi  
 # Set path depending upon hostname. Change or add more as needed  
-if [[ "${HOSTNAME}" = *"farm"* ]]; then  
+if [[ "${HOSTNAME}" = *"ifarm"* ]]; then  
     REPLAYPATH="/group/c-kaonlt/USERS/${USER}/hallc_replay_lt"
     if [[ "${HOSTNAME}" != *"ifarm"* ]]; then
 	source /site/12gev_phys/softenv.sh 2.3
