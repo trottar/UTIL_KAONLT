@@ -24,11 +24,12 @@ fi
 # Set path depending upon hostname. Change or add more as needed  
 if [[ "${HOSTNAME}" = *"ifarm"* ]]; then  
     REPLAYPATH="/group/c-kaonlt/USERS/${USER}/hallc_replay_lt"
+    HCANA="/group/c-kaonlt/hcana_16_1_20/"
     if [[ "${HOSTNAME}" != *"ifarm"* ]]; then
 	source /site/12gev_phys/softenv.sh 2.3
     fi
-    cd "/group/c-kaonlt/hcana/"
-    source "/group/c-kaonlt/hcana/setup.sh"
+    cd "$HCANA"
+    source "$HCANA/setup.sh"
     cd "$REPLAYPATH"
     source "$REPLAYPATH/setup.sh"
 elif [[ "${HOSTNAME}" = *"qcd"* ]]; then
