@@ -66,7 +66,7 @@ void run_LumiYield(Int_t RunNumber = 0, Int_t MaxEvent = 0, Double_t threshold_c
 
   //Begin Counting Good Kaon Events
   TChain ch("T");
-  ch.Add(Form("/u/group/c-kaonlt/USERS/trottar/hallc_replay_kaonlt/UTIL_KAONLT/ROOTfiles/KaonLT_coin_replay_production_%i_%i.root",RunNumber,MaxEvent));
+  ch.Add(Form("/u/group/c-kaonlt/USERS/trottar/hallc_replay_kaonlt/UTIL_KAONLT/ROOTfiles/Lumi_coin_replay_production_Offline_%i_%i.root",RunNumber,MaxEvent));
   TString option = Form("%i.%i",PS1,PS3);
 
   TProof *proof = TProof::Open("workers=4");
@@ -76,6 +76,6 @@ void run_LumiYield(Int_t RunNumber = 0, Int_t MaxEvent = 0, Double_t threshold_c
   proof->Close();
   
   TChain sc("TSH");
-  sc.Add(Form("/u/group/c-kaonlt/USERS/trottar/hallc_replay_kaonlt/UTIL_KAONLT/ROOTfiles/KaonLT_coin_replay_production_%i_%i.root",RunNumber,MaxEvent));
+  sc.Add(Form("/u/group/c-kaonlt/USERS/trottar/hallc_replay_kaonlt/UTIL_KAONLT/ROOTfiles/Lumi_coin_replay_production_Offline_%i_%i.root",RunNumber,MaxEvent));
   sc.Process("Scalers.C+",option);
 }
