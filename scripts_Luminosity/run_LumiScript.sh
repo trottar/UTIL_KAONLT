@@ -8,8 +8,10 @@ do
     echo "Run number read from file: $line"                                                                        
 
 #Which run                                                                                                         
-runNum=$line                                                                                                       
-                                                                                                                   
+# runNum=$line            
+
+runNum=$1
+    
 #Number of events                                                                                                  
 numEvts=-1 
 

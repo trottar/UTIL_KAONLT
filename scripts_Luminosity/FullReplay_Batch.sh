@@ -43,4 +43,7 @@ cd $REPLAYPATH
 
 echo -e "\n\nStarting Replay Script\n\n"
 eval "$REPLAYPATH/hcana -l -q \"SCRIPTS/COIN/PRODUCTION/FullReplay_Lumi_Offline.C ($RUNNUMBER,$MAXEVENTS)\""
+
+echo -e "\n\nStarting Lumi Analysis\n\n"
+eval "$REPLAYPATH/UTIL_KAONLT/scripts_Luminosity/run_LumiScript.sh $RUNNUMBER"
 exit 0
