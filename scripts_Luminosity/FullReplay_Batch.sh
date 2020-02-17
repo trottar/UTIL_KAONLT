@@ -54,7 +54,9 @@ mv bcmcurrent_$RUNNUMBER.param ../../PARAM/HMS/BCM/CALIB/bcmcurrent_$RUNNUMBER.p
 cd ../../
 
 echo -e "\n\nStarting Replay Script\n\n"
-eval "$REPLAYPATH/hcana -l -q \"SCRIPTS/COIN/PRODUCTION/FullReplay_Lumi_Offline.C ($RUNNUMBER,$MAXEVENTS)\""
+eval "$REPLAYPATH/hcana -l -q \"SCRIPTS/COIN/PRODUCTION/FullReplay_Lumi_Offline.C ($RUNNUMBER,$MAXEVENTS)\"" | tee UTIL_KAONLT/REPORT_OUTPUT/COIN/PRODUCTION/Lumi_coin_replay_production_Offline_${RUNNUMBER}_${MAXEVENTS}.report
+
+cd UTIL_KAONLT/scripts_Luminosity/
 
 echo -e "\n\nStarting Lumi Analysis\n\n"
 eval "$REPLAYPATH/UTIL_KAONLT/scripts_Luminosity/run_LumiScript.sh $RUNNUMBER"
