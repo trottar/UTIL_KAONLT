@@ -2,7 +2,9 @@
 
 #Input run numbers                                                                                                 
 inputFile="inputRuns"                                                                              
-                                                                                                                   
+
+REPLAYPATH="/group/c-kaonlt/USERS/${USER}/hallc_replay_lt"
+
 # while IFS='' read -r line || [[ -n "$line" ]];                                                                     
 # do                                                                                                                 
     # echo "Run number read from file: $line"                                                                        
@@ -16,7 +18,7 @@ runNum=$1
 numEvts=10000
 
 #Script to run
-script="run_LumiYield.C" 
+script="$REPLAYPATH//UTIL_KAONLT/scripts_Luminosity/run_LumiYield.C" 
 
 #Parameters for script 
 runScript="root -l -b -q \"${script}(${runNum},${numEvts})\""
