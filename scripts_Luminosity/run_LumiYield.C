@@ -60,7 +60,7 @@ void run_LumiYield(Int_t RunNumber = 0, Int_t MaxEvent = 0, Double_t threshold_c
   cout << Form("Using prescale factors: PS1 %i, PS3 %i\n",PS1,PS3);
 
   ofstream myfile1;
-  myfile1.open ("Yield_Data.dat", fstream::app);
+  myfile1.open ("/u/group/c-kaonlt/USERS/trottar/hallc_replay_lt/UTIL_KAONLT/scripts_Luminosity/Yield_Data.dat", fstream::app);
   myfile1 << Form("%d ", RunNumber);
   myfile1.close();
 
@@ -72,10 +72,10 @@ void run_LumiYield(Int_t RunNumber = 0, Int_t MaxEvent = 0, Double_t threshold_c
   TProof *proof = TProof::Open("workers=4");
   //proof->SetProgressDialog(0);  
   ch.SetProof();
-  ch.Process("LumiYield.C+",option);
+  ch.Process("/u/group/c-kaonlt/USERS/trottar/hallc_replay_lt/UTIL_KAONLT/scripts_Luminosity/LumiYield.C+",option);
   proof->Close();
   
   TChain sc("TSH");
   sc.Add(Form("/u/group/c-kaonlt/USERS/trottar/hallc_replay_lt/UTIL_KAONLT/ROOTfiles/Lumi_coin_replay_production_Offline_%i_%i.root",RunNumber,MaxEvent));
-  sc.Process("Scalers.C+",option);
+  sc.Process("/u/group/c-kaonlt/USERS/trottar/hallc_replay_lt/UTIL_KAONLT/scripts_Luminosity/Scalers.C+",option);
 }
