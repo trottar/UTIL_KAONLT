@@ -42,12 +42,12 @@ fi
 cd $REPLAYPATH
 
 echo -e "\n\nStarting Scaler Replay Script\n\n"
-./hcana -q "$REPLAYPATH/SCRIPTS/COIN/SCALERS/replay_coin_scalers.C($RUNNUMBER,-1)"
+./hcana -q "$REPLAYPATH/SCRIPTS/COIN/SCALERS/replay_coin_scalers.C($RUNNUMBER,$MAXEVENTS)"
 cd CALIBRATION/bcm_current_map/
 
 root -b<<EOF
 .L ScalerCalib.C+
-.x run.C("../../ROOTfiles/coin_replay_scalers_${RUNNUMBER}_-1.root")
+.x run.C("../../ROOTfiles/coin_replay_scalers_${RUNNUMBER}_$MAXEVENTS.root")
 EOF
 
 mv bcmcurrent_$RUNNUMBER.param ../../PARAM/HMS/BCM/CALIB/bcmcurrent_$RUNNUMBER.param
