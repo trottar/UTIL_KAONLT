@@ -3,9 +3,9 @@
 #Input run numbers                                                                                                 
 inputFile="inputRuns"                                                                              
                                                                                                                    
-while IFS='' read -r line || [[ -n "$line" ]];                                                                     
-do                                                                                                                 
-    echo "Run number read from file: $line"                                                                        
+# while IFS='' read -r line || [[ -n "$line" ]];                                                                     
+# do                                                                                                                 
+    # echo "Run number read from file: $line"                                                                        
 
 #Which run                                                                                                         
 # runNum=$line            
@@ -13,7 +13,7 @@ do
 runNum=$1
     
 #Number of events                                                                                                  
-numEvts=-1 
+numEvts=10000
 
 #Script to run
 script="run_LumiYield.C" 
@@ -33,4 +33,4 @@ echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 }
 
-done < "$inputFile" 
+# done < "$inputFile" 
