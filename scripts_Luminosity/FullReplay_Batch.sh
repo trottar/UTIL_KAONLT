@@ -41,15 +41,17 @@ elif [[ "${HOSTNAME}" = *"phys.uregina.ca"* ]]; then
 fi
 cd $REPLAYPATH
 
-# echo -e "\n\nStarting Scaler Replay Script\n\n"
-# ./hcana -q "$REPLAYPATH/SCRIPTS/COIN/SCALERS/replay_coin_scalers.C($RUNNUMBER,-1)"
-# cd CALIBRATION/bcm_current_map/
-# root -b<<EOF
-# .L ScalerCalib.C+
-# .x run.C("../../ROOTfiles/coin_replay_scalers_${RUNNUMBER}_-1.root")
-# EOF
-# mv bcmcurrent_$RUNNUMBER.param ../../PARAM/HMS/BCM/CALIB/bcmcurrent_$RUNNUMBER.param
-# cd ../../
+echo -e "\n\nStarting Scaler Replay Script\n\n"
+./hcana -q "$REPLAYPATH/SCRIPTS/COIN/SCALERS/replay_coin_scalers.C($RUNNUMBER,-1)"
+cd CALIBRATION/bcm_current_map/
+
+root -b<<EOF
+.L ScalerCalib.C+
+.x run.C("../../ROOTfiles/coin_replay_scalers_${RUNNUMBER}_-1.root")
+EOF
+
+mv bcmcurrent_$RUNNUMBER.param ../../PARAM/HMS/BCM/CALIB/bcmcurrent_$RUNNUMBER.param
+cd ../../
 
 echo -e "\n\nStarting Replay Script\n\n"
 eval "$REPLAYPATH/hcana -l -q \"SCRIPTS/COIN/PRODUCTION/FullReplay_Lumi_Offline.C ($RUNNUMBER,$MAXEVENTS)\""
