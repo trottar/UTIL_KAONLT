@@ -3,7 +3,7 @@
 #Input run numbers                                                                                                 
 inputFile="inputRuns"                                                                              
 
-REPLAYPATH="/u/group/c-kaonlt/USERS/${USER}/hallc_replay_lt"
+REPLAYPATH="/home/trottar/Analysis/hallc_replay_lt"
 
 # while IFS='' read -r line || [[ -n "$line" ]];                                                                     
 # do                                                                                                                 
