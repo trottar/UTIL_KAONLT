@@ -18,7 +18,7 @@ runNum=$1
 numEvts=10000
 
 #Script to run
-script="$REPLAYPATH//UTIL_KAONLT/scripts_Luminosity/run_LumiYield.C" 
+script="$REPLAYPATH/UTIL_KAONLT/scripts_Luminosity/run_LumiYield.C" 
 
 #Parameters for script 
 # runScript="root -l -b -q \"${script}(${runNum},${numEvts})\""
