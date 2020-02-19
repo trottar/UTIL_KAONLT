@@ -59,6 +59,8 @@ void run_LumiYield(Int_t RunNumber = 0, Int_t MaxEvent = 0, Double_t threshold_c
 
   cout << Form("Using prescale factors: PS1 %i, PS3 %i\n",PS1,PS3);
 
+  TString option = Form("%i.%i",PS1,PS3);
+  
   ofstream myfile1;
   myfile1.open ("/u/group/c-kaonlt/USERS/trottar/hallc_replay_lt/UTIL_KAONLT/scripts_Luminosity/Yield_Data.dat", fstream::app);
   myfile1 << Form("%d ", RunNumber);
@@ -67,7 +69,6 @@ void run_LumiYield(Int_t RunNumber = 0, Int_t MaxEvent = 0, Double_t threshold_c
   //Begin Counting Good Kaon Events
   TChain ch("T");
   ch.Add(Form("/u/group/c-kaonlt/USERS/trottar/hallc_replay_lt/UTIL_KAONLT/ROOTfiles/Lumi_coin_replay_production_Offline_%i_%i.root",RunNumber,MaxEvent));
-  TString option = Form("%i.%i",PS1,PS3);
   
   TProof *proof = TProof::Open("workers=4");
   // proof->SetProgressDialog(0);  
