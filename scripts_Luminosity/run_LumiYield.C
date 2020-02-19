@@ -65,19 +65,21 @@ void run_LumiYield(Int_t RunNumber = 0, Int_t MaxEvent = 0, Double_t threshold_c
   myfile1.open ("/u/group/c-kaonlt/USERS/trottar/hallc_replay_lt/UTIL_KAONLT/scripts_Luminosity/Yield_Data.dat", fstream::app);
   myfile1 << Form("%d ", RunNumber);
   myfile1.close();
+  
+  TProof *proof = TProof::Open("workers=4");
+  // proof->SetProgressDialog(0);
 
   //Begin Counting Good Kaon Events
   TChain ch("T");
   ch.Add(Form("/u/group/c-kaonlt/USERS/trottar/hallc_replay_lt/UTIL_KAONLT/ROOTfiles/Lumi_coin_replay_production_Offline_%i_%i.root",RunNumber,MaxEvent));
-  
-  TProof *proof = TProof::Open("workers=4");
-  // proof->SetProgressDialog(0);  
   ch.SetProof();
+
   ch.Process("/u/group/c-kaonlt/USERS/trottar/hallc_replay_lt/UTIL_KAONLT/scripts_Luminosity/LumiYield.C+",option);
-  proof->Close();
   
   TChain sc("TSH");
   sc.Add(Form("/u/group/c-kaonlt/USERS/trottar/hallc_replay_lt/UTIL_KAONLT/ROOTfiles/Lumi_coin_replay_production_Offline_%i_%i.root",RunNumber,MaxEvent));
   sc.Process("/u/group/c-kaonlt/USERS/trottar/hallc_replay_lt/UTIL_KAONLT/scripts_Luminosity/Scalers.C+",option);
+
+  proof->Close();
  
 }
