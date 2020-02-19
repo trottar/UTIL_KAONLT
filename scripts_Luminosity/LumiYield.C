@@ -382,6 +382,7 @@ void LumiYield::Terminate()
   cout << Form("Calculated kaon tracking efficiency: %f +/- %f\n",p_Ktrack_after->GetEntries()/p_Ktrack_before->GetEntries(),(p_Ktrack_after->GetEntries()/p_Ktrack_before->GetEntries())*sqrt((1/p_Ktrack_after->GetEntries()) + (1/p_Ktrack_before->GetEntries())));
   cout << Form("Calculated proton tracking efficiency: %f +/- %f\n",p_ptrack_after->GetEntries()/p_ptrack_before->GetEntries(),(p_ptrack_after->GetEntries()/p_ptrack_before->GetEntries())*sqrt((1/p_ptrack_after->GetEntries()) + (1/p_ptrack_before->GetEntries())));
   //cout << Form("Calculated SHMS Cherenkov efficiency: %f +/- %f\n\n",p_ecut_eff->GetEntries()/p_ecut_after->GetEntries(),(p_ecut_eff->GetEntries()/p_ecut_after->GetEntries())*sqrt((1/p_ecut_eff->GetEntries()) + (1/p_ecut_after->GetEntries())));
+  cout << "====================================================================================\n\n";
    
   TCanvas *c_ID_cut;
   c_ID_cut = new TCanvas("c_ID_cut","Particle ID Information");
