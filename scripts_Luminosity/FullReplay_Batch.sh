@@ -3,8 +3,8 @@
 echo "Starting Replay script"
 echo "I take as arguments the Run Number and max number of events!"
 RUNNUMBER=$1
-# MAXEVENTS=50000
-MAXEVENTS=-1
+MAXEVENTS=50000
+# MAXEVENTS=-1
 ### Check you've provided the an argument
 if [[ $1 -eq "" ]]; then
     echo "I need a Run Number!"

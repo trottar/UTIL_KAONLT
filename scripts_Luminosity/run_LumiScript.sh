@@ -15,8 +15,8 @@ REPLAYPATH="/u/group/c-kaonlt/USERS/trottar/hallc_replay_lt"
 runNum=$1
     
 #Number of events                                                                                                  
-# numEvts=50000
-numEvts=-1
+numEvts=50000
+# numEvts=-1
 
 #Script to run
 script="$REPLAYPATH/UTIL_KAONLT/scripts_Luminosity/run_LumiYield.C" 
