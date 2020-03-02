@@ -37,7 +37,7 @@ void LumiYield::Begin(TTree * /*tree*/)
   // The tree argument is deprecated (on PROOF 0 is passed).
   printf("\n\n");
 
-  TString option = GetOption();
+  // TString option = GetOption();
   Info("Begin", "Starting Luminosity scan for HMS Carbon target");
   Info("Begin", "Options entered: %s", option.Data());
   printf("\n\n");
