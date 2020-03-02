@@ -32,7 +32,7 @@ runScript="root -l \"${script}(${runNum},${numEvts})\""
     
     echo "Running ${script} for run  ${runNum}"
     # eval ${runScript}
-    python run_LumiYield.py runNum numEvts
+    python run_LumiYield.py $runNum $numEvts
 
     echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"          
     echo "END OF RUN ${runNum}"                                                                                        
