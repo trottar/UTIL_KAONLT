@@ -1,25 +1,19 @@
 #! /bin/bash
 
-#Input run numbers                                                                                                 
-inputFile="inputRuns"                                                                              
+#Input run numbers
 
-REPLAYPATH="/u/group/c-kaonlt/USERS/trottar/hallc_replay_lt"
+REPLAYPATH="/u/group/c-kaonlt/USERS/trottar/hallc_replay_lt"        
 
-# while IFS='' read -r line || [[ -n "$line" ]];                                                                     
-# do                                                                                                                 
-    # echo "Run number read from file: $line"                                                                        
-
-#Which run                                                                                                         
-# runNum=$line            
+inputFile="$REPLAYPATH/UTIL_KAONLT/scripts_Luminosity/inputRuns"
 
 runNum=$1
     
-#Number of events                                                                                                  
+#Number of events   
 numEvts=50000
 # numEvts=-1
 
 #Script to run
-script="$REPLAYPATH/UTIL_KAONLT/scripts_Luminosity/run_LumiYield.C" 
+script="$REPLAYPATH/UTIL_KAONLT/scripts_Luminosity/run_LumiYield.py" 
 
 #Parameters for script 
 # runScript="root -l -b -q \"${script}(${runNum},${numEvts})\""
@@ -29,7 +23,7 @@ runScript="root -l \"${script}(${runNum},${numEvts})\""
 
 echo "Running ${script} for run  ${runNum}"
 # eval ${runScript}
-python run_LumiYield.py $runNum $numEvts
+python $script $runNum $numEvts
 
 echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"          
 echo "END OF RUN ${runNum}"                                                                                        
