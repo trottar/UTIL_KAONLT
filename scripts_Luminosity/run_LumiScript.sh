@@ -25,19 +25,14 @@ script="$REPLAYPATH/UTIL_KAONLT/scripts_Luminosity/run_LumiYield.C"
 # runScript="root -l -b -q \"${script}(${runNum},${numEvts})\""
 runScript="root -l \"${script}(${runNum},${numEvts})\""
 
-#Excecute                                                                                                          
-{ 
+#Excecute
+source /apps/root/6.18.04/setroot_CUE.csh
 
-    source /apps/root/6.18.04/setroot_CUE.csh
-    
-    echo "Running ${script} for run  ${runNum}"
-    # eval ${runScript}
-    python run_LumiYield.py $runNum $numEvts
+echo "Running ${script} for run  ${runNum}"
+# eval ${runScript}
+python run_LumiYield.py $runNum $numEvts
 
-    echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"          
-    echo "END OF RUN ${runNum}"                                                                                        
-    echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" 
+echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"          
+echo "END OF RUN ${runNum}"                                                                                        
+echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" 
 
-}
-
-# done < "$inputFile" 
