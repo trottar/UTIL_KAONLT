@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2020-03-01 19:13:14 trottar"
+# Time-stamp: "2020-03-01 19:15:08 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -11,7 +11,7 @@
 # Copyright (c) trottar
 #
 
-from ROOT import TChain, TSelector, TTree
+from ROOT import TChain, TProof, TSelector, TTree
 
 import sys
 
@@ -46,6 +46,8 @@ f.close()
 fout.close()
 
 option = "%s.%s" % (ps1,ps3)
+
+proof = TProof.Open("workers=4")
 
 ch = TChain("T")
 
