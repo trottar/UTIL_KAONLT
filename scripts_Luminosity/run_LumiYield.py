@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2020-03-01 19:15:08 trottar"
+# Time-stamp: "2020-03-01 19:21:11 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -42,6 +42,8 @@ ps1=float(ps1_tmp[1])
 ps3=float(ps3_tmp[1])
 ps5=float(ps5_tmp[1])
 fout.write(RunNumber + " ")
+fout.write(ps1 + " ")
+fout.write(ps3 + " ")
 f.close()
 fout.close()
 
@@ -61,4 +63,4 @@ sc.Add("/u/group/c-kaonlt/tmp_TProofTest/Lumi_coin_replay_production_Offline_%s_
 sc.SetProof()
 sc.Process("/u/group/c-kaonlt/USERS/trottar/hallc_replay_lt/UTIL_KAONLT/scripts_Luminosity/Scalers.C+",option)
 
-
+proof.Close()
