@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2020-03-01 19:08:07 trottar"
+# Time-stamp: "2020-03-01 19:10:22 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -16,9 +16,10 @@ from ROOT import TChain, TSelector, TTree
 import sys
 
 RunNumber=sys.argv[1]
-MaxEvent=sys.argv[2]
+# MaxEvent=sys.argv[2]
+MaxEvent=50000
 
-report = "/u/group/c-kaonlt/USERS/trottar/hallc_replay_lt/UTIL_KAONLT/REPORT_OUTPUT/COIN/PRODUCTION/Lumi_coin_replay_production_Offline_%i_%i.report" % (RunNumber,MaxEvent)
+report = "/u/group/c-kaonlt/USERS/trottar/hallc_replay_lt/UTIL_KAONLT/REPORT_OUTPUT/COIN/PRODUCTION/Lumi_coin_replay_production_Offline_%s_%s.report" % (RunNumber,MaxEvent)
 
 f = open(report)
 fout = open("/u/group/c-kaonlt/USERS/trottar/hallc_replay_lt/UTIL_KAONLT/scripts_Luminosity/Yield_Data.dat")
@@ -44,17 +45,17 @@ fout.write(RunNumber + " ")
 f.close()
 fout.close()
 
-option = "%i.%i" % (PS1,PS3)
+option = "%s.%s" % (PS1,PS3)
 
 ch = TChain("T")
 
 sc = TChain("TSH")
 
-ch.Add("/u/group/c-kaonlt/tmp_TProofTest/Lumi_coin_replay_production_Offline_%i_%i.root" % (RunNumber,MaxEvent))
+ch.Add("/u/group/c-kaonlt/tmp_TProofTest/Lumi_coin_replay_production_Offline_%s_%s.root" % (RunNumber,MaxEvent))
 ch.SetProof()
 ch.Process("/u/group/c-kaonlt/USERS/trottar/hallc_replay_lt/UTIL_KAONLT/scripts_Luminosity/LumiYield.C+",option)
   
-sc.Add("/u/group/c-kaonlt/tmp_TProofTest/Lumi_coin_replay_production_Offline_%i_%i.root" % (RunNumber,MaxEvent))
+sc.Add("/u/group/c-kaonlt/tmp_TProofTest/Lumi_coin_replay_production_Offline_%s_%s.root" % (RunNumber,MaxEvent))
 sc.SetProof()
 sc.Process("/u/group/c-kaonlt/USERS/trottar/hallc_replay_lt/UTIL_KAONLT/scripts_Luminosity/Scalers.C+",option)
 
