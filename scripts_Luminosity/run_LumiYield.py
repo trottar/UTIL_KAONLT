@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2020-03-01 19:23:43 trottar"
+# Time-stamp: "2020-03-01 19:29:27 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -52,25 +52,23 @@ for index in psActual:
         PS5 = str(psValue[i])
     i=i+1
 fout.write(RunNumber + " ")
-fout.write(str(PS1) + " ")
-fout.write(str(PS3) + " ")
 f.close()
 fout.close()
 
-# option = "%s.%s" % (PS1,PS3)
+option = "%s.%s" % (PS1,PS3)
 
-# proof = TProof.Open("workers=4")
+proof = TProof.Open("workers=4")
 
-# ch = TChain("T")
+ch = TChain("T")
+ch.Add("/u/group/c-kaonlt/tmp_TProofTest/Lumi_coin_replay_production_Offline_%s_%s.root" % (RunNumber,MaxEvent))
 
-# sc = TChain("TSH")
+sc = TChain("TSH")
+sc.Add("/u/group/c-kaonlt/tmp_TProofTest/Lumi_coin_replay_production_Offline_%s_%s.root" % (RunNumber,MaxEvent))
 
-# ch.Add("/u/group/c-kaonlt/tmp_TProofTest/Lumi_coin_replay_production_Offline_%s_%s.root" % (RunNumber,MaxEvent))
-# ch.SetProof()
-# ch.Process("/u/group/c-kaonlt/USERS/trottar/hallc_replay_lt/UTIL_KAONLT/scripts_Luminosity/LumiYield.C+",option)
-  
-# sc.Add("/u/group/c-kaonlt/tmp_TProofTest/Lumi_coin_replay_production_Offline_%s_%s.root" % (RunNumber,MaxEvent))
-# sc.SetProof()
-# sc.Process("/u/group/c-kaonlt/USERS/trottar/hallc_replay_lt/UTIL_KAONLT/scripts_Luminosity/Scalers.C+",option)
+ch.SetProof()
+sc.SetProof()
 
-# proof.Close()
+ch.Process("/u/group/c-kaonlt/USERS/trottar/hallc_replay_lt/UTIL_KAONLT/scripts_Luminosity/LumiYield.C+",option)
+sc.Process("/u/group/c-kaonlt/USERS/trottar/hallc_replay_lt/UTIL_KAONLT/scripts_Luminosity/Scalers.C+",option)
+
+proof.Close()
