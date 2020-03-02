@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2020-03-01 19:12:41 trottar"
+# Time-stamp: "2020-03-01 19:13:14 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -45,7 +45,7 @@ fout.write(RunNumber + " ")
 f.close()
 fout.close()
 
-option = "%s.%s" % (PS1,PS3)
+option = "%s.%s" % (ps1,ps3)
 
 ch = TChain("T")
 
