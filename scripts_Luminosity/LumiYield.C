@@ -474,7 +474,8 @@ void LumiYield::Terminate()
 		  //Accept EDTM
 		  (SHMS_EDTM->Integral() + HMS_EDTM->Integral()),
 		  //PS1
-		  PS1,
+		  // PS1,
+		  "LUMI",
 		  //PS3
 		  PS3);;
   myfile1.close();
