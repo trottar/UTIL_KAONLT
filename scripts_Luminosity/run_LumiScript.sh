@@ -22,7 +22,7 @@ runScript="root -l \"${script}(${runNum},${numEvts})\""
 #Excecute
 eval "alias"
 
-eval "alias python="/usr/bin/python2.7""
+eval "alias python=\"/usr/bin/python2.7\""
 
 python --version
 
