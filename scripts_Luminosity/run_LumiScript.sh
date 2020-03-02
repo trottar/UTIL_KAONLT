@@ -28,13 +28,15 @@ runScript="root -l \"${script}(${runNum},${numEvts})\""
 #Excecute                                                                                                          
 { 
 
-echo "Running ${script} for run  ${runNum}"
-eval ${runScript}
-# python3 run_LumiYield.py runNum numEvts
+    source /apps/root/6.18.04/setroot_CUE.csh
+    
+    echo "Running ${script} for run  ${runNum}"
+    # eval ${runScript}
+    python run_LumiYield.py runNum numEvts
 
-echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"          
-echo "END OF RUN ${runNum}"                                                                                        
-echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" 
+    echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"          
+    echo "END OF RUN ${runNum}"                                                                                        
+    echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" 
 
 }
 
