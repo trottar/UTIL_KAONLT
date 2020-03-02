@@ -26,7 +26,6 @@ script="$REPLAYPATH/UTIL_KAONLT/scripts_Luminosity/run_LumiYield.C"
 runScript="root -l \"${script}(${runNum},${numEvts})\""
 
 #Excecute
-source /apps/root/6.18.04/setroot_CUE.csh
 
 echo "Running ${script} for run  ${runNum}"
 # eval ${runScript}
