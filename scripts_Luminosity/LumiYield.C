@@ -35,6 +35,9 @@ void LumiYield::Begin(TTree * /*tree*/)
   // The Begin() function is called at the start of the query.
   // When running with PROOF Begin() is only called on the client.
   // The tree argument is deprecated (on PROOF 0 is passed).
+
+  Init(tree);
+  
   printf("\n\n");
 
   TString option = GetOption();
