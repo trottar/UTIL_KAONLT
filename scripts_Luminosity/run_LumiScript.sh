@@ -20,7 +20,8 @@ script="$REPLAYPATH/UTIL_KAONLT/scripts_Luminosity/run_LumiYield.py"
 runScript="root -l \"${script}(${runNum},${numEvts})\""
 
 #Excecute
-source /site/12gev_phys/softenv.csh 2.3
+source /apps/root/6.18.04/setroot_CUE.csh
+
 python2 --version
 
 echo "Running ${script} for run  ${runNum}"
