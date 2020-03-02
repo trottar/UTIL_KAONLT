@@ -42,6 +42,8 @@ elif [[ "${HOSTNAME}" = *"phys.uregina.ca"* ]]; then
 fi
 cd $REPLAYPATH
 
+source /apps/root/6.10.02/setroot_CUE.csh
+
 echo -e "\n\nStarting Scaler Replay Script\n\n"
 ./hcana -q "$REPLAYPATH/SCRIPTS/COIN/SCALERS/replay_coin_scalers.C($RUNNUMBER,$MAXEVENTS)"
 cd CALIBRATION/bcm_current_map/
