@@ -27,7 +27,7 @@ class LumiYield : public TSelector {
   TTreeReader     fReader;  //!the tree reader
   TTree          *fChain = 0;   //!pointer to the analyzed TTree or TChain
 
-  /* Bool_t          fFullShow = kFALSE; */
+  Bool_t          fFullShow = kFALSE;
 
   Double_t        PS1;
   Double_t        PS3;
