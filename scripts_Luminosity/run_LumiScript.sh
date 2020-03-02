@@ -21,7 +21,7 @@ runScript="root -l \"${script}(${runNum},${numEvts})\""
 
 #Excecute
 
-alias python=python2
+alias python="/usr/bin/python2.7"
 
 python --version
 
