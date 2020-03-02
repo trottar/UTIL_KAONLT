@@ -54,8 +54,8 @@ void LumiYield::SlaveBegin(TTree * /*tree*/)
   TString option = GetOption();
   TString PS1_temp = option(0,option.Index("."));
   TString PS3_temp = option(option.Index(".")+1,option.Length());
-  //PS1 = PS1_temp.Atof();
-  //PS3 = PS3_temp.Atof();
+  PS1 = PS1_temp.Atof();
+  PS3 = PS3_temp.Atof();
    
   h_ecut_before = new TH1F("h_ecut_before","HMS CER counts before electron cut",100,0.0,20);
   h_ecut_after  = new TH1F("h_ecut_after" ,"HMS CER counts after electron cut", 100,0.0,20);
