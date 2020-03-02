@@ -20,9 +20,9 @@ script="$REPLAYPATH/UTIL_KAONLT/scripts_Luminosity/run_LumiYield.py"
 runScript="root -l \"${script}(${runNum},${numEvts})\""
 
 #Excecute
-alias
+eval "alias"
 
-alias python="/usr/bin/python2.7"
+eval "alias python="/usr/bin/python2.7""
 
 python --version
 
