@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2020-03-01 19:29:27 trottar"
+# Time-stamp: "2020-03-01 19:56:55 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -16,8 +16,8 @@ from ROOT import TChain, TProof, TSelector, TTree
 import sys
 
 RunNumber=sys.argv[1]
-# MaxEvent=sys.argv[2]
-MaxEvent=50000
+MaxEvent=sys.argv[2]
+# MaxEvent=50000
 
 report = "/u/group/c-kaonlt/USERS/trottar/hallc_replay_lt/UTIL_KAONLT/REPORT_OUTPUT/COIN/PRODUCTION/Lumi_coin_replay_production_Offline_%s_%s.report" % (RunNumber,MaxEvent)
 
@@ -60,10 +60,10 @@ option = "%s.%s" % (PS1,PS3)
 proof = TProof.Open("workers=4")
 
 ch = TChain("T")
-ch.Add("/u/group/c-kaonlt/tmp_TProofTest/Lumi_coin_replay_production_Offline_%s_%s.root" % (RunNumber,MaxEvent))
+ch.Add("/u/group/c-kaonlt/USERS/trottar/hallc_replay_lt/UTIL_KAONLT/ROOTfiles/Lumi_coin_replay_production_Offline_%s_%s.root" % (RunNumber,MaxEvent))
 
 sc = TChain("TSH")
-sc.Add("/u/group/c-kaonlt/tmp_TProofTest/Lumi_coin_replay_production_Offline_%s_%s.root" % (RunNumber,MaxEvent))
+sc.Add("/u/group/c-kaonlt/USERS/trottar/hallc_replay_lt/UTIL_KAONLT/ROOTfiles/Lumi_coin_replay_production_Offline_%s_%s.root" % (RunNumber,MaxEvent))
 
 ch.SetProof()
 sc.SetProof()
