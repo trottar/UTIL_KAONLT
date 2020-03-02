@@ -42,7 +42,7 @@ void LumiYield::Begin(TTree * /*tree*/)
   Info("Begin", "Options entered: %s", option.Data());
   printf("\n\n");
 
-  fFullShow = kTRUE;
+  // fFullShow = kTRUE;
 }
 
 void LumiYield::SlaveBegin(TTree * /*tree*/)
