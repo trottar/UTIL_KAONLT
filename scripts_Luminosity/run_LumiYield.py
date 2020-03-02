@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2020-03-01 19:10:22 trottar"
+# Time-stamp: "2020-03-01 19:12:41 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -22,7 +22,7 @@ MaxEvent=50000
 report = "/u/group/c-kaonlt/USERS/trottar/hallc_replay_lt/UTIL_KAONLT/REPORT_OUTPUT/COIN/PRODUCTION/Lumi_coin_replay_production_Offline_%s_%s.report" % (RunNumber,MaxEvent)
 
 f = open(report)
-fout = open("/u/group/c-kaonlt/USERS/trottar/hallc_replay_lt/UTIL_KAONLT/scripts_Luminosity/Yield_Data.dat")
+fout = open("/u/group/c-kaonlt/USERS/trottar/hallc_replay_lt/UTIL_KAONLT/scripts_Luminosity/Yield_Data.dat","wb")
 
 psList = ['Ps1_factor','Ps3_factor','Ps5_factor']
 
