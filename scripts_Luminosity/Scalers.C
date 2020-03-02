@@ -271,8 +271,7 @@ void Scalers::Terminate()
   myfile1.open ("Yield_Data.dat", fstream::app);
   myfile1 << Form("%.3f %.3f %.0f %.0f %.4f %.4f %.4f %.4f %.4f %.4f %.0f\n",
 		  //Time
-		  // time_sum[3],
-		  "SCALER",
+		  time_sum[3],
 		  //Charge
 		  charge_sum[3],
 		  //
