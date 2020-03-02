@@ -21,7 +21,7 @@ runScript="root -l \"${script}(${runNum},${numEvts})\""
 
 #Excecute
 
-eval $(alias python=python2)
+alias python=python2
 
 python --version
 
