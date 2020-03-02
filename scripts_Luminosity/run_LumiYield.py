@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2020-03-01 19:07:00 trottar"
+# Time-stamp: "2020-03-01 19:08:07 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -51,7 +51,8 @@ ch = TChain("T")
 sc = TChain("TSH")
 
 ch.Add("/u/group/c-kaonlt/tmp_TProofTest/Lumi_coin_replay_production_Offline_%i_%i.root" % (RunNumber,MaxEvent))
-ch.SetProof() ch.Process("/u/group/c-kaonlt/USERS/trottar/hallc_replay_lt/UTIL_KAONLT/scripts_Luminosity/LumiYield.C+",option)
+ch.SetProof()
+ch.Process("/u/group/c-kaonlt/USERS/trottar/hallc_replay_lt/UTIL_KAONLT/scripts_Luminosity/LumiYield.C+",option)
   
 sc.Add("/u/group/c-kaonlt/tmp_TProofTest/Lumi_coin_replay_production_Offline_%i_%i.root" % (RunNumber,MaxEvent))
 sc.SetProof()
