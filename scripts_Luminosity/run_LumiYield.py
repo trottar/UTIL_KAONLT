@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2020-03-01 21:13:13 trottar"
+# Time-stamp: "2020-03-01 21:29:03 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -11,11 +11,8 @@
 # Copyright (c) trottar
 #
 
-import sys
-
-print(sys.path)
-
 from ROOT import TChain, TProof, TSelector, TTree
+import sys
 
 RunNumber=sys.argv[1]
 MaxEvent=sys.argv[2]
