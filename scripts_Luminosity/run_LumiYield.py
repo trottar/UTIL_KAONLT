@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2020-03-01 19:56:55 trottar"
+# Time-stamp: "2020-03-01 20:56:23 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -60,10 +60,10 @@ option = "%s.%s" % (PS1,PS3)
 proof = TProof.Open("workers=4")
 
 ch = TChain("T")
-ch.Add("/u/group/c-kaonlt/USERS/trottar/hallc_replay_lt/UTIL_KAONLT/ROOTfiles/Lumi_coin_replay_production_Offline_%s_%s.root" % (RunNumber,MaxEvent))
+ch.Add("/lustre19/expphy/volatile/hallc/spring17/trottar/ROOTfiles/Lumi_coin_replay_production_Offline_%s_%s.root" % (RunNumber,MaxEvent))
 
 sc = TChain("TSH")
-sc.Add("/u/group/c-kaonlt/USERS/trottar/hallc_replay_lt/UTIL_KAONLT/ROOTfiles/Lumi_coin_replay_production_Offline_%s_%s.root" % (RunNumber,MaxEvent))
+sc.Add("/lustre19/expphy/volatile/hallc/spring17/trottar/ROOTfiles/Lumi_coin_replay_production_Offline_%s_%s.root" % (RunNumber,MaxEvent))
 
 ch.SetProof()
 sc.SetProof()
