@@ -21,6 +21,8 @@ runScript="root -l \"${script}(${runNum},${numEvts})\""
 
 #Excecute
 
+python --version
+
 echo "Running ${script} for run  ${runNum}"
 # eval ${runScript}
 python $script $runNum $numEvts
