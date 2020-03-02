@@ -26,6 +26,7 @@ script="$REPLAYPATH/UTIL_KAONLT/scripts_Luminosity/run_LumiYield.C"
 runScript="root -l \"${script}(${runNum},${numEvts})\""
 
 #Excecute
+source /site/12gev_phys/2.3/Linux_CentOS7.7.1908-x86_64-gcc4.8.5/root/6.14.04/bin/thisroot.csh
 
 echo "Running ${script} for run  ${runNum}"
 # eval ${runScript}
