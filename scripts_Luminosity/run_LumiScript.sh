@@ -20,15 +20,12 @@ script="$REPLAYPATH/UTIL_KAONLT/scripts_Luminosity/run_LumiYield.py"
 runScript="root -l \"${script}(${runNum},${numEvts})\""
 
 #Excecute
-eval "alias"
 
-eval "alias python=\"/usr/bin/python2.7\""
-
-python --version
+python2 --version
 
 echo "Running ${script} for run  ${runNum}"
 # eval ${runScript}
-python $script $runNum $numEvts
+python2 $script $runNum $numEvts
 
 echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"          
 echo "END OF RUN ${runNum}"                                                                                        
