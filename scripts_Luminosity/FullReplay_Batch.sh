@@ -23,6 +23,7 @@ if [[ "${HOSTNAME}" = *"farm"* ]]; then
     REPLAYPATH="/group/c-kaonlt/USERS/${USER}/hallc_replay_lt"
     if [[ "${HOSTNAME}" != *"ifarm"* ]]; then
 	source /site/12gev_phys/softenv.sh 2.3
+	source /apps/root/6.10.02/setroot_CUE.csh
     fi
     cd "/group/c-kaonlt/hcana/"
     source "/group/c-kaonlt/hcana/setup.sh"
@@ -31,6 +32,7 @@ if [[ "${HOSTNAME}" = *"farm"* ]]; then
 elif [[ "${HOSTNAME}" = *"qcd"* ]]; then
     REPLAYPATH="/group/c-kaonlt/USERS/${USER}/hallc_replay_lt"
     source /site/12gev_phys/softenv.sh 2.3
+    source /apps/root/6.10.02/setroot_CUE.csh
     cd "/group/c-kaonlt/hcana/"
     source "/group/c-kaonlt/hcana/setup.sh" 
     cd "$REPLAYPATH"
@@ -41,8 +43,6 @@ elif [[ "${HOSTNAME}" = *"phys.uregina.ca"* ]]; then
     REPLAYPATH="/home/${USER}/work/JLab/hallc_replay_lt"
 fi
 cd $REPLAYPATH
-
-source /apps/root/6.10.02/setroot_CUE.csh
 
 echo -e "\n\nStarting Scaler Replay Script\n\n"
 ./hcana -q "$REPLAYPATH/SCRIPTS/COIN/SCALERS/replay_coin_scalers.C($RUNNUMBER,$MAXEVENTS)"
