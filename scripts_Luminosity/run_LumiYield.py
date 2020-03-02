@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2020-03-01 21:41:09 trottar"
+# Time-stamp: "2020-03-01 21:57:46 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -26,6 +26,7 @@ fout = open("/u/group/c-kaonlt/USERS/trottar/hallc_replay_lt/UTIL_KAONLT/scripts
 psList = ['Ps1_factor','Ps3_factor','Ps5_factor']
 
 psActual = ['-1','1','2','3','5','9','17','33','65','129','257','513','1025','2049','4097','8193','16385','32769']
+
 psValue = ['-1','0','1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16']
 
 for line in f:
@@ -64,8 +65,8 @@ ch.Add("/u/group/c-kaonlt/USERS/trottar/hallc_replay_lt/UTIL_KAONLT/ROOTfiles/Lu
 sc = TChain("TSH")
 sc.Add("/u/group/c-kaonlt/USERS/trottar/hallc_replay_lt/UTIL_KAONLT/ROOTfiles/Lumi_coin_replay_production_Offline_%s_%s.root" % (RunNumber,MaxEvent))
 
-# ch.SetProof()
-# sc.SetProof()
+ch.SetProof()
+sc.SetProof()
 
 ch.Process("/u/group/c-kaonlt/USERS/trottar/hallc_replay_lt/UTIL_KAONLT/scripts_Luminosity/LumiYield.C+",option)
 # sc.Process("/u/group/c-kaonlt/USERS/trottar/hallc_replay_lt/UTIL_KAONLT/scripts_Luminosity/Scalers.C+",option)
