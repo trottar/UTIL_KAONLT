@@ -20,7 +20,7 @@ script="$REPLAYPATH/UTIL_KAONLT/scripts_Luminosity/run_LumiYield.py"
 runScript="root -l \"${script}(${runNum},${numEvts})\""
 
 #Excecute
-source /apps/root/6.18.04/setroot_CUE.csh
+# source /apps/root/6.18.04/setroot_CUE.csh
 
 python2 --version
 
