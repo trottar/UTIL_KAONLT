@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2020-03-01 19:22:12 trottar"
+# Time-stamp: "2020-03-01 19:23:43 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -26,6 +26,7 @@ fout = open("/u/group/c-kaonlt/USERS/trottar/hallc_replay_lt/UTIL_KAONLT/scripts
 
 psList = ['Ps1_factor','Ps3_factor','Ps5_factor']
 
+psActual = ['-1','1','2','3','5','9','17','33','65','129','257','513','1025','2049','4097','8193','16385','32769']
 psValue = ['-1','0','1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16']
 
 for line in f:
@@ -41,13 +42,22 @@ for line in f:
 ps1=float(ps1_tmp[1])
 ps3=float(ps3_tmp[1])
 ps5=float(ps5_tmp[1])
+i=0
+for index in psActual:
+    if (float(index) == ps1) :
+        PS1 = str(psValue[i])
+    if (float(index) == ps3) :
+        PS3 = str(psValue[i])
+    if (float(index) == ps5) :
+        PS5 = str(psValue[i])
+    i=i+1
 fout.write(RunNumber + " ")
-fout.write(str(ps1) + " ")
-fout.write(str(ps3) + " ")
+fout.write(str(PS1) + " ")
+fout.write(str(PS3) + " ")
 f.close()
 fout.close()
 
-# option = "%s.%s" % (ps1,ps3)
+# option = "%s.%s" % (PS1,PS3)
 
 # proof = TProof.Open("workers=4")
 
