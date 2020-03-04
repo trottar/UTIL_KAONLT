@@ -22,11 +22,11 @@ runScript="root -l \"${script}(${runNum},${numEvts})\""
 #Excecute
 # source /apps/root/6.18.04/setroot_CUE.csh
 
-python --version
+python2 --version
 
 echo "Running ${script} for run  ${runNum}"
 # eval ${runScript}
-python $script $runNum $numEvts
+python2 $script $runNum $numEvts
 
 echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"          
 echo "END OF RUN ${runNum}"                                                                                        
