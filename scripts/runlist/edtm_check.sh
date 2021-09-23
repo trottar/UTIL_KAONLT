@@ -8,9 +8,9 @@
 # Set path depending upon hostname. Change or add more as needed  
 # Note, farm paths are only for testing
 if [[ "${HOSTNAME}" = *"farm"* ]]; then  
-    REPLAYPATH="/group/c-pionlt/USERS/${USER}/hallc_replay_lt"
+    REPLAYPATH="/group/c-kaonlt/USERS/${USER}/hallc_replay_lt"
 elif [[ "${HOSTNAME}" = *"qcd"* ]]; then
-    REPLAYPATH="/group/c-pionlt/USERS/${USER}/hallc_replay_lt"
+    REPLAYPATH="/group/c-kaonlt/USERS/${USER}/hallc_replay_lt"
 elif [[ "${HOSTNAME}" = *"cdaq"* ]]; then
     REPLAYPATH="/home/cdaq/pionLT-2021/hallc_replay_lt"
 fi

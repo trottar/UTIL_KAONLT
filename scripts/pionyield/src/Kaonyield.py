@@ -32,9 +32,9 @@ MaxEvent = sys.argv[3]
 USER = subprocess.getstatusoutput("whoami") # Grab user info for file finding
 HOST = subprocess.getstatusoutput("hostname")
 if ("farm" in HOST[1]):
-    REPLAYPATH = "/group/c-pionlt/USERS/%s/hallc_replay_lt" % USER[1]
+    REPLAYPATH = "/group/c-kaonlt/USERS/%s/hallc_replay_lt" % USER[1]
 elif ("qcd" in HOST[1]):
-    REPLAYPATH = "/group/c-pionlt/USERS/%s/hallc_replay_lt" % USER[1]
+    REPLAYPATH = "/group/c-kaonlt/USERS/%s/hallc_replay_lt" % USER[1]
 elif ("phys.uregina" in HOST[1]):
     REPLAYPATH = "/home/%s/work/JLab/hallc_replay_lt" % USER[1]
 elif("skynet" in HOST[1]):
@@ -51,7 +51,7 @@ import kaonlt as klt
 print("Running as %s on %s, hallc_replay_lt path assumed as %s" % (USER[1], HOST[1], REPLAYPATH))
 # Construct the name of the rootfile based upon the info we provided
 rootName = "%s/UTIL_KAONLT/ROOTfiles/Analysis/PionLT/%s_%s_%s.root" % (REPLAYPATH, ROOTPrefix, runNum, MaxEvent)
-#rootName = "/volatile/hallc/c-pionlt/heinricn/ROOTfiles/Analysis/PionLT/Pion_coin_replay_production_7875_66690.root" # Hard coded file for testing
+#rootName = "/volatile/hallc/c-kaonlt/heinricn/ROOTfiles/Analysis/PionLT/Pion_coin_replay_production_7875_66690.root" # Hard coded file for testing
 print ("Attempting to process %s" %(rootName))
 if os.path.exists(OUTPATH):
     if os.path.islink(OUTPATH):

@@ -40,8 +40,8 @@ If you ran the new setup scripts, these should already be present. Change the OU
 
 If you didn't, you can create a sym link via "ln -s $PATH $LINK_NAME"
 
-e.g. ln -s /volatile/hallc/c-pionlt/ROOTfiles ROOTfiles 
-would make a sym link called ROOTfiles which points to the folder /volatile/hallc/c-pionlt/ROOTfiles
+e.g. ln -s /volatile/hallc/c-kaonlt/ROOTfiles ROOTfiles 
+would make a sym link called ROOTfiles which points to the folder /volatile/hallc/c-kaonlt/ROOTfiles
 
 Further (less shouty explanation) follows -
 
@@ -55,9 +55,9 @@ The output of the script will go to a sym link (or folder) in the same directory
 
 Example - You are running on the JLab ifarm,
 the script will look for your speicified ROOTfile in 
-/group/c-pionlt/USERS/{USERNAME}/hallc_replay_lt/UTIL_KAONLT/ROOTfiles/Analysis/General
+/group/c-kaonlt/USERS/{USERNAME}/hallc_replay_lt/UTIL_KAONLT/ROOTfiles/Analysis/General
 and output to
-/group/c-pionlt/USERS/{USERNAME}/hallc_replay_lt/UTIL_KAONLT/OUTPUT/Analysis/General
+/group/c-kaonlt/USERS/{USERNAME}/hallc_replay_lt/UTIL_KAONLT/OUTPUT/Analysis/General
 
 ### Running the scripts ###
 

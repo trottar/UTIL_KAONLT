@@ -28,15 +28,15 @@ echo "######################################################"
 
 # Set path depending upon hostname. Change or add more as needed  
 if [[ "${HOSTNAME}" = *"farm"* ]]; then  
-    REPLAYPATH="/group/c-pionlt/online_analysis/hallc_replay_lt"
+    REPLAYPATH="/group/c-kaonlt/online_analysis/hallc_replay_lt"
     if [[ "${HOSTNAME}" != *"ifarm"* ]]; then
 	source /site/12gev_phys/softenv.sh 2.3
 	source /apps/root/6.18.04/setroot_CUE.bash
     fi
-    cd "/group/c-pionlt/hcana/"
-    source "/group/c-pionlt/hcana/setup.sh"
+    cd "/group/c-kaonlt/hcana/"
+    source "/group/c-kaonlt/hcana/setup.sh"
 elif [[ "${HOSTNAME}" = *"qcd"* ]]; then
-    REPLAYPATH="/group/c-pionlt/USERS/${USER}/hallc_replay_lt"
+    REPLAYPATH="/group/c-kaonlt/USERS/${USER}/hallc_replay_lt"
     source /site/12gev_phys/softenv.sh 2.3
     source /apps/root/6.18.04/setroot_CUE.bash
     cd "$REPLAYPATH"
@@ -92,7 +92,7 @@ elif [ $TestingVar != 1 ]; then
 #	    while IFS='' read -r line || [[ -n "$line" ]]; do
 #		runNum=$line
 #		if [ ! -f "${UTILPATH}/OUTPUT/Analysis/PionLT/${runNum}_-1_Analysed_Data.root" ]; then
-#		    python3 $UTILPATH/scripts/online_pion_physics/pion_prod_analysis_sw.py "Pion_coin_replay_production" ${runNum} "-1"
+#		    python3 $UTILPATH/scripts/online_pion_physics/kaon_prod_analysis_sw.py "Pion_coin_replay_production" ${runNum} "-1"
 #		fi
 #                done < "$RunListFile"
 #	    else echo "Not processing python script interactively"
@@ -119,9 +119,9 @@ if [ $TestingVar == 1 ]; then
     fi
     # SJDK 21/09/21 - This last step needs tweaking a little, this is the analysis of the FULL kinematic, NOT each individual run. We need the plotting script to pick up the file we generated above and THEN plot it (and save it with a sensible name)
     if [ ! -f "${UTILPATH}/OUTPUT/Analysis/PionLT/${runNum}_-1_Output_Data.root" ]; then
-        python3 ${UTILPATH}/scripts/online_pion_physics/PlotPionPhysics_sw.py Analysed_Data ${runNum} -1
+        python3 ${UTILPATH}/scripts/online_pion_physics/PlotKaonPhysics_sw.py Analysed_Data ${runNum} -1
     elif [ ! -f "${UTILPATH}/OUTPUT/Analysis/PionLT/${runNum}_-1_sw_Pion_Analysis_Distributions.pdf" ]; then
-	python3 ${UTILPATH}/scripts/online_pion_physics/PlotPionPhysics_sw.py Analysed_Data ${runNum} -1
+	python3 ${UTILPATH}/scripts/online_pion_physics/PlotKaonPhysics_sw.py Analysed_Data ${runNum} -1
     else echo "Pion plots already found in - ${UTILPATH}/OUTPUT/Analysis/PionLT/${runNum}_-1_Output_Data.root and .pdf - Plotting macro skipped"
     fi
 fi

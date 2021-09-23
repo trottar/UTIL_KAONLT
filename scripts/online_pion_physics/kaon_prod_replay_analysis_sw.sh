@@ -26,17 +26,17 @@ fi
 
 # Set path depending upon hostname. Change or add more as needed  
 if [[ "${HOSTNAME}" = *"farm"* ]]; then  
-    REPLAYPATH="/group/c-pionlt/online_analysis/hallc_replay_lt"
+    REPLAYPATH="/group/c-kaonlt/online_analysis/hallc_replay_lt"
     if [[ "${HOSTNAME}" != *"ifarm"* ]]; then
 	source /site/12gev_phys/softenv.sh 2.3
 	source /apps/root/6.18.04/setroot_CUE.bash
     fi
-    cd "/group/c-pionlt/hcana/"
-    source "/group/c-pionlt/hcana/setup.sh"
+    cd "/group/c-kaonlt/hcana/"
+    source "/group/c-kaonlt/hcana/setup.sh"
     cd "$REPLAYPATH"
     source "$REPLAYPATH/setup.sh"
 elif [[ "${HOSTNAME}" = *"qcd"* ]]; then
-    REPLAYPATH="/group/c-pionlt/USERS/${USER}/hallc_replay_lt"
+    REPLAYPATH="/group/c-kaonlt/USERS/${USER}/hallc_replay_lt"
     cd "$REPLAYPATH"
     source "$REPLAYPATH/setup.sh" 
 elif [[ "${HOSTNAME}" = *"cdaq"* ]]; then
@@ -91,12 +91,12 @@ if [ -f "${UTILPATH}/OUTPUT/Analysis/PionLT/${RUNNUMBER}_${MAXEVENTS}_Analysed_D
     if [[ $option1 == "y" || $option1 == "Y" || $option1 == "yes" || $option1 == "Yes" ]]; then
 	rm "${UTILPATH}/OUTPUT/Analysis/PionLT/${RUNNUMBER}_${MAXEVENTS}_Analysed_Data.root"
 	echo "Reprocessing"
-	python3 ${UTILPATH}/scripts/online_pion_physics/pion_prod_analysis_sw.py Pion_coin_replay_production ${RUNNUMBER} ${MAXEVENTS}
+	python3 ${UTILPATH}/scripts/online_pion_physics/kaon_prod_analysis_sw.py Pion_coin_replay_production ${RUNNUMBER} ${MAXEVENTS}
     else
 	echo "Skipping python analysis script step"
     fi
 elif [ ! -f "${UTILPATH}/OUTPUT/Analysis/PionLT/${RUNNUMBER}_${MAXEVENTS}_Analysed_Data.root" ]; then
-	python3 ${UTILPATH}/scripts/online_pion_physics/pion_prod_analysis_sw.py Pion_coin_replay_production ${RUNNUMBER} ${MAXEVENTS}
+	python3 ${UTILPATH}/scripts/online_pion_physics/kaon_prod_analysis_sw.py Pion_coin_replay_production ${RUNNUMBER} ${MAXEVENTS}
 fi
 
 sleep 3
@@ -108,12 +108,12 @@ if [ -f "${UTILPATH}/OUTPUT/Analysis/PionLT/${RUNNUMBER}_${MAXEVENTS}_Output_Dat
     if [[ $option2 == "y" || $option2 == "Y" || $option2 == "yes" || $option2 == "Yes" ]]; then
 	rm "${UTILPATH}/OUTPUT/Analysis/PionLT/${RUNNUMBER}_${MAXEVENTS}_Output_Data.root"
 	echo "Reprocessing"
-	python3 ${UTILPATH}/scripts/online_pion_physics/PlotPionPhysics_sw.py Analysed_Data ${RUNNUMBER} ${MAXEVENTS}
+	python3 ${UTILPATH}/scripts/online_pion_physics/PlotKaonPhysics_sw.py Analysed_Data ${RUNNUMBER} ${MAXEVENTS}
     else
 	echo "Skipping python physics plotting script step"
     fi
 elif [ ! -f  "${UTILPATH}/OUTPUT/Analysis/PionLT/${RUNNUMBER}_${MAXEVENTS}_Output_Data.root" ]; then
-	python3 ${UTILPATH}/scripts/online_pion_physics/PlotPionPhysics_sw.py Analysed_Data ${RUNNUMBER} ${MAXEVENTS}
+	python3 ${UTILPATH}/scripts/online_pion_physics/PlotKaonPhysics_sw.py Analysed_Data ${RUNNUMBER} ${MAXEVENTS}
 fi
 evince "${UTILPATH}/OUTPUT/Analysis/PionLT/${RUNNUMBER}_${MAXEVENTS}_sw_Pion_Analysis_Distributions.pdf" &
 exit 0

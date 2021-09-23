@@ -5,7 +5,7 @@ For questions/comments/suggestions/complaints about scripts in this folder, plea
 
 This directory contains the scripts to analyse the physics yield of kaon events from the KaonLT data. The basic process of what these scripts are trying to do is -
 
-- src/Pionyield.py reads in a replay from hcana and trims the data
+- src/Kaonyield.py reads in a replay from hcana and trims the data
   - It will output a rootfile with trees corresponding to relevant info for different particle types under different conditions
   - E.g. you will get - Uncut Events
     	     	      - Cut Pion Events (all)
@@ -32,7 +32,7 @@ Before running anything make sure you have -
   - To be explicit it should be - UTIL_KAONLT/OUTPUT
 - A ROOTfiles directory (or sym link) in the top level UTIL_KAONLT folder
   - You should also check the file prefix of the root file the python script for looks for before running too
-  - See ~ line 50  in src/Pionyield.py - the relevant line is the one with rootName = "...", check this looks OK!
+  - See ~ line 50  in src/Kaonyield.py - the relevant line is the one with rootName = "...", check this looks OK!
     - Of course, if it doesn't you'll have the script complaining at you that the file does not exist
 - If you want to examine what each cut is doing in more detail, see their definitions in UTIL_KAONLT/DB/CUTS
   - The parameters that are read in for the cuts are also located in UTIL_KAONLT/DB/PARAM
@@ -79,8 +79,8 @@ This is telling you your branches in the tree you're trying to make and the numb
 This type of error will look something like the following -
 
 Traceback (most recent call last):
-  File "/group/c-pionlt/USERS/{USER}/hallc_replay_lt/UTIL_KAONLT/scripts/kaonyield/src/Pionyield.py", line 427, in <module>
-  File "/group/c-pionlt/USERS/{USER}/hallc_replay_lt/UTIL_KAONLT/scripts/kaonyield/src/Pionyield.py", line 424, in main
+  File "/group/c-kaonlt/USERS/{USER}/hallc_replay_lt/UTIL_KAONLT/scripts/kaonyield/src/Kaonyield.py", line 427, in <module>
+  File "/group/c-kaonlt/USERS/{USER}/hallc_replay_lt/UTIL_KAONLT/scripts/kaonyield/src/Kaonyield.py", line 424, in main
     
   File "/apps/python/3.4.3/lib/python3.4/site-packages/pandas/core/frame.py", line 369, in __init__
     arrays, columns = _to_arrays(data, columns, dtype=dtype)
