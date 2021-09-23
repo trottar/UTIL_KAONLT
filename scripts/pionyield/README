@@ -28,14 +28,14 @@ Before running anything make sure you have -
   - You can change this if desired in the scripts, just look for the relevant lines specifiying OUTPATH and rootName
 #################################################################################################################
 
-- An OUTPUT directory in the top level UTIL_PION directory, it can be a symlink of course
-  - To be explicit it should be - UTIL_PION/OUTPUT
-- A ROOTfiles directory (or sym link) in the top level UTIL_PION folder
+- An OUTPUT directory in the top level UTIL_KAONLT directory, it can be a symlink of course
+  - To be explicit it should be - UTIL_KAONLT/OUTPUT
+- A ROOTfiles directory (or sym link) in the top level UTIL_KAONLT folder
   - You should also check the file prefix of the root file the python script for looks for before running too
   - See ~ line 50  in src/Pionyield.py - the relevant line is the one with rootName = "...", check this looks OK!
     - Of course, if it doesn't you'll have the script complaining at you that the file does not exist
-- If you want to examine what each cut is doing in more detail, see their definitions in UTIL_PION/DB/CUTS
-  - The parameters that are read in for the cuts are also located in UTIL_PION/DB/PARAM
+- If you want to examine what each cut is doing in more detail, see their definitions in UTIL_KAONLT/DB/CUTS
+  - The parameters that are read in for the cuts are also located in UTIL_KAONLT/DB/PARAM
 
 
 ############################################### RUNNING #########################################################
@@ -79,8 +79,8 @@ This is telling you your branches in the tree you're trying to make and the numb
 This type of error will look something like the following -
 
 Traceback (most recent call last):
-  File "/group/c-pionlt/USERS/{USER}/hallc_replay_lt/UTIL_PION/scripts/kaonyield/src/Pionyield.py", line 427, in <module>
-  File "/group/c-pionlt/USERS/{USER}/hallc_replay_lt/UTIL_PION/scripts/kaonyield/src/Pionyield.py", line 424, in main
+  File "/group/c-pionlt/USERS/{USER}/hallc_replay_lt/UTIL_KAONLT/scripts/kaonyield/src/Pionyield.py", line 427, in <module>
+  File "/group/c-pionlt/USERS/{USER}/hallc_replay_lt/UTIL_KAONLT/scripts/kaonyield/src/Pionyield.py", line 424, in main
     
   File "/apps/python/3.4.3/lib/python3.4/site-packages/pandas/core/frame.py", line 369, in __init__
     arrays, columns = _to_arrays(data, columns, dtype=dtype)

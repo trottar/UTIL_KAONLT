@@ -25,7 +25,7 @@ void replay_hms_heep (Int_t RunNumber = 0, Int_t MaxEvent = 0) {
   pathList.push_back("./raw.volatile");
 
   //const char* RunFileNamePattern = "raw/coin_all_%05d.dat";
-  const char* ROOTFileNamePattern = "UTIL_PION/ROOTfiles/Analysis/HeeP/Pion_hms_replay_production_%d_%d.root";
+  const char* ROOTFileNamePattern = "UTIL_KAONLT/ROOTfiles/Analysis/HeeP/Pion_hms_replay_production_%d_%d.root";
   
   // Load global parameters
   gHcParms->Define("gen_run_number", "Run Number", RunNumber);
@@ -256,13 +256,13 @@ void replay_hms_heep (Int_t RunNumber = 0, Int_t MaxEvent = 0) {
   // Define output ROOT file
   analyzer->SetOutFile(ROOTFileName.Data());
   // Define DEF-file+
-  analyzer->SetOdefFile("UTIL_PION/config/DEF-files/hms_heep.def");
+  analyzer->SetOdefFile("UTIL_KAONLT/config/DEF-files/hms_heep.def");
   // Define cuts file
-  analyzer->SetCutFile("UTIL_PION/config/DEF-files/HeePSing_HMS_Cuts.def");  // optional
+  analyzer->SetCutFile("UTIL_KAONLT/config/DEF-files/HeePSing_HMS_Cuts.def");  // optional
   // File to record accounting information for cuts
-  analyzer->SetSummaryFile(Form("UTIL_PION/config/REPORT_OUTPUT/summary_production_%d_%d.report", RunNumber, MaxEvent)); // optional
+  analyzer->SetSummaryFile(Form("UTIL_KAONLT/config/REPORT_OUTPUT/summary_production_%d_%d.report", RunNumber, MaxEvent)); // optional
   // Start the actual analysis.
   analyzer->Process(run);
   // Create report file from template	       
-  analyzer->PrintReport("UTIL_PION/config/TEMPLATES/Online_HeePSing.template", Form("UTIL_PION/REPORT_OUTPUT/Analysis/HeeP/Pion_replay_hms_production_%d_%d.report", RunNumber, MaxEvent)); // optional}
+  analyzer->PrintReport("UTIL_KAONLT/config/TEMPLATES/Online_HeePSing.template", Form("UTIL_KAONLT/REPORT_OUTPUT/Analysis/HeeP/Pion_replay_hms_production_%d_%d.report", RunNumber, MaxEvent)); // optional}
 }

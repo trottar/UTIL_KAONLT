@@ -9,7 +9,7 @@ config/         : replay configuration files (e.g. DEF-files, PARAM)
 
 Please contact Stephen Kay (stephen.kay@uregina.ca) or Richard Trotta (trotta@cua.edu) or Muhammad Junaid (mjo147@uregina.ca) for more information.
 
-# UTIL_PION
+# UTIL_KAONLT
 
 A selection of various utility and analysis scripts associated with the Pion experiments, E12-06-101 and E12-07-105.
 

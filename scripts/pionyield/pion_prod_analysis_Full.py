@@ -54,9 +54,9 @@ elif("cdaq" in HOST[1]):
 ################################################################################################################################################
 
 # Add more path setting as needed in a similar manner
-OUTPATH = "%s/UTIL_PION/OUTPUT/Analysis/PionLT" % REPLAYPATH        # Output folder location
-CUTPATH = "%s/UTIL_PION/DB/CUTS" % REPLAYPATH
-sys.path.insert(0, '%s/UTIL_PION/bin/python/' % REPLAYPATH)
+OUTPATH = "%s/UTIL_KAONLT/OUTPUT/Analysis/PionLT" % REPLAYPATH        # Output folder location
+CUTPATH = "%s/UTIL_KAONLT/DB/CUTS" % REPLAYPATH
+sys.path.insert(0, '%s/UTIL_KAONLT/bin/python/' % REPLAYPATH)
 
 import kaonlt as klt # Import kaonlt module, need the path setting line above prior to importing this
 
@@ -65,7 +65,7 @@ print("Running as %s on %s, hallc_replay_lt path assumed as %s" % (USER[1], HOST
 #################################################################################################################################################
 
 # Construct the name of the rootfile based upon the info we provided
-rootName = "%s/UTIL_PION/ROOTfiles/Analysis/PionLT/%s_%s_%s.root" % (REPLAYPATH, ROOTPrefix, runNum, MaxEvent) # Constructs file name from input arguments
+rootName = "%s/UTIL_KAONLT/ROOTfiles/Analysis/PionLT/%s_%s_%s.root" % (REPLAYPATH, ROOTPrefix, runNum, MaxEvent) # Constructs file name from input arguments
 #rootName = "/volatile/hallc/c-pionlt/junaid/ROOTfiles/Analysis/PionLT/Pion_coin_replay_production_8076_-1.root" # Hard coded path to a recent file for testing
 print ("Attempting to process %s" %(rootName))
 if os.path.exists(OUTPATH):
@@ -77,7 +77,7 @@ if os.path.exists(OUTPATH):
         print ("%s exists but is not a directory or sym link, check your directory/link and try again" % (OUTPATH))
         sys.exit(2)
 else:
-    print("Output path not found, please make a sym link or directory called OUTPUT in UTIL_PION to store output")
+    print("Output path not found, please make a sym link or directory called OUTPUT in UTIL_KAONLT to store output")
     sys.exit(3)
 print ("Attempting to process %s" %(rootName))
 if os.path.isfile(rootName):
@@ -156,7 +156,7 @@ pEDTM = e_tree.array("T.coin.pEDTM_tdcTime")                    #
 
 # Defining path for cut file  
 r = klt.pyRoot()
-fout = '%s/UTIL_PION/DB/CUTS/run_type/coin_prod.cuts' % REPLAYPATH
+fout = '%s/UTIL_KAONLT/DB/CUTS/run_type/coin_prod.cuts' % REPLAYPATH
 
 # read in cuts file and make dictionary
 c = klt.pyPlot(REPLAYPATH)

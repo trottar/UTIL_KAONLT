@@ -76,8 +76,8 @@ elif("skynet" in HOST[1]):
 #################################################################################################################################################
 
 # Add more path setting as needed in a similar manner                                                                                                                                                          
-OUTPATH = "%s/UTIL_PION/OUTPUT/Analysis/HeeP" % REPLAYPATH        # Output folder location                                                                                                     
-sys.path.insert(0, '%s/UTIL_PION/bin/python/' % REPLAYPATH)
+OUTPATH = "%s/UTIL_KAONLT/OUTPUT/Analysis/HeeP" % REPLAYPATH        # Output folder location                                                                                                     
+sys.path.insert(0, '%s/UTIL_KAONLT/bin/python/' % REPLAYPATH)
 import kaonlt as klt # Import kaonlt module, need the path setting line above prior to importing this                                                                                                         
 print("Running as %s on %s, hallc_replay_lt path assumed as %s" % (USER[1], HOST[1], REPLAYPATH))
 Analysis_Distributions = "%s/%s_%s_sw_heep_%s_Analysis_Distributions.pdf" % (OUTPATH, runNum, MaxEvent, spec)
@@ -85,7 +85,7 @@ Analysis_Distributions = "%s/%s_%s_sw_heep_%s_Analysis_Distributions.pdf" % (OUT
 #################################################################################################################################################
 
 # Construct the name of the rootfile based upon the info we provided
-rootName = "%s/UTIL_PION/OUTPUT/Analysis/HeeP/%s_%s_%s_%s.root" % (REPLAYPATH, spec, runNum, MaxEvent, ROOTPrefix)     # Input file location and variables taking
+rootName = "%s/UTIL_KAONLT/OUTPUT/Analysis/HeeP/%s_%s_%s_%s.root" % (REPLAYPATH, spec, runNum, MaxEvent, ROOTPrefix)     # Input file location and variables taking
 print ("Attempting to process %s" %(rootName))
 if os.path.exists(OUTPATH):
     if os.path.islink(OUTPATH):
@@ -96,7 +96,7 @@ if os.path.exists(OUTPATH):
         print ("%s exists but is not a directory or sym link, check your directory/link and try again" % (OUTPATH))
         sys.exit(2)
 else:
-    print("Output path not found, please make a sym link or directory called OUTPUT in UTIL_PION to store output")
+    print("Output path not found, please make a sym link or directory called OUTPUT in UTIL_KAONLT to store output")
     sys.exit(3)
 print ("Attempting to process %s" %(rootName))
 if os.path.isfile(rootName):

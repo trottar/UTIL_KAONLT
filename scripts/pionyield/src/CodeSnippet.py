@@ -39,7 +39,7 @@ elif("skynet" in HOST[1]):
 ###########################################
 # You need to copy everything from here...
 ###########################################
-PARAMPATH = "%s/UTIL_PION/DB/PARAM" % REPLAYPATH
+PARAMPATH = "%s/UTIL_KAONLT/DB/PARAM" % REPLAYPATH
 print("Running as %s on %s, hallc_replay_lt path assumed as %s" % (USER[1], HOST[1], REPLAYPATH))
 TimingCutFile = "%s/Timing_Parameters.csv" % PARAMPATH # This should match the param file actually being used!
 

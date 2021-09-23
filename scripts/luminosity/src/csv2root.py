@@ -36,8 +36,8 @@ elif ("trottar" in HOST[1]):
 print("Running as %s on %s, hallc_replay_lt path assumed as %s" % (USER[1], HOST[1], REPLAYPATH))
 
 if csv == "lumi_data":
-    inp_f = "%s/UTIL_PION/scripts/luminosity/OUTPUTS/lumi_data.csv" % str(REPLAYPATH)
-    out_f = "%s/UTIL_PION/scripts/luminosity/OUTPUTS/lumi_data.root" % str(REPLAYPATH)
+    inp_f = "%s/UTIL_KAONLT/scripts/luminosity/OUTPUTS/lumi_data.csv" % str(REPLAYPATH)
+    out_f = "%s/UTIL_KAONLT/scripts/luminosity/OUTPUTS/lumi_data.root" % str(REPLAYPATH)
     try:
         lumi_data = dict(pd.read_csv(inp_f))
     except IOError:
@@ -45,8 +45,8 @@ if csv == "lumi_data":
     print(lumi_data.keys())
     r.csv2root(lumi_data,out_f)
 elif csv == "yield_data":
-    inp_f = "%s/UTIL_PION/scripts/luminosity/OUTPUTS/yield_data.csv" % str(REPLAYPATH)
-    out_f = "%s/UTIL_PION/scripts/luminosity/OUTPUTS/yield_data.root" % str(REPLAYPATH)
+    inp_f = "%s/UTIL_KAONLT/scripts/luminosity/OUTPUTS/yield_data.csv" % str(REPLAYPATH)
+    out_f = "%s/UTIL_KAONLT/scripts/luminosity/OUTPUTS/yield_data.root" % str(REPLAYPATH)
     try:
         yield_data = dict(pd.read_csv(inp_f))
     except IOError:

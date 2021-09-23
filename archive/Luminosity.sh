@@ -29,10 +29,10 @@ elif [[ "${HOSTNAME}" = *"cdaq"* ]]; then
 elif [[ "${HOSTNAME}" = *"phys.uregina.ca"* ]]; then
     REPLAYPATH="/home/${USER}/work/JLab/hallc_replay_lt"
 fi
-if [ ! -d "$REPLAYPATH/UTIL_PION/REPORT_OUTPUT/" ]; then
-    mkdir "$REPLAYPATH/UTIL_PION/REPORT_OUTPUT"
-    mkdir "$REPLAYPATH/UTIL_PION/REPORT_OUTPUT/COIN"
-    mkdir "$REPLAYPATH/UTIL_PION/REPORT_OUTPUT/COIN/PRODUCTION"
+if [ ! -d "$REPLAYPATH/UTIL_KAONLT/REPORT_OUTPUT/" ]; then
+    mkdir "$REPLAYPATH/UTIL_KAONLT/REPORT_OUTPUT"
+    mkdir "$REPLAYPATH/UTIL_KAONLT/REPORT_OUTPUT/COIN"
+    mkdir "$REPLAYPATH/UTIL_KAONLT/REPORT_OUTPUT/COIN/PRODUCTION"
 fi
 cd $REPLAYPATH
 # Create a BCM parameter file for the run if one doesn't exist already
@@ -48,17 +48,17 @@ if [ ! -f "$REPLAYPATH/PARAM/HMS/BCM/CALIB/bcmcurrent_$RUNNUMBER.param" ]; then
 fi
 sleep 10
 if [ ! -f "$REPLAYPATH/ROOTfilesPion/PionLT_coin_replay_production_${RUNNUMBER}_${MAXEVENTS}.root" ]; then
-    eval "$REPLAYPATH/hcana -l -q \"UTIL_PION/scripts_Replay/replay_production_coin_Lumi.C($RUNNUMBER,$MAXEVENTS)\"" | tee $REPLAYPATH/UTIL_PION/REPORT_OUTPUT/COIN/PRODUCTION/PionLT_output_coin_production_${RUNNUMBER}_${MAXEVENTS}.report 
+    eval "$REPLAYPATH/hcana -l -q \"UTIL_KAONLT/scripts_Replay/replay_production_coin_Lumi.C($RUNNUMBER,$MAXEVENTS)\"" | tee $REPLAYPATH/UTIL_KAONLT/REPORT_OUTPUT/COIN/PRODUCTION/PionLT_output_coin_production_${RUNNUMBER}_${MAXEVENTS}.report 
 fi
 sleep 5
-cd "$REPLAYPATH/UTIL_PION/scripts_Luminosity/"
+cd "$REPLAYPATH/UTIL_KAONLT/scripts_Luminosity/"
 if [[ "${HOSTNAME}" = *"farm"* && "${HOSTNAME}" != *"ifarm"* ]]; then
     root -l -b -q "run_LumiYield.C($RUNNUMBER,$MAXEVENTS,5,1)"
 else
     root -l "run_LumiYield.C($RUNNUMBER,$MAXEVENTS,5,1)"
 fi
 if [[ "${HOSTNAME}" = *"cdaq"* ]]; then
-    cd "$REPLAYPATH/UTIL_PION"
+    cd "$REPLAYPATH/UTIL_KAONLT"
     python reportSummary_lumi.py $RUNNUMBER $MAXEVENTS
     emacs output.txt
     mv output.txt OUTPUT/scalers_Run$RUNNUMBER.txt

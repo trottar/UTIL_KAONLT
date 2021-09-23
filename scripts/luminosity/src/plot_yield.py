@@ -34,42 +34,42 @@ print(inp_name)
 if "1" in inp_name:
     if "LH2" in inp_name.upper():
         target = "LH2"
-        inp_f = "%s/UTIL_PION/scripts/luminosity/OUTPUTS/Lumi_1/LH2/lumi_data_l1_lh2.csv" % str(REPLAYPATH)
-        out_f = "%s/UTIL_PION/scripts/luminosity/OUTPUTS/Lumi_1/LH2/yield_data_l1_lh2.csv" % str(REPLAYPATH)
+        inp_f = "%s/UTIL_KAONLT/scripts/luminosity/OUTPUTS/Lumi_1/LH2/lumi_data_l1_lh2.csv" % str(REPLAYPATH)
+        out_f = "%s/UTIL_KAONLT/scripts/luminosity/OUTPUTS/Lumi_1/LH2/yield_data_l1_lh2.csv" % str(REPLAYPATH)
         print("\nGrabbing input...\n\n%s" % str(inp_f))
     if "LD2" in inp_name.upper():
         target = "LD2"
-        inp_f = "%s/UTIL_PION/scripts/luminosity/OUTPUTS/Lumi_1/LD2/lumi_data_l1_ld2.csv" % str(REPLAYPATH)
-        out_f = "%s/UTIL_PION/scripts/luminosity/OUTPUTS/Lumi_1/LD2/yield_data_l1_ld2.csv" % str(REPLAYPATH)
+        inp_f = "%s/UTIL_KAONLT/scripts/luminosity/OUTPUTS/Lumi_1/LD2/lumi_data_l1_ld2.csv" % str(REPLAYPATH)
+        out_f = "%s/UTIL_KAONLT/scripts/luminosity/OUTPUTS/Lumi_1/LD2/yield_data_l1_ld2.csv" % str(REPLAYPATH)
         print("\nGrabbing input...\n\n%s" % str(inp_f))
     if "C" in inp_name.upper():
         target = "carbon"
-        inp_f = "%s/UTIL_PION/scripts/luminosity/OUTPUTS/Lumi_1/Carbon0p5/lumi_data_l1_c0p5.csv" % str(REPLAYPATH)
-        out_f = "%s/UTIL_PION/scripts/luminosity/OUTPUTS/Lumi_1/Carbon0p5/yield_data_l1_c0p5.csv" % str(REPLAYPATH)
+        inp_f = "%s/UTIL_KAONLT/scripts/luminosity/OUTPUTS/Lumi_1/Carbon0p5/lumi_data_l1_c0p5.csv" % str(REPLAYPATH)
+        out_f = "%s/UTIL_KAONLT/scripts/luminosity/OUTPUTS/Lumi_1/Carbon0p5/yield_data_l1_c0p5.csv" % str(REPLAYPATH)
         print("\nGrabbing input...\n\n%s" % str(inp_f))
 elif "2" in inp_name:
     if "LH2" in inp_name.upper():
         target = "LH2"
-        inp_f = "%s/UTIL_PION/scripts/luminosity/OUTPUTS/Lumi_2/LH2/lumi_data_l2_lh2.csv" % str(REPLAYPATH)
-        out_f = "%s/UTIL_PION/scripts/luminosity/OUTPUTS/Lumi_2/LH2/yield_data_l2_lh2.csv" % str(REPLAYPATH)
+        inp_f = "%s/UTIL_KAONLT/scripts/luminosity/OUTPUTS/Lumi_2/LH2/lumi_data_l2_lh2.csv" % str(REPLAYPATH)
+        out_f = "%s/UTIL_KAONLT/scripts/luminosity/OUTPUTS/Lumi_2/LH2/yield_data_l2_lh2.csv" % str(REPLAYPATH)
         print("\nGrabbing input...\n\n%s" % str(inp_f))
     if "LD2" in inp_name.upper():
         target = "LD2"
-        inp_f = "%s/UTIL_PION/scripts/luminosity/OUTPUTS/Lumi_2/LD2/lumi_data_l2_ld2.csv" % str(REPLAYPATH)
-        out_f = "%s/UTIL_PION/scripts/luminosity/OUTPUTS/Lumi_2/LD2/yield_data_l2_ld2.csv" % str(REPLAYPATH)
+        inp_f = "%s/UTIL_KAONLT/scripts/luminosity/OUTPUTS/Lumi_2/LD2/lumi_data_l2_ld2.csv" % str(REPLAYPATH)
+        out_f = "%s/UTIL_KAONLT/scripts/luminosity/OUTPUTS/Lumi_2/LD2/yield_data_l2_ld2.csv" % str(REPLAYPATH)
         print("\nGrabbing input...\n\n%s" % str(inp_f))
     if "C" in inp_name.upper():
         target = "carbon"
-        inp_f = "%s/UTIL_PION/scripts/luminosity/OUTPUTS/Lumi_2/Carbon0p5/lumi_data_l2_c0p5.csv" % str(REPLAYPATH)
-        out_f = "%s/UTIL_PION/scripts/luminosity/OUTPUTS/Lumi_2/Carbon0p5/yield_data_l2_c0p5.csv" % str(REPLAYPATH)
+        inp_f = "%s/UTIL_KAONLT/scripts/luminosity/OUTPUTS/Lumi_2/Carbon0p5/lumi_data_l2_c0p5.csv" % str(REPLAYPATH)
+        out_f = "%s/UTIL_KAONLT/scripts/luminosity/OUTPUTS/Lumi_2/Carbon0p5/yield_data_l2_c0p5.csv" % str(REPLAYPATH)
         print("\nGrabbing input...\n\n%s" % str(inp_f))
 elif inp_name == None:
-    inp_f = "%s/UTIL_PION/scripts/luminosity/OUTPUTS/lumi_data.csv" % str(REPLAYPATH)
-    out_f = "%s/UTIL_PION/scripts/luminosity/OUTPUTS/yield_data.csv" % str(REPLAYPATH)
+    inp_f = "%s/UTIL_KAONLT/scripts/luminosity/OUTPUTS/lumi_data.csv" % str(REPLAYPATH)
+    out_f = "%s/UTIL_KAONLT/scripts/luminosity/OUTPUTS/yield_data.csv" % str(REPLAYPATH)
     print("\nError: Invalid input...\nGrabbing default input...\n\n%s" % str(inp_f))
 else:
-    inp_f = "%s/UTIL_PION/scripts/luminosity/OUTPUTS/lumi_data.csv" % str(REPLAYPATH)
-    out_f = "%s/UTIL_PION/scripts/luminosity/OUTPUTS/yield_data.csv" % str(REPLAYPATH)
+    inp_f = "%s/UTIL_KAONLT/scripts/luminosity/OUTPUTS/lumi_data.csv" % str(REPLAYPATH)
+    out_f = "%s/UTIL_KAONLT/scripts/luminosity/OUTPUTS/yield_data.csv" % str(REPLAYPATH)
     print("\nGrabbing default input...\n\n%s" % str(inp_f))
 
 print("Running as %s on %s, hallc_replay_lt path assumed as %s" % (USER[1], HOST[1], REPLAYPATH))

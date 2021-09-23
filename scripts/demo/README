@@ -33,8 +33,8 @@ Uninstall any problematic packages and reinstall them with the correct ROOT vers
 
 BY DEFAULT
 
-YOU MUST HAVE A FOLDER OR SYMLINK CALLED - ROOTfiles - IN THE FIRST LEVEL OF THE UTIL_PION DIRECTORY
-YOU MUST ALSO HAVE A FOLDER OR SYMLINK CALLED - OUTPUT - IN THE FIRST LEVEL OF THE UTIL_PION DIRECTORY
+YOU MUST HAVE A FOLDER OR SYMLINK CALLED - ROOTfiles - IN THE FIRST LEVEL OF THE UTIL_KAONLT DIRECTORY
+YOU MUST ALSO HAVE A FOLDER OR SYMLINK CALLED - OUTPUT - IN THE FIRST LEVEL OF THE UTIL_KAONLT DIRECTORY
 
 If you ran the new setup scripts, these should already be present. Change the OUTPUT pathing in the python script as you see fit.
 
@@ -48,16 +48,16 @@ Further (less shouty explanation) follows -
 The scripts will look for an input ROOTFILE in the directory specified on line 49. Modify this as you please, but it is set up to avoid hard coding a path to a single file.
 This directory is constructed based on some pre-set environments - PLEASE CHECK THIS PATH AND THAT YOUR RELEVANT ENVIRONMENT IS LISTED
 
-By default, it is assumed that you have a sym link (or folder) called ROOTfiles in the first level of the UTIL_PION directory
+By default, it is assumed that you have a sym link (or folder) called ROOTfiles in the first level of the UTIL_KAONLT directory
 A sym link is preferable as the (assumed default) /group/ path is not intended for large file storage.
 
 The output of the script will go to a sym link (or folder) in the same directory as this README.
 
 Example - You are running on the JLab ifarm,
 the script will look for your speicified ROOTfile in 
-/group/c-pionlt/USERS/{USERNAME}/hallc_replay_lt/UTIL_PION/ROOTfiles/Analysis/General
+/group/c-pionlt/USERS/{USERNAME}/hallc_replay_lt/UTIL_KAONLT/ROOTfiles/Analysis/General
 and output to
-/group/c-pionlt/USERS/{USERNAME}/hallc_replay_lt/UTIL_PION/OUTPUT/Analysis/General
+/group/c-pionlt/USERS/{USERNAME}/hallc_replay_lt/UTIL_KAONLT/OUTPUT/Analysis/General
 
 ### Running the scripts ###
 

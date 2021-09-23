@@ -46,7 +46,7 @@ elif [[ "${HOSTNAME}" = *"cdaq"* ]]; then
 elif [[ "${HOSTNAME}" = *"phys.uregina.ca"* ]]; then
     REPLAYPATH="/home/${USER}/work/JLab/hallc_replay_lt"
 fi
-UTILPATH="${REPLAYPATH}/UTIL_PION"
+UTILPATH="${REPLAYPATH}/UTIL_KAONLT"
 RunListFile="${UTILPATH}/scripts/online_pion_physics/Kinematics/${KINEMATIC}"
 if [ ! -f "${RunListFile}" ]; then
     echo "Error, ${RunListFile} not found, exiting"

@@ -38,14 +38,14 @@ elif ("skynet" in HOST[1]):
     REPLAYPATH = "/home/%s/Work/JLab/hallc_replay_lt" % USER[1]
 
 # Add more path setting as needed in a similar manner
-OUTPATH = "%s/UTIL_PION/OUTPUT/Analysis/General" % REPLAYPATH
-CUTPATH = "%s/UTIL_PION/DB/CUTS" % REPLAYPATH
-sys.path.insert(0, '%s/UTIL_PION/bin/python/' % REPLAYPATH)
+OUTPATH = "%s/UTIL_KAONLT/OUTPUT/Analysis/General" % REPLAYPATH
+CUTPATH = "%s/UTIL_KAONLT/DB/CUTS" % REPLAYPATH
+sys.path.insert(0, '%s/UTIL_KAONLT/bin/python/' % REPLAYPATH)
 import kaonlt as klt # Import kaonlt module, need the path setting line above prior to importing this
 
 print("Running as %s on %s, hallc_replay_lt path assumed as %s" % (USER[1], HOST[1], REPLAYPATH))
 # Construct the name of the rootfile based upon the info we provided
-rootName = "%s/UTIL_PION/ROOTfiles/Analysis/General/%s_%s_%s.root" % (REPLAYPATH, ROOTPrefix, runNum, MaxEvent)
+rootName = "%s/UTIL_KAONLT/ROOTfiles/Analysis/General/%s_%s_%s.root" % (REPLAYPATH, ROOTPrefix, runNum, MaxEvent)
 print ("Attempting to process %s" %(rootName))
 if os.path.exists(OUTPATH):
     if os.path.islink(OUTPATH):

@@ -42,5 +42,5 @@ elif [[ "${HOSTNAME}" = *"trottar"* ]]; then
 fi
 
 # source /apps/root/6.18.04/setroot_CUE.bash
-cd ${REPLAYPATH}/UTIL_PION/scripts/luminosity/src/
+cd ${REPLAYPATH}/UTIL_KAONLT/scripts/luminosity/src/
 python3 lumiyield.py Pion_replay_luminosity ${RUNNUMBER} ${MAXEVENTS}

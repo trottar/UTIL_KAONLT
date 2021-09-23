@@ -38,13 +38,13 @@ elif("skynet" in HOST[1]):
     REPLAYPATH = "/home/%s/Work/JLab/hallc_replay_lt" % USER[1]
     
 # Add more path setting as needed in a similar manner
-OUTPATH = "%s/UTIL_PION/OUTPUT/Analysis/PionLT" % REPLAYPATH
-CUTPATH = "%s/UTIL_PION/DB/CUTS" % REPLAYPATH
-sys.path.insert(0, '%s/UTIL_PION/bin/python/' % REPLAYPATH)
+OUTPATH = "%s/UTIL_KAONLT/OUTPUT/Analysis/PionLT" % REPLAYPATH
+CUTPATH = "%s/UTIL_KAONLT/DB/CUTS" % REPLAYPATH
+sys.path.insert(0, '%s/UTIL_KAONLT/bin/python/' % REPLAYPATH)
 import kaonlt as klt
 
 print("Running as %s on %s, hallc_replay_lt path assumed as %s" % (USER[1], HOST[1], REPLAYPATH))
-rootName = "%s/UTIL_PION/ROOTfiles/Analysis/PionLT/%s_%s_%s.root" % (REPLAYPATH, ROOTPrefix, runNum, MaxEvent)
+rootName = "%s/UTIL_KAONLT/ROOTfiles/Analysis/PionLT/%s_%s_%s.root" % (REPLAYPATH, ROOTPrefix, runNum, MaxEvent)
 if os.path.exists(OUTPATH):
     if os.path.islink(OUTPATH):
         pass
@@ -54,7 +54,7 @@ if os.path.exists(OUTPATH):
         print ("%s exists but is not a directory or sym link, check your directory/link and try again" % (OUTPATH))
         sys.exit(2)
 else:
-    print("Output path not found, please make a sym link or directory called OUTPUT in UTIL_PION/scripts/demo to store output")
+    print("Output path not found, please make a sym link or directory called OUTPUT in UTIL_KAONLT/scripts/demo to store output")
     sys.exit(3)
 print ("Attempting to process %s" %(rootName))
 if os.path.isfile(rootName):
@@ -94,7 +94,7 @@ MMp = e_tree.array("P.kin.secondary.MMp")
 # Relevant branches now stored as NP arrays
 
 r = klt.pyRoot()
-fout = '%s/UTIL_PION/DB/CUTS/run_type/coinpeak.cuts' % REPLAYPATH
+fout = '%s/UTIL_KAONLT/DB/CUTS/run_type/coinpeak.cuts' % REPLAYPATH
 # read in cuts file and make dictionary
 #c = klt.pyPlot(REPLAYPATH,DEBUG=True)
 c = klt.pyPlot(REPLAYPATH)

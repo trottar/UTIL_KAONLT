@@ -23,7 +23,7 @@ if [[ "${HOSTNAME}" = *"cdaq"* ]]; then
     REPLAYPATH="/home/cdaq/hallc-online/hallc_replay_lt"
 fi
 
-UTILPATH="${REPLAYPATH}/UTIL_PION"
+UTILPATH="${REPLAYPATH}/UTIL_KAONLT"
 cd $REPLAYPATH
 
 ###################################################################################################################################################

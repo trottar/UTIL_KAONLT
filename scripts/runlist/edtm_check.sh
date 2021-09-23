@@ -36,7 +36,7 @@ else
 fi
 
 # Get information available in standard.kinematics, execute a python script to do this for us
-KINFILE_INFO=`python3 $REPLAYPATH/UTIL_PION/scripts/runlist/kinfile.py ${KINFILE} ${RUNNUMBER}` # The output of this python script is just a comma separated string
+KINFILE_INFO=`python3 $REPLAYPATH/UTIL_KAONLT/scripts/runlist/kinfile.py ${KINFILE} ${RUNNUMBER}` # The output of this python script is just a comma separated string
 # Split the string we get to individual variables, easier for printing and use later
 SHMS_Angle=`echo ${KINFILE_INFO} | cut -d ','  -f1` # Cut the string on , delimitter, select field (f) 1, set variable to output of command
 SHMS_P=`echo ${KINFILE_INFO} | cut -d ','  -f2`
@@ -49,9 +49,9 @@ EBeam=`echo ${KINFILE_INFO} | cut -d ','  -f7`
 # Get information available in the report file
 if [[ -f ${REPORTFILE} ]]; then
     if [[ ${RUNTYPE} != "HeePSing" ]]; then
-	REPORTFILE_INFO=`python3 $REPLAYPATH/UTIL_PION/scripts/runlist/edtm_reportfile.py ${REPORTFILE}`
+	REPORTFILE_INFO=`python3 $REPLAYPATH/UTIL_KAONLT/scripts/runlist/edtm_reportfile.py ${REPORTFILE}`
     elif [[ ${RUNTYPE} == "HeePSing" ]]; then
-	REPORTFILE_INFO=`python3 $REPLAYPATH/UTIL_PION/scripts/runlist/edtm_reportfile_HeePSing.py ${REPORTFILE}`
+	REPORTFILE_INFO=`python3 $REPLAYPATH/UTIL_KAONLT/scripts/runlist/edtm_reportfile_HeePSing.py ${REPORTFILE}`
     fi
     Current=`echo ${REPORTFILE_INFO} | cut -d ',' -f1`
     PS1=`echo ${REPORTFILE_INFO} | cut -d ',' -f2`

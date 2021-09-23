@@ -25,7 +25,7 @@ void replay_luminosity (Int_t RunNumber = 0, Int_t MaxEvent = 0) {
   pathList.push_back("./raw.volatile");
 
   //const char* RunFileNamePattern = "raw/coin_all_%05d.dat";
-  const char* ROOTFileNamePattern = "UTIL_PION/ROOTfiles/Analysis/Lumi/Pion_replay_luminosity_%d_%d.root";
+  const char* ROOTFileNamePattern = "UTIL_KAONLT/ROOTfiles/Analysis/Lumi/Pion_replay_luminosity_%d_%d.root";
   
   // Load global parameters
   gHcParms->Define("gen_run_number", "Run Number", RunNumber);
@@ -256,13 +256,13 @@ void replay_luminosity (Int_t RunNumber = 0, Int_t MaxEvent = 0) {
   // Define output ROOT file
   analyzer->SetOutFile(ROOTFileName.Data());
   // Define DEF-file+
-  analyzer->SetOdefFile("UTIL_PION/config/DEF-files/luminosity_coin.def");
+  analyzer->SetOdefFile("UTIL_KAONLT/config/DEF-files/luminosity_coin.def");
   // Define cuts file
-  analyzer->SetCutFile("UTIL_PION/config/DEF-files/Online_Lumi_Cuts.def");  // optional
+  analyzer->SetCutFile("UTIL_KAONLT/config/DEF-files/Online_Lumi_Cuts.def");  // optional
   // File to record accounting information for cuts
-  analyzer->SetSummaryFile(Form("UTIL_PION/config/REPORT_OUTPUT/summary_luminosity_%d_%d.report", RunNumber, MaxEvent)); // optional
+  analyzer->SetSummaryFile(Form("UTIL_KAONLT/config/REPORT_OUTPUT/summary_luminosity_%d_%d.report", RunNumber, MaxEvent)); // optional
   // Start the actual analysis.
   analyzer->Process(run);
   // Create report file from template	       
-  analyzer->PrintReport("UTIL_PION/config/TEMPLATES/Online_Lumi.template", Form("UTIL_PION/REPORT_OUTPUT/Analysis/Lumi/Pion_replay_luminosity_%d_%d.report", RunNumber, MaxEvent)); // optional}
+  analyzer->PrintReport("UTIL_KAONLT/config/TEMPLATES/Online_Lumi.template", Form("UTIL_KAONLT/REPORT_OUTPUT/Analysis/Lumi/Pion_replay_luminosity_%d_%d.report", RunNumber, MaxEvent)); // optional}
 }

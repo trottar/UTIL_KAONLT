@@ -33,7 +33,7 @@ elif ("cdaq" in HOST[1]):
 elif ("trottar" in HOST[1]):
     REPLAYPATH = "/home/trottar/Analysis/hallc_replay_lt"
 
-sys.path.insert(0, '%s/UTIL_PION/bin/python/' % REPLAYPATH)
+sys.path.insert(0, '%s/UTIL_KAONLT/bin/python/' % REPLAYPATH)
 import kaonlt as klt
 import scaler
 
@@ -41,11 +41,11 @@ print("Running as %s on %s, hallc_replay_lt path assumed as %s" % (USER[1], HOST
 
 thres_curr = 2.5
 
-out_f = "%s/UTIL_PION/scripts/luminosity/OUTPUTS/lumi_data.csv" % REPLAYPATH
+out_f = "%s/UTIL_KAONLT/scripts/luminosity/OUTPUTS/lumi_data.csv" % REPLAYPATH
 
 # Construct the name of the rootfile based upon the info we provided
-OUTPATH = "%s/UTIL_PION/OUTPUT/Analysis/PionLT" % REPLAYPATH        # Output folder location
-rootName = "%s/UTIL_PION/ROOTfiles/Analysis/Lumi/%s_%s_%s.root" % (REPLAYPATH,ROOTPrefix,runNum,MaxEvent)     # Input file location and variables taking
+OUTPATH = "%s/UTIL_KAONLT/OUTPUT/Analysis/PionLT" % REPLAYPATH        # Output folder location
+rootName = "%s/UTIL_KAONLT/ROOTfiles/Analysis/Lumi/%s_%s_%s.root" % (REPLAYPATH,ROOTPrefix,runNum,MaxEvent)     # Input file location and variables taking
 print ("Attempting to process %s" %(rootName))
 if os.path.exists(OUTPATH):
     if os.path.islink(OUTPATH):
@@ -56,7 +56,7 @@ if os.path.exists(OUTPATH):
         print ("%s exists but is not a directory or sym link, check your directory/link and try again" % (OUTPATH))
         sys.exit(2)
 else:
-    print("Output path not found, please make a sym link or directory called OUTPUT in UTIL_PION to store output")
+    print("Output path not found, please make a sym link or directory called OUTPUT in UTIL_KAONLT to store output")
     sys.exit(3)
 if os.path.isfile(rootName):
     print ("%s exists, processing" % (rootName))
@@ -65,7 +65,7 @@ else:
     sys.exit(4)
 print("Output path checks out, outputting to %s" % (OUTPATH))
 
-report = "%s/UTIL_PION/REPORT_OUTPUT/Analysis/Lumi/%s_%s_%s.report" % (REPLAYPATH,ROOTPrefix,runNum,MaxEvent)
+report = "%s/UTIL_KAONLT/REPORT_OUTPUT/Analysis/Lumi/%s_%s_%s.report" % (REPLAYPATH,ROOTPrefix,runNum,MaxEvent)
 
 f = open(report)
     
@@ -284,7 +284,7 @@ T_coin_hFADC_TREF_ROC1_adcPulseTimeRaw = tree.array("T.coin.hFADC_TREF_ROC1_adcP
 T_coin_pEDTM_tdcTime = tree.array("T.coin.pEDTM_tdcTimeRaw")
 EvtType = tree.array("fEvtHdr.fEvtType")
 
-fout = REPLAYPATH+'/UTIL_PION/DB/CUTS/run_type/lumi.cuts'
+fout = REPLAYPATH+'/UTIL_KAONLT/DB/CUTS/run_type/lumi.cuts'
 
 # read in cuts file and make dictionary
 c = klt.pyPlot(REPLAYPATH)

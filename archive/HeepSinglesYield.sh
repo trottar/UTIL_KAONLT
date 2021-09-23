@@ -32,17 +32,17 @@ elif [[ "${HOSTNAME}" = *"phys.uregina.ca"* ]]; then
 fi
 cd $REPLAYPATH
 if [ ! -f "$REPLAYPATH/ROOTfilesPion/PionLT_coin_replay_production_${RUNNUMBER}_${MAXEVENTS}.root" ]; then
-    eval "$REPLAYPATH/hcana -l -q \"UTIL_PION/scripts_Replay/replay_production_coin_HeepSingles.C($RUNNUMBER,$MAXEVENTS)\"" | tee $REPLAYPATH/UTIL_PION/REPORT_OUTPUT/COIN/PRODUCTION/PionLT_output_coin_production_${RUNNUMBER}_${MAXEVENTS}.report 
+    eval "$REPLAYPATH/hcana -l -q \"UTIL_KAONLT/scripts_Replay/replay_production_coin_HeepSingles.C($RUNNUMBER,$MAXEVENTS)\"" | tee $REPLAYPATH/UTIL_KAONLT/REPORT_OUTPUT/COIN/PRODUCTION/PionLT_output_coin_production_${RUNNUMBER}_${MAXEVENTS}.report 
 fi
 sleep 5
-cd "$REPLAYPATH/UTIL_PION/scripts_HeepSingles/"
+cd "$REPLAYPATH/UTIL_KAONLT/scripts_HeepSingles/"
 if [[ "${HOSTNAME}" = *"farm"* && "${HOSTNAME}" != *"ifarm"* ]]; then
     root -l -b -q "run_HeepSinglesYield.C($RUNNUMBER,$MAXEVENTS,5,1)"
 else
     root -l "run_HeepSinglesYield.C($RUNNUMBER,$MAXEVENTS,5,1)"
 fi
 if [[ "${HOSTNAME}" = *"cdaq"* ]]; then
-    cd "$REPLAYPATH/UTIL_PION"
+    cd "$REPLAYPATH/UTIL_KAONLT"
     python reportSummary_lumi.py $RUNNUMBER $MAXEVENTS
     emacs output.txt
     mv output.txt OUTPUT/scalers_Run$RUNNUMBER.txt

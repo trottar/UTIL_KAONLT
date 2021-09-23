@@ -40,14 +40,14 @@ elif("skynet" in HOST[1]):
     REPLAYPATH = "/home/%s/Work/JLab/hallc_replay_lt" % USER[1]
     
 # Add more path setting as needed in a similar manner
-OUTPATH = "%s/UTIL_PION/OUTPUT/Analysis/PionLT" % REPLAYPATH
-CUTPATH = "%s/UTIL_PION/DB/CUTS" % REPLAYPATH
-sys.path.insert(0, '%s/UTIL_PION/bin/python/' % REPLAYPATH)
+OUTPATH = "%s/UTIL_KAONLT/OUTPUT/Analysis/PionLT" % REPLAYPATH
+CUTPATH = "%s/UTIL_KAONLT/DB/CUTS" % REPLAYPATH
+sys.path.insert(0, '%s/UTIL_KAONLT/bin/python/' % REPLAYPATH)
 import kaonlt as klt
 
 print("Running as %s on %s, hallc_replay_lt path assumed as %s" % (USER[1], HOST[1], REPLAYPATH))
 # Construct the name of the rootfile based upon the info we provided
-rootName = "%s/UTIL_PION/ROOTfiles/Analysis/PionLT/%s_%s_%s.root" % (REPLAYPATH, ROOTPrefix, runNum, MaxEvent)
+rootName = "%s/UTIL_KAONLT/ROOTfiles/Analysis/PionLT/%s_%s_%s.root" % (REPLAYPATH, ROOTPrefix, runNum, MaxEvent)
 print ("Attempting to process %s" %(rootName))
 if os.path.exists(OUTPATH):
     if os.path.islink(OUTPATH):
@@ -70,7 +70,7 @@ print("Output path checks out, outputting to %s" % (OUTPATH))
 ###############################################################################################################
 ############################### RF Timing is the only thing left in here ######################################
 ###############################################################################################################
-TimingCutFile = "%s/UTIL_PION/DB/PARAM/Timing_Parameters.csv" % REPLAYPATH
+TimingCutFile = "%s/UTIL_KAONLT/DB/PARAM/Timing_Parameters.csv" % REPLAYPATH
 TimingCutf = open(TimingCutFile)
 linenum = 0 # Count line number we're on
 TempPar = -1 # To check later
@@ -167,7 +167,7 @@ MMp = np.array([math.sqrt(abs(((em+(math.sqrt((MK*MK)+(gtrp*gtrp)))-(math.sqrt((
 RF_CutDist = np.array([ ((RFTime-StartTime + RF_Offset)%(BunchSpacing)) for (RFTime, StartTime) in zip(P_RF_tdcTime, P_hod_fpHitsTime)]) # In python x % y is taking the modulo y of x
 
 r = klt.pyRoot()
-fout = '%s/UTIL_PION/DB/CUTS/run_type/coin_prod.cuts' % REPLAYPATH
+fout = '%s/UTIL_KAONLT/DB/CUTS/run_type/coin_prod.cuts' % REPLAYPATH
 # read in cuts file and make dictionary
 c = klt.pyPlot(REPLAYPATH)
 readDict = c.read_dict(fout,runNum)

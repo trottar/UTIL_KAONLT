@@ -29,8 +29,8 @@ elif [[ "${HOSTNAME}" = *"cdaq"* ]]; then
 elif [[ "${HOSTNAME}" = *"phys.uregina.ca"* ]]; then
     REPLAYPATH="/home/${USER}/work/JLab/hallc_replay_lt"
 fi
-UTILPATH="${REPLAYPATH}/UTIL_PION"
-SCRIPTPATH="${REPLAYPATH}/UTIL_PION/scripts/pionyield/Analyse_Pions.sh"
+UTILPATH="${REPLAYPATH}/UTIL_KAONLT"
+SCRIPTPATH="${REPLAYPATH}/UTIL_KAONLT/scripts/pionyield/Analyse_Pions.sh"
 RunListFile="${UTILPATH}/scripts/kinematics/Q5p5W3p02center_highe"
 while IFS='' read -r line || [[ -n "$line" ]]; do
     runNum=$line

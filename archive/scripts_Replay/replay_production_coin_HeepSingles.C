@@ -245,13 +245,13 @@ void replay_production_coin_HeepSingles (Int_t RunNumber = 0, Int_t MaxEvent = 0
   // Define output ROOT file
   analyzer->SetOutFile(ROOTFileName.Data());
   // Define DEF-file+
-  analyzer->SetOdefFile("UTIL_PION/DEF-files/HeepSingles_Production.def");
+  analyzer->SetOdefFile("UTIL_KAONLT/DEF-files/HeepSingles_Production.def");
   // Define cuts file
-  analyzer->SetCutFile("UTIL_PION/DEF-files/HeepSingles_Production_Cuts.def");  // optional
+  analyzer->SetCutFile("UTIL_KAONLT/DEF-files/HeepSingles_Production_Cuts.def");  // optional
   // File to record accounting information for cuts
   analyzer->SetSummaryFile(Form("REPORT_OUTPUT/COIN/PRODUCTION/summary_production_%d_%d.report", RunNumber, MaxEvent)); // optional
   // Start the actual analysis.
   analyzer->Process(run);
   // Create report file from template	       
-  analyzer->PrintReport("UTIL_PION/TEMPLATES/COIN/coin_production.template", Form("UTIL_PION/REPORT_OUTPUT/COIN/PRODUCTION/PionLT_replay_coin_production_%d_%d.report", RunNumber, MaxEvent)); // optional}
+  analyzer->PrintReport("UTIL_KAONLT/TEMPLATES/COIN/coin_production.template", Form("UTIL_KAONLT/REPORT_OUTPUT/COIN/PRODUCTION/PionLT_replay_coin_production_%d_%d.report", RunNumber, MaxEvent)); // optional}
 }

@@ -20,7 +20,7 @@ void Q0p375W2p2centre()
   TProof *proof = TProof::Open("workers=8");
   //proof->SetProgressDialog(0);  
   ch.SetProof();
-  ch.Process("/home/cdaq/hallc-online/hallc_replay_lt/UTIL_PION/scripts_Yield/PionYield.C+","1");
+  ch.Process("/home/cdaq/hallc-online/hallc_replay_lt/UTIL_KAONLT/scripts_Yield/PionYield.C+","1");
   proof->Close();
   
 }
