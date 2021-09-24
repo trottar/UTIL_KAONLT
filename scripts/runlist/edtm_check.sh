@@ -24,7 +24,7 @@ RUNLIST="${REPLAYPATH}/edtm_check.csv"
 KINFILE="${REPLAYPATH}/DBASE/COIN/standard.kinematics"
 # Get report file based upon run type
 if [[ ${RUNTYPE} = *"Prod"* ]]; then
-    REPORTFILE="${REPLAYPATH}/REPORT_OUTPUT/Analysis/PionLT/Pion_replay_coin_production_${RUNNUMBER}_-1.report" # Finalised
+    REPORTFILE="${REPLAYPATH}/REPORT_OUTPUT/Analysis/KaonLT/Pion_replay_coin_production_${RUNNUMBER}_-1.report" # Finalised
 elif [[ ${RUNTYPE} = *"Lumi"* ]]; then
     REPORTFILE="${REPLAYPATH}/REPORT_OUTPUT/Analysis/Lumi/Pion_replay_luminosity_${RUNNUMBER}_-1.report" 
 elif [[ ${RUNTYPE} = *"HeePSing"* ]]; then

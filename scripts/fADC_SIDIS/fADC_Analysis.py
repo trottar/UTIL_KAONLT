@@ -54,7 +54,7 @@ elif("cdaq" in HOST[1]):
 ################################################################################################################################################
 
 # Add more path setting as needed in a similar manner
-OUTPATH = "%s/UTIL_KAONLT/OUTPUT/Analysis/PionLT" % REPLAYPATH        # Output folder location
+OUTPATH = "%s/UTIL_KAONLT/OUTPUT/Analysis/KaonLT" % REPLAYPATH        # Output folder location
 CUTPATH = "%s/UTIL_KAONLT/DB/CUTS" % REPLAYPATH
 sys.path.insert(0, '%s/UTIL_KAONLT/bin/python/' % REPLAYPATH)
 
@@ -65,8 +65,8 @@ print("Running as %s on %s, hallc_replay_lt path assumed as %s" % (USER[1], HOST
 #################################################################################################################################################
 
 # Construct the name of the rootfile based upon the info we provided
-rootName = "%s/UTIL_KAONLT/ROOTfiles/Analysis/PionLT/%s_%s_%s.root" % (REPLAYPATH, ROOTPrefix, runNum, MaxEvent)     # Input file location and variables taking
-#rootName = "/volatile/hallc/c-kaonlt/junaid/ROOTfiles/Analysis/PionLT/Pion_coin_replay_production_8076_-1.root" # Hard coded path to a recent file for testing
+rootName = "%s/UTIL_KAONLT/ROOTfiles/Analysis/KaonLT/%s_%s_%s.root" % (REPLAYPATH, ROOTPrefix, runNum, MaxEvent)     # Input file location and variables taking
+#rootName = "/volatile/hallc/c-kaonlt/junaid/ROOTfiles/Analysis/KaonLT/Pion_coin_replay_production_8076_-1.root" # Hard coded path to a recent file for testing
 print ("Attempting to process %s" %(rootName))
 if os.path.exists(OUTPATH):
     if os.path.islink(OUTPATH):

@@ -55,7 +55,7 @@ fi
 TestingVar=$((1))
 while IFS='' read -r line || [[ -n "$line" ]]; do
     runNum=$line
-    if [ ! -f "${UTILPATH}/OUTPUT/Analysis/PionLT/${runNum}_-1_CTPeak_Data_HeepCoin.root" ]; then
+    if [ ! -f "${UTILPATH}/OUTPUT/Analysis/KaonLT/${runNum}_-1_CTPeak_Data_HeepCoin.root" ]; then
 	echo "CTPeak analysis not found for run $runNum in ${UTILPATH}/scripts/CoinTimePeak/OUTPUT/"
 	echo "${runNum}" >> "${UTILPATH}/scripts/CoinTimePeak/Kinematics/${KINEMATIC}_MissingCTAnalysis"
 	TestingVar=$((TestingVar+1))
@@ -70,11 +70,11 @@ elif [ $TestingVar != 1 ]; then
     if [ $Autosub == 1 ]; then
 	while IFS='' read -r line || [[ -n "$line" ]]; do
 	    runNum=$line
-	    if [ -f "${UTILPATH}/OUTPUT/Analysis/PionLT/${runNum}_-1_CTPeak_Data_HeepCoin.root" ]; then
-		rm "${UTILPATH}/OUTPUT/Analysis/PionLT/${runNum}_-1_CTPeak_Data_HeepCoin.root"
+	    if [ -f "${UTILPATH}/OUTPUT/Analysis/KaonLT/${runNum}_-1_CTPeak_Data_HeepCoin.root" ]; then
+		rm "${UTILPATH}/OUTPUT/Analysis/KaonLT/${runNum}_-1_CTPeak_Data_HeepCoin.root"
 	    fi
-	    if [ -f "${UTILPATH}/ROOTfiles/Analysis/PionLT/Pion_coin_replay_production_${runNum}_-1.root" ]; then
-		rm "${UTILPATH}/ROOTfiles/Analysis/PionLT/Pion_coin_replay_production_${runNum}_-1.root"
+	    if [ -f "${UTILPATH}/ROOTfiles/Analysis/KaonLT/Pion_coin_replay_production_${runNum}_-1.root" ]; then
+		rm "${UTILPATH}/ROOTfiles/Analysis/KaonLT/Pion_coin_replay_production_${runNum}_-1.root"
 	    fi
 	done < "${UTILPATH}/scripts/CoinTimePeak/Kinematics/${KINEMATIC}_MissingCTAnalysis"
 	yes y | eval "$REPLAYPATH/UTIL_BATCH/batch_scripts/run_batch_CTPeak_HeepCoin_Analysis.sh ${KINEMATIC}_MissingCTAnalysis"
@@ -84,7 +84,7 @@ elif [ $TestingVar != 1 ]; then
 	if [[ $prompt2 == "y" || $prompt2 == "Y" || $prompt2 == "yes" || $prompt2 == "Yes" ]]; then
 	    while IFS='' read -r line || [[ -n "$line" ]]; do
 		runNum=$line
-		if [ ! -f "${UTILPATH}/OUTPUT/Analysis/PionLT/${runNum}_-1_CTPeak_Data_HeepCoin.root" ]; then
+		if [ ! -f "${UTILPATH}/OUTPUT/Analysis/KaonLT/${runNum}_-1_CTPeak_Data_HeepCoin.root" ]; then
 		    python3 $UTILPATH/scripts/CoinTimePeak/src/CoinTimePeak_HeepCoin.py "Pion_coin_replay_production" ${runNum} "-1" 
 		fi
 	    done < "$RunListFile"
@@ -94,13 +94,13 @@ elif [ $TestingVar != 1 ]; then
 fi
 
 if [ $TestingVar == 1 ]; then
-    if [ -f "${UTILPATH}/OUTPUT/Analysis/PionLT/${KINEMATIC}_Output.csv" ]; then
-	rm "${UTILPATH}/OUTPUT/Analysis/PionLT/${KINEMATIC}_Output.csv"
-    else touch "${UTILPATH}/OUTPUT/Analysis/PionLT/${KINEMATIC}_Output.csv"
+    if [ -f "${UTILPATH}/OUTPUT/Analysis/KaonLT/${KINEMATIC}_Output.csv" ]; then
+	rm "${UTILPATH}/OUTPUT/Analysis/KaonLT/${KINEMATIC}_Output.csv"
+    else touch "${UTILPATH}/OUTPUT/Analysis/KaonLT/${KINEMATIC}_Output.csv"
     fi
     while IFS='' read -r line || [[ -n "$line" ]]; do
 	runNum=$line
-	OutputFile="${UTILPATH}/OUTPUT/Analysis/PionLT/${runNum}_Out_tmp"
+	OutputFile="${UTILPATH}/OUTPUT/Analysis/KaonLT/${runNum}_Out_tmp"
 	if [ -f ${OutputFile} ]; then
 	    rm ${OutputFile}
 	else touch ${OutputFile}
@@ -108,7 +108,7 @@ if [ $TestingVar == 1 ]; then
 	root -b -l -q "${UTILPATH}/scripts/CoinTimePeak/PlotHeepCoinPeak.C(\"${runNum}_-1_CTPeak_Data_HeepCoin.root\", \"${runNum}_CTOut_HeepCoin\")" >> ${OutputFile}
 	sleep 1
 	Data=$(sed -n "/${runNum},/p" $OutputFile)
-	echo ${Data} >> "${UTILPATH}/OUTPUT/Analysis/PionLT/${KINEMATIC}_Output.csv"
+	echo ${Data} >> "${UTILPATH}/OUTPUT/Analysis/KaonLT/${KINEMATIC}_Output.csv"
 	rm ${OutputFile}
 	sleep 1
     done < "$RunListFile"

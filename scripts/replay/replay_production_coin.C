@@ -25,7 +25,7 @@ void replay_production_coin (Int_t RunNumber = 0, Int_t MaxEvent = 0) {
   pathList.push_back("./raw.volatile");
 
   //const char* RunFileNamePattern = "raw/coin_all_%05d.dat";
-  const char* ROOTFileNamePattern = "UTIL_KAONLT/ROOTfiles/Analysis/PionLT/Pion_coin_replay_production_%d_%d.root";
+  const char* ROOTFileNamePattern = "UTIL_KAONLT/ROOTfiles/Analysis/KaonLT/Pion_coin_replay_production_%d_%d.root";
   
   // Load global parameters
   gHcParms->Define("gen_run_number", "Run Number", RunNumber);
@@ -266,5 +266,5 @@ void replay_production_coin (Int_t RunNumber = 0, Int_t MaxEvent = 0) {
   // Start the actual analysis.
   analyzer->Process(run);
   // Create report file from template	       
-  analyzer->PrintReport("UTIL_KAONLT/config/TEMPLATES/COIN/Online_Coin_Production.template", Form("UTIL_KAONLT/REPORT_OUTPUT/Analysis/PionLT/Pion_replay_coin_production_%d_%d.report", RunNumber, MaxEvent)); // optional}
+  analyzer->PrintReport("UTIL_KAONLT/config/TEMPLATES/COIN/Online_Coin_Production.template", Form("UTIL_KAONLT/REPORT_OUTPUT/Analysis/KaonLT/Pion_replay_coin_production_%d_%d.report", RunNumber, MaxEvent)); // optional}
 }

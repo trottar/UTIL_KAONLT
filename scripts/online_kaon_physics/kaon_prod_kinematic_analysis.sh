@@ -62,7 +62,7 @@ fi
 TestingVar=$((1))
 while IFS='' read -r line || [[ -n "$line" ]]; do
     runNum=$line
-    if [ ! -f "${UTILPATH}/OUTPUT/Analysis/PionLT/${runNum}_-1_Analysed_Data.root" ]; then
+    if [ ! -f "${UTILPATH}/OUTPUT/Analysis/KaonLT/${runNum}_-1_Analysed_Data.root" ]; then
 	echo "Analysis not found for run $runNum in ${UTILPATH}/OUTPUT/"
 	echo "${runNum}" >> "${UTILPATH}/scripts/online_pion_physics/Kinematics/${KINEMATIC}_MissingAnalyses"
 	TestingVar=$((TestingVar+1))
@@ -70,28 +70,28 @@ while IFS='' read -r line || [[ -n "$line" ]]; do
 done < "$RunListFile"
 
 if [ $TestingVar == 1 ]; then
-    echo "All PionLT  analysis files found"
+    echo "All KaonLT  analysis files found"
     rm "${UTILPATH}/scripts/online_pion_physics/Kinematics/${KINEMATIC}_MissingAnalyses"
 elif [ $TestingVar != 1 ]; then
     cp "${UTILPATH}/scripts/online_pion_physics/Kinematics/${KINEMATIC}_MissingAnalyses" "$REPLAYPATH/UTIL_BATCH/InputRunLists/${KINEMATIC}_MissingAnalyses"
     if [ $Autosub == 1 ]; then
 	while IFS='' read -r line || [[ -n "$line" ]]; do
 	    runNum=$line
-	    if [ -f "${UTILPATH}/OUTPUT/Analysis/PionLT/${runNum}_-1_Analysed_Data.root" ]; then
-		rm "${UTILPATH}/OUTPUT/Analysis/PionLT/${runNum}_-1_Analysed_Data.root"
+	    if [ -f "${UTILPATH}/OUTPUT/Analysis/KaonLT/${runNum}_-1_Analysed_Data.root" ]; then
+		rm "${UTILPATH}/OUTPUT/Analysis/KaonLT/${runNum}_-1_Analysed_Data.root"
 	    fi
-	    if [ -f "${UTILPATH}/ROOTfiles/Analysis/PionLT/Pion_coin_replay_production_${runNum}_-1.root" ]; then
-		rm "${UTILPATH}/ROOTfiles/Analysis/PionLT/Pion_coin_replay_production_${runNum}_-1.root"
+	    if [ -f "${UTILPATH}/ROOTfiles/Analysis/KaonLT/Pion_coin_replay_production_${runNum}_-1.root" ]; then
+		rm "${UTILPATH}/ROOTfiles/Analysis/KaonLT/Pion_coin_replay_production_${runNum}_-1.root"
 	    fi
 	done < "${UTILPATH}/scripts/online_pion_physics/Kinematics/${KINEMATIC}_MissingAnalyses"
-	yes y | eval "$REPLAYPATH/UTIL_BATCH/batch_scripts/run_batch_PionLT.sh ${KINEMATIC}_MissingAnalyses"
+	yes y | eval "$REPLAYPATH/UTIL_BATCH/batch_scripts/run_batch_KaonLT.sh ${KINEMATIC}_MissingAnalyses"
 #    elif [ $Autosub != 1 ]; then
 #	echo "Analyses missing, list copied to UTIL_BATCH directory, run on farm if desired"
 #	read -p "Process python script for missing replays/analyses interactively? <Y/N> " prompt2
 #	if [[ $prompt2 == "y" || $prompt2 == "Y" || $prompt2 == "yes" || $prompt2 == "Yes" ]]; then
 #	    while IFS='' read -r line || [[ -n "$line" ]]; do
 #		runNum=$line
-#		if [ ! -f "${UTILPATH}/OUTPUT/Analysis/PionLT/${runNum}_-1_Analysed_Data.root" ]; then
+#		if [ ! -f "${UTILPATH}/OUTPUT/Analysis/KaonLT/${runNum}_-1_Analysed_Data.root" ]; then
 #		    python3 $UTILPATH/scripts/online_pion_physics/kaon_prod_analysis_sw.py "Pion_coin_replay_production" ${runNum} "-1"
 #		fi
 #                done < "$RunListFile"
@@ -105,24 +105,24 @@ if [ $TestingVar == 1 ]; then
 	runNum=$line
 	RootName+="${runNum}_-1_Analysed_Data.root "
     done < "$RunListFile"
-    cd "${UTILPATH}/OUTPUT/Analysis/PionLT/"
+    cd "${UTILPATH}/OUTPUT/Analysis/KaonLT/"
     KINFILE="${KINEMATIC}_Analysed_Data.root"
-    if [ ! -f "${UTILPATH}/OUTPUT/Analysis/PionLT/${KINFILE}" ]; then
+    if [ ! -f "${UTILPATH}/OUTPUT/Analysis/KaonLT/${KINFILE}" ]; then
 	hadd ${KINFILE} ${RootName}
-    elif [ -f "${UTILPATH}/OUTPUT/Analysis/PionLT/${KINFILE}" ]; then
-	read -p "${UTILPATH}/OUTPUT/Analysis/PionLT/${KINFILE} already found, remove and remake? <Y/N> " prompt3 
+    elif [ -f "${UTILPATH}/OUTPUT/Analysis/KaonLT/${KINFILE}" ]; then
+	read -p "${UTILPATH}/OUTPUT/Analysis/KaonLT/${KINFILE} already found, remove and remake? <Y/N> " prompt3 
 	if [[ $prompt3 == "y" || $prompt3 == "Y" || $prompt3 == "yes" || $prompt3 == "Yes" ]]; then
-	    rm "${UTILPATH}/OUTPUT/Analysis/PionLT/${KINFILE}"
+	    rm "${UTILPATH}/OUTPUT/Analysis/KaonLT/${KINFILE}"
 	    hadd ${KINFILE} ${RootName} # This step combines all of the analysed data into a single rootfile, which we then process with the plotting script
 	else echo "Not removing and remaking, will attempt to proces existing file"
 	fi
     fi
     # SJDK 21/09/21 - This last step needs tweaking a little, this is the analysis of the FULL kinematic, NOT each individual run. We need the plotting script to pick up the file we generated above and THEN plot it (and save it with a sensible name)
-    if [ ! -f "${UTILPATH}/OUTPUT/Analysis/PionLT/${runNum}_-1_Output_Data.root" ]; then
+    if [ ! -f "${UTILPATH}/OUTPUT/Analysis/KaonLT/${runNum}_-1_Output_Data.root" ]; then
         python3 ${UTILPATH}/scripts/online_pion_physics/PlotKaonPhysics_sw.py Analysed_Data ${runNum} -1
-    elif [ ! -f "${UTILPATH}/OUTPUT/Analysis/PionLT/${runNum}_-1_sw_Pion_Analysis_Distributions.pdf" ]; then
+    elif [ ! -f "${UTILPATH}/OUTPUT/Analysis/KaonLT/${runNum}_-1_sw_Pion_Analysis_Distributions.pdf" ]; then
 	python3 ${UTILPATH}/scripts/online_pion_physics/PlotKaonPhysics_sw.py Analysed_Data ${runNum} -1
-    else echo "Pion plots already found in - ${UTILPATH}/OUTPUT/Analysis/PionLT/${runNum}_-1_Output_Data.root and .pdf - Plotting macro skipped"
+    else echo "Pion plots already found in - ${UTILPATH}/OUTPUT/Analysis/KaonLT/${runNum}_-1_Output_Data.root and .pdf - Plotting macro skipped"
     fi
 fi
 

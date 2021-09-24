@@ -66,33 +66,33 @@ fi
 
 sleep 3
 
-if [ ! -f "$REPLAYPATH/UTIL_KAONLT/ROOTfiles/Analysis/PionLT/Pion_coin_replay_production_${RUNNUMBER}_${MAXEVENTS}.root" ]; then
+if [ ! -f "$REPLAYPATH/UTIL_KAONLT/ROOTfiles/Analysis/KaonLT/Pion_coin_replay_production_${RUNNUMBER}_${MAXEVENTS}.root" ]; then
     if [[ "${HOSTNAME}" != *"ifarm"* ]]; then
 	if [[ "${HOSTNAME}" == *"cdaq"* ]]; then
-	    eval "$REPLAYPATH/hcana -l -q \"UTIL_KAONLT/scripts/replay/replay_production_coin.C($RUNNUMBER,$MAXEVENTS)\"" | tee $REPLAYPATH/UTIL_KAONLT/REPORT_OUTPUT/Analysis/PionLT/Pion_output_coin_production_Summary_${RUNNUMBER}_${MAXEVENTS}.report
+	    eval "$REPLAYPATH/hcana -l -q \"UTIL_KAONLT/scripts/replay/replay_production_coin.C($RUNNUMBER,$MAXEVENTS)\"" | tee $REPLAYPATH/UTIL_KAONLT/REPORT_OUTPUT/Analysis/KaonLT/Pion_output_coin_production_Summary_${RUNNUMBER}_${MAXEVENTS}.report
 	else	
 	    eval "$REPLAYPATH/hcana -l -q \"UTIL_KAONLT/scripts/replay/replay_production_coin.C($RUNNUMBER,$MAXEVENTS)\"" 
 	fi
     elif [[ "${HOSTNAME}" == *"ifarm"* ]]; then
-	eval "$REPLAYPATH/hcana -l -q \"UTIL_KAONLT/scripts/replay/replay_production_coin.C($RUNNUMBER,$MAXEVENTS)\"" | tee $REPLAYPATH/UTIL_KAONLT/REPORT_OUTPUT/Analysis/PionLT/Pion_output_coin_production_Summary_${RUNNUMBER}_${MAXEVENTS}.report
+	eval "$REPLAYPATH/hcana -l -q \"UTIL_KAONLT/scripts/replay/replay_production_coin.C($RUNNUMBER,$MAXEVENTS)\"" | tee $REPLAYPATH/UTIL_KAONLT/REPORT_OUTPUT/Analysis/KaonLT/Pion_output_coin_production_Summary_${RUNNUMBER}_${MAXEVENTS}.report
     fi
-else echo "Replayfile already found for this run in $REPLAYPATH/UTIL_KAONLT/ROOTfiles/Analysis/PionLT/ - Skipping replay step"
+else echo "Replayfile already found for this run in $REPLAYPATH/UTIL_KAONLT/ROOTfiles/Analysis/KaonLT/ - Skipping replay step"
 fi
 
 sleep 3
 
 ################################################################################################################################                                                                                   
 # Section for pion analysis script
-if [ -f "${UTILPATH}/OUTPUT/Analysis/PionLT/${RUNNUMBER}_${MAXEVENTS}_fADC_Analysed_Data.root" ]; then
+if [ -f "${UTILPATH}/OUTPUT/Analysis/KaonLT/${RUNNUMBER}_${MAXEVENTS}_fADC_Analysed_Data.root" ]; then
     read -p "Pion production analysis file already exists, do you want to reprocess it? <Y/N> " option1
     if [[ $option1 == "y" || $option1 == "Y" || $option1 == "yes" || $option1 == "Yes" ]]; then
-	rm "${UTILPATH}/OUTPUT/Analysis/PionLT/${RUNNUMBER}_${MAXEVENTS}_fADC_Analysed_Data.root"
+	rm "${UTILPATH}/OUTPUT/Analysis/KaonLT/${RUNNUMBER}_${MAXEVENTS}_fADC_Analysed_Data.root"
 	echo "Reprocessing"
 	python3 ${UTILPATH}/scripts/fADC_SIDIS/fADC_Analysis.py Pion_coin_replay_production ${RUNNUMBER} ${MAXEVENTS}
     else
 	echo "Skipping python analysis script step"
     fi
-elif [ ! -f "${UTILPATH}/OUTPUT/Analysis/PionLT/${RUNNUMBER}_${MAXEVENTS}_fADC_Analysed_Data.root" ]; then
+elif [ ! -f "${UTILPATH}/OUTPUT/Analysis/KaonLT/${RUNNUMBER}_${MAXEVENTS}_fADC_Analysed_Data.root" ]; then
 	python3 ${UTILPATH}/scripts/fADC_SIDIS/fADC_Analysis.py Pion_coin_replay_production ${RUNNUMBER} ${MAXEVENTS}
 fi
 
@@ -100,17 +100,17 @@ sleep 3
 
 ##################################################################################################################################
 # Section for pion physics ploting script
-if [ -f "${UTILPATH}/OUTPUT/Analysis/PionLT/${RUNNUMBER}_${MAXEVENTS}_fADC_Output_Data.root" ]; then
+if [ -f "${UTILPATH}/OUTPUT/Analysis/KaonLT/${RUNNUMBER}_${MAXEVENTS}_fADC_Output_Data.root" ]; then
     read -p "Pion physics plots already exits, do you want to reprocess them? <Y/N> " option2
     if [[ $option2 == "y" || $option2 == "Y" || $option2 == "yes" || $option2 == "Yes" ]]; then
-	rm "${UTILPATH}/OUTPUT/Analysis/PionLT/${RUNNUMBER}_${MAXEVENTS}_fADC_Output_Data.root"
+	rm "${UTILPATH}/OUTPUT/Analysis/KaonLT/${RUNNUMBER}_${MAXEVENTS}_fADC_Output_Data.root"
 	echo "Reprocessing"
 	python3 ${UTILPATH}/scripts/fADC_SIDIS/PlotfADC.py fADC_Analysed_Data ${RUNNUMBER} ${MAXEVENTS}
     else
 	echo "Skipping python physics plotting script step"
     fi
-elif [ ! -f  "${UTILPATH}/OUTPUT/Analysis/PionLT/${RUNNUMBER}_${MAXEVENTS}_fADC_Output_Data.root" ]; then
+elif [ ! -f  "${UTILPATH}/OUTPUT/Analysis/KaonLT/${RUNNUMBER}_${MAXEVENTS}_fADC_Output_Data.root" ]; then
 	python3 ${UTILPATH}/scripts/fADC_SIDIS/PlotfADC.py fADC_Analysed_Data ${RUNNUMBER} ${MAXEVENTS}
 fi
-evince "${UTILPATH}/OUTPUT/Analysis/PionLT/${RUNNUMBER}_${MAXEVENTS}_fADC_Analysis_Distributions.pdf" &
+evince "${UTILPATH}/OUTPUT/Analysis/KaonLT/${RUNNUMBER}_${MAXEVENTS}_fADC_Analysis_Distributions.pdf" &
 exit 0

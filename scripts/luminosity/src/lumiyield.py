@@ -44,7 +44,7 @@ thres_curr = 2.5
 out_f = "%s/UTIL_KAONLT/scripts/luminosity/OUTPUTS/lumi_data.csv" % REPLAYPATH
 
 # Construct the name of the rootfile based upon the info we provided
-OUTPATH = "%s/UTIL_KAONLT/OUTPUT/Analysis/PionLT" % REPLAYPATH        # Output folder location
+OUTPATH = "%s/UTIL_KAONLT/OUTPUT/Analysis/KaonLT" % REPLAYPATH        # Output folder location
 rootName = "%s/UTIL_KAONLT/ROOTfiles/Analysis/Lumi/%s_%s_%s.root" % (REPLAYPATH,ROOTPrefix,runNum,MaxEvent)     # Input file location and variables taking
 print ("Attempting to process %s" %(rootName))
 if os.path.exists(OUTPATH):

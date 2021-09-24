@@ -32,15 +32,15 @@ void PlotHeepCoinPeak(string InFilename = "", string OutFilename = "")
   // Set paths depending on system you're running on
   if(Hostname.Contains("farm")){
     Replaypath = "/group/c-kaonlt/USERS/"+User+"/hallc_replay_lt";
-    Outpath = Replaypath+"/UTIL_KAONLT/OUTPUT/Analysis/PionLT";
+    Outpath = Replaypath+"/UTIL_KAONLT/OUTPUT/Analysis/KaonLT";
   }
   else if(Hostname.Contains("qcd")){
     Replaypath = "/group/c-kaonlt/USERS/"+User+"/hallc_replay_lt";
-    Outpath = Replaypath+"/UTIL_KAONLT/OUTPUT/Analysis/PionLT";
+    Outpath = Replaypath+"/UTIL_KAONLT/OUTPUT/Analysis/KaonLT";
   }
   else if (Hostname.Contains("phys.uregina.ca")){
     Replaypath = "/home/"+User+"/work/JLab/hallc_replay_lt";
-    Outpath = Replaypath+"/UTIL_KAONLT/OUTPUT/Analysis/PionLT";
+    Outpath = Replaypath+"/UTIL_KAONLT/OUTPUT/Analysis/KaonLT";
   }
   // Add more as needed for your own envrionment
   if(InFilename == "") {

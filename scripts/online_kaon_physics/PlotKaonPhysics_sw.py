@@ -69,7 +69,7 @@ elif("skynet" in HOST[1]):
 #################################################################################################################################################
 
 # Add more path setting as needed in a similar manner                                                                                                                                                          
-OUTPATH = "%s/UTIL_KAONLT/OUTPUT/Analysis/PionLT" % REPLAYPATH        # Output folder location                                                                                                     
+OUTPATH = "%s/UTIL_KAONLT/OUTPUT/Analysis/KaonLT" % REPLAYPATH        # Output folder location                                                                                                     
 sys.path.insert(0, '%s/UTIL_KAONLT/bin/python/' % REPLAYPATH)
 import kaonlt as klt # Import kaonlt module, need the path setting line above prior to importing this                                                                                                         
 print("Running as %s on %s, hallc_replay_lt path assumed as %s" % (USER[1], HOST[1], REPLAYPATH))
@@ -79,9 +79,9 @@ Pion_Analysis_Distributions = "%s/%s_%s_sw_Pion_Analysis_Distributions.pdf" % (O
 
 # Construct the name of the rootfile based upon the info we provided
 if (FilenameOverride == False): # Standard running condition, construct file name from run number and max events e.t.c.
-    rootName = "%s/UTIL_KAONLT/OUTPUT/Analysis/PionLT/%s_%s_%s.root" % (REPLAYPATH, runNum, MaxEvent, ROOTPrefix)     # Input file location and variables taking
+    rootName = "%s/UTIL_KAONLT/OUTPUT/Analysis/KaonLT/%s_%s_%s.root" % (REPLAYPATH, runNum, MaxEvent, ROOTPrefix)     # Input file location and variables taking
 elif (FilenameOverride != False): # Special condition, with 4th arg, use 4th arg as file name
-    rootName = "%s/UTIL_KAONLT/OUTPUT/Analysis/PionLT/%s" % (REPLAYPATH, FilenameOverride)
+    rootName = "%s/UTIL_KAONLT/OUTPUT/Analysis/KaonLT/%s" % (REPLAYPATH, FilenameOverride)
 print ("Attempting to process %s" %(rootName))
 if os.path.exists(OUTPATH):
     if os.path.islink(OUTPATH):

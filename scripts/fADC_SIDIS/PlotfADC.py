@@ -64,7 +64,7 @@ elif("skynet" in HOST[1]):
 #################################################################################################################################################
 
 # Add more path setting as needed in a similar manner                                                                                                                                                          
-OUTPATH = "%s/UTIL_KAONLT/OUTPUT/Analysis/PionLT" % REPLAYPATH        # Output folder location                                                                                                     
+OUTPATH = "%s/UTIL_KAONLT/OUTPUT/Analysis/KaonLT" % REPLAYPATH        # Output folder location                                                                                                     
 sys.path.insert(0, '%s/UTIL_KAONLT/bin/python/' % REPLAYPATH)
 import kaonlt as klt # Import kaonlt module, need the path setting line above prior to importing this                                                                                                         
 print("Running as %s on %s, hallc_replay_lt path assumed as %s" % (USER[1], HOST[1], REPLAYPATH))
@@ -73,7 +73,7 @@ Pion_Analysis_Distributions = "%s/%s_%s_fADC_Analysis_Distributions.pdf" % (OUTP
 #################################################################################################################################################
 
 # Construct the name of the rootfile based upon the info we provided
-rootName = "%s/UTIL_KAONLT/OUTPUT/Analysis/PionLT/%s_%s_%s.root" % (REPLAYPATH, runNum, MaxEvent, ROOTPrefix)     # Input file location and variables taking
+rootName = "%s/UTIL_KAONLT/OUTPUT/Analysis/KaonLT/%s_%s_%s.root" % (REPLAYPATH, runNum, MaxEvent, ROOTPrefix)     # Input file location and variables taking
 print ("Attempting to process %s" %(rootName))
 if os.path.exists(OUTPATH):
     if os.path.islink(OUTPATH):

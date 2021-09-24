@@ -99,7 +99,7 @@ sleep 3
 #if [ -f "${UTILPATH}/OUTPUT/Analysis/Lumi/${RUNNUMBER}_${MAXEVENTS}_Output_Data.root" ]; then
 #    read -p "Pion physics plots already exits, do you want to reprocess them? <Y/N> " option2
 #    if [[ $option2 == "y" || $option2 == "Y" || $option2 == "yes" || $option2 == "Yes" ]]; then
-#	rm "${UTILPATH}/OUTPUT/Analysis/PionLT/${RUNNUMBER}_${MAXEVENTS}_Output_Data.root"
+#	rm "${UTILPATH}/OUTPUT/Analysis/KaonLT/${RUNNUMBER}_${MAXEVENTS}_Output_Data.root"
 #	echo "Reprocessing"
 #	python3 ${UTILPATH}/scripts/online_pion_physics/PlotKaonPhysics_sw.py Analysed_Data ${RUNNUMBER} ${MAXEVENTS}
 #    else

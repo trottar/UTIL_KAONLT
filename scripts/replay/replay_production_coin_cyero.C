@@ -265,5 +265,5 @@ void replay_production_coin_cyero (Int_t RunNumber = 0, Int_t MaxEvent = 0, TStr
   // Start the actual analysis.
   analyzer->Process(run);
   // Create report file from template	       
-  //analyzer->PrintReport("UTIL_KAONLT/config/TEMPLATES/COIN/Online_Coin_Production.template", Form("UTIL_KAONLT/REPORT_OUTPUT/Analysis/PionLT/Pion_replay_coin_production_%d_%d.report", RunNumber, MaxEvent)); // optional}
+  //analyzer->PrintReport("UTIL_KAONLT/config/TEMPLATES/COIN/Online_Coin_Production.template", Form("UTIL_KAONLT/REPORT_OUTPUT/Analysis/KaonLT/Pion_replay_coin_production_%d_%d.report", RunNumber, MaxEvent)); // optional}
 }

@@ -43,15 +43,15 @@ elif("cdaq" in HOST[1]):
     REPLAYPATH = "/home/cdaq/hallc-online/hallc_replay_lt"
     
 # Add more path setting as needed in a similar manner
-OUTPATH = "%s/UTIL_KAONLT/OUTPUT/Analysis/PionLT" % REPLAYPATH
+OUTPATH = "%s/UTIL_KAONLT/OUTPUT/Analysis/KaonLT" % REPLAYPATH
 CUTPATH = "%s/UTIL_KAONLT/DB/CUTS" % REPLAYPATH
 sys.path.insert(0, '%s/UTIL_KAONLT/bin/python/' % REPLAYPATH)
 import kaonlt as klt
 
 print("Running as %s on %s, hallc_replay_lt path assumed as %s" % (USER[1], HOST[1], REPLAYPATH))
 # Construct the name of the rootfile based upon the info we provided
-rootName = "%s/UTIL_KAONLT/ROOTfiles/Analysis/PionLT/%s_%s_%s.root" % (REPLAYPATH, ROOTPrefix, runNum, MaxEvent)
-#rootName = "/volatile/hallc/c-kaonlt/heinricn/ROOTfiles/Analysis/PionLT/Pion_coin_replay_production_7875_66690.root" # Hard coded file for testing
+rootName = "%s/UTIL_KAONLT/ROOTfiles/Analysis/KaonLT/%s_%s_%s.root" % (REPLAYPATH, ROOTPrefix, runNum, MaxEvent)
+#rootName = "/volatile/hallc/c-kaonlt/heinricn/ROOTfiles/Analysis/KaonLT/Pion_coin_replay_production_7875_66690.root" # Hard coded file for testing
 print ("Attempting to process %s" %(rootName))
 if os.path.exists(OUTPATH):
     if os.path.islink(OUTPATH):

@@ -21,7 +21,7 @@ The first step is to run the python script in /src, src/CoinTimePeak.py. This sc
 
 python3 CoinTimePeak.py ROOTPrefix runNum MaxEvent
 
-ROOTPrefix - Prefix of the replay ROOTfile name, omitting the final _ before the run number, assumed ROOTfiles are in the path - UTIL_KAONLT/ROOTfiles/Analysis/PionLT
+ROOTPrefix - Prefix of the replay ROOTfile name, omitting the final _ before the run number, assumed ROOTfiles are in the path - UTIL_KAONLT/ROOTfiles/Analysis/KaonLT
 runNum - The run number of the replay ROOTfile
 MaxEvent - Max number of events in the replay ROOTfile
 
@@ -29,7 +29,7 @@ e.g. if your replay is Kaon_coin_replay_production_8540_-1.root, you would execu
 
 python3 CoinTimePeak.py Kaon_coin_replay_production 8540 -1
 
-The output of this file is a trimmed .root file stored in UTIL_KAONLT/OUTPUT/Analysis/PionLT with the name runNum_MaxEvent_CTPeak_Data.root. This rootfile includes trees which store info for Pi/K/p candidates, including branches that can be used to check the PID cut are OK if desired. For further analysis, only the following trees from this ROOTfile are used -
+The output of this file is a trimmed .root file stored in UTIL_KAONLT/OUTPUT/Analysis/KaonLT with the name runNum_MaxEvent_CTPeak_Data.root. This rootfile includes trees which store info for Pi/K/p candidates, including branches that can be used to check the PID cut are OK if desired. For further analysis, only the following trees from this ROOTfile are used -
 
 Pions_All
 Kaons_All
@@ -47,8 +47,8 @@ The script is executed via
 
 root -b -l -q 'PlotCoinPeak.C("InputFile", "OutputfileName")'
 
-InputFile - This is simply the output of the python script, it is expected this file is in UTIL_KAONLT/OUTPUT/Analysis/PionLT
-OutputfileName - This is the name of the desired output file (which again will be saved to UTIL_KAONLT/OUTPUT/Analysis/PionLT)
+InputFile - This is simply the output of the python script, it is expected this file is in UTIL_KAONLT/OUTPUT/Analysis/KaonLT
+OutputfileName - This is the name of the desired output file (which again will be saved to UTIL_KAONLT/OUTPUT/Analysis/KaonLT)
 E.g. if we wanted to run on our output from the example above we would run
 
 root -b -l -q 'PlotCoinPeak.C("8540_-1_CTPeak_Data.root", "8540_Test")' 

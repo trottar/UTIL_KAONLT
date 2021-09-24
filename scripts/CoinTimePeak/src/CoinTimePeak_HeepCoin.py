@@ -38,13 +38,13 @@ elif("skynet" in HOST[1]):
     REPLAYPATH = "/home/%s/Work/JLab/hallc_replay_lt" % USER[1]
     
 # Add more path setting as needed in a similar manner
-OUTPATH = "%s/UTIL_KAONLT/OUTPUT/Analysis/PionLT" % REPLAYPATH
+OUTPATH = "%s/UTIL_KAONLT/OUTPUT/Analysis/KaonLT" % REPLAYPATH
 CUTPATH = "%s/UTIL_KAONLT/DB/CUTS" % REPLAYPATH
 sys.path.insert(0, '%s/UTIL_KAONLT/bin/python/' % REPLAYPATH)
 import kaonlt as klt
 
 print("Running as %s on %s, hallc_replay_lt path assumed as %s" % (USER[1], HOST[1], REPLAYPATH))
-rootName = "%s/UTIL_KAONLT/ROOTfiles/Analysis/PionLT/%s_%s_%s.root" % (REPLAYPATH, ROOTPrefix, runNum, MaxEvent)
+rootName = "%s/UTIL_KAONLT/ROOTfiles/Analysis/KaonLT/%s_%s_%s.root" % (REPLAYPATH, ROOTPrefix, runNum, MaxEvent)
 if os.path.exists(OUTPATH):
     if os.path.islink(OUTPATH):
         pass

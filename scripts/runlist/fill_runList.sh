@@ -24,7 +24,7 @@ RUNLIST="${REPLAYPATH}/UTIL_KAONLT/runlist_pionLT_2021.csv"
 KINFILE="${REPLAYPATH}/DBASE/COIN/standard.kinematics"
 # Get report file based upon run type
 if [[ ${RUNTYPE} = *"Prod"* ]]; then
-    REPORTFILE="${REPLAYPATH}/REPORT_OUTPUT/Analysis/PionLT/Pion_replay_coin_production_${RUNNUMBER}_-1.report" # Finalised
+    REPORTFILE="${REPLAYPATH}/REPORT_OUTPUT/Analysis/KaonLT/Pion_replay_coin_production_${RUNNUMBER}_-1.report" # Finalised
 elif [[ ${RUNTYPE} = *"Lumi"* ]]; then
     REPORTFILE="${REPLAYPATH}/REPORT_OUTPUT/Analysis/Lumi/Pion_replay_luminosity_${RUNNUMBER}_-1.report" 
 elif [[ ${RUNTYPE} = *"HeePSing"* ]]; then
@@ -32,7 +32,7 @@ elif [[ ${RUNTYPE} = *"HeePSing"* ]]; then
 elif [[ ${RUNTYPE} = *"HeePCoin"* ]]; then
     REPORTFILE="${REPLAYPATH}/REPORT_OUTPUT/Analysis/HeeP/Pion_replay_coin_production_${RUNNUMBER}_-1.report" # Finalised 
 elif [[ ${RUNTYPE} = *"fADC"* ]]; then
-    REPORTFILE="${REPLAYPATH}/REPORT_OUTPUT/Analysis/PionLT/Pion_replay_coin_production_${RUNNUMBER}_-1.report" # Finalised, it just uses a PionLT replay
+    REPORTFILE="${REPLAYPATH}/REPORT_OUTPUT/Analysis/KaonLT/Pion_replay_coin_production_${RUNNUMBER}_-1.report" # Finalised, it just uses a KaonLT replay
 else
     REPORTFILE="${REPLAYPATH}/REPORT_OUTPUT/Analysis/General/Pion_replay_coin_production_${RUNNUMBER}_-1.report" # CHANGE WHEN FINALISED
 fi

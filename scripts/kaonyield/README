@@ -24,7 +24,7 @@ Before running anything make sure you have -
 
 ####################################### IMPORTANT - New as of 25/02/21 ##########################################
 - Note, if you ran the new setup script, the following directories and symlinks should already be present
-- Additionally, the scripts have been setup to now look in ROOTfiles/Analysis/PionLT and output to OUTPUT/Analysis/PionLT
+- Additionally, the scripts have been setup to now look in ROOTfiles/Analysis/KaonLT and output to OUTPUT/Analysis/KaonLT
   - You can change this if desired in the scripts, just look for the relevant lines specifiying OUTPATH and rootName
 #################################################################################################################
 
@@ -57,7 +57,7 @@ For the python script, provide a run number and max events.
 For the root plotting macro, provide it an input root file (the output of the python script), just the name is sufficient. It is assumed to be in the OUTPUT directory. 
 You also need to provide a name for the output file, do not include a suffix. It will produce a pdf and a root file.
 
-For example if you provide TEST_OUTPUT it will produce TEST_OUTPUT.pdf and TEST_OUTPUT.root as output files in the OUTPUT/Analysis/PionLT directory.
+For example if you provide TEST_OUTPUT it will produce TEST_OUTPUT.pdf and TEST_OUTPUT.root as output files in the OUTPUT/Analysis/KaonLT directory.
 
 ############################################### DEBUGGING #########################################################
 

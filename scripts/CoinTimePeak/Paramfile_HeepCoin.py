@@ -33,7 +33,7 @@ elif ("lark.phys.uregina" in HOST[1]):
     REPLAYPATH = "/home/%s/work/JLab/hallc_replay_lt" % USER[1]
 
 # Add more path setting as needed in a similar manner
-OUTPATH = "%s/UTIL_KAONLT/OUTPUT/Analysis/PionLT" % REPLAYPATH
+OUTPATH = "%s/UTIL_KAONLT/OUTPUT/Analysis/KaonLT" % REPLAYPATH
 PARAMPATH = "%s/UTIL_KAONLT/DB/PARAM" % REPLAYPATH
 CUTPATH = "%s/UTIL_KAONLT/DB/CUTS" % REPLAYPATH
 
