@@ -17,7 +17,7 @@ void replay_production_coin_cyero (Int_t RunNumber = 0, Int_t MaxEvent = 0, TStr
   }
 
   // Create file name patterns.
-  const char* RunFileNamePattern = "shms_all_%05d.dat";
+  const char* RunFileNamePattern = "coin_all_%05d.dat";
   vector<TString> pathList;
   pathList.push_back(".");
   pathList.push_back("./raw");
