@@ -77,5 +77,7 @@ fi
 
 sleep 3
 
+source /site/12gev_phys/softenv.sh 2.3
+source /apps/root/6.18.04/setroot_CUE.bash
 cd $REPLAYPATH/UTIL_KAONLT/scripts/luminosity/src/
 python3 lumiyield.py Pion_replay_luminosity ${RUNNUMBER} ${MAXEVENTS}
