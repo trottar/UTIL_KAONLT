@@ -47,12 +47,12 @@ cd $REPLAYPATH
 ###################################################################################################################################################
 
 # Section for luminosity replay script
-if [ ! -f "$REPLAYPATH/UTIL_KAONLT/ROOTfiles/Scalers/coin_replay_scalers_${RUNNUMBER}_150000.root" ]; then
-    eval "$REPLAYPATH/hcana -l -q \"SCRIPTS/COIN/SCALERS/replay_coin_scalers.C($RUNNUMBER,150000)\""
+if [ ! -f "$REPLAYPATH/UTIL_KAONLT/ROOTfiles/Scalers/coin_replay_scalers_${RUNNUMBER}_-1.root" ]; then
+    eval "$REPLAYPATH/hcana -l -q \"SCRIPTS/COIN/SCALERS/replay_coin_scalers.C($RUNNUMBER,-1)\""
     cd "$REPLAYPATH/CALIBRATION/bcm_current_map"
     root -b -l<<EOF 
 .L ScalerCalib.C+
-.x run.C("${REPLAYPATH}/UTIL_KAONLT/ROOTfiles/Scalers/coin_replay_scalers_${RUNNUMBER}_150000.root")
+.x run.C("${REPLAYPATH}/UTIL_KAONLT/ROOTfiles/Scalers/coin_replay_scalers_${RUNNUMBER}_-1.root")
 .q  
 EOF
     mv bcmcurrent_$RUNNUMBER.param $REPLAYPATH/PARAM/HMS/BCM/CALIB/bcmcurrent_$RUNNUMBER.param

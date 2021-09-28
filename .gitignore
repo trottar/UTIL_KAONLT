@@ -21,6 +21,8 @@ OUTPUT
 raw
 raw.copiedtotape
 cache
+$HOME
+__pycache__
 
 # Symbolic links
 hcana

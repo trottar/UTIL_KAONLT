@@ -1,3 +1,4 @@
+# current.thres is hard coded in bin/python/kaonlt/kaonlt.py line 538
 bcm1 = {"H_bcm_bcm1_AvgCurrent" : (H_bcm_bcm1_AvgCurrent > current.thres)}
 bcm2 = {"H_bcm_bcm2_AvgCurrent" : (H_bcm_bcm2_AvgCurrent > current.thres)}
 bcm4a = {"H_bcm_bcm4a_AvgCurrent" : (H_bcm_bcm4a_AvgCurrent > current.thres)}

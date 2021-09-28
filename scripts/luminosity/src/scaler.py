@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2021-08-31 00:27:50 trottar"
+# Time-stamp: "2021-09-27 22:54:02 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -14,7 +14,7 @@ import uproot as up
 import numpy as np
 
 
-def scaler(PS_names, SHMS_PS, HMS_PS, thres_curr,report_current,REPLAYPATH,runNum,MaxEvent,s_tree,s_branch):
+def scaler(PS_names, SHMS_PS, HMS_PS, report_current,REPLAYPATH,runNum,MaxEvent,s_tree,s_branch):
 
     '''
     SCALER TREE, TSP
@@ -159,6 +159,9 @@ def scaler(PS_names, SHMS_PS, HMS_PS, thres_curr,report_current,REPLAYPATH,runNu
     EDTM_sum = 0
     EDTM_current = 0
     previous_EDTM = 0
+
+    # Threshold current
+    thres_curr = 2.5
         
     for ibcm in range(0, 5):
         previous_acctrig = (acctrig_value[0] - EDTM_current)
@@ -195,6 +198,7 @@ def scaler(PS_names, SHMS_PS, HMS_PS, thres_curr,report_current,REPLAYPATH,runNu
                     rate_sum[iRATE] += (rate_value[iRATE][i] - previous_rate[iRATE])
                 for iRATE in range(0, SHMSNRATE):
                     SHMS_rate_sum[iRATE] += (SHMS_rate_value[iRATE][i] - SHMS_previous_rate[iRATE])
+                # RLT 09/24/21, indented one tab to include BCM cuts
             previous_acctrig = (acctrig_value[i] - EDTM_current)
             previous_EDTM = EDTM_value[i]
             for itrig in range(0, NTRIG):
@@ -220,13 +224,12 @@ def scaler(PS_names, SHMS_PS, HMS_PS, thres_curr,report_current,REPLAYPATH,runNu
         
     scalers = {
         "run number" : runNum,
-        "%s" % PS_names[shms_ps_ix]: SHMS_PS,
+        "%s" % PS_names[0]: SHMS_PS,
         "%s" % PS_names[1]: HMS_PS,
         "time": time_sum[2],
         "charge": charge_sum[2],
         "SHMSTRIG_scaler": trig_sum[shms_ps_ix],
         "HMSTRIG_scaler": trig_sum[hms_ps_ix],
-#        "CPULT_scaler": acctrig_sum/((trig_sum[shms_ps_ix]/SHMS_PS) + (trig_sum[hms_ps_ix]/HMS_PS)),
         "CPULT_scaler": 1-acctrig_sum/((trig_sum[shms_ps_ix]) + (trig_sum[hms_ps_ix])),
         "CPULT_scaler_uncern": (acctrig_sum/((trig_sum[shms_ps_ix]/SHMS_PS) + (trig_sum[hms_ps_ix]/HMS_PS)))*np.sqrt((1/(trig_sum[shms_ps_ix]/SHMS_PS))+(1/(trig_sum[hms_ps_ix]/HMS_PS))+(1/acctrig_sum)),
         "HMS_eLT": 1 - ((6/5)*(PRE_sum[1]-PRE_sum[2])/(PRE_sum[1])),
@@ -250,12 +253,8 @@ def scaler(PS_names, SHMS_PS, HMS_PS, thres_curr,report_current,REPLAYPATH,runNu
     print("L1ACC counts: %.0f, \n%s Prescaled Pretrigger Counts: %.0f \n%s Prescaled Pretrigger Counts: %.0f \nComputer Livetime: %f +/- %f" %
           (acctrig_sum, trig_name[0], scalers["SHMSTRIG_scaler"], trig_name[2], scalers["HMSTRIG_scaler"], scalers["CPULT_scaler"], scalers["CPULT_scaler_uncern"]))
 
-    print("HMS Electronic livetime: %f +/- %f" %
-          (scalers["HMS_eLT"], scalers["HMS_eLT_uncern"]))
-
-    print("SHMS Electronic livetime: %f +/- %f" %
-          (scalers["SHMS_eLT"], scalers["SHMS_eLT_uncern"]))
-
+    print("HMS Electronic livetime: %f +/- %f" % (scalers["HMS_eLT"], scalers["HMS_eLT_uncern"]))
+    print("SHMS Electronic livetime: %f +/- %f" % (scalers["SHMS_eLT"], scalers["SHMS_eLT_uncern"]))
     print("EDTM Events: %.0f" % scalers["sent_edtm"])
 
     return scalers
