@@ -530,14 +530,27 @@ class pyPlot(pyDict):
                     else:
                         continue
                 db_cuts.append(cut.rstrip())                
-            # Find which cut is being called. This elif statement is a little different since it only
-            # grabs a threshold current value. This is hardcoded for now, eventually need to change.
             elif "current" in cut:
-                tmp = cut.split(".")
-                tmp = tmp[1].split(")")[0]
-                cut  = cut.replace("current."+tmp,"2.5")
+                tmp = cut.split("current")
+                for val in tmp:
+                    if "." in val:
+                        tmp = val.split(")")[0]
+                        tmp = tmp.split(".")[1]
+                        fout = self.REPLAYPATH+"/UTIL_KAONLT/DB/PARAM/Current_Parameters.csv"
+                        try:
+                            data = dict(pd.read_csv(fout))
+                        except IOError:
+                            print("ERROR 9: %s not found in %s" % (tmp,fout))
+                        for i,evt in enumerate(data['Run_Start']):
+                            if data['Run_Start'][i] <= np.int64(runNum) <= data['Run_End'][i]:
+                                cut  = cut.replace("current."+tmp,str(data[tmp][i]))
+                                pass
+                            else:
+                                # print("!!!!ERROR!!!!: Run %s not found in range %s-%s" % (np.int64(runNum),data['Run_Start'][i],data['Run_End'][i])) # Error 10
+                                continue
+                    else:
+                        continue
                 db_cuts.append(cut.rstrip())
-                # print("!!!!",cut)
             else:
                 # print("ERROR 11: %s not defined" % cut)
                 continue
