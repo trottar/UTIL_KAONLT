@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2021-12-15 06:34:45 trottar"
+# Time-stamp: "2022-04-21 16:51:19 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -13,7 +13,7 @@
 ###################################################################################
 # Created - 20/July/21, Author - Muhammad Junaid, University of Regina, Canada
 ###################################################################################
-# Python version of the pion plotting script. Now utilises uproot to select event of each type and writes them to a root file.
+# Python version of the kaon plotting script. Now utilises uproot to select event of each type and writes them to a root file.
 # Python should allow for easier reading of databases storing diferent variables.
 # This version of script is for physics analysis experts
 # To run this script, execute: python3 scriptname runnumber
@@ -82,7 +82,7 @@ Check that root/output paths and files exist for use
 '''
 
 # Construct the name of the rootfile based upon the info we provided
-rootName = "%s/OUTPUT/Analysis/HeeP/%s_%s_%s.root" % (UTILPATH, runNum, MaxEvent, ROOTSuffix)     # Input file location and variables taking
+rootName = "%s/OUTPUT/Analysis/HeeP/%s_%s_%s_%s.root" % (UTILPATH, spec, runNum, MaxEvent, ROOTSuffix)     # Input file location and variables taking
 print ("Attempting to process %s" %(rootName))
 lt.SetPath(os.path.realpath(__file__)).checkDir(OUTPATH)
 lt.SetPath(os.path.realpath(__file__)).checkFile(rootName)
@@ -146,9 +146,6 @@ if spec == "SHMS":
     P_aero_npeSum_uncut = ROOT.TH1D("P_aero_npeSum_uncut", "SHMS aero npeSum; SHMS_aero_npeSum; Counts", 200, 0, 50)
     P_aero_xAtAero_uncut = ROOT.TH1D("P_acero_xAtAero_uncut", "SHMS aero xAtAero; SHMS_aero_xAtAero; Counts", 200, -60, 60)
     P_aero_yAtAero_uncut = ROOT.TH1D("P_aero_yAtAero_uncut", "SHMS aero yAtAero; SHMS_aero_yAtAero; Counts", 200, -50, 50)
-    P_ngcer_npeSum_uncut = ROOT.TH1D("P_ngcer_npeSum_uncut", "SHMS NGC npeSum; SHMS_ngcer_npeSum; Counts", 200, 0, 50)
-    P_ngcer_xAtCer_uncut = ROOT.TH1D("P_ngcer_xAtCer_uncut", "SHMS NGC xAtCer; SHMS_ngcer_xAtCer; Counts", 200, -70, 50)
-    P_ngcer_yAtCer_uncut = ROOT.TH1D("P_ngcer_yAtCer_uncut", "SHMS NGC yAtCer; SHMS_ngcer_yAtCer; Counts", 200, -50, 50)
     P_RFTime_Dist_uncut = ROOT.TH1D("P_RFTime_Dist_uncut", "SHMS RFTime; SHMS_RFTime; Counts", 200, 0, 4)
     P_pmiss_Dist_uncut = ROOT.TH1D("P_pmiss_Dist_uncut", "SHMS pmiss; pmiss; Counts", 200, -0.8, 10)                                             
     P_emiss_Dist_uncut = ROOT.TH1D("P_emiss_Dist_uncut", "SHMS emiss; emiss; Counts", 200, -0.8, 10)                                                 
@@ -172,9 +169,6 @@ if spec == "SHMS":
     P_aero_npeSum_cut_all = ROOT.TH1D("P_aero_npeSum_cut_all", "SHMS aero npeSum; SHMS_aero_npeSum; Counts", 200, 0, 50)
     P_aero_xAtAero_cut_all = ROOT.TH1D("P_acero_xAtAero_cut_all", "SHMS aero xAtAero; SHMS_aero_xAtAero; Counts", 200, -40, 30)
     P_aero_yAtAero_cut_all = ROOT.TH1D("P_aero_yAtAero_cut_all", "SHMS aero yAtAero; SHMS_aero_yAtAero; Counts", 200, -30, 30)
-    P_ngcer_npeSum_cut_all = ROOT.TH1D("P_ngcer_npeSum_cut_all", "SHMS NGC npeSum; SHMS_ngcer_npeSum; Counts", 200, -10, 50)
-    P_ngcer_xAtCer_cut_all = ROOT.TH1D("P_ngcer_xAtCer_cut_all", "SHMS NGC xAtCer; SHMS_ngcer_xAtCer; Counts", 200, -40, 30)
-    P_ngcer_yAtCer_cut_all = ROOT.TH1D("P_ngcer_yAtCer_cut_all", "SHMS NGC yAtCer; SHMS_ngcer_yAtCer; Counts", 200, -30, 30)
     P_RFTime_Dist_cut_all = ROOT.TH1D("P_RFTime_Dist_cut_all", "SHMS RFTime; SHMS_RFTime; Counts", 200, 0, 4)
     P_pmiss_Dist_cut_all = ROOT.TH1D("P_pmiss_Dist_cut_all", "SHMS pmiss; pmiss; Counts", 200, -0.8, 10)                                             
     P_emiss_Dist_cut_all = ROOT.TH1D("P_emiss_Dist_cut_all", "SHMS emiss; emiss; Counts", 200, -0.8, 10)                                             
@@ -192,18 +186,10 @@ if spec == "SHMS":
     P_hgcer_npeSum_vs_aero_npeSum_uncut = ROOT.TH2D("P_hgcer_npeSum_vs_aero_npeSum_uncut", "SHMS HGC npeSum vs SHMS Aero npeSum (no cut); SHMS_hgcer_npeSum; SHMS_aero_npeSum", 100, 0, 50, 100, 0, 50)
     P_hgcer_yAtCer_vs_hgcer_xAtCer_uncut = ROOT.TH2D("P_hgcer_yAtCer_vs_hgcer_xAtCer_uncut", "SHMS HGC yAtCer vs SHMS HGC xAtCer (no cut); SHMS_hgcer_yAtCer; SHMS_hgcer_xAtCer", 100, -50, 50, 100, -50, 50)
     P_aero_yAtAero_vs_aero_xAtAero_uncut = ROOT.TH2D("P_aero_yAtAero_vs_aero_xAtAero_uncut", "SHMS aero yAtAero vs SHMS aero xAtAero (no cut); SHMS_aero_yAtAero; SHMS_aero_xAtAero", 100, -50, 50, 100, -50, 50)
-    P_cal_etottracknorm_vs_P_ngcer_npeSum_uncut = ROOT.TH2D("P_cal_etottracknorm_vs_P_ngcer_npeSum_uncut", "SHMS cal etottracknorm vs SHMS NGC xAtCer (no cut); SHMS_cal_etottracknorm; SHMS_ngcer_xAtCer", 100, -10, 10, 100, -10, 10)
-    P_ngcer_yAtCer_vs_ngcer_xAtCer_uncut = ROOT.TH2D("P_ngcer_yAtCer_vs_ngcer_xAtCer_uncut", "SHMS NGC yAtCer vs SHMS NGC xAtCer (no cut); SHMS_ngcer_yAtCer; SHMS_ngcer_xAtCer", 100, -10, 10, 100, -10, 10)
-    P_ngcer_npeSum_vs_hgcer_npeSum_uncut = ROOT.TH2D("P_ngcer_npeSum_vs_hgcer_npeSum_uncut", "SHMS NGC npeSum vs SHMS HGC npeSum (no cut); SHMS_ngcer_npeSum; SHMS_hgcer_npeSum", 100, 0, 50, 100, 0, 50)
-    P_ngcer_npeSum_vs_aero_npeSum_uncut = ROOT.TH2D("P_ngcer_npeSum_vs_aero_npeSum_uncut", "SHMS NGC npeSum vs SHMS aero npeSum (no cut); SHMS_ngcer_npeSum; SHMS_aero_npeSum", 100, 0, 50, 100, 0, 50)
 
     P_hgcer_npeSum_vs_aero_npeSum_cut_all = ROOT.TH2D("P_hgcer_npeSum_vs_aero_npeSum_cut_all", "SHMS HGC npeSum vs SHMS aero npeSum (with cuts); SHMS_hgcer_npeSum; SHMS_aero_npeSum", 100, 0, 50, 100, 0, 50)
     P_hgcer_yAtCer_vs_hgcer_xAtCer_cut_all = ROOT.TH2D("P_hgcer_yAtCer_vs_hgcer_xAtCer_cut_all", "SHMS HGC yAtCer vs SHMS HGC xAtCer (with cuts); SHMS_hgcer_yAtCer; SHMS_hgcer_xAtCer", 100, -50, 50, 100, -50, 50)
     P_aero_yAtAero_vs_aero_xAtAero_cut_all = ROOT.TH2D("P_aero_yAtAero_vs_aero_xAtAero_cut_all", "SHMS aero yAtAero vs SHMS aero xAtAero (with cuts); SHMS_aero_yAtAero; SHMS_aero_xAtAero", 100, -50, 50, 100, -50, 50)
-    P_cal_etottracknorm_vs_P_ngcer_npeSum_cut_all = ROOT.TH2D("P_cal_etottracknorm_vs_P_ngcer_npeSum_cut_all", "P cal etottracknorm vs SHMS NGC xAtCer (with cuts); SHMS_cal_etottracknorm; SHMS_ngcer_xAtCer", 100, -10, 10, 100, -10, 10)
-    P_ngcer_yAtCer_vs_ngcer_xAtCer_cut_all = ROOT.TH2D("P_ngcer_yAtCer_vs_ngcer_xAtCer_cut_all", "SHMS NGC yAtCer vs SHMS NGC xAtCer (with cuts); SHMS_ngcer_yAtCer; SHMS_ngcer_xAtCer", 100, -10, 10, 100, -10, 10)
-    P_ngcer_npeSum_vs_hgcer_npeSum_cut_all = ROOT.TH2D("P_ngcer_npeSum_vs_hgcer_npeSum_cut_all", "SHMS NGC npeSum vs SHMS HGC npeSum (with cuts); SHMS_ngcer_npeSum; SHMS_hgcer_npeSum", 100, 0, 50, 100, 0, 50)
-    P_ngcer_npeSum_vs_aero_npeSum_cut_all = ROOT.TH2D("P_ngcer_npeSum_vs_aero_npeSum_cut_all", "SHMS NGC npeSum vs SHMS aero npeSum (with cuts); SHMS_ngcer_npeSum; SHMS_aero_npeSum", 100, 0, 50, 100, 0, 50)
 
 #################################################################################################################################################
 
@@ -241,17 +227,10 @@ for event in Uncut_Events_tree:
         P_aero_npeSum_uncut.Fill(event.P_aero_npeSum)
         P_aero_xAtAero_uncut.Fill(event.P_aero_xAtAero)
         P_aero_yAtAero_uncut.Fill(event.P_aero_yAtAero)
-        P_ngcer_npeSum_uncut.Fill(event.P_ngcer_npeSum)
-        P_ngcer_xAtCer_uncut.Fill(event.P_ngcer_xAtCer)
-        P_ngcer_yAtCer_uncut.Fill(event.P_ngcer_yAtCer)
         P_RFTime_Dist_uncut.Fill(event.P_RF_Dist)
         P_hgcer_npeSum_vs_aero_npeSum_uncut.Fill(event.P_hgcer_npeSum, event.P_aero_npeSum)
         P_hgcer_yAtCer_vs_hgcer_xAtCer_uncut.Fill(event.P_hgcer_yAtCer, event.P_hgcer_xAtCer)
         P_aero_yAtAero_vs_aero_xAtAero_uncut.Fill(event.P_aero_yAtAero, event.P_aero_xAtAero)
-        P_cal_etottracknorm_vs_P_ngcer_npeSum_uncut.Fill(event.P_cal_etottracknorm, event.P_ngcer_npeSum)
-        P_ngcer_yAtCer_vs_ngcer_xAtCer_uncut.Fill(event.P_ngcer_yAtCer, event.P_ngcer_xAtCer)
-        P_ngcer_npeSum_vs_hgcer_npeSum_uncut.Fill(event.P_ngcer_npeSum, event.P_hgcer_npeSum)
-        P_ngcer_npeSum_vs_aero_npeSum_uncut.Fill(event.P_ngcer_npeSum, event.P_aero_npeSum)
       
 
 for event in Cut_Events_All_tree:
@@ -287,17 +266,10 @@ for event in Cut_Events_All_tree:
         P_aero_npeSum_cut_all.Fill(event.P_aero_npeSum)
         P_aero_xAtAero_cut_all.Fill(event.P_aero_xAtAero)
         P_aero_yAtAero_cut_all.Fill(event.P_aero_yAtAero)
-        P_ngcer_npeSum_cut_all.Fill(event.P_ngcer_npeSum)
-        P_ngcer_xAtCer_cut_all.Fill(event.P_ngcer_xAtCer)
-        P_ngcer_yAtCer_cut_all.Fill(event.P_ngcer_yAtCer)   
         P_RFTime_Dist_cut_all.Fill(event.P_RF_Dist)
         P_hgcer_npeSum_vs_aero_npeSum_cut_all.Fill(event.P_hgcer_npeSum, event.P_aero_npeSum)
         P_hgcer_yAtCer_vs_hgcer_xAtCer_cut_all.Fill(event.P_hgcer_yAtCer, event.P_hgcer_xAtCer)
         P_aero_yAtAero_vs_aero_xAtAero_cut_all.Fill(event.P_aero_yAtAero, event.P_aero_xAtAero)
-        P_cal_etottracknorm_vs_P_ngcer_npeSum_cut_all.Fill(event.P_cal_etottracknorm, event.P_ngcer_npeSum)
-        P_ngcer_yAtCer_vs_ngcer_xAtCer_cut_all.Fill(event.P_ngcer_yAtCer, event.P_ngcer_xAtCer)
-        P_ngcer_npeSum_vs_hgcer_npeSum_cut_all.Fill(event.P_ngcer_npeSum, event.P_hgcer_npeSum)
-        P_ngcer_npeSum_vs_aero_npeSum_cut_all.Fill(event.P_ngcer_npeSum, event.P_aero_npeSum) 
                 
 ############################################################################################################################################
 
@@ -440,13 +412,7 @@ if spec == "SHMS":
     legend11.Draw("same")
     c2_pid.cd(3)
     gPad.SetLogy()
-    P_ngcer_npeSum_uncut.SetLineColor(2)
-    P_ngcer_npeSum_uncut.Draw()
-    P_ngcer_npeSum_cut_all.SetLineColor(4)
-    P_ngcer_npeSum_cut_all.Draw("same") 
     legend12 = ROOT.TLegend(0.115, 0.835, 0.43, 0.9)
-    legend12.AddEntry("P_ngcer_npeSum_uncut", "without cuts", "l")
-    legend12.AddEntry("P_ngcer_npeSum_cut_all", "with cuts (acpt/RF/PID)", "l")
     legend12.Draw("same")
     c2_pid.Print(Analysis_Distributions)
     
@@ -457,14 +423,6 @@ if spec == "SHMS":
     P_hgcer_npeSum_vs_aero_npeSum_uncut.Draw("COLZ")
     c3_pid.cd(2)
     P_hgcer_npeSum_vs_aero_npeSum_cut_all.Draw("COLZ")
-    c3_pid.cd(3)
-    P_ngcer_npeSum_vs_hgcer_npeSum_uncut.Draw("COLZ")
-    c3_pid.cd(4)
-    P_ngcer_npeSum_vs_hgcer_npeSum_cut_all.Draw("COLZ")
-    c3_pid.cd(5)
-    P_ngcer_npeSum_vs_aero_npeSum_uncut.Draw("COLZ")
-    c3_pid.cd(6)
-    P_ngcer_npeSum_vs_aero_npeSum_cut_all.Draw("COLZ")
     c3_pid.Print(Analysis_Distributions)
     
     c3_W = TCanvas("c3_W", "W Distributions", 100, 0, 1000, 900)
@@ -525,17 +483,10 @@ if spec == "SHMS":
     P_aero_npeSum_uncut.Write()
     P_aero_xAtAero_uncut.Write()
     P_aero_yAtAero_uncut.Write()
-    P_ngcer_npeSum_uncut.Write()
-    P_ngcer_xAtCer_uncut.Write()
-    P_ngcer_yAtCer_uncut.Write() 
     P_RFTime_Dist_uncut.Write()
     P_hgcer_npeSum_vs_aero_npeSum_uncut.Write()
     P_hgcer_yAtCer_vs_hgcer_xAtCer_uncut.Write()
     P_aero_yAtAero_vs_aero_xAtAero_uncut.Write()
-    P_cal_etottracknorm_vs_P_ngcer_npeSum_uncut.Write()
-    P_ngcer_yAtCer_vs_ngcer_xAtCer_uncut.Write()
-    P_ngcer_npeSum_vs_hgcer_npeSum_uncut.Write()
-    P_ngcer_npeSum_vs_aero_npeSum_uncut.Write()
 
 d_Cut_Events_All.cd()
 if spec == "HMS":
@@ -570,17 +521,10 @@ if spec == "SHMS":
     P_aero_npeSum_cut_all.Write()
     P_aero_xAtAero_cut_all.Write()
     P_aero_yAtAero_cut_all.Write()
-    P_ngcer_npeSum_cut_all.Write()
-    P_ngcer_xAtCer_cut_all.Write()
-    P_ngcer_yAtCer_cut_all.Write()
     P_RFTime_Dist_cut_all.Write()
     P_hgcer_npeSum_vs_aero_npeSum_cut_all.Write()
     P_hgcer_yAtCer_vs_hgcer_xAtCer_cut_all.Write()
     P_aero_yAtAero_vs_aero_xAtAero_cut_all.Write()
-    P_cal_etottracknorm_vs_P_ngcer_npeSum_cut_all.Write()
-    P_ngcer_yAtCer_vs_ngcer_xAtCer_cut_all.Write()
-    P_ngcer_npeSum_vs_hgcer_npeSum_cut_all.Write()
-    P_ngcer_npeSum_vs_aero_npeSum_cut_all.Write()
 
 
 # NH 11/12/2021 - added these to the scripts so that you can see from the treminal total elastics

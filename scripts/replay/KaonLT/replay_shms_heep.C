@@ -20,9 +20,12 @@ void replay_shms_heep (Int_t RunNumber = 0, Int_t MaxEvent = 0) {
   vector<TString> pathList;
   pathList.push_back(".");
   pathList.push_back("./raw");
+  pathList.push_back("./raw1");
+  pathList.push_back("./raw2");
+  pathList.push_back("./raw3");
+  pathList.push_back("./raw4");
   pathList.push_back("./raw/../raw.copiedtotape");
   pathList.push_back("./cache");
-  pathList.push_back("./raw.volatile");
 
   //const char* RunFileNamePattern = "raw/coin_all_%05d.dat";
   const char* ROOTFileNamePattern = "UTIL_KAONLT/ROOTfiles/Analysis/HeeP/Kaon_shms_replay_production_%d_%d.root";
@@ -33,21 +36,19 @@ void replay_shms_heep (Int_t RunNumber = 0, Int_t MaxEvent = 0) {
   gHcParms->Load(gHcParms->GetString("g_ctp_database_filename"), RunNumber);
   gHcParms->Load(gHcParms->GetString("g_ctp_parm_filename"));
   gHcParms->Load(gHcParms->GetString("g_ctp_kinematics_filename"), RunNumber);
-  // Load params for COIN trigger configuration
-  gHcParms->Load("PARAM/TRIG/tcoin.param");
-  //gHcParms->Load("PARAM/TRIG/tshms.param");
   // Load fadc debug parameters
+  gHcParms->Load("PARAM/HMS/GEN/h_fadc_debug.param");
   gHcParms->Load("PARAM/SHMS/GEN/p_fadc_debug.param");
-  //Load params for BCM
-  const char* CurrentFileNamePattern = "PARAM/HMS/BCM/CALIB/bcmcurrent_%d.param";
-  gHcParms->Load(Form(CurrentFileNamePattern, RunNumber));
 
   // Load the Hall C detector map
   gHcDetectorMap = new THcDetectorMap();
   gHcDetectorMap->Load("MAPS/COIN/DETEC/coin.map");
-  //gHcDetectorMap->Load("MAPS/SHMS/DETEC/STACK/shms_stack.map");
+  //gHcDetectorMap->Load("MAPS/HMS/DETEC/STACK/hms_stack.map");
 
-  //=:=:=:=
+  // Dec data
+  gHaApps->Add(new Podd::DecData("D","Decoder raw data"));
+
+ //=:=:=:=
   // SHMS 
   //=:=:=:=
 
@@ -59,9 +60,6 @@ void replay_shms_heep (Int_t RunNumber = 0, Int_t MaxEvent = 0) {
   SHMS->AddEvtType(6);
   SHMS->AddEvtType(7);
   gHaApps->Add(SHMS);
-  // Add Noble Gas Cherenkov to SHMS apparatus
-  THcCherenkov* pngcer = new THcCherenkov("ngcer", "Noble Gas Cherenkov");
-  SHMS->AddDetector(pngcer);
   // Add drift chambers to SHMS apparatus
   THcDC* pdc = new THcDC("dc", "Drift Chambers");
   SHMS->AddDetector(pdc);
@@ -83,7 +81,7 @@ void replay_shms_heep (Int_t RunNumber = 0, Int_t MaxEvent = 0) {
   gHaApps->Add(pbeam);
   // Add physics modules
   // Calculate reaction point
-  THaReactionPoint* prp = new THaReactionPoint("P.react", "SHMS reaction point", "P", "P.rb");
+  THcReactionPoint* prp = new THcReactionPoint("P.react", "SHMS reaction point", "P", "P.rb");
   gHaPhysics->Add(prp);
   // Calculate extended target corrections
   THcExtTarCor* pext = new THcExtTarCor("P.extcor", "HMS extended target corrections", "P", "P.react");
@@ -128,9 +126,6 @@ void replay_shms_heep (Int_t RunNumber = 0, Int_t MaxEvent = 0) {
   // Add Cherenkov to HMS apparatus
   THcCherenkov* hcer = new THcCherenkov("cer", "Heavy Gas Cherenkov");
   HMS->AddDetector(hcer);
-  // Add Aerogel Cherenkov to HMS apparatus
-  // THcAerogel* haero = new THcAerogel("aero", "Aerogel");
-  // HMS->AddDetector(haero);
   // Add calorimeter to HMS apparatus
   THcShower* hcal = new THcShower("cal", "Calorimeter");
   HMS->AddDetector(hcal);
@@ -140,7 +135,7 @@ void replay_shms_heep (Int_t RunNumber = 0, Int_t MaxEvent = 0) {
   gHaApps->Add(hbeam);  
   // Add physics modules
   // Calculate reaction point
-  THaReactionPoint* hrp = new THaReactionPoint("H.react", "HMS reaction point", "H", "H.rb");
+  THcReactionPoint* hrp = new THcReactionPoint("H.react", "HMS reaction point", "H", "H.rb");
   gHaPhysics->Add(hrp);
   // Calculate extended target corrections
   THcExtTarCor* hext = new THcExtTarCor("H.extcor", "HMS extended target corrections", "H", "H.react");
@@ -151,9 +146,6 @@ void replay_shms_heep (Int_t RunNumber = 0, Int_t MaxEvent = 0) {
   // Calculate the hodoscope efficiencies
   THcHodoEff* heff = new THcHodoEff("hhodeff", "HMS hodo efficiency", "H.hod");
   gHaPhysics->Add(heff);
-  // Add BCM Current check
-  // THcBCMCurrent* hbc = new THcBCMCurrent("H.bcm", "BCM current check");
-  // gHaPhysics->Add(hbc);
 
   // Add event handler for scaler events
   THcScalerEvtHandler *hscaler = new THcScalerEvtHandler("H", "Hall C scaler event type 4");  
@@ -172,10 +164,10 @@ void replay_shms_heep (Int_t RunNumber = 0, Int_t MaxEvent = 0) {
   //=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=
 
   // Add Physics Module to calculate primary (scattered electrons) beam kinematics
-  THcPrimaryKine* hkin_primary = new THcPrimaryKine("H.kin.primary", "HMS Single Arm Kinematics", "H", "H.rb");
-  gHaPhysics->Add(hkin_primary);
+  THcPrimaryKine* pkin_primary = new THcPrimaryKine("P.kin.primary", "SHMS Single Arm Kinematics", "P", "P.rb");
+  gHaPhysics->Add(pkin_primary);
   // Add Physics Module to calculate secondary (scattered hadrons) beam kinematics
-  THcSecondaryKine* pkin_secondary = new THcSecondaryKine("P.kin.secondary", "SHMS Single Arm Kinematics", "P", "H.kin.primary");
+  THcSecondaryKine* pkin_secondary = new THcSecondaryKine("P.kin.secondary", "SHMS Single Arm Kinematics", "P", "P.kin.primary");
   gHaPhysics->Add(pkin_secondary);
   
   //=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=
@@ -191,22 +183,15 @@ void replay_shms_heep (Int_t RunNumber = 0, Int_t MaxEvent = 0) {
   coin->SetEvtType(1);
   coin->AddEvtType(2);
   TRG->AddDetector(coin); 
-
-  // THcHelicityScaler *helscaler = new THcHelicityScaler("HS", "Hall C helicity scalers"); 
-  // helscaler->SetROC(8);
-  // helscaler->SetUseFirstEvent(kTRUE);
-  // gHaEvtHandlers->Add(helscaler);
-  // // Add helicity detector to trigger apparatus
-  // THcHelicity* helicity = new THcHelicity("helicity","Helicity Detector");
-  // TRG->AddDetector(helicity);
-  // helicity->SetHelicityScaler(helscaler);
+  THcHelicity* helicity = new THcHelicity("helicity","Helicity Detector");
+  TRG->AddDetector(helicity); 
   
   //Add coin physics module THcCoinTime::THcCoinTime (const char *name, const char* description, const char* hadArmName, 
   // const char* elecArmName, const char* coinname) :
   THcCoinTime* coinTime = new THcCoinTime("CTime", "Coincidende Time Determination", "P", "H", "T.coin");
   gHaPhysics->Add(coinTime);
-  //Add RF physics module THcRFTime::THcRFTime (const char *name, const char* description, const char* hadArmName, 
-  // const char* elecArmName, const char* RFname) :
+  //Add RF physics module THcRFTime::THcRFTime (const char *name, const char* description, const char* hadArmName,                                                                               
+  //const char* elecArmName, const char* RFname) :                                                                                                                                                  
   THcRFTime* RFTime = new THcRFTime("RFTime", "RF Time Determination", "P", "H", "T.coin");
   gHaPhysics->Add(RFTime);
 

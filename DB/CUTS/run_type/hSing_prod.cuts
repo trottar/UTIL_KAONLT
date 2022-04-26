@@ -15,7 +15,7 @@ sing_ek_cut_all_RF = pid.h_ecut+accept.delta-accept.delta.P_gtr_dp+accept.h_pfp-
 ##############
 sing_ep_cut_all_noRF = pid.h_ecut+accept.delta-accept.delta.P_gtr_dp+accept.h_pfp-pid.h_ecut.H_cal_etotnorm
 #
-sing_ep_cut_all_RF = pid.h_ecut+accept.delta-accept.delta.P_gtr_dp+accept.h_pfp-pid.h_ecut.H_cal_etotnorm+coin_time.SHMS_h_RF
+sing_ep_cut_all_RF = pid.h_ecut+accept.delta-accept.delta.P_gtr_dp+accept.h_pfp1-pid.h_ecut.H_cal_etotnorm+coin_time.SHMS_h_RF
 ##############
 # SING ecut  #
 ##############

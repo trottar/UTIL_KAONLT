@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2021-12-15 06:53:57 trottar"
+# Time-stamp: "2022-04-21 12:31:21 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -68,7 +68,7 @@ HOST=`echo ${PATHFILE_INFO} | cut -d ','  -f15`
 # Set path depending upon hostname. Change or add more as needed  
 if [[ "${HOSTNAME}" = *"farm"* ]]; then  
     if [[ "${HOSTNAME}" != *"ifarm"* ]]; then
-	source /site/12gev_phys/softenv.sh 2.3
+	source /site/12gev_phys/softenv.sh 2.4
 	source /apps/root/6.18.04/setroot_CUE.bash
     fi
     cd "$HCANAPATH"
@@ -148,12 +148,12 @@ if [ -f "${UTILPATH}/OUTPUT/Analysis/HeeP/${spec}_${RUNNUMBER}_${MAXEVENTS}_Anal
     if [[ $option1 == "y" || $option1 == "Y" || $option1 == "yes" || $option1 == "Yes" ]]; then
 	rm "${UTILPATH}/OUTPUT/Analysis/HeeP/${spec}_${RUNNUMBER}_${MAXEVENTS}_Analysed_Data.root"
 	echo "Reprocessing"
-	python3 ${UTILPATH}/scripts/heep/src/singyield.py ${ANATYPE}_${spec}_replay_production ${RUNNUMBER} ${MAXEVENTS} ${SPEC}
+	python ${UTILPATH}/scripts/heep/src/singyield.py ${ANATYPE}_${spec}_replay_production ${RUNNUMBER} ${MAXEVENTS} ${SPEC}
     else
 	echo "Skipping python analysis script step"
     fi
 elif [ ! -f "${UTILPATH}/OUTPUT/Analysis/HeeP/${spec}_${RUNNUMBER}_${MAXEVENTS}_Analysed_Data.root" ]; then
-	python3 ${UTILPATH}/scripts/heep/src/singyield.py ${ANATYPE}_${spec}_replay_production ${RUNNUMBER} ${MAXEVENTS} ${SPEC}
+	python ${UTILPATH}/scripts/heep/src/singyield.py ${ANATYPE}_${spec}_replay_production ${RUNNUMBER} ${MAXEVENTS} ${SPEC}
 else echo "Analysed root file already found in ${UTILPATH}/OUTPUT/Analysis/HeeP/ - Skipped python analyzer script step"
 fi
 
