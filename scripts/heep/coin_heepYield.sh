@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2022-04-19 01:29:22 trottar"
+# Time-stamp: "2022-05-04 17:41:44 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -170,5 +170,5 @@ elif [ ! -f  "${UTILPATH}/OUTPUT/Analysis/HeeP/${RUNNUMBER}_${MAXEVENTS}_Output_
 	python3 ${UTILPATH}/scripts/heep/src/plot_coin.py Analysed_Data ${RUNNUMBER} ${MAXEVENTS} 
 else echo "${ANATYPE} physics output root file already found in ${UTILPATH}/OUTPUT/Analysis/HeeP/ - Skipped python plotting script step"
 fi
-evince "${UTILPATH}/OUTPUT/Analysis/HeeP/${RUNNUMBER}_${MAXEVENTS}_sw_heep_Proton_Analysis_Distributions.pdf" &
+evince "${UTILPATH}/OUTPUT/Analysis/HeeP/${RUNNUMBER}_${MAXEVENTS}_heep_Proton_Analysis_Distributions.pdf" &
 exit 0

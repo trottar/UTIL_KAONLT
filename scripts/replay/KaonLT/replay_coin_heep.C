@@ -20,9 +20,12 @@ void replay_coin_heep (Int_t RunNumber = 0, Int_t MaxEvent = 0) {
   vector<TString> pathList;
   pathList.push_back(".");
   pathList.push_back("./raw");
+  pathList.push_back("./raw1");
+  pathList.push_back("./raw2");
+  pathList.push_back("./raw3");
+  pathList.push_back("./raw4");
   pathList.push_back("./raw/../raw.copiedtotape");
   pathList.push_back("./cache");
-  pathList.push_back("./raw_volatile");
 
   //const char* RunFileNamePattern = "raw/coin_all_%05d.dat";
   const char* ROOTFileNamePattern = "UTIL_KAONLT/ROOTfiles/Analysis/HeeP/Kaon_coin_replay_production_%d_%d.root";
@@ -38,6 +41,7 @@ void replay_coin_heep (Int_t RunNumber = 0, Int_t MaxEvent = 0) {
   // Load fadc debug parameters
   gHcParms->Load("PARAM/HMS/GEN/h_fadc_debug.param");
   gHcParms->Load("PARAM/SHMS/GEN/p_fadc_debug.param");
+
   //Load params for BCM
   const char* CurrentFileNamePattern = "PARAM/HMS/BCM/CALIB/bcmcurrent_%d.param";
   gHcParms->Load(Form(CurrentFileNamePattern, RunNumber));
@@ -58,9 +62,6 @@ void replay_coin_heep (Int_t RunNumber = 0, Int_t MaxEvent = 0) {
   SHMS->AddEvtType(6);
   SHMS->AddEvtType(7);
   gHaApps->Add(SHMS);
-  // Add Noble Gas Cherenkov to SHMS apparatus
-  THcCherenkov* pngcer = new THcCherenkov("ngcer", "Noble Gas Cherenkov");
-  SHMS->AddDetector(pngcer);
   // Add drift chambers to SHMS apparatus
   THcDC* pdc = new THcDC("dc", "Drift Chambers");
   SHMS->AddDetector(pdc);
@@ -246,7 +247,7 @@ void replay_coin_heep (Int_t RunNumber = 0, Int_t MaxEvent = 0) {
   analyzer->SetCountMode(2);  // 0 = counter is # of physics triggers
                               // 1 = counter is # of all decode reads
                               // 2 = counter is event number
-
+  /*
   analyzer->SetEvent(event);
   // Set EPICS event type
   analyzer->SetEpicsEvtType(180);
@@ -264,4 +265,29 @@ void replay_coin_heep (Int_t RunNumber = 0, Int_t MaxEvent = 0) {
   analyzer->Process(run);
   // Create report file from template	       
   analyzer->PrintReport("UTIL_KAONLT/config/TEMPLATES/COIN/Online_Coin_Production.template", Form("UTIL_KAONLT/REPORT_OUTPUT/Analysis/HeeP/Kaon_replay_coin_production_%d_%d.report", RunNumber, MaxEvent)); // optional}
+  */
+  analyzer->SetEvent(event);
+  // Set EPICS event type
+  analyzer->SetEpicsEvtType(181);
+  // Define crate map
+  analyzer->SetCrateMapFileName("MAPS/db_cratemap.dat");
+  // Define output ROOT file
+  analyzer->SetOutFile(ROOTFileName.Data());
+  // Define DEF-file+
+  analyzer->SetOdefFile("DEF-files/PRODUCTION/Full_Replay_Pass2_Coin_v2.def"); // New version, slimmed down
+  // Define cuts file
+  //analyzer->SetCutFile("DEF-files/PRODUCTION/CUTS/coin_production_cuts.def");  // optional
+  analyzer->SetCutFile("DEF-files/PRODUCTION/CUTS/coin_tracking_cuts.def");  // optional
+  // File to record accounting information for cuts
+  analyzer->SetSummaryFile(Form("REPORT_OUTPUT/Analysis/General/summary_production_%d_%d.report", RunNumber, MaxEvent));  // optional
+  // Start the actual analysis.
+  analyzer->Process(run);
+  // Create report file from template
+  analyzer->PrintReport("TEMPLATES/COIN/PRODUCTION/COIN_PROD.template",
+  Form("REPORT_OUTPUT/Analysis/General/replay_coin_production_%d_%d.report", RunNumber, MaxEvent));  // optional
+  // Helicity scalers output
+  analyzer->PrintReport("TEMPLATES/HMS/SCALERS/hhelscalers.template",
+  			Form("REPORT_OUTPUT/Scalers/replay_hms_helicity_scalers_%d_%d.report", RunNumber, MaxEvent));  // optional  
+  analyzer->PrintReport("TEMPLATES/SHMS/SCALERS/phelscalers.template",
+  			Form("REPORT_OUTPUT/Scalers/replay_shms_helicity_scalers_%d_%d.report", RunNumber, MaxEvent));  // optional  
 }

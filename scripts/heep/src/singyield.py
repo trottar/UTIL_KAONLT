@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2022-04-20 21:10:15 trottar"
+# Time-stamp: "2022-05-04 16:49:28 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -159,7 +159,7 @@ def make_cutDict(cuts,fout,runNum,CURRENT_ENV,DEBUG=False):
     '''
 
     # read in cuts file and make dictionary
-    importDict = lt.SetCuts(CURRENT_ENV).importDict(cuts,fout,runNum,True)
+    importDict = lt.SetCuts(CURRENT_ENV).importDict(cuts,fout,runNum)
     for i,cut in enumerate(cuts):
         x = lt.SetCuts(CURRENT_ENV,importDict).booleanDict(cut)
         print("\n%s" % cut)

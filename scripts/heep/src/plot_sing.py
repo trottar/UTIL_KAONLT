@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2022-04-21 16:51:19 trottar"
+# Time-stamp: "2022-05-04 17:31:18 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -74,7 +74,7 @@ ANATYPE=lt.SetPath(os.path.realpath(__file__)).getPath("ANATYPE")
 OUTPATH = "%s/OUTPUT/Analysis/HeeP" % UTILPATH        # Output folder location
 
 print("Running as %s on %s, hallc_replay_lt path assumed as %s" % (USER, HOST, REPLAYPATH))
-Analysis_Distributions = "%s/%s_%s_sw_heep_%s_Analysis_Distributions.pdf" % (OUTPATH, runNum, MaxEvent, spec)
+Analysis_Distributions = "%s/%s_%s_heep_%s_Analysis_Distributions.pdf" % (OUTPATH, runNum, MaxEvent, spec)
 
 #################################################################################################################################################
 '''
