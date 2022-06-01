@@ -10,4 +10,5 @@ REPORTPATH=/group/c-kaonlt/hallc_replay_lt/UTIL_KAONLT/REPORT_OUTPUT/Analysis
 CUTPATH=/group/c-kaonlt/hallc_replay_lt/UTIL_KAONLT/DB/CUTS
 PARAMPATH=/group/c-kaonlt/hallc_replay_lt/UTIL_KAONLT/DB/PARAM
 SCRIPTPATH=/group/c-kaonlt/hallc_replay_lt/UTIL_KAONLT/scripts
+SIMCPATH=/group/c-kaonlt/simc_gfortran
 ANATYPE=Kaon

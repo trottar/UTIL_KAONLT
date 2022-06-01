@@ -2,7 +2,7 @@
 # Description: This package will perform many tasks required for l-t separation physics analysis 
 # Analysis script required dynamically defining pathing.
 # ================================================================
-# Time-stamp: "2021-12-15 04:58:38 trottar"
+# Time-stamp: "2022-05-31 16:04:58 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -40,6 +40,7 @@ class SetPath():
     CUTPATH=lt.SetPath(os.path.realpath(__file__)).getPath("CUTPATH")
     PARAMPATH=lt.SetPath(os.path.realpath(__file__)).getPath("PARAMPATH")
     SCRIPTPATH=lt.SetPath(os.path.realpath(__file__)).getPath("SCRIPTPATH")
+    SIMCPATH=lt.SetPath(os.path.realpath(__file__)).getPath("SIMCPATH")
     ANATYPE=lt.SetPath(os.path.realpath(__file__)).getPath("ANATYPE")
     USER=lt.SetPath(os.path.realpath(__file__)).getPath("USER")
     HOST=lt.SetPath(os.path.realpath(__file__)).getPath("HOST")
@@ -130,9 +131,14 @@ class SetPath():
         HOST = os.uname()[1]
 
         # Replace username with general ${USER} so it can be used broadly
-        self.CURRENT_ENV = self.CURRENT_ENV.replace(USER,"${USER}") 
+        self.CURRENT_ENV = self.CURRENT_ENV.replace(USER,"${USER}").replace("/u","")
+        
+        # Remove extra path for simc location
+        if "simc_gfortran" in self.CURRENT_ENV:
+            self.CURRENT_ENV = self.CURRENT_ENV.replace("/scripts/HeepCoin.py","").replace("/scripts/HeepSing.py","")
 
         if DEBUG==True:
+            print("USER ",USER)
             print("CURRENT_ENV ",self.CURRENT_ENV)
 
         # Setup path to pathing files (see PATH_TO_DIR)

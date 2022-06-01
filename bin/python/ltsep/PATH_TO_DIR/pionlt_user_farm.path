@@ -10,4 +10,5 @@ REPORTPATH=/group/c-pionlt/USERS/${USER}/hallc_replay_lt/UTIL_PION/REPORT_OUTPUT
 CUTPATH=/group/c-pionlt/USERS/${USER}/hallc_replay_lt/UTIL_PION/DB/CUTS
 PARAMPATH=/group/c-pionlt/USERS/${USER}/hallc_replay_lt/UTIL_PION/DB/PARAM
 SCRIPTPATH=/group/c-pionlt/USERS/${USER}/hallc_replay_lt/UTIL_PION/scripts
+SIMCPATH=/group/c-pionlt/USERS/${USER}/simc_gfortran
 ANATYPE=Pion
