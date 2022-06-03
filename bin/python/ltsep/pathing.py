@@ -2,7 +2,7 @@
 # Description: This package will perform many tasks required for l-t separation physics analysis 
 # Analysis script required dynamically defining pathing.
 # ================================================================
-# Time-stamp: "2022-05-31 16:04:58 trottar"
+# Time-stamp: "2022-06-02 15:36:55 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -135,7 +135,7 @@ class SetPath():
         
         # Remove extra path for simc location
         if "simc_gfortran" in self.CURRENT_ENV:
-            self.CURRENT_ENV = self.CURRENT_ENV.replace("/scripts/HeepCoin.py","").replace("/scripts/HeepSing.py","")
+            self.CURRENT_ENV = self.CURRENT_ENV.replace("/scripts/HeepCoin.py","").replace("/scripts/HeepSing.py","").replace("/scripts/Analysed_COIN.py","")
 
         if DEBUG==True:
             print("USER ",USER)

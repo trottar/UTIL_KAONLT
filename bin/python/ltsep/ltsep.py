@@ -2,7 +2,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2022-05-31 15:30:46 trottar"
+# Time-stamp: "2022-06-02 19:35:16 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -30,7 +30,7 @@ class Root():
     This class is for converting files into root files after the analysis steps
     '''
 
-    def __init__(self, ROOTPrefix, runNum, MaxEvent, fout, cuts, CURRENT_ENV):
+    def __init__(self, ROOTPrefix, runNum, MaxEvent, fout, cuts, CURRENT_ENV, DEBUG=False):
         '''
         __init__(self,CURRENT_ENV,cutDict=None)
                       |           |
@@ -41,6 +41,7 @@ class Root():
         
         Constructor of class takes the current enviroment path and an optional dictionary as input
         '''
+        self.DEBUG = DEBUG
         self.ROOTPrefix = ROOTPrefix
         self.runNum = runNum
         self.MaxEvent = MaxEvent
@@ -100,7 +101,7 @@ class Root():
     def check_runType(self):
         print(self.CURRENT_ENV)        
 
-    def make_cutDict(self,DEBUG=False):
+    def make_cutDict(self):
         '''
         This method calls several methods in kaonlt package. It is required to create properly formated
         dictionaries. The evaluation must be in the analysis script because the analysis variables (i.e. the
@@ -122,9 +123,14 @@ class Root():
         P_RF_Dist = e_tree.array("RFTime.SHMS_RFtimeDist")               #
 
         # HMS info
+        H_dc_InsideDipoleExit = e_tree.array("H.dc.InsideDipoleExit")    #
         H_hod_goodscinhit = e_tree.array("H.hod.goodscinhit")            #
         H_hod_goodstarttime = e_tree.array("H.hod.goodstarttime")        #
         H_gtr_beta = e_tree.array("H.gtr.beta")                          # Beta is velocity of particle between pairs of hodoscopes
+        H_dc_x_fp = e_tree.array("H.dc.x_fp")                            #
+        H_dc_y_fp = e_tree.array("H.dc.y_fp")                            #
+        H_dc_xp_fp = e_tree.array("H.dc.xp_fp")                          #
+        H_dc_yp_fp = e_tree.array("H.dc.yp_fp")                          #
         H_gtr_xp = e_tree.array("H.gtr.th")                              # xpfp -> Theta
         H_gtr_yp = e_tree.array("H.gtr.ph")                              # ypfp -> Phi
         H_gtr_dp = e_tree.array("H.gtr.dp")                              # dp is Delta
@@ -134,9 +140,14 @@ class Root():
         H_cer_npeSum = e_tree.array("H.cer.npeSum")                      #
 
         # SHMS info
+        P_dc_InsideDipoleExit = e_tree.array("P.dc.InsideDipoleExit")    #
         P_hod_goodscinhit = e_tree.array("P.hod.goodscinhit")            #
         P_hod_goodstarttime = e_tree.array("P.hod.goodstarttime")        #
         P_gtr_beta = e_tree.array("P.gtr.beta")                          # Beta is velocity of particle between pairs of hodoscopes
+        P_dc_x_fp = e_tree.array("P.dc.x_fp")                            #
+        P_dc_y_fp = e_tree.array("P.dc.y_fp")                            #
+        P_dc_xp_fp = e_tree.array("P.dc.xp_fp")                          #
+        P_dc_yp_fp = e_tree.array("P.dc.yp_fp")                          #
         P_gtr_xp = e_tree.array("P.gtr.th")                              # xpfp -> Theta
         P_gtr_yp = e_tree.array("P.gtr.ph")                              # ypfp -> Phi
         P_gtr_p = e_tree.array("P.gtr.p")                                #
@@ -155,7 +166,7 @@ class Root():
         W = e_tree.array("H.kin.primary.W")                              #
         epsilon = e_tree.array("H.kin.primary.epsilon")                  #
         ph_q = e_tree.array("P.kin.secondary.ph_xq")                     #
-        #emiss = e_tree.array("P.kin.secondary.emiss")                   #
+        emiss = e_tree.array("P.kin.secondary.emiss")                   #
         #pmiss = e_tree.array("P.kin.secondary.pmiss")                   #
         MMpi = e_tree.array("P.kin.secondary.MMpi")                      #
         MMK = e_tree.array("P.kin.secondary.MMK")                        #
@@ -178,9 +189,14 @@ class Root():
             "CTime_epCoinTime_ROC1" : CTime_epCoinTime_ROC1,
             "H_RF_Dist" : H_RF_Dist,
             "P_RF_Dist" : P_RF_Dist,
+            "H_dc_InsideDipoleExit" : H_dc_InsideDipoleExit,
             "H_hod_goodscinhit" : H_hod_goodscinhit,
             "H_hod_goodstarttime" : H_hod_goodstarttime,
             "H_gtr_beta" : H_gtr_beta,
+            "H_dc_x_fp" : H_dc_x_fp,
+            "H_dc_y_fp" : H_dc_y_fp,
+            "H_dc_xp_fp" : H_dc_xp_fp,
+            "H_dc_yp_fp" : H_dc_yp_fp,
             "H_gtr_xp" : H_gtr_xp,
             "H_gtr_yp" : H_gtr_yp,
             "H_gtr_dp" : H_gtr_dp,
@@ -188,9 +204,14 @@ class Root():
             "H_cal_etotnorm" : H_cal_etotnorm,
             "H_cal_etottracknorm" : H_cal_etottracknorm,
             "H_cer_npeSum" : H_cer_npeSum,
+            "P_dc_InsideDipoleExit" : P_dc_InsideDipoleExit,
             "P_hod_goodscinhit" : P_hod_goodscinhit,
             "P_hod_goodstarttime" : P_hod_goodstarttime,
             "P_gtr_beta" : P_gtr_beta,
+            "P_dc_x_fp" : P_dc_x_fp,
+            "P_dc_y_fp" : P_dc_y_fp,
+            "P_dc_xp_fp" : P_dc_xp_fp,
+            "P_dc_yp_fp" : P_dc_yp_fp,
             "P_gtr_xp" : P_gtr_xp,
             "P_gtr_yp" : P_gtr_yp,
             "P_gtr_p" : P_gtr_p,
@@ -207,6 +228,7 @@ class Root():
             "W" : W,
             "epsilon" : epsilon,
             "ph_q" : ph_q,
+            "emiss" : emiss,
             "MMpi" : MMpi,
             "MMK" : MMK,
             "MMp" : MMp,
@@ -218,7 +240,7 @@ class Root():
         }
 
         # read in cuts file and make dictionary
-        importDict = SetCuts(self.CURRENT_ENV).importDict(self.cuts,self.fout,self.runNum,DEBUG)
+        importDict = SetCuts(self.CURRENT_ENV).importDict(self.cuts,self.fout,self.runNum,self.DEBUG)
         for i,cut in enumerate(self.cuts):
             x = SetCuts(self.CURRENT_ENV,importDict).booleanDict(cut)
             print("\n%s" % cut)
@@ -229,10 +251,10 @@ class Root():
             for j,val in enumerate(x):
                 cutDict = SetCuts(self.CURRENT_ENV,importDict).evalDict(cut,eval(x[j]),cutDict)
         return [SetCuts(self.CURRENT_ENV,cutDict),treeDict]
-
-    def setup_ana(self,DEBUG=False):
+        
+    def setup_ana(self):
         self.check_runType()
-        make_cutDict = self.make_cutDict(DEBUG)
+        make_cutDict = self.make_cutDict()
         bool_cuts = make_cutDict[0]
         treeDict = make_cutDict[1]
         return [bool_cuts,treeDict,self.OUTPATH]
