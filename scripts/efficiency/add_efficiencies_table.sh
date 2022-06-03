@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2022-06-03 18:46:32 trottar"
+# Time-stamp: "2022-06-03 18:51:21 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -37,5 +37,6 @@ HOST=`echo ${PATHFILE_INFO} | cut -d ','  -f15`
 
 
 cd "${SCRIPTPATH}/efficiency/src/"
-python3 efficiency_main.py replay_coin_heep 7974 -1
+#python3 efficiency_main.py replay_coin_heep 7974 -1
+python3 efficiency_main.py replay_coin_production 7877 -1
 
