@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2022-06-03 18:11:19 trottar"
+# Time-stamp: "2022-06-05 15:53:02 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -33,6 +33,8 @@ def dictionary(UTILPATH,ROOTPrefix,runNum,MaxEvent):
             #'time of run': None,
             'SHMS_Run_Length': None,
             'HMS_Run_Length': None,
+            'BCM_Cut_SHMS_Run_Length': None,
+            'BCM_Cut_HMS_Run_Length': None,
             'Ps1_factor': None,
             'Ps2_factor': None,
             'Ps3_factor': None,
