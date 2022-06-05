@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2022-06-05 15:53:02 trottar"
+# Time-stamp: "2022-06-05 15:54:13 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -83,8 +83,12 @@ def dictionary(UTILPATH,ROOTPrefix,runNum,MaxEvent):
             'HMS_Cer_SING_Elec_Eff_ERROR': None,
             'SHMS_Aero_Prot_Eff': None,
             'SHMS_Aero_Prot_Eff_ERROR': None,
-            'SHMS_Aero_Pion_Eff': None,
-            'SHMS_Aero_Pion_Eff_ERROR': None,
+            'SHMS_Aero_ALL_Pion_Eff': None,
+            'SHMS_Aero_ALL_Pion_Eff_ERROR': None,
+            'SHMS_Aero_COIN_Pion_Eff': None,
+            'SHMS_Aero_COIN_Pion_Eff_ERROR': None,
+            'SHMS_Aero_SING_Pion_Eff': None,
+            'SHMS_Aero_SING_Pion_Eff_ERROR': None,
             'SHMS_HGC_Prot_Eff': None,
             'SHMS_HGC_Prot_Eff_ERROR': None,
             'SHMS_HGC_Pion_Eff': None,
@@ -97,6 +101,12 @@ def dictionary(UTILPATH,ROOTPrefix,runNum,MaxEvent):
             "SHMS_Prot_COIN_TRACK_EFF_ERROR" : None,
             "SHMS_Prot_SING_TRACK_EFF" : None,
             "SHMS_Prot_SING_TRACK_EFF_ERROR" : None,
+            "SHMS_Pion_ALL_TRACK_EFF" : None,
+            "SHMS_Pion_ALL_TRACK_EFF_ERROR" : None,
+            "SHMS_Pion_COIN_TRACK_EFF" : None,
+            "SHMS_Pion_COIN_TRACK_EFF_ERROR" : None,
+            "SHMS_Pion_SING_TRACK_EFF" : None,
+            "SHMS_Pion_SING_TRACK_EFF_ERROR" : None,
             "HMS_Elec_ALL_TRACK_EFF" : None,
             "HMS_Elec_ALL_TRACK_EFF_ERROR" : None,
             "HMS_Elec_COIN_TRACK_EFF" : None,
@@ -107,18 +117,12 @@ def dictionary(UTILPATH,ROOTPrefix,runNum,MaxEvent):
 
         }
 
-        # Prescale input value (psValue) to its actual DAQ understanding (psActual)
-        # !!!!!!!!!!! Convert to dictionary
-        psActual = [-1,1,2,3,5,9,17,33,65,129,257,513,1025,2049,4097,8193,16385,32769]
-        psValue = [-1,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16]
-
         # Search for keywords, then save as value in dictionary
         for line in f:
             data = line.split(':')
             for key,val in effDict.items():
                 if "ERROR" in key:
-                    if key.replace("_ERROR","") in data[0]:
-                        #effDict[key] = float(data[1].split("+-")[1].strip("\t").strip("\n"))
+                    if key.replace("_ERROR","") in data[0]:                    
                         effDict[key] = float(re.sub("\D","","%s" % data[1].split("+-")[1]))
                 if key in data[0]:
                     effDict[key] = float(re.sub("\D","","%s" % data[1].split("+-")[0]))
