@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2022-06-05 15:54:13 trottar"
+# Time-stamp: "2022-06-09 04:02:06 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -126,6 +126,6 @@ def dictionary(UTILPATH,ROOTPrefix,runNum,MaxEvent):
                         effDict[key] = float(re.sub("\D","","%s" % data[1].split("+-")[1]))
                 if key in data[0]:
                     effDict[key] = float(re.sub("\D","","%s" % data[1].split("+-")[0]))
-        print(effDict)
+        #print(effDict)
 
     return effDict

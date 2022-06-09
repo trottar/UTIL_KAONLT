@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2022-06-03 18:02:52 trottar"
+# Time-stamp: "2022-06-09 04:02:22 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -53,6 +53,6 @@ def dictionary(REPLAYPATH,runNum):
                             if key in data[0]:
                                 effDict[key] = float(data[1])
                     
-        print(effDict)
+        #print(effDict)
 
     return effDict

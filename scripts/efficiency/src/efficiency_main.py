@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2022-06-05 15:54:25 trottar"
+# Time-stamp: "2022-06-09 04:01:47 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -87,7 +87,7 @@ if file_exists:
     run_index = out_data.index[out_data["Run_Number"] == int(runNum)].tolist()
     out_data.drop(run_index, inplace=True)
     out_data = out_data.append(table,ignore_index=True)
-    print("Output efficiency values\n",out_data)
+    #print("Output efficiency values\n",out_data)
     out_data.to_csv(out_f, index = False, header=True, mode='w+',)
 else:
     table.to_csv(out_f, index = False, header=True, mode='a',)            

@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2022-06-03 18:51:21 trottar"
+# Time-stamp: "2022-06-09 04:19:28 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -35,8 +35,30 @@ ANATYPE=`echo ${PATHFILE_INFO} | cut -d ','  -f13`
 USER=`echo ${PATHFILE_INFO} | cut -d ','  -f14`
 HOST=`echo ${PATHFILE_INFO} | cut -d ','  -f15`
 
+RunList=$1
 
 cd "${SCRIPTPATH}/efficiency/src/"
-#python3 efficiency_main.py replay_coin_heep 7974 -1
-python3 efficiency_main.py replay_coin_production 7877 -1
+
+inputFile="${REPLAYPATH}/UTIL_BATCH/InputRunLists/KaonLT_2018_2019/${RunList}"
+
+while true; do
+    read -p "Do you wish to append efficiency table with run list ${RunList}? (Please answer yes or no) " yn
+    case $yn in
+        [Yy]* )
+            i=-1
+            (
+            ##Reads in input file##
+            while IFS='' read -r line || [[ -n "$line" ]]; do
+                echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+                echo "Run number read from file: $line"
+                echo ""
+		python3 efficiency_main.py replay_coin_production $line -1
+	    done < "$inputFile"
+	    )
+	    break;;
+        [Nn]* ) 
+	    exit;;
+        * ) echo "Please answer yes or no.";;
+    esac
+done
 
