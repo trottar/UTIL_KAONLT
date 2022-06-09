@@ -3,13 +3,31 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2022-06-09 04:19:28 trottar"
+# Time-stamp: "2022-06-09 06:21:48 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
 #
 # Copyright (c) trottar
 #
+
+while getopts 'hp' flag; do
+    case "${flag}" in
+        h) 
+        echo "---------------------------------------------------"
+        echo "./add_efficiencies_table.sh -{flags} {run list}"
+        echo "---------------------------------------------------"
+        echo
+        echo "The following flags can be called for the heep analysis..."
+        echo "    -h, help"
+        echo "    -p, plot efficiencies"
+        exit 0
+        ;;
+        p) p_flag='true' ;;
+        *) print_usage
+        exit 1 ;;
+    esac
+done
 
 # Runs script in the ltsep python package that grabs current path enviroment
 if [[ ${HOSTNAME} = *"cdaq"* ]]; then
@@ -35,9 +53,15 @@ ANATYPE=`echo ${PATHFILE_INFO} | cut -d ','  -f13`
 USER=`echo ${PATHFILE_INFO} | cut -d ','  -f14`
 HOST=`echo ${PATHFILE_INFO} | cut -d ','  -f15`
 
-RunList=$1
-
 cd "${SCRIPTPATH}/efficiency/src/"
+
+if [[ $p_flag = "true" ]]; then
+    DATE=$2
+    python3 plot_efficiency.py replay_coin_production ${DATE}
+    exit 1
+else
+    RunList=$1
+fi
 
 inputFile="${REPLAYPATH}/UTIL_BATCH/InputRunLists/KaonLT_2018_2019/${RunList}"
 

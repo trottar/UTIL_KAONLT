@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2022-06-09 04:02:06 trottar"
+# Time-stamp: "2022-06-09 05:32:52 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -54,7 +54,7 @@ def dictionary(UTILPATH,ROOTPrefix,runNum,MaxEvent):
             'Pre-Scaled_COIN_Triggers': None ,
             'Accepted_COIN_Triggers': None ,
             'EDTM_Accepted_Triggers': None ,    
-            'SHMS_Hodoscope_S1X_Rate': None,
+            'HMS_Hodoscope_S1X_Rate': None,
             'HMS_EL-REAL_Trigger_Rate': None,
             'SHMS_Hodoscope_S1X_Rate': None,
             'SHMS_3/4_Trigger_Rate': None,
@@ -123,9 +123,11 @@ def dictionary(UTILPATH,ROOTPrefix,runNum,MaxEvent):
             for key,val in effDict.items():
                 if "ERROR" in key:
                     if key.replace("_ERROR","") in data[0]:                    
-                        effDict[key] = float(re.sub("\D","","%s" % data[1].split("+-")[1]))
+                        #effDict[key] = float(re.sub("\D","","%s" % data[1].split("+-")[1]))/10000
+                        effDict[key] = float(re.compile(r'[^\d.]+').sub("","%s" % data[1].split("+-")[1]))
                 if key in data[0]:
-                    effDict[key] = float(re.sub("\D","","%s" % data[1].split("+-")[0]))
+                    #effDict[key] = float(re.sub("\D","","%s" % data[1].split("+-")[0]))/10000
+                    effDict[key] = float(re.compile(r'[^\d.]+').sub("","%s" % data[1].split("+-")[0]))
         #print(effDict)
 
     return effDict
