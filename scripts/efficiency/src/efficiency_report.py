@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2022-06-09 05:32:52 trottar"
+# Time-stamp: "2022-06-09 07:42:32 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -60,11 +60,11 @@ def dictionary(UTILPATH,ROOTPrefix,runNum,MaxEvent):
             'SHMS_3/4_Trigger_Rate': None,
             'COIN_Trigger_Rate': None,
             'HMS_CPULT': None,
-            'HMS_CPULT Error': None,
+            'HMS_CPULT_ERROR': None,
             'SHMS_CPULT': None,
-            'SHMS_CPULT Error': None,
+            'SHMS_CPULT_ERROR': None,
             'COIN_CPULT': None,
-            'COIN_CPULT Error': None,
+            'COIN_CPULT_ERROR': None,
             'Non_Scaler_EDTM_Live_Time': None,
             'Non_Scaler_EDTM_Live_Time_ERROR': None,
             'SHMS_Hodo_3_of_4_EFF': None,
