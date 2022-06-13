@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2022-06-09 04:01:47 trottar"
+# Time-stamp: "2022-06-13 08:06:42 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -18,8 +18,9 @@ import sys, os, time
 User Inputs
 '''
 ROOTPrefix = sys.argv[1]
-runNum = sys.argv[2]
-MaxEvent=sys.argv[3]
+runType = sys.argv[2]
+runNum = sys.argv[3]
+MaxEvent=sys.argv[4]
 
 ################################################################################################################################################
 '''
@@ -29,12 +30,15 @@ ltsep package import and pathing definitions
 # Import package for cuts
 import ltsep as lt 
 
+proc_root = lt.Root(os.path.realpath(__file__)).setup_ana()
+p = proc_root[2] # Dictionary of pathing variables
+
 # Add this to all files for more dynamic pathing
-USER =  lt.SetPath(os.path.realpath(__file__)).getPath("USER") # Grab user info for file finding
-HOST = lt.SetPath(os.path.realpath(__file__)).getPath("HOST")
-REPLAYPATH = lt.SetPath(os.path.realpath(__file__)).getPath("REPLAYPATH")
-UTILPATH = lt.SetPath(os.path.realpath(__file__)).getPath("UTILPATH")
-ANATYPE=lt.SetPath(os.path.realpath(__file__)).getPath("ANATYPE")
+USER =  p["USER"] # Grab user info for file finding
+HOST = p["HOST"]
+REPLAYPATH = p["REPLAYPATH"]
+UTILPATH = p["UTILPATH"]
+ANATYPE=p["ANATYPE"]
 
 ################################################################################################################################################
 
@@ -43,7 +47,7 @@ print("Running as %s on %s, hallc_replay_lt path assumed as %s" % (USER, HOST, R
 timestmp = time.strftime("%Y_%m_%d")
 
 # Output for luminosity table
-out_f = UTILPATH+"/scripts/efficiency/OUTPUTS/%s_efficiency_data_%s.csv"  % (ROOTPrefix.replace("replay_",""),timestmp)
+out_f = UTILPATH+"/scripts/efficiency/OUTPUTS/%s_%s_efficiency_data_%s.csv"  % (ROOTPrefix.replace("replay_",""),runType,timestmp)
 
 ################################################################################################################################################
 '''

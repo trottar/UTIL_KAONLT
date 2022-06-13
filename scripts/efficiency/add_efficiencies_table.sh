@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2022-06-09 06:21:48 trottar"
+# Time-stamp: "2022-06-13 08:09:01 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -56,33 +56,58 @@ HOST=`echo ${PATHFILE_INFO} | cut -d ','  -f15`
 cd "${SCRIPTPATH}/efficiency/src/"
 
 if [[ $p_flag = "true" ]]; then
-    DATE=$2
-    python3 plot_efficiency.py replay_coin_production ${DATE}
+    RunType=$2
+    DATE=$3
+    python3 plot_efficiency.py replay_coin_production ${RunType} ${DATE}
     exit 1
 else
-    RunList=$1
+    RunType=$1
 fi
 
-inputFile="${REPLAYPATH}/UTIL_BATCH/InputRunLists/KaonLT_2018_2019/${RunList}"
+if [[ $RunType = "HeePCoin" ]]; then
+    inputFile="${REPLAYPATH}/UTIL_BATCH/InputRunLists/KaonLT_2018_2019/HeepCoin_ALL"
 
-while true; do
-    read -p "Do you wish to append efficiency table with run list ${RunList}? (Please answer yes or no) " yn
-    case $yn in
-        [Yy]* )
-            i=-1
-            (
-            ##Reads in input file##
-            while IFS='' read -r line || [[ -n "$line" ]]; do
-                echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-                echo "Run number read from file: $line"
-                echo ""
-		python3 efficiency_main.py replay_coin_production $line -1
-	    done < "$inputFile"
-	    )
-	    break;;
-        [Nn]* ) 
-	    exit;;
-        * ) echo "Please answer yes or no.";;
-    esac
-done
+    while true; do
+	read -p "Do you wish to append efficiency table with run list ${RunList}? (Please answer yes or no) " yn
+	case $yn in
+	    [Yy]* )
+		i=-1
+		(
+		##Reads in input file##
+		while IFS='' read -r line || [[ -n "$line" ]]; do
+		    echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+		    echo "Run number read from file: $line"
+		    echo ""
+		    python3 efficiency_main.py replay_coin_production $RunType $line -1
+		done < "$inputFile"
+		)
+		break;;
+	    [Nn]* ) 
+		exit;;
+	    * ) echo "Please answer yes or no.";;
+	esac
+    done
+else
+    inputFile="${REPLAYPATH}/UTIL_BATCH/InputRunLists/KaonLT_2018_2019/ProductionLH2_ALL"
 
+    while true; do
+	read -p "Do you wish to append efficiency table with run list ${RunList}? (Please answer yes or no) " yn
+	case $yn in
+	    [Yy]* )
+		i=-1
+		(
+		##Reads in input file##
+		while IFS='' read -r line || [[ -n "$line" ]]; do
+		    echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+		    echo "Run number read from file: $line"
+		    echo ""
+		    python3 efficiency_main.py replay_coin_production $RunType $line -1
+		done < "$inputFile"
+		)
+		break;;
+	    [Nn]* ) 
+		exit;;
+	    * ) echo "Please answer yes or no.";;
+	esac
+    done
+fi

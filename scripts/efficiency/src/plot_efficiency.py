@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2022-06-09 07:57:20 trottar"
+# Time-stamp: "2022-06-13 08:08:19 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -21,7 +21,8 @@ import sys, os
 User Inputs
 '''
 ROOTPrefix = sys.argv[1]
-timestmp = sys.argv[2]
+runType = sys.argv[2]
+timestmp = sys.argv[3]
 
 ################################################################################################################################################
 '''
@@ -41,7 +42,7 @@ SCRIPTPATH = lt.SetPath(os.path.realpath(__file__)).getPath("SCRIPTPATH")
 
 ################################################################################################################################################
 
-inp_f = UTILPATH+"/scripts/efficiency/OUTPUTS/%s_efficiency_data_%s.csv"  % (ROOTPrefix.replace("replay_",""),timestmp)
+inp_f = UTILPATH+"/scripts/efficiency/OUTPUTS/%s_%s_efficiency_data_%s.csv"  % (ROOTPrefix.replace("replay_",""),runType,timestmp)
 
 # Converts csv data to dataframe
 try:
