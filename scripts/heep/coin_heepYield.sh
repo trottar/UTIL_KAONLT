@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2022-05-26 12:27:53 trottar"
+# Time-stamp: "2022-06-13 00:09:53 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -32,6 +32,10 @@ if [[ -z "$2" ]]; then
     echo "Only Run Number entered...I'll assume -1 (all) events!" 
     MAXEVENTS=-1 
 fi
+
+#################################################################################################################################################
+# Set up dynamic pathing 
+#################################################################################################################################################
 
 # Runs script in the ltsep python package that grabs current path enviroment
 if [[ ${HOSTNAME} = *"cdaq"* ]]; then

@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2022-05-26 15:52:57 trottar"
+# Time-stamp: "2022-06-13 07:49:47 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -49,27 +49,27 @@ MaxEvent = sys.argv[3]
 
 ################################################################################################################################################
 '''
-ltsep package import and pathing definitions
+ltsep package import
 '''
 
 # Import package for cuts
 import ltsep as lt 
-
 
 ##############################################################################################################################################
 '''
 Define and set up cuts
 '''
 
-fout = '/DB/CUTS/run_type/coin_heep.cuts'
+f_cut = '/DB/CUTS/run_type/coin_heep.cuts'
 
 # defining Cuts
 cuts = ["coin_ep_cut_all_RF", "coin_ep_cut_prompt_RF", "coin_ep_cut_rand_RF"]
 
-proc_root = lt.Root(ROOTPrefix,runNum,MaxEvent,fout,cuts,os.path.realpath(__file__)).setup_ana()
+proc_root = lt.Root(os.path.realpath(__file__),"HeePCoin",ROOTPrefix,runNum,MaxEvent,f_cut,cuts).setup_ana()
 c = proc_root[0] # Cut object
 b = proc_root[1] # Dictionary of branches
-OUTPATH = proc_root[2] # Get pathing for OUTPATH
+p = proc_root[2] # Dictionary of pathing variables
+OUTPATH = proc_root[3] # Get pathing for OUTPATH
 
 #################################################################################################################################################################
 

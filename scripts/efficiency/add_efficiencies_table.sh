@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2022-06-13 08:09:01 trottar"
+# Time-stamp: "2022-06-14 12:50:26 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -59,6 +59,9 @@ if [[ $p_flag = "true" ]]; then
     RunType=$2
     DATE=$3
     python3 plot_efficiency.py replay_coin_production ${RunType} ${DATE}
+    cd "${SCRIPTPATH}/efficiency/OUTPUTS/plots"
+    convert *.png "${RunType}_${DATE}.pdf"
+    evince "${RunType}_${DATE}.pdf"
     exit 1
 else
     RunType=$1

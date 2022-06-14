@@ -4,7 +4,7 @@
 # Description: This package will perform many tasks required for l-t separation physics analysis 
 # Analysis script required format for applying cuts.
 # ================================================================
-# Time-stamp: "2021-11-18 05:22:30 trottar"
+# Time-stamp: "2022-06-13 02:22:45 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -23,59 +23,8 @@ class SetCuts():
     SetCuts()
 
     ----------------------------------------------------------------------------------------------
-    import uproot as up
-    import ltsep as lt
 
-    # ----> Add pathing variables as well (see lt.Help.path_setup() for more info)
-    
-    # ---> Add r = klt.Root() for converting back to root files (see lt.Help.info(lt.Root) for more info)
-
-    # Convert root leaf to array with uproot
-    # Array name must match what is defined in DB/CUTS/general/
-    leaf_name  = tree.array("leaf.name") # The periods are replaced with underscores
-
-    ################################################################################################################################################
-    \'''
-    Define and set up cuts
-    \'''
-
-    fout = "<path_to_run_type_cut>"
-
-    cuts = ["runTypeCut1","runTypeCut2",<etc>,...]
-
-    def make_cutDict(cuts,fout,runNum,CURRENT_ENV,DEBUG=False):
-        \'''
-        This method calls several methods in kaonlt package. It is required to create properly formated
-        dictionaries. The evaluation must be in the analysis script because the analysis variables (i.e. the
-        leaves of interest) are not defined in the kaonlt package. This makes the system more flexible
-        overall, but a bit more cumbersome in the analysis script. Perhaps one day a better solution will be
-        implimented.
-        \'''
-
-        # read in cuts file and make dictionary
-        importDict = lt.SetCuts(CURRENT_ENV).importDict(cuts,fout,runNum,DEBUG=DEBUG)
-        for i,cut in enumerate(cuts):
-            x = lt.SetCuts(CURRENT_ENV,importDict).booleanDict(cut)
-            print("\\n%s" % cut)
-            print(x, "\\n")
-            if i == 0:
-                inputDict = {}
-            cutDict = lt.SetCuts(CURRENT_ENV,importDict).readDict(cut,inputDict)
-            for j,val in enumerate(x):
-                cutDict = lt.SetCuts(CURRENT_ENV,importDict).evalDict(cut,eval(x[j]),cutDict)
-        return lt.SetCuts(CURRENT_ENV,cutDict)
-
-    c = make_cutDict(cuts,fout,runNum,os.path.realpath(__file__))
-
-    # ---> If multple run type files are required then define a new run type file altogether. Do not try to 
-    # chain run type files. It can be done, but is computationally wasteful and pointless.
-
-    # To apply cuts to array...
-    c.add_cut(array,"runTypeCut")
-    ----------------------------------------------------------------------------------------------
-
-    This is the most extensive class of the kaonlt package. This class will perform many required tasks
-    for doing in depth analysis in python. This package will set up the cut dictionary as well as 
+    This class will set up the cut dictionary as well as 
     apply cuts to arrays.
     '''
 

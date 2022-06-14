@@ -2,7 +2,7 @@
 # Description: This package will perform many tasks required for l-t separation physics analysis 
 # Analysis script required dynamically defining pathing.
 # ================================================================
-# Time-stamp: "2022-06-04 13:05:12 trottar"
+# Time-stamp: "2022-06-13 03:54:39 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -11,6 +11,13 @@
 #
 from pathlib import Path
 import sys,os,glob
+
+class InvalidPath(Exception):
+    '''
+    Raise this exception when something goes wrong with the pathing
+    '''
+    pass
+
 
 class SetPath():
     '''
@@ -132,11 +139,9 @@ class SetPath():
 
         # Replace username with general ${USER} so it can be used broadly
         self.CURRENT_ENV = self.CURRENT_ENV.replace(USER,"${USER}").replace("/u","")
-        
-        # Remove extra path for simc location
-        if "simc_gfortran" in self.CURRENT_ENV:
-            #self.CURRENT_ENV = self.CURRENT_ENV.replace("/scripts/HeepCoin.py","").replace("/scripts/HeepSing.py","").replace("/scripts/Analysed_COIN.py","").replace("scripts/findcharge.py","")
-            self.CURRENT_ENV = self.CURRENT_ENV.split("/scripts")[0]
+
+        if "${USER}" in self.CURRENT_ENV:
+            self.CURRENT_ENV = self.CURRENT_ENV.split("/${USER}")[0]+"/${USER}"
 
         if DEBUG==True:
             print("USER ",USER)
@@ -158,8 +163,13 @@ class SetPath():
         try:
             PATHFILE
         except NameError:
-            print("ERROR: PATHFILE not defined. Invalid enviroment...\n\t{}".format(self.CURRENT_ENV))
-            sys.exit(1)
+            raise InvalidPath('''
+            ======================================================================
+              ERROR: PATHFILE not defined. 
+              Invalid enviroment...
+              {}
+            ======================================================================
+            '''.format(self.CURRENT_ENV))
 
         # Open pathing file then create a pathing dictionary based off the contents
         inp_path = open(PATHFILE)
@@ -197,7 +207,7 @@ class SetPath():
                 print ("{} exists but is not a directory or sym link, check your directory/link and try again".format(inp_dir))
                 sys.exit(2)
         else:
-            print("Output path not found, please make a sym link or directory called OUTPUT in {} to store output").format(UTILPATH.replace(REPLAYPATH+"/",""))
+            print("ERROR: Path {} not found, please make sure the the sym link or directory naming conventions are consistent with ltsep package setup".format(inp_dir))
             sys.exit(3)
 
     def checkFile(self,inp_file):

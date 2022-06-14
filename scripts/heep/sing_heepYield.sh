@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2022-05-04 17:41:52 trottar"
+# Time-stamp: "2022-06-13 07:40:56 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -38,6 +38,10 @@ if [[ -z "$3" ]]; then
 fi
 
 SPEC=$(echo "$spec" | tr '[:lower:]' '[:upper:]')
+
+#################################################################################################################################################
+# Set up dynamic pathing 
+#################################################################################################################################################
 
 # Runs script in the ltsep python package that grabs current path enviroment
 if [[ ${HOSTNAME} = *"cdaq"* ]]; then
@@ -129,12 +133,12 @@ sleep 3
 if [ ! -f "$UTILPATH/ROOTfiles/Analysis/HeeP/${ANATYPE}_${spec}_replay_production_${RUNNUMBER}_${MAXEVENTS}.root" ]; then
     if [[ "${HOSTNAME}" != *"ifarm"* ]]; then
 	if [[ "${HOSTNAME}" == *"cdaq"* ]]; then
-	    eval "$REPLAYPATH/hcana -l -q \"$UTILPATH/scripts/replay/${ANATYPE}LT/replay_${spec}_heep.C($RUNNUMBER,$MAXEVENTS)\""| tee $UTILPATH/REPORT_OUTPUT/Analysis/HeeP/${ANATYPE}_output_${spec}_production_Summary_${RUNNUMBER}_${MAXEVENTS}.report
+	    eval "$REPLAYPATH/hcana -l -q \"SCRIPTS/COIN/PRODUCTION/${ANATYPE}LT/FullReplay_HeepSingles_${spec}.C($RUNNUMBER,$MAXEVENTS)\""| tee $UTILPATH/REPORT_OUTPUT/Analysis/HeeP/${ANATYPE}_output_${spec}_production_Summary_${RUNNUMBER}_${MAXEVENTS}.report
 	else	
-	    eval "$REPLAYPATH/hcana -l -q \"$UTILPATH/scripts/replay/${ANATYPE}LT/replay_${spec}_heep.C($RUNNUMBER,$MAXEVENTS)\"" 
+	    eval "$REPLAYPATH/hcana -l -q \"SCRIPTS/COIN/PRODUCTION/${ANATYPE}LT/FullReplay_HeepSingles_${spec}.C($RUNNUMBER,$MAXEVENTS)\"" 
 	fi
     elif [[ "${HOSTNAME}" == *"ifarm"* ]]; then
-	eval "$REPLAYPATH/hcana -l -q \"$UTILPATH/scripts/replay/${ANATYPE}LT/replay_${spec}_heep.C($RUNNUMBER,$MAXEVENTS)\""| tee $UTILPATH/REPORT_OUTPUT/Analysis/HeeP/${ANATYPE}_output_${spec}_production_Summary_${RUNNUMBER}_${MAXEVENTS}.report
+	eval "$REPLAYPATH/hcana -l -q \"SCRIPTS/COIN/PRODUCTION/FullReplay_HeepSingles_${spec}.C($RUNNUMBER,$MAXEVENTS)\""| tee $UTILPATH/REPORT_OUTPUT/Analysis/HeeP/${ANATYPE}_output_${spec}_production_Summary_${RUNNUMBER}_${MAXEVENTS}.report
     fi
 else echo "Replayfile already found for this run in $UTILPATH/ROOTfiles/Analysis/HeeP/ - Skipping replay step"
 fi
@@ -143,16 +147,16 @@ sleep 3
 
 ################################################################################################################################                                                                                   
 # Section for pion analysis script
-if [ -f "${UTILPATH}/OUTPUT/Analysis/HeeP/${spec}_${RUNNUMBER}_${MAXEVENTS}_Analysed_Data.root" ]; then
+if [ -f "${UTILPATH}/OUTPUT/Analysis/HeeP/${RUNNUMBER}_${MAXEVENTS}_${spec}_Analysed_Data.root" ]; then
     read -p "${ANATYPE} production analyzed file already exits, you want to reprocess it? <Y/N> " option1
     if [[ $option1 == "y" || $option1 == "Y" || $option1 == "yes" || $option1 == "Yes" ]]; then
-	rm "${UTILPATH}/OUTPUT/Analysis/HeeP/${spec}_${RUNNUMBER}_${MAXEVENTS}_Analysed_Data.root"
+	rm "${UTILPATH}/OUTPUT/Analysis/HeeP/${RUNNUMBER}_${MAXEVENTS}_${spec}_Analysed_Data.root"
 	echo "Reprocessing"
 	python ${UTILPATH}/scripts/heep/src/singyield.py ${ANATYPE}_${spec}_replay_production ${RUNNUMBER} ${MAXEVENTS} ${SPEC}
     else
 	echo "Skipping python analysis script step"
     fi
-elif [ ! -f "${UTILPATH}/OUTPUT/Analysis/HeeP/${spec}_${RUNNUMBER}_${MAXEVENTS}_Analysed_Data.root" ]; then
+elif [ ! -f "${UTILPATH}/OUTPUT/Analysis/HeeP/${RUNNUMBER}_${MAXEVENTS}_${spec}_Analysed_Data.root" ]; then
 	python ${UTILPATH}/scripts/heep/src/singyield.py ${ANATYPE}_${spec}_replay_production ${RUNNUMBER} ${MAXEVENTS} ${SPEC}
 else echo "Analysed root file already found in ${UTILPATH}/OUTPUT/Analysis/HeeP/ - Skipped python analyzer script step"
 fi
@@ -163,17 +167,17 @@ sleep 3
 
 # Section for pion physics ploting script
 # 23/09/21 - SJDK - Changed the ordering of the arguments given to the python script to make them consistent
-if [ -f "${UTILPATH}/OUTPUT/Analysis/HeeP/${spec}_${RUNNUMBER}_${MAXEVENTS}_Output_Data.root" ]; then
+if [ -f "${UTILPATH}/OUTPUT/Analysis/HeeP/${RUNNUMBER}_${MAXEVENTS}_${spec}_Output_Data.root" ]; then
     read -p "${ANATYPE} physics output file already exits, you want to reprocess it? <Y/N> " option2
     if [[ $option2 == "y" || $option2 == "Y" || $option2 == "yes" || $option2 == "Yes" ]]; then
-	rm "${UTILPATH}/OUTPUT/Analysis/HeeP/${spec}_${RUNNUMBER}_${MAXEVENTS}_Output_Data.root"
+	rm "${UTILPATH}/OUTPUT/Analysis/HeeP/${RUNNUMBER}_${MAXEVENTS}_${spec}_Output_Data.root"
 	echo "Reprocessing"
-	python3 ${UTILPATH}/scripts/heep/src/plot_sing.py Analysed_Data ${RUNNUMBER} ${MAXEVENTS} ${SPEC}
+	python3 ${UTILPATH}/scripts/heep/src/plot_sing.py ${SPEC}_Analysed_Data ${RUNNUMBER} ${MAXEVENTS} ${SPEC}
     else
 	echo "Skipping python physics plotting script step"
     fi
-elif [ ! -f  "${UTILPATH}/OUTPUT/Analysis/HeeP/${spec}_${RUNNUMBER}_${MAXEVENTS}_Output_Data.root" ]; then
-	python3 ${UTILPATH}/scripts/heep/src/plot_sing.py Analysed_Data ${RUNNUMBER} ${MAXEVENTS} ${SPEC}
+elif [ ! -f  "${UTILPATH}/OUTPUT/Analysis/HeeP/${RUNNUMBER}_${MAXEVENTS}_${spec}_Output_Data.root" ]; then
+	python3 ${UTILPATH}/scripts/heep/src/plot_sing.py ${SPEC}_Analysed_Data ${RUNNUMBER} ${MAXEVENTS} ${SPEC}
 else echo "${ANATYPE} physics output root file already found in ${UTILPATH}/OUTPUT/Analysis/HeeP/ - Skipped python output script step"
 fi
 evince "${UTILPATH}/OUTPUT/Analysis/HeeP/${RUNNUMBER}_${MAXEVENTS}_heep_${SPEC}_Analysis_Distributions.pdf" &

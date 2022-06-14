@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2022-05-04 16:49:28 trottar"
+# Time-stamp: "2022-06-13 07:41:43 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -33,8 +33,6 @@ import scipy.integrate as integrate
 import matplotlib.pyplot as plt
 import sys, math, os, subprocess
 
-sys.path.insert(0, 'python/')
-
 ##################################################################################################################################################
 
 # Check the number of arguments provided to the script
@@ -54,92 +52,19 @@ spec = spec.upper()
 
 ################################################################################################################################################
 '''
-ltsep package import and pathing definitions
+ltsep package import
 '''
 
 # Import package for cuts
 import ltsep as lt 
 
-# Add this to all files for more dynamic pathing
-USER =  lt.SetPath(os.path.realpath(__file__)).getPath("USER") # Grab user info for file finding
-HOST = lt.SetPath(os.path.realpath(__file__)).getPath("HOST")
-REPLAYPATH = lt.SetPath(os.path.realpath(__file__)).getPath("REPLAYPATH")
-UTILPATH = lt.SetPath(os.path.realpath(__file__)).getPath("UTILPATH")
-ANATYPE=lt.SetPath(os.path.realpath(__file__)).getPath("ANATYPE")
-
-################################################################################################################################################
-
-# Add more path setting as needed in a similar manner
-OUTPATH = "%s/OUTPUT/Analysis/HeeP" % UTILPATH        # Output folder location
-CUTPATH = "%s/DB/CUTS" % UTILPATH
-
-################################################################################################################################################
-'''
-Check that root/output paths and files exist for use
-'''
-
-# Construct the name of the rootfile based upon the info we provided
-rootName = "%s/ROOTfiles/Analysis/HeeP/%s_%s_%s.root" % (UTILPATH, ROOTPrefix, runNum, MaxEvent)     # Input file location and variables taking
-print ("Attempting to process %s" %(rootName))
-lt.SetPath(os.path.realpath(__file__)).checkDir(OUTPATH)
-lt.SetPath(os.path.realpath(__file__)).checkFile(rootName)
-print("Output path checks out, outputting to %s" % (OUTPATH))
-
-
 ###############################################################################################################################################
-
-# Read stuff from the main event tree
-e_tree = up.open(rootName)["T"]
-
-if spec == "HMS":
-    # HMS info
-    H_hod_goodscinhit = e_tree.array("H.hod.goodscinhit")            #
-    H_hod_goodstarttime = e_tree.array("H.hod.goodstarttime")        #
-    H_gtr_beta = e_tree.array("H.gtr.beta")                          # Beta is velocity of particle between pairs of hodoscopes
-    H_gtr_xp = e_tree.array("H.gtr.th")                              # xpfp -> Theta
-    H_gtr_yp = e_tree.array("H.gtr.ph")                              # ypfp -> Phi
-    H_gtr_dp = e_tree.array("H.gtr.dp")                              # dp is Delta
-    H_gtr_p = e_tree.array("H.gtr.p")                                # 
-    H_cal_etotnorm = e_tree.array("H.cal.etotnorm")                  #
-    H_cal_etottracknorm = e_tree.array("H.cal.etottracknorm")        #
-    H_cer_npeSum = e_tree.array("H.cer.npeSum")                      #
-    H_RF_Dist = e_tree.array("RFTime.HMS_RFtimeDist")                #                   
-    H_W = e_tree.array("H.kin.primary.W")    
-
-if spec == "SHMS":    
-    # SHMS info
-    P_hod_goodscinhit = e_tree.array("P.hod.goodscinhit")            #
-    P_hod_goodstarttime = e_tree.array("P.hod.goodstarttime")        #
-    P_gtr_beta = e_tree.array("P.gtr.beta")                          # Beta is velocity of particle between pairs of hodoscopes
-    P_gtr_xp = e_tree.array("P.gtr.th")                              # xpfp -> Theta
-    P_gtr_yp = e_tree.array("P.gtr.ph")                              # ypfp -> Phi
-    P_gtr_dp = e_tree.array("P.gtr.dp")                              # dp is Delta
-    P_gtr_p = e_tree.array("P.gtr.p")                                # 
-    P_cal_etotnorm = e_tree.array("P.cal.etotnorm")                  #
-    P_cal_etottracknorm = e_tree.array("P.cal.etottracknorm")        #
-    P_aero_npeSum = e_tree.array("P.aero.npeSum")                    #
-    P_aero_xAtAero = e_tree.array("P.aero.xAtAero")                  #
-    P_aero_yAtAero = e_tree.array("P.aero.yAtAero")                  #
-    P_hgcer_npeSum = e_tree.array("P.hgcer.npeSum")                  #
-    P_hgcer_xAtCer = e_tree.array("P.hgcer.xAtCer")                  #
-    P_hgcer_yAtCer = e_tree.array("P.hgcer.yAtCer")                  #
-    P_RF_Dist = e_tree.array("RFTime.SHMS_RFtimeDist")               #
-    emiss = e_tree.array("P.kin.secondary.emiss")                   
-    pmiss = e_tree.array("P.kin.secondary.pmiss")                   
-    MMpi = e_tree.array("P.kin.secondary.MMpi")                      
-    W = e_tree.array("P.kin.primary.W")                              
-    pmiss_x = e_tree.array("P.kin.secondary.pmiss_x")                
-    pmiss_y = e_tree.array("P.kin.secondary.pmiss_y")                
-    pmiss_z = e_tree.array("P.kin.secondary.pmiss_z")                
-
-
-##############################################################################################################################################
 
 # Defining path for cut file  
 if spec == "HMS":
-    fout = '%s/DB/CUTS/run_type/hSing_prod.cuts' % UTILPATH
+    f_cut = '/DB/CUTS/run_type/hSing_prod.cuts'
 if spec == "SHMS":
-    fout = '%s/DB/CUTS/run_type/pSing_prod.cuts' % UTILPATH
+    f_cut = '/DB/CUTS/run_type/pSing_prod.cuts'
 
 # defining Cuts
 if spec == "HMS":
@@ -147,31 +72,11 @@ if spec == "HMS":
 if spec == "SHMS":
     cuts = ["sing_ee_cut_all_noRF"]
 
-#################################################################################################################################################################
-
-def make_cutDict(cuts,fout,runNum,CURRENT_ENV,DEBUG=False):
-    '''
-    This method calls several methods in kaonlt package. It is required to create properly formated
-    dictionaries. The evaluation must be in the analysis script because the analysis variables (i.e. the
-    leaves of interest) are not defined in the kaonlt package. This makes the system more flexible
-    overall, but a bit more cumbersome in the analysis script. Perhaps one day a better solution will be
-    implimented.
-    '''
-
-    # read in cuts file and make dictionary
-    importDict = lt.SetCuts(CURRENT_ENV).importDict(cuts,fout,runNum)
-    for i,cut in enumerate(cuts):
-        x = lt.SetCuts(CURRENT_ENV,importDict).booleanDict(cut)
-        print("\n%s" % cut)
-        print(x, "\n")
-        if i == 0:
-            inputDict = {}
-        cutDict = lt.SetCuts(CURRENT_ENV,importDict).readDict(cut,inputDict)
-        for j,val in enumerate(x):
-            cutDict = lt.SetCuts(CURRENT_ENV,importDict).evalDict(cut,eval(x[j]),cutDict)
-    return lt.SetCuts(CURRENT_ENV,cutDict)
-
-c = make_cutDict(cuts,fout,runNum,os.path.realpath(__file__))
+proc_root = lt.Root(os.path.realpath(__file__),"HeePSing_%s" % spec,ROOTPrefix,runNum,MaxEvent,f_cut,cuts).setup_ana()
+c = proc_root[0] # Cut object
+b = proc_root[1] # Dictionary of branches
+p = proc_root[2] # Dictionary of pathing variables
+OUTPATH = proc_root[3] # Get pathing for OUTPATH
 
 #################################################################################################################################################################
 
@@ -180,9 +85,9 @@ def sing():
     if spec == "HMS":
         # Define the array of arrays containing the relevant HMS and SHMS info                              
         
-        NoCut_SING = [H_gtr_beta, H_gtr_xp, H_gtr_yp, H_gtr_dp, H_gtr_p, H_hod_goodscinhit, H_hod_goodstarttime, H_cal_etotnorm, H_cal_etottracknorm, H_cer_npeSum, H_RF_Dist, H_W]
+        NoCut_SING = [b["H_gtr_beta"],b["H_gtr_xp"],b["H_gtr_yp"],b["H_gtr_dp"],b["H_gtr_p"],b["H_hod_goodscinhit"],b["H_hod_goodstarttime"],b["H_cal_etotnorm"],b["H_cal_etottracknorm"],b["H_cer_npeSum"],b["H_RF_Dist"], b['H_W']]
         
-        Uncut_SING = [(H_gtr_beta, H_gtr_xp, H_gtr_yp, H_gtr_dp, H_gtr_p, H_hod_goodscinhit, H_hod_goodstarttime, H_cal_etotnorm, H_cal_etottracknorm, H_cer_npeSum, H_RF_Dist, H_W) for (H_gtr_beta, H_gtr_xp, H_gtr_yp, H_gtr_dp, H_gtr_p, H_hod_goodscinhit, H_hod_goodstarttime, H_cal_etotnorm, H_cal_etottracknorm, H_cer_npeSum, H_RF_Dist, H_W) in zip(*NoCut_SING)]
+        Uncut_SING = [(b["H_gtr_beta"],b["H_gtr_xp"],b["H_gtr_yp"],b["H_gtr_dp"],b["H_gtr_p"],b["H_hod_goodscinhit"],b["H_hod_goodstarttime"],b["H_cal_etotnorm"],b["H_cal_etottracknorm"],b["H_cer_npeSum"],b["H_RF_Dist"], b['H_W']) for (b["H_gtr_beta"],b["H_gtr_xp"],b["H_gtr_yp"],b["H_gtr_dp"],b["H_gtr_p"],b["H_hod_goodscinhit"],b["H_hod_goodstarttime"],b["H_cal_etotnorm"],b["H_cal_etottracknorm"],b["H_cer_npeSum"],b["H_RF_Dist"], b['H_W']) in zip(*NoCut_SING)]
         
         # Create array of arrays of pions after cuts, all events
         
@@ -192,7 +97,7 @@ def sing():
         for arr in Cut_SING_tmp:
             Cut_SING_all_tmp.append(c.add_cut(arr, "sing_ee_cut_all_noRF"))
             
-        Cut_SING_all = [(H_gtr_beta, H_gtr_xp, H_gtr_yp, H_gtr_dp, H_gtr_p, H_hod_goodscinhit, H_hod_goodstarttime, H_cal_etotnorm, H_cal_etottracknorm, H_cer_npeSum, H_RF_Dist, H_W) for (H_gtr_beta, H_gtr_xp, H_gtr_yp, H_gtr_dp, H_gtr_p, H_hod_goodscinhit, H_hod_goodstarttime, H_cal_etotnorm, H_cal_etottracknorm, H_cer_npeSum, H_RF_Dist, H_W) in zip(*Cut_SING_all_tmp)]
+        Cut_SING_all = [(b["H_gtr_beta"],b["H_gtr_xp"],b["H_gtr_yp"],b["H_gtr_dp"],b["H_gtr_p"],b["H_hod_goodscinhit"],b["H_hod_goodstarttime"],b["H_cal_etotnorm"],b["H_cal_etottracknorm"],b["H_cer_npeSum"],b["H_RF_Dist"], b['H_W']) for (b["H_gtr_beta"],b["H_gtr_xp"],b["H_gtr_yp"],b["H_gtr_dp"],b["H_gtr_p"],b["H_hod_goodscinhit"],b["H_hod_goodstarttime"],b["H_cal_etotnorm"],b["H_cal_etottracknorm"],b["H_cer_npeSum"],b["H_RF_Dist"], b['H_W']) in zip(*Cut_SING_all_tmp)]
         
         SING = {
             "Uncut_Events" : Uncut_SING,
@@ -202,9 +107,9 @@ def sing():
     if spec == "SHMS":
         # Define the array of arrays containing the relevant HMS and SHMS info                              
         
-        NoCut_SING = [pmiss_z, pmiss_y, pmiss_x, W, MMpi, pmiss, emiss, P_gtr_beta, P_gtr_xp, P_gtr_yp, P_gtr_p, P_gtr_dp, P_hod_goodscinhit, P_hod_goodstarttime, P_cal_etotnorm, P_cal_etottracknorm, P_aero_npeSum, P_aero_xAtAero, P_aero_yAtAero, P_hgcer_npeSum, P_hgcer_xAtCer, P_hgcer_yAtCer, P_RF_Dist]
+        NoCut_SING = [b["pmiss_z"], b["pmiss_y"], b["pmiss_x"], b["W"], b["MMpi"], b["pmiss"], b["emiss"], b["P_gtr_beta"], b["P_gtr_xp"], b["P_gtr_yp"], b["P_gtr_p"], b["P_gtr_dp"], b["P_hod_goodscinhit"], b["P_hod_goodstarttime"], b["P_cal_etotnorm"], b["P_cal_etottracknorm"], b["P_aero_npeSum"], b["P_aero_xAtAero"], b["P_aero_yAtAero"], b["P_hgcer_npeSum"], b["P_hgcer_xAtCer"], b["P_hgcer_yAtCer"], b["P_RF_Dist"]]
         
-        Uncut_SING = [(pmiss_z, pmiss_y, pmiss_x, W, MMpi, pmiss, emiss, P_gtr_beta, P_gtr_xp, P_gtr_yp, P_gtr_p, P_gtr_dp, P_hod_goodscinhit, P_hod_goodstarttime, P_cal_etotnorm, P_cal_etottracknorm, P_aero_npeSum, P_aero_xAtAero, P_aero_yAtAero, P_hgcer_npeSum, P_hgcer_xAtCer, P_hgcer_yAtCer, P_RF_Dist) for (pmiss_z, pmiss_y, pmiss_x, W, MMpi, pmiss, emiss, P_gtr_beta, P_gtr_xp, P_gtr_yp, P_gtr_p, P_gtr_dp, P_hod_goodscinhit, P_hod_goodstarttime, P_cal_etotnorm, P_cal_etottracknorm, P_aero_npeSum, P_aero_xAtAero, P_aero_yAtAero, P_hgcer_npeSum, P_hgcer_xAtCer, P_hgcer_yAtCer, P_RF_Dist) in zip(*NoCut_SING)]
+        Uncut_SING = [(b["pmiss_z"], b["pmiss_y"], b["pmiss_x"], b["W"], b["MMpi"], b["pmiss"], b["emiss"], b["P_gtr_beta"], b["P_gtr_xp"], b["P_gtr_yp"], b["P_gtr_p"], b["P_gtr_dp"], b["P_hod_goodscinhit"], b["P_hod_goodstarttime"], b["P_cal_etotnorm"], b["P_cal_etottracknorm"], b["P_aero_npeSum"], b["P_aero_xAtAero"], b["P_aero_yAtAero"], b["P_hgcer_npeSum"], b["P_hgcer_xAtCer"], b["P_hgcer_yAtCer"], b["P_RF_Dist"]) for (b["pmiss_z"], b["pmiss_y"], b["pmiss_x"], b["W"], b["MMpi"], b["pmiss"], b["emiss"], b["P_gtr_beta"], b["P_gtr_xp"], b["P_gtr_yp"], b["P_gtr_p"], b["P_gtr_dp"], b["P_hod_goodscinhit"], b["P_hod_goodstarttime"], b["P_cal_etotnorm"], b["P_cal_etottracknorm"], b["P_aero_npeSum"], b["P_aero_xAtAero"], b["P_aero_yAtAero"], b["P_hgcer_npeSum"], b["P_hgcer_xAtCer"], b["P_hgcer_yAtCer"], b["P_RF_Dist"]) in zip(*NoCut_SING)]
         
         # Create array of arrays of pions after cuts, all events
         
@@ -214,7 +119,7 @@ def sing():
         for arr in Cut_SING_tmp:
             Cut_SING_all_tmp.append(c.add_cut(arr, "sing_ee_cut_all_noRF"))
             
-        Cut_SING_all = [(pmiss_z, pmiss_y, pmiss_x, W, MMpi, pmiss, emiss, P_gtr_beta, P_gtr_xp, P_gtr_yp, P_gtr_p, P_gtr_dp, P_hod_goodscinhit, P_hod_goodstarttime, P_cal_etotnorm, P_cal_etottracknorm, P_aero_npeSum, P_aero_xAtAero, P_aero_yAtAero, P_hgcer_npeSum, P_hgcer_xAtCer, P_hgcer_yAtCer, P_RF_Dist) for (pmiss_z, pmiss_y, pmiss_x, W, MMpi, pmiss, emiss, P_gtr_beta, P_gtr_xp, P_gtr_yp, P_gtr_p, P_gtr_dp, P_hod_goodscinhit, P_hod_goodstarttime, P_cal_etotnorm, P_cal_etottracknorm, P_aero_npeSum, P_aero_xAtAero, P_aero_yAtAero, P_hgcer_npeSum, P_hgcer_xAtCer, P_hgcer_yAtCer, P_RF_Dist) in zip(*Cut_SING_all_tmp)]
+        Cut_SING_all = [(b["pmiss_z"], b["pmiss_y"], b["pmiss_x"], b["W"], b["MMpi"], b["pmiss"], b["emiss"], b["P_gtr_beta"], b["P_gtr_xp"], b["P_gtr_yp"], b["P_gtr_p"], b["P_gtr_dp"], b["P_hod_goodscinhit"], b["P_hod_goodstarttime"], b["P_cal_etotnorm"], b["P_cal_etottracknorm"], b["P_aero_npeSum"], b["P_aero_xAtAero"], b["P_aero_yAtAero"], b["P_hgcer_npeSum"], b["P_hgcer_xAtCer"], b["P_hgcer_yAtCer"], b["P_RF_Dist"]) for (b["pmiss_z"], b["pmiss_y"], b["pmiss_x"], b["W"], b["MMpi"], b["pmiss"], b["emiss"], b["P_gtr_beta"], b["P_gtr_xp"], b["P_gtr_yp"], b["P_gtr_p"], b["P_gtr_dp"], b["P_hod_goodscinhit"], b["P_hod_goodstarttime"], b["P_cal_etotnorm"], b["P_cal_etottracknorm"], b["P_aero_npeSum"], b["P_aero_xAtAero"], b["P_aero_yAtAero"], b["P_hgcer_npeSum"], b["P_hgcer_xAtCer"], b["P_hgcer_yAtCer"], b["P_RF_Dist"]) in zip(*Cut_SING_all_tmp)]
         
         SING = {
             "Uncut_Events" : Uncut_SING,
@@ -251,10 +156,10 @@ def main():
             #pd.DataFrame(data.get(data_keys[i])).to_csv("%s/%s_%s.csv" % (OUTPATH, data_keys[i], runNum), header=DFHeader, index=False) # Convert array to panda dataframe and write to csv with correct header                                                                                                      
         if (i == 0):
             pd.DataFrame(data.get(data_keys[i]), columns = DFHeader, index = None).to_root("%s/%s_%s_%s_An\
-alysed_Data.root" % (OUTPATH, spec, runNum, MaxEvent), key ="%s" % data_keys[i])
+alysed_Data.root" % (OUTPATH, runNum, MaxEvent, spec), key ="%s" % data_keys[i])
         elif (i != 0):
             pd.DataFrame(data.get(data_keys[i]), columns = DFHeader, index = None).to_root("%s/%s_%s_%s_An\
-alysed_Data.root" % (OUTPATH, spec, runNum, MaxEvent), key ="%s" % data_keys[i], mode ='a')
+alysed_Data.root" % (OUTPATH, runNum, MaxEvent, spec), key ="%s" % data_keys[i], mode ='a')
 
 if __name__ == '__main__':
     main()

@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2022-05-04 17:31:18 trottar"
+# Time-stamp: "2022-06-13 07:45:01 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -61,33 +61,22 @@ ltsep package import and pathing definitions
 # Import package for cuts
 import ltsep as lt 
 
+proc_root = lt.Root(os.path.realpath(__file__), "Plot_HeePSing", ROOTSuffix, runNum, MaxEvent).setup_ana()
+p = proc_root[2] # Dictionary of pathing variables
+OUTPATH = proc_root[3] # Get pathing for OUTPATH
+
 # Add this to all files for more dynamic pathing
-USER =  lt.SetPath(os.path.realpath(__file__)).getPath("USER") # Grab user info for file finding
-HOST = lt.SetPath(os.path.realpath(__file__)).getPath("HOST")
-REPLAYPATH = lt.SetPath(os.path.realpath(__file__)).getPath("REPLAYPATH")
-UTILPATH = lt.SetPath(os.path.realpath(__file__)).getPath("UTILPATH")
-ANATYPE=lt.SetPath(os.path.realpath(__file__)).getPath("ANATYPE")
+USER =  p["USER"] # Grab user info for file finding
+HOST = p["HOST"]
+REPLAYPATH = p["REPLAYPATH"]
+UTILPATH = p["UTILPATH"]
+ANATYPE=p["ANATYPE"]
 
 #################################################################################################################################################
-
-# Add more path setting as needed in a similar manner                                                                                                                                                          
-OUTPATH = "%s/OUTPUT/Analysis/HeeP" % UTILPATH        # Output folder location
 
 print("Running as %s on %s, hallc_replay_lt path assumed as %s" % (USER, HOST, REPLAYPATH))
 Analysis_Distributions = "%s/%s_%s_heep_%s_Analysis_Distributions.pdf" % (OUTPATH, runNum, MaxEvent, spec)
-
-#################################################################################################################################################
-'''
-Check that root/output paths and files exist for use
-'''
-
-# Construct the name of the rootfile based upon the info we provided
-rootName = "%s/OUTPUT/Analysis/HeeP/%s_%s_%s_%s.root" % (UTILPATH, spec, runNum, MaxEvent, ROOTSuffix)     # Input file location and variables taking
-print ("Attempting to process %s" %(rootName))
-lt.SetPath(os.path.realpath(__file__)).checkDir(OUTPATH)
-lt.SetPath(os.path.realpath(__file__)).checkFile(rootName)
-print("Output path checks out, outputting to %s" % (OUTPATH))
-
+rootName = "%s/%s_%s_%s.root" % (OUTPATH, runNum, MaxEvent, ROOTSuffix)     # Input file location and variables taking
 
 ###############################################################################################################################################
 ROOT.gROOT.SetBatch(ROOT.kTRUE) # Set ROOT to batch mode explicitly, does not splash anything to screen

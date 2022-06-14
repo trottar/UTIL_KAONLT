@@ -90,12 +90,12 @@ fi
 sleep 3
 
 # Sets trigger windows
-echo
-echo "Running trigWindows.sh ${RUNNUMBER}..."
-cd ${UTILPATH}/scripts/trig_windows/
-source trigWindows.sh ${RUNNUMBER}
-cd ${UTILPATH}/scripts/trig_windows/
-source trigWindows.sh -p ${RUNNUMBER}
+#echo
+#echo "Running trigWindows.sh ${RUNNUMBER}..."
+#cd ${UTILPATH}/scripts/trig_windows/
+#source trigWindows.sh ${RUNNUMBER}
+#cd ${UTILPATH}/scripts/trig_windows/
+#source trigWindows.sh -p ${RUNNUMBER}
 
 # Analyzes lumi runs
 echo
