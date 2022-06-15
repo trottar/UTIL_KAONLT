@@ -2,19 +2,25 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2022-06-13 07:20:53 trottar"
+# Time-stamp: "2022-06-15 13:20:40 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
 #
 # Copyright (c) trottar
 #
+from concurrent.futures import ThreadPoolExecutor
 from contextlib import contextmanager
 import uproot as up
 import sys
 
 from .cut import SetCuts 
 from .pathing import SetPath
+
+#########################
+# Cython implimentation #
+#from .setcut import *  
+#########################
 
 class InvalidEntry(Exception):
     '''
@@ -27,17 +33,12 @@ class Root():
     Root()
 
     ----------------------------------------------------------------------------------------------
-    import uproot as up
-    import ltsep as lt
-
-    # Convert root leaf to array with uproot
-    # Array name must match what is defined in DB/CUTS/general/
-    leaf_name  = tree.array("leaf.name") # The periods are replaced with underscores
-
     ################################################################################################################################################
     \'''
     Define and set up cuts
     \'''
+
+    import ltsep as lt
 
     # ---> If multple run type files are required then define a new run type file altogether. Do not try to 
     # chain run type files. It can be done, but is computationally wasteful and pointless.
@@ -46,6 +47,7 @@ class Root():
     cuts = ["runTypeCut1","runTypeCut2",<etc>,...]
 
     # To apply cuts to array and define pathing variables...
+    # Arrays are defined in ltsep, no need to redefine.
     proc_root = lt.Root(os.path.realpath(__file__),ROOTPrefix, "<Run Type (HeePCoin, HeePSing_<spec>, SimcCoin, SimcSing, KaonLT/PionLT, Plot_<Type>, None)>", runNum, MaxEvent, f_cut, cuts).setup_ana()
     c = proc_root[0] # Cut object
     b = proc_root[1] # Dictionary of branches
@@ -53,6 +55,24 @@ class Root():
     OUTPATH = proc_root[3] # Get pathing for OUTPATH
 
     # ----> See lt.Help.path_setup() for more info
+
+    ################################################################################################################################################
+    \'''
+    If you wish to explicitly define arrays then do the following...
+    \'''
+
+    # To define pathing variables as well as check for existing root files (do this if plotting, this will NOT apply cuts)...
+    proc_root = lt.Root(os.path.realpath(__file__),ROOTPrefix, "<Run Type (Plot_<Type>, None)>", runNum, MaxEvent).setup_ana()
+    p = proc_root[2] # Dictionary of pathing variables
+    OUTPATH = proc_root[3] # Get pathing for OUTPATH
+    # To define just pathing variables...
+    proc_root = lt.Root(os.path.realpath(__file__)).setup_ana()
+    p = proc_root[2] # Dictionary of pathing variables
+
+    import uproot as up
+    # Convert root leaf to array with uproot
+    # Array name must match what is defined in DB/CUTS/general/
+    leaf_name  = tree.array("leaf.name") # The periods are replaced with underscores
 
     ----------------------------------------------------------------------------------------------
 
@@ -229,6 +249,7 @@ class Root():
 
         e_tree = up.open(self.rootName)["T"]
 
+        # Define arrays from root file based off run type
         if "Coin" in self.runType:
 
             #################################################################################################################
@@ -284,7 +305,7 @@ class Root():
             W = e_tree.array("H.kin.primary.W")                              #
             epsilon = e_tree.array("H.kin.primary.epsilon")                  #
             ph_q = e_tree.array("P.kin.secondary.ph_xq")                     #
-            emiss = e_tree.array("P.kin.secondary.emiss")                   #
+            emiss = e_tree.array("P.kin.secondary.emiss")                    #
             #pmiss = e_tree.array("P.kin.secondary.pmiss")                   #
             MMpi = e_tree.array("P.kin.secondary.MMpi")                      #
             MMK = e_tree.array("P.kin.secondary.MMK")                        #
@@ -357,7 +378,7 @@ class Root():
                 "pmiss_z" : pmiss_z,
             }
 
-        if "Sing" in self.runType:
+        elif "Sing" in self.runType:
 
             if "SHMS" in self.runType:
                 
@@ -479,6 +500,7 @@ class Root():
             try:
                 for j,val in enumerate(x):
                     cutDict = SetCuts(self.CURRENT_ENV,importDict).evalDict(cut,eval(x[j]),cutDict)
+                    #cutDict = evalDict(cut,eval(x[j]),cutDict)
             except NameError:
                 raise InvalidEntry('''
                 ======================================================================
@@ -487,7 +509,6 @@ class Root():
                   %s/DB/PARAM
                 ======================================================================
                 ''' % (cut,self.runNum,self.UTILPATH))
-
         return [SetCuts(self.CURRENT_ENV,cutDict),treeDict]
         
     def csv2root(inputDict,rootName):
@@ -595,3 +616,6 @@ class Misc():
                 yield
             finally:
                 sys.stdout = old_stdout
+
+    def test_cpp():
+        print('')

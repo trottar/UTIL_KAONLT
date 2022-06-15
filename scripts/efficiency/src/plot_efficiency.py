@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2022-06-14 12:50:12 trottar"
+# Time-stamp: "2022-06-15 13:36:12 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -32,13 +32,16 @@ ltsep package import and pathing definitions
 # Import package for cuts
 import ltsep as lt 
 
+proc_root = lt.Root(os.path.realpath(__file__)).setup_ana()
+p = proc_root[2] # Dictionary of pathing variables
+
 # Add this to all files for more dynamic pathing
-USER =  lt.SetPath(os.path.realpath(__file__)).getPath("USER") # Grab user info for file finding
-HOST = lt.SetPath(os.path.realpath(__file__)).getPath("HOST")
-ANATYPE = lt.SetPath(os.path.realpath(__file__)).getPath("ANATYPE")
-REPLAYPATH = lt.SetPath(os.path.realpath(__file__)).getPath("REPLAYPATH")
-UTILPATH = lt.SetPath(os.path.realpath(__file__)).getPath("UTILPATH")
-SCRIPTPATH = lt.SetPath(os.path.realpath(__file__)).getPath("SCRIPTPATH")
+USER =  p["USER"] # Grab user info for file finding
+HOST = p["HOST"]
+ANATYPE = p["ANATYPE"]
+REPLAYPATH = p["REPLAYPATH"]
+UTILPATH = p["UTILPATH"]
+SCRIPTPATH = p["SCRIPTPATH"]
 
 ################################################################################################################################################
 

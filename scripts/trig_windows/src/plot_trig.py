@@ -3,7 +3,7 @@
 #
 # Description: Script for plotting trigger windows
 # ================================================================
-# Time-stamp: "2021-11-03 07:28:06 trottar"
+# Time-stamp: "2022-06-15 13:46:29 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -39,12 +39,16 @@ ltsep package import and pathing definitions
 # Import package for cuts
 import ltsep as lt 
 
+proc_root = lt.Root(os.path.realpath(__file__), "Plot_HeePCoin", ROOTSuffix, runNum, MaxEvent).setup_ana()
+p = proc_root[2] # Dictionary of pathing variables
+OUTPATH = proc_root[3] # Get pathing for OUTPATH
+
 # Add this to all files for more dynamic pathing
-USER =  lt.SetPath(os.path.realpath(__file__)).getPath("USER") # Grab user info for file finding
-HOST = lt.SetPath(os.path.realpath(__file__)).getPath("HOST")
-REPLAYPATH = lt.SetPath(os.path.realpath(__file__)).getPath("REPLAYPATH")
-UTILPATH = lt.SetPath(os.path.realpath(__file__)).getPath("UTILPATH")
-ANATYPE=lt.SetPath(os.path.realpath(__file__)).getPath("ANATYPE")
+USER =  p["USER"] # Grab user info for file finding
+HOST = p["HOST"]
+REPLAYPATH = p["REPLAYPATH"]
+UTILPATH = p["UTILPATH"]
+ANATYPE=p["ANATYPE"]
 
 ################################################################################################################################################
 

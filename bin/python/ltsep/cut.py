@@ -4,7 +4,7 @@
 # Description: This package will perform many tasks required for l-t separation physics analysis 
 # Analysis script required format for applying cuts.
 # ================================================================
-# Time-stamp: "2022-06-13 02:22:45 trottar"
+# Time-stamp: "2022-06-15 12:58:35 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -27,7 +27,7 @@ class SetCuts():
     This class will set up the cut dictionary as well as 
     apply cuts to arrays.
     '''
-
+    
     def __init__(self, CURRENT_ENV,cutDict=None):
         '''
         __init__(self,CURRENT_ENV,cutDict=None)
@@ -456,7 +456,29 @@ class SetCuts():
         cut_arr = list(filter(None,cut_arr)) # Filter out blank string values (ie where cuts were removed)
         return cut_arr
 
-    def add_cut(self,arr, cut):
+    def apply_cut(self,arr, cut):
+        '''
+        apply_cut(self,arr, cut)
+                     |    |
+                     |    --> cut: Run type cut name to impliment to array 
+                     --> arr: Input array to be cut
+
+        ----------------------------------------------------------------------------------------------
+
+        Creates the string of cuts to later be evaluated and then converted to boolean array.
+        '''
+
+        applycut = "arr["
+        inputDict = self.cutDict
+        subDict = inputDict[cut]
+        for i,(key,val) in enumerate(subDict.items()):
+            if i == len(subDict)-1:
+                applycut += 'self.cut("%s","%s")]' % (key,cut)
+            else:
+                applycut += 'self.cut("%s","%s") & ' % (key,cut)
+        return applycut
+
+    def add_cut(self, arr, cut):
         '''
         add_cut(self,arr, cut)
                      |    |
@@ -471,17 +493,7 @@ class SetCuts():
         description above for how the analysis script should be formatted. 
         '''
 
-        arr_cut = arr  
-        applycut = "arr_cut["
-        inputDict = self.cutDict
-        subDict = inputDict[cut]
-        for i,(key,val) in enumerate(subDict.items()):
-            if i == len(subDict)-1:
-                applycut += 'self.cut("%s","%s")]' % (key,cut)
-            else:
-                applycut += 'self.cut("%s","%s") & ' % (key,cut)
-        arr_cut = eval(applycut)        
-        return arr_cut
+        return eval(self.apply_cut(arr, cut))
 
     def cut(self,key,cut):
         '''
