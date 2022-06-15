@@ -3,7 +3,7 @@
 # Description: This is where the variables for the yield calculations are formulated.
 # Variables calculated: tot_events, h_int_goodscin_evts, p_int_goodscin_evts, SHMSTRIG_cut, HMSTRIG_cut, HMS_track, HMS_track_uncern, SHMS_track, SHMS_track_uncern, accp_edtm
 # ================================================================
-# Time-stamp: "2021-11-18 05:15:31 trottar"
+# Time-stamp: "2022-06-15 14:08:02 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -37,12 +37,15 @@ ltsep package import and pathing definitions
 # Import package for cuts
 import ltsep as lt 
 
+proc_root = lt.Root(os.path.realpath(__file__)).setup_ana()
+p = proc_root[2] # Dictionary of pathing variables
+
 # Add this to all files for more dynamic pathing
-USER =  lt.SetPath(os.path.realpath(__file__)).getPath("USER") # Grab user info for file finding
-HOST = lt.SetPath(os.path.realpath(__file__)).getPath("HOST")
-REPLAYPATH = lt.SetPath(os.path.realpath(__file__)).getPath("REPLAYPATH")
-UTILPATH = lt.SetPath(os.path.realpath(__file__)).getPath("UTILPATH")
-ANATYPE=lt.SetPath(os.path.realpath(__file__)).getPath("ANATYPE")
+USER =  p["USER"] # Grab user info for file finding
+HOST = p["HOST"]
+REPLAYPATH = p["REPLAYPATH"]
+UTILPATH = p["UTILPATH"]
+ANATYPE=p["ANATYPE"]
 
 ################################################################################################################################################
 '''

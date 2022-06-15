@@ -3,7 +3,7 @@
 # Description: Grabs lumi data from corresponding csv depending on run setting. Then plots the yields and creates a comprehensive table.
 # Variables calculated: current, rate_HMS, rate_SHMS, sent_edtm_PS, uncern_HMS_evts_scaler, uncern_SHMS_evts_scaler, uncern_HMS_evts_notrack, uncern_SHMS_evts_notrack, uncern_HMS_evts_track, uncern_SHMS_evts_track
 # ================================================================
-# Time-stamp: "2022-04-18 15:11:30 trottar"
+# Time-stamp: "2022-06-15 14:08:46 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -24,12 +24,16 @@ ltsep package import and pathing definitions
 # Import package for cuts
 import ltsep as lt 
 
+proc_root = lt.Root(os.path.realpath(__file__)).setup_ana()
+p = proc_root[2] # Dictionary of pathing variables
+
 # Add this to all files for more dynamic pathing
-USER =  lt.SetPath(os.path.realpath(__file__)).getPath("USER") # Grab user info for file finding
-HOST = lt.SetPath(os.path.realpath(__file__)).getPath("HOST")
-ANATYPE = lt.SetPath(os.path.realpath(__file__)).getPath("ANATYPE")
-REPLAYPATH = lt.SetPath(os.path.realpath(__file__)).getPath("REPLAYPATH")
-SCRIPTPATH = lt.SetPath(os.path.realpath(__file__)).getPath("SCRIPTPATH")
+USER =  p["USER"] # Grab user info for file finding
+HOST = p["HOST"]
+REPLAYPATH = p["REPLAYPATH"]
+SCRIPTPATH = p["SCRIPTPATH"]
+UTILPATH = p["UTILPATH"]
+ANATYPE=p["ANATYPE"]
 
 ################################################################################################################################################
 '''

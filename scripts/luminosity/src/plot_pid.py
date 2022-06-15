@@ -2,7 +2,7 @@
 #
 # Description: Plots the PID cuts
 # ================================================================
-# Time-stamp: "2021-11-08 15:11:25 trottar"
+# Time-stamp: "2022-06-15 14:08:27 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -40,12 +40,15 @@ lt.Help.path_setup()
 lt.Help.cut_setup()
 lt.Help.searchPathFile(os.path.realpath(__file__))
 
+proc_root = lt.Root(os.path.realpath(__file__)).setup_ana()
+p = proc_root[2] # Dictionary of pathing variables
+
 # Add this to all files for more dynamic pathing
-USER =  lt.SetPath(os.path.realpath(__file__)).getPath("USER") # Grab user info for file finding
-HOST = lt.SetPath(os.path.realpath(__file__)).getPath("HOST")
-REPLAYPATH = lt.SetPath(os.path.realpath(__file__)).getPath("REPLAYPATH")
-UTILPATH = lt.SetPath(os.path.realpath(__file__)).getPath("UTILPATH")
-ANATYPE=lt.SetPath(os.path.realpath(__file__)).getPath("ANATYPE")
+USER =  p["USER"] # Grab user info for file finding
+HOST = p["HOST"]
+REPLAYPATH = p["REPLAYPATH"]
+UTILPATH = p["UTILPATH"]
+ANATYPE=p["ANATYPE"]
 
 ################################################################################################################################################
 '''
