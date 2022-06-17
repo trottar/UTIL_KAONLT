@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2022-06-17 10:24:19 trottar"
+# Time-stamp: "2022-06-17 10:43:40 trottar"
 # ================================================================
 # 
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -166,8 +166,8 @@ cutg1.SetLineWidth(5);
 #################################################################################################################################################
 
 cutg2 = ROOT.TCutG("cutg2",21);
-cutg2.SetVarX("P_no_cal_hgc_aero_cuts_hgcer_yAtCer");
-cutg2.SetVarY("P_no_cal_hgc_aero_cuts_hgcer_xAtCer");
+cutg2.SetVarX("P_hgcer_yAtCer");
+cutg2.SetVarY("P_hgcer_xAtCer");
 cutg2.SetPoint(0,-25,2);
 cutg2.SetPoint(1,-2,2);
 cutg2.SetPoint(2,-1,2.5);
