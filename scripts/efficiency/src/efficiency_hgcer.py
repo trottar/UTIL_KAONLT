@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2022-06-17 11:51:17 trottar"
+# Time-stamp: "2022-06-17 12:03:25 trottar"
 # ================================================================
 # 
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -107,13 +107,10 @@ cutg.SetPoint(20,-25,2)
 cutg.SetLineColor(kRed)
 cutg.SetLineWidth(5)
 
-h_hgcer_npeSum  = ROOT.TH1D("P_hgcer_npeSum","hgcer", 300,0.3,30)
 h_hgcer_npeSum_v_aero_npeSum  = ROOT.TH2D("hgcer_npeSum_v_aero_npeSum","hgcer vs aero; hgcer; aero;" ,300,0,30, 300, 0, 30)
 
 for evt in Events_no_cal_hgc_aero_cuts:
-    if cutg:
-        h_hgcer_npeSum.Fill(evt.P_hgcer_npeSum)
-        h_hgcer_npeSum_v_aero_npeSum.Fill(evt.P_hgcer_npeSum,evt.P_aero_npeSum)
+    h_hgcer_npeSum_v_aero_npeSum.Fill(evt.P_hgcer_npeSum,evt.P_aero_npeSum)
 
 #################################################################################################################################################
 ROOT.gROOT.SetBatch(ROOT.kTRUE) # Set ROOT to batch mode explicitly, does not splash anything to screen
@@ -122,13 +119,13 @@ ROOT.gROOT.SetBatch(ROOT.kTRUE) # Set ROOT to batch mode explicitly, does not sp
 c_CT = TCanvas("c_CT", "HGC (with TCutG)")  
 c_CT.Divide(2,2)   
 c_CT.cd(1)
-Events_no_cal_hgc_aero_cuts.Draw("P_hgcer_npeSum:P_aero_npeSum>>h1(300,0.0,30,300,0,30)", "cutg",  "colz")
+h_hgcer_npeSum_v_aero_npeSum.Draw("colz [cutg]")
 c_CT.cd(2)
-h_hgcer_npeSum.Draw()
+Events_no_cal_hgc_aero_cuts.Draw("P_hgcer_npeSum>>h2(300,0.3,30)", "cutg",  "colz");
 print(cutg.IntegralHist(h_hgcer_npeSum_v_aero_npeSum))
 c_CT.cd(3)
-Events_no_cal_hgc_aero_cuts.Draw("P_hgcer_npeSum:P_aero_npeSum>>h3(300,0,30, 300, 0, 30)", "!cutg",  "colz") 
+h_hgcer_npeSum_v_aero_npeSum.Draw("colz")
 c_CT.cd(4)
-h_hgcer_npeSum.Draw()
+Events_no_cal_hgc_aero_cuts.Draw("P_hgcer_npeSum>>h2(300,0.3,30)", "cutg",  "colz");
 print(h_hgcer_npeSum_v_aero_npeSum.Integral())
 c_CT.Print(foutpdf)
