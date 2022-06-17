@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2022-06-17 12:13:26 trottar"
+# Time-stamp: "2022-06-17 12:14:18 trottar"
 # ================================================================
 # 
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -131,5 +131,5 @@ c_CT.Print(foutpdf)
 print(cutg.IntegralHist(h_hgcer_npeSum_v_aero_npeSum))
 print(h_hgcer_npeSum_v_aero_npeSum.Integral(0,30,0,30))
 
-hgcer_eff = cutg.IntegralHist(h_hgcer_npeSum_v_aero_npeSum)/h_hgcer_npeSum_v_aero_npeSum.Integral()
+hgcer_eff = cutg.IntegralHist(h_hgcer_npeSum_v_aero_npeSum)/h_hgcer_npeSum_v_aero_npeSum.Integral(0,30,0,30)
 print(hgcer_eff)
