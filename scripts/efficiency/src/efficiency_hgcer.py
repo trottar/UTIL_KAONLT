@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2022-06-17 11:20:35 trottar"
+# Time-stamp: "2022-06-17 11:24:00 trottar"
 # ================================================================
 # 
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -107,6 +107,8 @@ cutg.SetPoint(20,-25,2)
 cutg.SetLineColor(kRed)
 cutg.SetLineWidth(5)
 
+h_hgcer_npeSum  = ROOT.TH1D("P_hgcer_npeSum","hgcer", 300,0.3,30)
+
 #################################################################################################################################################
 ROOT.gROOT.SetBatch(ROOT.kTRUE) # Set ROOT to batch mode explicitly, does not splash anything to screen
 #################################################################################################################################################
@@ -116,9 +118,11 @@ c_CT.Divide(2,2)
 c_CT.cd(1)
 Events_no_cal_hgc_aero_cuts.Draw("P_hgcer_npeSum:P_aero_npeSum>>h1(300,0.0,30,300,0,30)", "cutg",  "colz")
 c_CT.cd(2)
-Events_no_cal_hgc_aero_cuts.Draw("P_hgcer_npeSum>>h_cut(300,0.3,30)", "cutg",  "colz").DrawIntegal()
+Events_no_cal_hgc_aero_cuts.Draw("h_hgcer_npeSum[cutg]",  "colz")
+print(h_hgcer_npeSum.Integral())
 c_CT.cd(3)
 Events_no_cal_hgc_aero_cuts.Draw("P_hgcer_npeSum:P_aero_npeSum>>h3(300,0,30, 300, 0, 30)", "!cutg",  "colz") 
 c_CT.cd(4)
-Events_no_cal_hgc_aero_cuts.Draw("P_hgcer_npeSum>>h_uncut(300,0.3,30)", "!cutg",  "colz").DrawIntegal()
+Events_no_cal_hgc_aero_cuts.Draw("h_hgcer_npeSum",  "colz")
+print(h_hgcer_npeSum.Integral())
 c_CT.Print(foutpdf)
