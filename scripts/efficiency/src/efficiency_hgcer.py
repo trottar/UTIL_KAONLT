@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2022-06-17 10:43:40 trottar"
+# Time-stamp: "2022-06-17 10:45:29 trottar"
 # ================================================================
 # 
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -192,6 +192,8 @@ cutg2.SetPoint(20,-25,2);
 
 cutg2.SetLineColor(kRed);
 cutg2.SetLineWidth(5);
+
+'''
 
 #################################################################################################################################################
 
@@ -506,6 +508,8 @@ for evt in Protons_No_HGC_Cuts:
     h2_Protons_No_HGC_Cuts_Cal_Showers.Fill(evt.P_cal_fly_earray/6.053, evt.P_cal_pr_eplane/6.053);
     h2_Protons_No_HGC_Cuts_XYgtr.Fill(evt.P_gtr_x, evt.P_gtr_y);
     h1_Protons_No_HGC_Cuts_hgcer_npeSum.Fill(evt.P_hgcer_npeSum);
+
+'''
 
 '''
 h = ROOT.TH2D("h","XY gtr; X gtr ; Y gtr;", 300, 0.0, 30.0, 300, 0, 30);
