@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2022-06-17 11:46:23 trottar"
+# Time-stamp: "2022-06-17 11:47:12 trottar"
 # ================================================================
 # 
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -108,7 +108,7 @@ cutg.SetLineColor(kRed)
 cutg.SetLineWidth(5)
 
 h_hgcer_npeSum  = ROOT.TH1D("P_hgcer_npeSum","hgcer", 300,0.3,30)
-h_hgcer_npeSum_v_aero_npeSum  = ROOT.TH2D("hgcer_npeSum_v_aero_npeSum","hgcer vs aero","hgcer; aero;" ,300,0,30, 300, 0, 30)
+h_hgcer_npeSum_v_aero_npeSum  = ROOT.TH2D("hgcer_npeSum_v_aero_npeSum","hgcer vs aero; hgcer; aero;" ,300,0,30, 300, 0, 30)
 
 for evt in Events_no_cal_hgc_aero_cuts:
     h_hgcer_npeSum.Fill(evt.P_hgcer_npeSum)
