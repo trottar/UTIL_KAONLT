@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2022-06-17 12:08:26 trottar"
+# Time-stamp: "2022-06-17 12:10:13 trottar"
 # ================================================================
 # 
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -107,13 +107,6 @@ cutg.SetPoint(20,-25,2)
 cutg.SetLineColor(kRed)
 cutg.SetLineWidth(5)
 
-cutg2 = ROOT.TCutG("cutg2",21)
-cutg2.SetVarX("P_hgcer_yAtCer")
-cutg2.SetVarY("P_hgcer_xAtCer")
-
-cutg2.SetLineColor(kRed)
-cutg2.SetLineWidth(5)
-
 h_hgcer_npeSum_v_aero_npeSum  = ROOT.TH2D("hgcer_npeSum_v_aero_npeSum","hgcer vs aero; hgcer; aero;" ,300,0,30, 300, 0, 30)
 
 for evt in Events_no_cal_hgc_aero_cuts:
@@ -129,11 +122,14 @@ c_CT.cd(1)
 h_hgcer_npeSum_v_aero_npeSum.Draw("colz [cutg]")
 c_CT.cd(2)
 Events_no_cal_hgc_aero_cuts.Draw("P_hgcer_npeSum>>h(300,0.3,30)", "cutg",  "colz");
-print(cutg.IntegralHist(h_hgcer_npeSum_v_aero_npeSum))
-print(cutg2.IntegralHist(h_hgcer_npeSum_v_aero_npeSum))
 c_CT.cd(3)
 h_hgcer_npeSum_v_aero_npeSum.Draw("colz")
 c_CT.cd(4)
 Events_no_cal_hgc_aero_cuts.Draw("P_hgcer_npeSum>>h2(300,0.3,30)", "!cutg",  "colz");
-#print(h_hgcer_npeSum_v_aero_npeSum.Integral())
 c_CT.Print(foutpdf)
+
+print(cutg.IntegralHist(h_hgcer_npeSum_v_aero_npeSum))
+print(h_hgcer_npeSum_v_aero_npeSum.Integral())
+
+hgcer_eff = cutg.IntegralHist(h_hgcer_npeSum_v_aero_npeSum)/h_hgcer_npeSum_v_aero_npeSum.Integral()
+print(hgcer_eff)
