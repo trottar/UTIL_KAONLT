@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2022-06-17 12:03:25 trottar"
+# Time-stamp: "2022-06-17 12:05:18 trottar"
 # ================================================================
 # 
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -121,11 +121,11 @@ c_CT.Divide(2,2)
 c_CT.cd(1)
 h_hgcer_npeSum_v_aero_npeSum.Draw("colz [cutg]")
 c_CT.cd(2)
-Events_no_cal_hgc_aero_cuts.Draw("P_hgcer_npeSum>>h2(300,0.3,30)", "cutg",  "colz");
+Events_no_cal_hgc_aero_cuts.Draw("P_hgcer_npeSum>>h(300,0.3,30)", "cutg",  "colz");
 print(cutg.IntegralHist(h_hgcer_npeSum_v_aero_npeSum))
 c_CT.cd(3)
 h_hgcer_npeSum_v_aero_npeSum.Draw("colz")
 c_CT.cd(4)
-Events_no_cal_hgc_aero_cuts.Draw("P_hgcer_npeSum>>h2(300,0.3,30)", "cutg",  "colz");
+Events_no_cal_hgc_aero_cuts.Draw("P_hgcer_npeSum>>h2(300,0.3,30)", "!cutg",  "colz");
 print(h_hgcer_npeSum_v_aero_npeSum.Integral())
 c_CT.Print(foutpdf)
