@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2022-06-17 11:47:12 trottar"
+# Time-stamp: "2022-06-17 11:49:30 trottar"
 # ================================================================
 # 
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -111,8 +111,9 @@ h_hgcer_npeSum  = ROOT.TH1D("P_hgcer_npeSum","hgcer", 300,0.3,30)
 h_hgcer_npeSum_v_aero_npeSum  = ROOT.TH2D("hgcer_npeSum_v_aero_npeSum","hgcer vs aero; hgcer; aero;" ,300,0,30, 300, 0, 30)
 
 for evt in Events_no_cal_hgc_aero_cuts:
-    h_hgcer_npeSum.Fill(evt.P_hgcer_npeSum)
-    h_hgcer_npeSum_v_aero_npeSum.Fill(evt.P_hgcer_npeSum,evt.P_aero_npeSum)
+    if cutg:
+        h_hgcer_npeSum.Fill(evt.P_hgcer_npeSum)
+        h_hgcer_npeSum_v_aero_npeSum.Fill(evt.P_hgcer_npeSum,evt.P_aero_npeSum)
 
 #################################################################################################################################################
 ROOT.gROOT.SetBatch(ROOT.kTRUE) # Set ROOT to batch mode explicitly, does not splash anything to screen
