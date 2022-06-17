@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2022-06-17 11:24:00 trottar"
+# Time-stamp: "2022-06-17 11:26:31 trottar"
 # ================================================================
 # 
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -108,6 +108,9 @@ cutg.SetLineColor(kRed)
 cutg.SetLineWidth(5)
 
 h_hgcer_npeSum  = ROOT.TH1D("P_hgcer_npeSum","hgcer", 300,0.3,30)
+
+for evt in Events_no_cal_hgc_aero_cuts:
+    h_hgcer_npeSum.Fill(evt.P_hgcer_npeSum)
 
 #################################################################################################################################################
 ROOT.gROOT.SetBatch(ROOT.kTRUE) # Set ROOT to batch mode explicitly, does not splash anything to screen
