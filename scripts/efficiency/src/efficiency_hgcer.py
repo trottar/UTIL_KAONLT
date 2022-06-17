@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2022-06-17 10:46:53 trottar"
+# Time-stamp: "2022-06-17 10:48:14 trottar"
 # ================================================================
 # 
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -542,6 +542,8 @@ OutHisto_file = ROOT.TFile.Open(foutname,"RECREATE");
 Pions_info = OutHisto_file.mkdir("Pions_info");
 Pions_info.cd();
 
+'''
+
 # Pions_XyAtCer_NPE;
 # Pions_XyAtCer_NPE = dynamic_cast<TH3D*> (GetOutputList().FindObject("h3_Pions_XyAtCer_NPE"));
 h3_Pions_XyAtCer_NPE_pxy = ROOT.TProfile2D("h3_Pions_XyAtCer_NPE_pxy","NPE vs X vs Y; X ; Y ",300,-40,40, 300,-40,40,0.0,40);
@@ -552,6 +554,8 @@ h3_Pi_XyAtCer_NPE.Project3DProfile("xy");
 
 h3_events_no_cal_aero_cuts_pxy = ROOT.TProfile2D("h3_events_no_cal_aero_cuts_pxy","NPE vs X vs Y; X ; Y ",300,-50,50, 300,-50,50,0.0,30);
 h3_events_no_cal_aero_cuts.Project3DProfile("xy");
+
+'''
 
 #2-D Histograms
 h3_Pions_XyAtCer_NPE_pxy.GetListOfFunctions().Add(cutg,"L"); 
