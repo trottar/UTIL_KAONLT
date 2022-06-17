@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2022-06-17 10:57:36 trottar"
+# Time-stamp: "2022-06-17 11:05:36 trottar"
 # ================================================================
 # 
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -63,63 +63,64 @@ rootName = "%s/%s_%s_%s.root" % (OUTPATH, runNum, MaxEvent, ROOTPrefix)
 
 #################################################################################################################################################
 
-InFile = ROOT.TFile.Open(rootName, "READ");
-TOutFilename = OutFilename;
+InFile = ROOT.TFile.Open(rootName, "READ")
+TOutFilename = OutFilename
 # Establish the names of our output files quickly
-foutname = OUTPATH+"/" + TOutFilename + ".root";
-foutpdf = OUTPATH+"/" + TOutFilename + ".pdf";
+foutname = OUTPATH+"/" + TOutFilename + ".root"
+foutpdf = OUTPATH+"/" + TOutFilename + ".pdf"
 
-Events_no_cal_hgc_aero_cuts  = InFile.Get("SHMS_cut_no_Cal_HGC_Aero")  ;  
-nEntries_Events_no_cal_hgc_aero_cuts  = Events_no_cal_hgc_aero_cuts.GetEntries();
+Events_no_cal_hgc_aero_cuts  = InFile.Get("SHMS_cut_no_Cal_HGC_Aero")  
+nEntries_Events_no_cal_hgc_aero_cuts  = Events_no_cal_hgc_aero_cuts.GetEntries()
 
 # Particles information no cuts
-SHMS_Events = InFile.Get("SHMS_Events")  ;  
-nEntries_SHMS_Events = SHMS_Events.GetEntries();
+SHMS_Events = InFile.Get("SHMS_Events")    
+nEntries_SHMS_Events = SHMS_Events.GetEntries()
 
 #################################################################################################################################################
 
 # Defined Geomatrical cuts
-cutg = ROOT.TCutG("cutg",21);
-cutg.SetVarX("P_hgcer_yAtCer");
-cutg.SetVarY("P_hgcer_xAtCer");
-cutg.SetPoint(0,-25,2);
-cutg.SetPoint(1,-2,2);
-cutg.SetPoint(2,-1,2.5);
-cutg.SetPoint(3,0,3);
-cutg.SetPoint(4,1,3);
-cutg.SetPoint(5,2,3.3);
-cutg.SetPoint(6,3,3.0);
-cutg.SetPoint(7,4,2.5);
-cutg.SetPoint(8,5,2);
-cutg.SetPoint(9,25,2);
-cutg.SetPoint(10,25,0.5);
-cutg.SetPoint(11,5,0.5);
-cutg.SetPoint(12,4,1);
-cutg.SetPoint(13,3,-1);
-cutg.SetPoint(14,2,-2);
-cutg.SetPoint(15,1,-2.3);
-cutg.SetPoint(16,0,-1.5);
-cutg.SetPoint(17,-1,-1);
-cutg.SetPoint(18,-2,0.5);
-cutg.SetPoint(19,-25,0.5);
-cutg.SetPoint(20,-25,2);
+cutg = ROOT.TCutG("cutg",21)
+cutg.SetVarX("P_hgcer_yAtCer")
+cutg.SetVarY("P_hgcer_xAtCer")
+cutg.SetPoint(0,-25,2)
+cutg.SetPoint(1,-2,2)
+cutg.SetPoint(2,-1,2.5)
+cutg.SetPoint(3,0,3)
+cutg.SetPoint(4,1,3)
+cutg.SetPoint(5,2,3.3)
+cutg.SetPoint(6,3,3.0)
+cutg.SetPoint(7,4,2.5)
+cutg.SetPoint(8,5,2)
+cutg.SetPoint(9,25,2)
+cutg.SetPoint(10,25,0.5)
+cutg.SetPoint(11,5,0.5)
+cutg.SetPoint(12,4,1)
+cutg.SetPoint(13,3,-1)
+cutg.SetPoint(14,2,-2)
+cutg.SetPoint(15,1,-2.3)
+cutg.SetPoint(16,0,-1.5)
+cutg.SetPoint(17,-1,-1)
+cutg.SetPoint(18,-2,0.5)
+cutg.SetPoint(19,-25,0.5)
+cutg.SetPoint(20,-25,2)
 
-cutg.SetLineColor(kRed);
-cutg.SetLineWidth(5);
+cutg.SetLineColor(kRed)
+cutg.SetLineWidth(5)
 
 #################################################################################################################################################
-ROOT.gROOT.SetBatch(ROOT.kTRUE); # Set ROOT to batch mode explicitly, does not splash anything to screen
+ROOT.gROOT.SetBatch(ROOT.kTRUE) # Set ROOT to batch mode explicitly, does not splash anything to screen
 #################################################################################################################################################
 
-c_CT = TCanvas("c_CT", "HGC (with TCutG)");  
-c_CT.Divide(2,2);   
-c_CT.cd(1);
-Events_no_cal_hgc_aero_cuts.Draw("P_hgcer_npeSum:P_aero_npeSum>>h1(300,0.0,30,300,0,30)", "cutg",  "colz");
-c_CT.cd(2);
-Events_no_cal_hgc_aero_cuts.Draw("P_hgcer_npeSum>>h2(300,0.3,30)", "cutg",  "colz");
-c_CT.cd(3);
-Events_no_cal_hgc_aero_cuts.Draw("P_hgcer_npeSum:P_aero_npeSum>>h3(300,0,30, 300, 0, 30)", "!cutg",  "colz"); 
-c_CT.cd(4);
-Events_no_cal_hgc_aero_cuts.Draw("P_hgcer_npeSum>>h4(300,0.3,30)", "!cutg",  "colz"); 
-c_CT.Print(foutpdf);
+c_CT = TCanvas("c_CT", "HGC (with TCutG)")  
+c_CT.Divide(2,2)   
+c_CT.cd(1)
+Events_no_cal_hgc_aero_cuts.Draw("P_hgcer_npeSum:P_aero_npeSum>>h1(300,0.0,30,300,0,30)", "cutg",  "colz")
+c_CT.cd(2)
+Events_no_cal_hgc_aero_cuts.Draw("P_hgcer_npeSum>>h2(300,0.3,30)", "cutg",  "colz")
+c_CT.cd(3)
+Events_no_cal_hgc_aero_cuts.Draw("P_hgcer_npeSum:P_aero_npeSum>>h3(300,0,30, 300, 0, 30)", "!cutg",  "colz") 
+c_CT.cd(4)
+Events_no_cal_hgc_aero_cuts.Draw("P_hgcer_npeSum>>h4(300,0.3,30)", "!cutg",  "colz") 
+c_CT.Print(foutpdf)
 
+print(Events_no_cal_hgc_aero_cuts.Draw("P_hgcer_npeSum:P_aero_npeSum>>h1(300,0.0,30,300,0,30)", "cutg",  "colz").Integral())
