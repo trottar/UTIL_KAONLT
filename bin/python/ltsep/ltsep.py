@@ -2,7 +2,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2022-06-15 13:20:40 trottar"
+# Time-stamp: "2022-06-15 16:07:28 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -135,6 +135,8 @@ class Root():
             self.OUTPATH = "%s/OUTPUT/Analysis/HeeP" % self.UTILPATH      # Output folder location
         elif "Simc" in self.runType:
             self.OUTPATH = "%s/OUTPUT/Analysis/HeeP" % self.SIMCPATH      # Output folder location
+        elif "%sLT" % self.ANATYPE in self.runType:
+            self.OUTPATH = "%s/OUTPUT/Analysis/%sLT" % (self.UTILPATH,self.ANATYPE)      # Output folder location
         else:
             self.OUTPATH = "%s/OUTPUT/Analysis/%s" % (self.UTILPATH, self.runType)      # Output folder location
         self.CUTPATH = "%s/DB/CUTS" % self.UTILPATH
@@ -147,7 +149,9 @@ class Root():
         if self.ROOTPrefix is not "":
             if "Plot" in self.runType:
                 # Construct the name of the rootfile based upon the info we provided
-                if "HeeP" or "Simc" in self.runType:
+                if "%sLT" % self.ANATYPE in self.runType:
+                    self.rootName = "%s/OUTPUT/Analysis/%sLT/%s_%s_%s.root" % (self.UTILPATH, self.ANATYPE, self.runNum, self.MaxEvent, self.ROOTPrefix,)     # Input file location and variables taking
+                elif "HeeP" or "Simc" in self.runType:
                     self.rootName = "%s/OUTPUT/Analysis/HeeP/%s_%s_%s.root" % (self.UTILPATH, self.runNum, self.MaxEvent, self.ROOTPrefix,)     # Input file location and variables taking
                 else:
                     self.rootName = "%s/OUTPUT/Analysis/%s/%s_%s_%s.root" % (self.UTILPATH, self.runType, self.runNum, self.MaxEvent, self.ROOTPrefix)     # Input file location and variables taking
@@ -157,7 +161,9 @@ class Root():
                 print("Output path checks out, outputting to %s" % (self.OUTPATH))
             else:
                 # Construct the name of the rootfile based upon the info we provided
-                if "HeeP" or "Simc" in self.runType:
+                if "%sLT" % self.ANATYPE in self.runType:
+                    self.rootName = "%s/ROOTfiles/Analysis/%sLT/%s_%s_%s.root" % (self.UTILPATH, self.ANATYPE, self.ROOTPrefix, self.runNum, self.MaxEvent)     # Input file location and variables taking
+                elif "HeeP" or "Simc" in self.runType:
                     self.rootName = "%s/ROOTfiles/Analysis/HeeP/%s_%s_%s.root" % (self.UTILPATH, self.ROOTPrefix, self.runNum, self.MaxEvent)     # Input file location and variables taking
                 else:
                     self.rootName = "%s/ROOTfiles/Analysis/%s/%s_%s_%s.root" % (self.UTILPATH, self.runType, self.ROOTPrefix, self.runNum, self.MaxEvent)     # Input file location and variables taking
@@ -165,7 +171,6 @@ class Root():
                 SetPath(self.CURRENT_ENV).checkDir(self.OUTPATH)
                 SetPath(self.CURRENT_ENV).checkFile(self.rootName)
                 print("Output path checks out, outputting to %s" % (self.OUTPATH))
-
 
         ################################################################################################################################################
 
@@ -376,6 +381,59 @@ class Root():
                 "pmiss_x" : pmiss_x,
                 "pmiss_y" : pmiss_y,
                 "pmiss_z" : pmiss_z,
+            }
+
+        elif "hgcer" in self.runType:
+
+            CTime_eKCoinTime_ROC1           = e_tree.array("CTime.eKCoinTime_ROC1")
+            CTime_ePiCoinTime_ROC1          = e_tree.array("CTime.ePiCoinTime_ROC1")
+            CTime_epCoinTime_ROC1           = e_tree.array("CTime.epCoinTime_ROC1")
+            H_cal_etotnorm                  = e_tree.array("H.cal.etotnorm")
+            P_hgcer_npe                     = e_tree.array("P.hgcer.npe")
+            P_cal_fly_earray                = e_tree.array("P.cal.fly.earray")
+            P_cal_pr_eplane                 = e_tree.array("P.cal.pr.eplane")
+            P_gtr_beta                      = e_tree.array("P.gtr.beta")
+            P_gtr_xp                        = e_tree.array("P.gtr.th") # xpfp -> Theta
+            P_gtr_yp                        = e_tree.array("P.gtr.ph") # ypfp -> Phi
+            P_gtr_p                         = e_tree.array("P.gtr.p")
+            P_gtr_dp                        = e_tree.array("P.gtr.dp")
+            P_cal_etotnorm                  = e_tree.array("P.cal.etotnorm")
+            P_aero_npeSum                   = e_tree.array("P.aero.npeSum")
+            P_hgcer_npeSum                  = e_tree.array("P.hgcer.npeSum")
+            P_hgcer_xAtCer                  = e_tree.array("P.hgcer.xAtCer")
+            P_hgcer_yAtCer                  = e_tree.array("P.hgcer.yAtCer")
+            P_aero_xAtCer                   = e_tree.array("P.aero.xAtAero")
+            P_aero_yAtCer                   = e_tree.array("P.aero.yAtAero")
+            P_gtr_x                         = e_tree.array("P.gtr.x")
+            P_gtr_y                         = e_tree.array("P.gtr.y")
+            emiss                           = e_tree.array("P.kin.secondary.emiss") 
+            pmiss                           = e_tree.array("P.kin.secondary.pmiss")
+
+            treeDict = {
+            "CTime_eKCoinTime_ROC1" : CTime_eKCoinTime_ROC1,
+            "CTime_ePiCoinTime_ROC1" : CTime_ePiCoinTime_ROC1,
+            "CTime_epCoinTime_ROC1" : CTime_epCoinTime_ROC1,
+            "H_cal_etotnorm" : H_cal_etotnorm,
+            "P_hgcer_npe" : P_hgcer_npe,
+            "P_cal_fly_earray" : P_cal_fly_earray,
+            "P_cal_pr_eplane" : P_cal_pr_eplane,
+            "P_gtr_beta" : P_gtr_beta,
+            "P_gtr_xp" : P_gtr_xp,
+            "P_gtr_yp" : P_gtr_yp,
+            "P_gtr_p" : P_gtr_p,
+            "P_gtr_dp" : P_gtr_dp,
+            "P_cal_etotnorm" : P_cal_etotnorm,
+            "P_aero_npeSum" : P_aero_npeSum,
+            "P_hgcer_npeSum" : P_hgcer_npeSum,
+            "P_hgcer_xAtCer" : P_hgcer_xAtCer,
+            "P_hgcer_yAtCer" : P_hgcer_yAtCer,
+            "P_aero_xAtCer" : P_aero_xAtCer,
+            "P_aero_yAtCer" : P_aero_yAtCer,
+            "P_gtr_x" : P_gtr_x,
+            "P_gtr_y" : P_gtr_y,
+            "emiss" : emiss,
+            "pmiss" : pmiss,
+
             }
 
         elif "Sing" in self.runType:
