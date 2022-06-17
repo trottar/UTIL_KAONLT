@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2022-06-17 12:06:52 trottar"
+# Time-stamp: "2022-06-17 12:08:26 trottar"
 # ================================================================
 # 
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -107,7 +107,7 @@ cutg.SetPoint(20,-25,2)
 cutg.SetLineColor(kRed)
 cutg.SetLineWidth(5)
 
-cutg2 = ROOT.TCutg("cutg2",21)
+cutg2 = ROOT.TCutG("cutg2",21)
 cutg2.SetVarX("P_hgcer_yAtCer")
 cutg2.SetVarY("P_hgcer_xAtCer")
 
