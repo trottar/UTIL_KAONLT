@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2022-06-17 10:48:14 trottar"
+# Time-stamp: "2022-06-17 10:49:45 trottar"
 # ================================================================
 # 
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -535,14 +535,14 @@ c_CT.cd(4);
 Events_no_cal_hgc_aero_cuts.Draw("P_hgcer_npeSum>>h4(300,0.3,30)", "!cutg",  "colz"); 
 c_CT.Print(foutpdf);
 
+
+'''
 #################################################################################################################################################
 
 #  TProfile2D h3_Pions_XyAtCer_NPE = Project3DProfile("xy") 
 OutHisto_file = ROOT.TFile.Open(foutname,"RECREATE");
 Pions_info = OutHisto_file.mkdir("Pions_info");
 Pions_info.cd();
-
-'''
 
 # Pions_XyAtCer_NPE;
 # Pions_XyAtCer_NPE = dynamic_cast<TH3D*> (GetOutputList().FindObject("h3_Pions_XyAtCer_NPE"));
@@ -555,7 +555,6 @@ h3_Pi_XyAtCer_NPE.Project3DProfile("xy");
 h3_events_no_cal_aero_cuts_pxy = ROOT.TProfile2D("h3_events_no_cal_aero_cuts_pxy","NPE vs X vs Y; X ; Y ",300,-50,50, 300,-50,50,0.0,30);
 h3_events_no_cal_aero_cuts.Project3DProfile("xy");
 
-'''
 
 #2-D Histograms
 h3_Pions_XyAtCer_NPE_pxy.GetListOfFunctions().Add(cutg,"L"); 
@@ -734,3 +733,5 @@ h2_events_no_cal_aero_cuts.Write();
 h3_events_no_cal_aero_cuts_pxy.Write();
 h.Write(); 
 OutHisto_file.Close();
+
+'''
