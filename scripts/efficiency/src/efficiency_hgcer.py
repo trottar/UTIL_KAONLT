@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2022-06-17 11:40:30 trottar"
+# Time-stamp: "2022-06-17 11:42:34 trottar"
 # ================================================================
 # 
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -122,7 +122,7 @@ c_CT.cd(1)
 Events_no_cal_hgc_aero_cuts.Draw("P_hgcer_npeSum:P_aero_npeSum>>h1(300,0.0,30,300,0,30)", "cutg",  "colz")
 c_CT.cd(2)
 h_hgcer_npeSum.Draw("cutg, colz")
-print(cutg.Area())
+print(cutg.IntegralHist("P_hgcer_npeSum:P_aero_npeSum>>h1(300,0.0,30,300,0,30)"))
 c_CT.cd(3)
 Events_no_cal_hgc_aero_cuts.Draw("P_hgcer_npeSum:P_aero_npeSum>>h3(300,0,30, 300, 0, 30)", "!cutg",  "colz") 
 c_CT.cd(4)
