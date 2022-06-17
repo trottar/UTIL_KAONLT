@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2022-06-17 11:06:29 trottar"
+# Time-stamp: "2022-06-17 11:07:23 trottar"
 # ================================================================
 # 
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -123,4 +123,5 @@ c_CT.cd(4)
 Events_no_cal_hgc_aero_cuts.Draw("P_hgcer_npeSum>>h4(300,0.3,30)", "!cutg",  "colz") 
 c_CT.Print(foutpdf)
 
-print(Events_no_cal_hgc_aero_cuts.Draw("P_hgcer_npeSum:P_aero_npeSum>>h1(300,0.0,30,300,0,30)", "cutg",  "colz"))
+print(Events_no_cal_hgc_aero_cuts.Draw("P_hgcer_npeSum>>h4(300,0.3,30)", "cutg",  "colz"))
+print(Events_no_cal_hgc_aero_cuts.Draw("P_hgcer_npeSum>>h4(300,0.3,30)", "!cutg",  "colz"))
