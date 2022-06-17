@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2022-06-17 10:46:17 trottar"
+# Time-stamp: "2022-06-17 10:46:53 trottar"
 # ================================================================
 # 
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -520,7 +520,7 @@ for evt in Events_no_cal_hgc_aero_cuts:
 '''
 
 #################################################################################################################################################
-ROOT.gROOT.SetBatch(kTRUE); # Set ROOT to batch mode explicitly, does not splash anything to screen
+ROOT.gROOT.SetBatch(ROOT.kTRUE); # Set ROOT to batch mode explicitly, does not splash anything to screen
 #################################################################################################################################################
 
 c_CT = TCanvas("c_CT", "HGC (with TCutG)");  
