@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2022-06-18 10:30:45 trottar"
+# Time-stamp: "2022-06-18 14:31:29 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -37,6 +37,8 @@ if len(sys.argv)-1!=3:
 ROOTPrefix = sys.argv[1]
 runNum = sys.argv[1]
 MaxEvent = sys.argv[2]
+
+print(ROOTPrefix)
 
 # Import package for cuts
 import ltsep as lt 
