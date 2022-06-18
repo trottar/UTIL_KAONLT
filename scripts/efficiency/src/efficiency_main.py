@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2022-06-13 08:06:42 trottar"
+# Time-stamp: "2022-06-18 10:13:36 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -64,6 +64,7 @@ print("Output path checks out, outputting to %s" % (OUTPATH))
 import efficiency_report
 import efficiency_standard_kin
 
+hgcerDict = efficiency_hgcer.dictionary(UTILPATH,runNum,MaxEvent)
 reportDict = efficiency_report.dictionary(UTILPATH,ROOTPrefix,runNum,MaxEvent)
 standardDict = efficiency_standard_kin.dictionary(REPLAYPATH,runNum)
 
