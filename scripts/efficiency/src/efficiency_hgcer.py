@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2022-06-18 09:56:06 trottar"
+# Time-stamp: "2022-06-18 09:58:58 trottar"
 # ================================================================
 # 
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -135,5 +135,5 @@ hgcer_did = cutg.IntegralHist(h_hgcer_npeSum_v_aero_npeSum)
 hgcer_should = h_hgcer_npeSum_v_aero_npeSum.Integral(0,30,0,30)
 
 hgcer_eff = hgcer_did/hgcer_should
-hgcer_error = np.sqrt(((hgcer_did*hgcer_should)+(hgcer_did*hgcer_did))/(hgcer_did*hgcer_did*hgcer_did))
+hgcer_error = np.sqrt(((hgcer_did*hgcer_should)+(hgcer_did*hgcer_did))/(hgcer_should*hgcer_should*hgcer_should))
 print(hgcer_eff,"+-",hgcer_error)
