@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2022-06-18 10:13:36 trottar"
+# Time-stamp: "2022-06-18 10:14:57 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -61,6 +61,7 @@ print("Output path checks out, outputting to %s" % (OUTPATH))
 
 ################################################################################################################################################
 
+import efficiency_hgcer
 import efficiency_report
 import efficiency_standard_kin
 
@@ -71,7 +72,7 @@ standardDict = efficiency_standard_kin.dictionary(REPLAYPATH,runNum)
 ################################################################################################################################################
 
 data = {}
-for d in (reportDict, standardDict): 
+for d in (hgcerDict, reportDict, standardDict): 
     data.update(d)
 
 eff_data = {i : data[i] for i in sorted(data.keys())}
