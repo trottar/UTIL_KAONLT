@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2022-06-18 10:26:54 trottar"
+# Time-stamp: "2022-06-18 10:28:06 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -25,7 +25,7 @@ while getopts 'hpr' flag; do
         exit 0
         ;;
         p) p_flag='true' ;;
-	r) r_flag='true' ;
+	r) r_flag='true' ;;
         *) print_usage
         exit 1 ;;
     esac
