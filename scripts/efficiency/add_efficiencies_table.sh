@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2022-06-17 10:09:37 trottar"
+# Time-stamp: "2022-06-18 10:26:54 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -11,7 +11,7 @@
 # Copyright (c) trottar
 #
 
-while getopts 'hp' flag; do
+while getopts 'hpr' flag; do
     case "${flag}" in
         h) 
         echo "---------------------------------------------------"
@@ -21,9 +21,11 @@ while getopts 'hp' flag; do
         echo "The following flags can be called for the heep analysis..."
         echo "    -h, help"
         echo "    -p, plot efficiencies"
+	echo "    -r, run hgcer root analysis"
         exit 0
         ;;
         p) p_flag='true' ;;
+	r) r_flag='true' ;
         *) print_usage
         exit 1 ;;
     esac
@@ -70,48 +72,94 @@ fi
 
 if [[ $RunType = "HeePCoin" ]]; then
     inputFile="${REPLAYPATH}/UTIL_BATCH/InputRunLists/KaonLT_2018_2019/HeepCoin_ALL"
-
-    while true; do
-	read -p "Do you wish to append efficiency table with run list ${RunList}? (Please answer yes or no) " yn
-	case $yn in
-	    [Yy]* )
-		i=-1
-		(
-		##Reads in input file##
-		while IFS='' read -r line || [[ -n "$line" ]]; do
-		    echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-		    echo "Run number read from file: $line"
-		    echo ""
-		    python3 efficiency_main.py replay_coin_production $RunType $line -1
-		done < "$inputFile"
-		)
-		break;;
-	    [Nn]* ) 
-		exit;;
-	    * ) echo "Please answer yes or no.";;
-	esac
-    done
+    if [[ $r_flag = "true" ]]; then
+	while true; do
+	    read -p "Do you wish to analyse hgcer efficiencies with run list ${RunList}? (Please answer yes or no) " yn
+	    case $yn in
+		[Yy]* )
+		    i=-1
+		    (
+		    ##Reads in input file##
+		    while IFS='' read -r line || [[ -n "$line" ]]; do
+			echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+			echo "Run number read from file: $line"
+			echo ""
+			cd "${SCRIPTPATH}/efficiency/src/hgcer"
+			python3 hgcer.py Kaon_coin_replay_production $line -1
+		    done < "$inputFile"
+		    )
+		    break;;
+		[Nn]* ) 
+		    exit;;
+		* ) echo "Please answer yes or no.";;
+	    esac
+	done
+    else
+	while true; do
+	    read -p "Do you wish to append efficiency table with run list ${RunList}? (Please answer yes or no) " yn
+	    case $yn in
+		[Yy]* )
+		    i=-1
+		    (
+		    ##Reads in input file##
+		    while IFS='' read -r line || [[ -n "$line" ]]; do
+			echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+			echo "Run number read from file: $line"
+			echo ""
+			python3 efficiency_main.py replay_coin_production $RunType $line -1
+		    done < "$inputFile"
+		    )
+		    break;;
+		[Nn]* ) 
+		    exit;;
+		* ) echo "Please answer yes or no.";;
+	    esac
+	done
+    fi
 else
     inputFile="${REPLAYPATH}/UTIL_BATCH/InputRunLists/KaonLT_2018_2019/ProductionLH2_ALL"
-
-    while true; do
-	read -p "Do you wish to append efficiency table with run list ${RunList}? (Please answer yes or no) " yn
-	case $yn in
-	    [Yy]* )
-		i=-1
-		(
-		##Reads in input file##
-		while IFS='' read -r line || [[ -n "$line" ]]; do
-		    echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-		    echo "Run number read from file: $line"
-		    echo ""
-		    python3 efficiency_main.py replay_coin_production $RunType $line -1
-		done < "$inputFile"
-		)
-		break;;
-	    [Nn]* ) 
-		exit;;
-	    * ) echo "Please answer yes or no.";;
-	esac
-    done
+    if [[ $r_flag = "true" ]]; then
+	while true; do
+	    read -p "Do you wish to analyse hgcer efficiencies with run list ${RunList}? (Please answer yes or no) " yn
+	    case $yn in
+		[Yy]* )
+		    i=-1
+		    (
+		    ##Reads in input file##
+		    while IFS='' read -r line || [[ -n "$line" ]]; do
+			echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+			echo "Run number read from file: $line"
+			echo ""
+			cd "${SCRIPTPATH}/efficiency/src/hgcer"
+			python3 hgcer.py Kaon_coin_replay_production $line -1
+		    done < "$inputFile"
+		    )
+		    break;;
+		[Nn]* ) 
+		    exit;;
+		* ) echo "Please answer yes or no.";;
+	    esac
+	done
+    else
+	while true; do
+	    read -p "Do you wish to append efficiency table with run list ${RunList}? (Please answer yes or no) " yn
+	    case $yn in
+		[Yy]* )
+		    i=-1
+		    (
+		    ##Reads in input file##
+		    while IFS='' read -r line || [[ -n "$line" ]]; do
+			echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+			echo "Run number read from file: $line"
+			echo ""
+			python3 efficiency_main.py replay_coin_production $RunType $line -1
+		    done < "$inputFile"
+		    )
+		    break;;
+		[Nn]* ) 
+		    exit;;
+		* ) echo "Please answer yes or no.";;
+	    esac
+	done
+    fi
 fi
