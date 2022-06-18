@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2022-06-17 12:20:09 trottar"
+# Time-stamp: "2022-06-18 09:56:06 trottar"
 # ================================================================
 # 
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -128,8 +128,12 @@ c_CT.cd(4)
 Events_no_cal_hgc_aero_cuts.Draw("P_hgcer_npeSum>>h2(300,0.3,30)", "!cutg",  "colz");
 c_CT.Print(foutpdf)
 
-print(cutg.IntegralHist(h_hgcer_npeSum_v_aero_npeSum,"width"))
-print(h_hgcer_npeSum_v_aero_npeSum.Integral(0,30,0,30,"width"))
+print(cutg.IntegralHist(h_hgcer_npeSum_v_aero_npeSum))
+print(h_hgcer_npeSum_v_aero_npeSum.Integral(0,30,0,30))
 
-hgcer_eff = cutg.IntegralHist(h_hgcer_npeSum_v_aero_npeSum,"width")/h_hgcer_npeSum_v_aero_npeSum.Integral(0,30,0,30,"width")
-print(hgcer_eff)
+hgcer_did = cutg.IntegralHist(h_hgcer_npeSum_v_aero_npeSum)
+hgcer_should = h_hgcer_npeSum_v_aero_npeSum.Integral(0,30,0,30)
+
+hgcer_eff = hgcer_did/hgcer_should
+hgcer_error = np.sqrt(((hgcer_did*hgcer_should)+(hgcer_did*hgcer_did))/(hgcer_did*hgcer_did*hgcer_did))
+print(hgcer_eff,"+-",hgcer_error)
