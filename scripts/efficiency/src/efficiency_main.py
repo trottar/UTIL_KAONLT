@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2022-06-18 10:14:57 trottar"
+# Time-stamp: "2022-06-28 06:29:35 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -30,15 +30,17 @@ ltsep package import and pathing definitions
 # Import package for cuts
 import ltsep as lt 
 
-proc_root = lt.Root(os.path.realpath(__file__)).setup_ana()
-p = proc_root[2] # Dictionary of pathing variables
+p=lt.SetPath(os.path.realpath(__file__))
 
 # Add this to all files for more dynamic pathing
-USER =  p["USER"] # Grab user info for file finding
-HOST = p["HOST"]
-REPLAYPATH = p["REPLAYPATH"]
-UTILPATH = p["UTILPATH"]
-ANATYPE=p["ANATYPE"]
+USER=p.getPath("USER") # Grab user info for file finding
+HOST=p.getPath("HOST")
+REPLAYPATH=p.getPath("REPLAYPATH")
+UTILPATH=p.getPath("UTILPATH")
+ANATYPE=p.getPath("ANATYPE")
+
+proc_root = lt.Root(os.path.realpath(__file__),"efficiency").setup_ana()
+OUTPATH = proc_root[2] # Get pathing for OUTPATH
 
 ################################################################################################################################################
 
@@ -48,16 +50,6 @@ timestmp = time.strftime("%Y_%m_%d")
 
 # Output for luminosity table
 out_f = UTILPATH+"/scripts/efficiency/OUTPUTS/%s_%s_efficiency_data_%s.csv"  % (ROOTPrefix.replace("replay_",""),runType,timestmp)
-
-################################################################################################################################################
-'''
-Check that root/output paths and files exist for use
-'''
-
-# Construct the name of the rootfile based upon the info we provided
-OUTPATH = UTILPATH+"/OUTPUT/Analysis/%sLT" % ANATYPE        # Output folder location
-lt.SetPath(os.path.realpath(__file__)).checkDir(OUTPATH)
-print("Output path checks out, outputting to %s" % (OUTPATH))
 
 ################################################################################################################################################
 

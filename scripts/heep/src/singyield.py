@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2022-06-13 07:41:43 trottar"
+# Time-stamp: "2022-06-28 07:26:19 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -62,9 +62,9 @@ import ltsep as lt
 
 # Defining path for cut file  
 if spec == "HMS":
-    f_cut = '/DB/CUTS/run_type/hSing_prod.cuts'
+    cut_f = '/DB/CUTS/run_type/hSing_prod.cuts'
 if spec == "SHMS":
-    f_cut = '/DB/CUTS/run_type/pSing_prod.cuts'
+    cut_f = '/DB/CUTS/run_type/pSing_prod.cuts'
 
 # defining Cuts
 if spec == "HMS":
@@ -72,11 +72,11 @@ if spec == "HMS":
 if spec == "SHMS":
     cuts = ["sing_ee_cut_all_noRF"]
 
-proc_root = lt.Root(os.path.realpath(__file__),"HeePSing_%s" % spec,ROOTPrefix,runNum,MaxEvent,f_cut,cuts).setup_ana()
+proc_root = lt.Root(os.path.realpath(__file__),"HeePSing_%s" % spec,ROOTPrefix,runNum,MaxEvent,cut_f,cuts).setup_ana()
 c = proc_root[0] # Cut object
-b = proc_root[1] # Dictionary of branches
-p = proc_root[2] # Dictionary of pathing variables
-OUTPATH = proc_root[3] # Get pathing for OUTPATH
+tree = proc_root[1] # Dictionary of branches
+OUTPATH = proc_root[2] # Get pathing for OUTPATH
+strDict = proc_root[3] # Dictionary of cuts as strings
 
 #################################################################################################################################################################
 
@@ -85,9 +85,9 @@ def sing():
     if spec == "HMS":
         # Define the array of arrays containing the relevant HMS and SHMS info                              
         
-        NoCut_SING = [b["H_gtr_beta"],b["H_gtr_xp"],b["H_gtr_yp"],b["H_gtr_dp"],b["H_gtr_p"],b["H_hod_goodscinhit"],b["H_hod_goodstarttime"],b["H_cal_etotnorm"],b["H_cal_etottracknorm"],b["H_cer_npeSum"],b["H_RF_Dist"], b['H_W']]
+        NoCut_SING = [tree["H_gtr_beta"],tree["H_gtr_xp"],tree["H_gtr_yp"],tree["H_gtr_dp"],tree["H_gtr_p"],tree["H_hod_goodscinhit"],tree["H_hod_goodstarttime"],tree["H_cal_etotnorm"],tree["H_cal_etottracknorm"],tree["H_cer_npeSum"],tree["H_RF_Dist"], tree['H_W']]
         
-        Uncut_SING = [(b["H_gtr_beta"],b["H_gtr_xp"],b["H_gtr_yp"],b["H_gtr_dp"],b["H_gtr_p"],b["H_hod_goodscinhit"],b["H_hod_goodstarttime"],b["H_cal_etotnorm"],b["H_cal_etottracknorm"],b["H_cer_npeSum"],b["H_RF_Dist"], b['H_W']) for (b["H_gtr_beta"],b["H_gtr_xp"],b["H_gtr_yp"],b["H_gtr_dp"],b["H_gtr_p"],b["H_hod_goodscinhit"],b["H_hod_goodstarttime"],b["H_cal_etotnorm"],b["H_cal_etottracknorm"],b["H_cer_npeSum"],b["H_RF_Dist"], b['H_W']) in zip(*NoCut_SING)]
+        Uncut_SING = [(tree["H_gtr_beta"],tree["H_gtr_xp"],tree["H_gtr_yp"],tree["H_gtr_dp"],tree["H_gtr_p"],tree["H_hod_goodscinhit"],tree["H_hod_goodstarttime"],tree["H_cal_etotnorm"],tree["H_cal_etottracknorm"],tree["H_cer_npeSum"],tree["H_RF_Dist"], tree['H_W']) for (tree["H_gtr_beta"],tree["H_gtr_xp"],tree["H_gtr_yp"],tree["H_gtr_dp"],tree["H_gtr_p"],tree["H_hod_goodscinhit"],tree["H_hod_goodstarttime"],tree["H_cal_etotnorm"],tree["H_cal_etottracknorm"],tree["H_cer_npeSum"],tree["H_RF_Dist"], tree['H_W']) in zip(*NoCut_SING)]
         
         # Create array of arrays of pions after cuts, all events
         
@@ -97,7 +97,7 @@ def sing():
         for arr in Cut_SING_tmp:
             Cut_SING_all_tmp.append(c.add_cut(arr, "sing_ee_cut_all_noRF"))
             
-        Cut_SING_all = [(b["H_gtr_beta"],b["H_gtr_xp"],b["H_gtr_yp"],b["H_gtr_dp"],b["H_gtr_p"],b["H_hod_goodscinhit"],b["H_hod_goodstarttime"],b["H_cal_etotnorm"],b["H_cal_etottracknorm"],b["H_cer_npeSum"],b["H_RF_Dist"], b['H_W']) for (b["H_gtr_beta"],b["H_gtr_xp"],b["H_gtr_yp"],b["H_gtr_dp"],b["H_gtr_p"],b["H_hod_goodscinhit"],b["H_hod_goodstarttime"],b["H_cal_etotnorm"],b["H_cal_etottracknorm"],b["H_cer_npeSum"],b["H_RF_Dist"], b['H_W']) in zip(*Cut_SING_all_tmp)]
+        Cut_SING_all = [(tree["H_gtr_beta"],tree["H_gtr_xp"],tree["H_gtr_yp"],tree["H_gtr_dp"],tree["H_gtr_p"],tree["H_hod_goodscinhit"],tree["H_hod_goodstarttime"],tree["H_cal_etotnorm"],tree["H_cal_etottracknorm"],tree["H_cer_npeSum"],tree["H_RF_Dist"], tree['H_W']) for (tree["H_gtr_beta"],tree["H_gtr_xp"],tree["H_gtr_yp"],tree["H_gtr_dp"],tree["H_gtr_p"],tree["H_hod_goodscinhit"],tree["H_hod_goodstarttime"],tree["H_cal_etotnorm"],tree["H_cal_etottracknorm"],tree["H_cer_npeSum"],tree["H_RF_Dist"], tree['H_W']) in zip(*Cut_SING_all_tmp)]
         
         SING = {
             "Uncut_Events" : Uncut_SING,
@@ -107,9 +107,9 @@ def sing():
     if spec == "SHMS":
         # Define the array of arrays containing the relevant HMS and SHMS info                              
         
-        NoCut_SING = [b["pmiss_z"], b["pmiss_y"], b["pmiss_x"], b["W"], b["MMpi"], b["pmiss"], b["emiss"], b["P_gtr_beta"], b["P_gtr_xp"], b["P_gtr_yp"], b["P_gtr_p"], b["P_gtr_dp"], b["P_hod_goodscinhit"], b["P_hod_goodstarttime"], b["P_cal_etotnorm"], b["P_cal_etottracknorm"], b["P_aero_npeSum"], b["P_aero_xAtAero"], b["P_aero_yAtAero"], b["P_hgcer_npeSum"], b["P_hgcer_xAtCer"], b["P_hgcer_yAtCer"], b["P_RF_Dist"]]
+        NoCut_SING = [tree["pmiss_z"], tree["pmiss_y"], tree["pmiss_x"], tree["W"], tree["MMpi"], tree["pmiss"], tree["emiss"], tree["P_gtr_beta"], tree["P_gtr_xp"], tree["P_gtr_yp"], tree["P_gtr_p"], tree["P_gtr_dp"], tree["P_hod_goodscinhit"], tree["P_hod_goodstarttime"], tree["P_cal_etotnorm"], tree["P_cal_etottracknorm"], tree["P_aero_npeSum"], tree["P_aero_xAtAero"], tree["P_aero_yAtAero"], tree["P_hgcer_npeSum"], tree["P_hgcer_xAtCer"], tree["P_hgcer_yAtCer"], tree["P_RF_Dist"]]
         
-        Uncut_SING = [(b["pmiss_z"], b["pmiss_y"], b["pmiss_x"], b["W"], b["MMpi"], b["pmiss"], b["emiss"], b["P_gtr_beta"], b["P_gtr_xp"], b["P_gtr_yp"], b["P_gtr_p"], b["P_gtr_dp"], b["P_hod_goodscinhit"], b["P_hod_goodstarttime"], b["P_cal_etotnorm"], b["P_cal_etottracknorm"], b["P_aero_npeSum"], b["P_aero_xAtAero"], b["P_aero_yAtAero"], b["P_hgcer_npeSum"], b["P_hgcer_xAtCer"], b["P_hgcer_yAtCer"], b["P_RF_Dist"]) for (b["pmiss_z"], b["pmiss_y"], b["pmiss_x"], b["W"], b["MMpi"], b["pmiss"], b["emiss"], b["P_gtr_beta"], b["P_gtr_xp"], b["P_gtr_yp"], b["P_gtr_p"], b["P_gtr_dp"], b["P_hod_goodscinhit"], b["P_hod_goodstarttime"], b["P_cal_etotnorm"], b["P_cal_etottracknorm"], b["P_aero_npeSum"], b["P_aero_xAtAero"], b["P_aero_yAtAero"], b["P_hgcer_npeSum"], b["P_hgcer_xAtCer"], b["P_hgcer_yAtCer"], b["P_RF_Dist"]) in zip(*NoCut_SING)]
+        Uncut_SING = [(tree["pmiss_z"], tree["pmiss_y"], tree["pmiss_x"], tree["W"], tree["MMpi"], tree["pmiss"], tree["emiss"], tree["P_gtr_beta"], tree["P_gtr_xp"], tree["P_gtr_yp"], tree["P_gtr_p"], tree["P_gtr_dp"], tree["P_hod_goodscinhit"], tree["P_hod_goodstarttime"], tree["P_cal_etotnorm"], tree["P_cal_etottracknorm"], tree["P_aero_npeSum"], tree["P_aero_xAtAero"], tree["P_aero_yAtAero"], tree["P_hgcer_npeSum"], tree["P_hgcer_xAtCer"], tree["P_hgcer_yAtCer"], tree["P_RF_Dist"]) for (tree["pmiss_z"], tree["pmiss_y"], tree["pmiss_x"], tree["W"], tree["MMpi"], tree["pmiss"], tree["emiss"], tree["P_gtr_beta"], tree["P_gtr_xp"], tree["P_gtr_yp"], tree["P_gtr_p"], tree["P_gtr_dp"], tree["P_hod_goodscinhit"], tree["P_hod_goodstarttime"], tree["P_cal_etotnorm"], tree["P_cal_etottracknorm"], tree["P_aero_npeSum"], tree["P_aero_xAtAero"], tree["P_aero_yAtAero"], tree["P_hgcer_npeSum"], tree["P_hgcer_xAtCer"], tree["P_hgcer_yAtCer"], tree["P_RF_Dist"]) in zip(*NoCut_SING)]
         
         # Create array of arrays of pions after cuts, all events
         
@@ -119,7 +119,7 @@ def sing():
         for arr in Cut_SING_tmp:
             Cut_SING_all_tmp.append(c.add_cut(arr, "sing_ee_cut_all_noRF"))
             
-        Cut_SING_all = [(b["pmiss_z"], b["pmiss_y"], b["pmiss_x"], b["W"], b["MMpi"], b["pmiss"], b["emiss"], b["P_gtr_beta"], b["P_gtr_xp"], b["P_gtr_yp"], b["P_gtr_p"], b["P_gtr_dp"], b["P_hod_goodscinhit"], b["P_hod_goodstarttime"], b["P_cal_etotnorm"], b["P_cal_etottracknorm"], b["P_aero_npeSum"], b["P_aero_xAtAero"], b["P_aero_yAtAero"], b["P_hgcer_npeSum"], b["P_hgcer_xAtCer"], b["P_hgcer_yAtCer"], b["P_RF_Dist"]) for (b["pmiss_z"], b["pmiss_y"], b["pmiss_x"], b["W"], b["MMpi"], b["pmiss"], b["emiss"], b["P_gtr_beta"], b["P_gtr_xp"], b["P_gtr_yp"], b["P_gtr_p"], b["P_gtr_dp"], b["P_hod_goodscinhit"], b["P_hod_goodstarttime"], b["P_cal_etotnorm"], b["P_cal_etottracknorm"], b["P_aero_npeSum"], b["P_aero_xAtAero"], b["P_aero_yAtAero"], b["P_hgcer_npeSum"], b["P_hgcer_xAtCer"], b["P_hgcer_yAtCer"], b["P_RF_Dist"]) in zip(*Cut_SING_all_tmp)]
+        Cut_SING_all = [(tree["pmiss_z"], tree["pmiss_y"], tree["pmiss_x"], tree["W"], tree["MMpi"], tree["pmiss"], tree["emiss"], tree["P_gtr_beta"], tree["P_gtr_xp"], tree["P_gtr_yp"], tree["P_gtr_p"], tree["P_gtr_dp"], tree["P_hod_goodscinhit"], tree["P_hod_goodstarttime"], tree["P_cal_etotnorm"], tree["P_cal_etottracknorm"], tree["P_aero_npeSum"], tree["P_aero_xAtAero"], tree["P_aero_yAtAero"], tree["P_hgcer_npeSum"], tree["P_hgcer_xAtCer"], tree["P_hgcer_yAtCer"], tree["P_RF_Dist"]) for (tree["pmiss_z"], tree["pmiss_y"], tree["pmiss_x"], tree["W"], tree["MMpi"], tree["pmiss"], tree["emiss"], tree["P_gtr_beta"], tree["P_gtr_xp"], tree["P_gtr_yp"], tree["P_gtr_p"], tree["P_gtr_dp"], tree["P_hod_goodscinhit"], tree["P_hod_goodstarttime"], tree["P_cal_etotnorm"], tree["P_cal_etottracknorm"], tree["P_aero_npeSum"], tree["P_aero_xAtAero"], tree["P_aero_yAtAero"], tree["P_hgcer_npeSum"], tree["P_hgcer_xAtCer"], tree["P_hgcer_yAtCer"], tree["P_RF_Dist"]) in zip(*Cut_SING_all_tmp)]
         
         SING = {
             "Uncut_Events" : Uncut_SING,

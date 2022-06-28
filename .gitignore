@@ -10,3 +10,6 @@
 REPORT_OUTPUT
 HISTOGRAMS
 ROOTfiles
+
+# python cython dir
+__pycache__

@@ -2,7 +2,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2022-06-15 16:07:28 trottar"
+# Time-stamp: "2022-06-28 06:18:58 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -40,19 +40,41 @@ class Root():
 
     import ltsep as lt
 
+    p=lt.SetPath(os.path.realpath(__file__))
+
+    # Add this to all files for more dynamic pathing
+    VOLATILEPATH=p.getPath("VOLATILEPATH")
+    ANALYSISPATH=p.getPath("ANALYSISPATH")
+    HCANAPATH=p.getPath("HCANAPATH")
+    REPLAYPATH=p.getPath("REPLAYPATH")
+    UTILPATH=p.getPath("UTILPATH")
+    PACKAGEPATH=p.getPath("PACKAGEPATH")
+    OUTPATH=p.getPath("OUTPATH")
+    ROOTPATH=p.getPath("ROOTPATH")
+    REPORTPATH=p.getPath("REPORTPATH")
+    CUTPATH=p.getPath("CUTPATH")
+    PARAMPATH=p.getPath("PARAMPATH")
+    SCRIPTPATH=p.getPath("SCRIPTPATH")
+    SIMCPATH=p.getPath("SIMCPATH")
+    ANATYPE=p.getPath("ANATYPE")
+    USER=p.getPath("USER")
+    HOST=p.getPath("HOST")
+
     # ---> If multple run type files are required then define a new run type file altogether. Do not try to 
     # chain run type files. It can be done, but is computationally wasteful and pointless.
-    f_cut = "<path_to_run_type_cut>"
+    cut_f = "<path_to_run_type_cut>"
 
     cuts = ["runTypeCut1","runTypeCut2",<etc>,...]
 
     # To apply cuts to array and define pathing variables...
     # Arrays are defined in ltsep, no need to redefine.
-    proc_root = lt.Root(os.path.realpath(__file__),ROOTPrefix, "<Run Type (HeePCoin, HeePSing_<spec>, SimcCoin, SimcSing, KaonLT/PionLT, Plot_<Type>, None)>", runNum, MaxEvent, f_cut, cuts).setup_ana()
+    # cut_f, cuts are optional flags. If you don't have cuts just leave these blank and the runtype root branches will be accessible
+    # ROOTPrefix is also an optional flag but this means your branches will need to be defined explicitly
+    proc_root = lt.Root(os.path.realpath(__file__), "<Run Type (HeePCoin, HeePSing_<spec>, SimcCoin, SimcSing, KaonLT/PionLT, Plot_<Type>, None)>", ROOTPrefix, runNum, MaxEvent, cut_f, cuts).setup_ana()
     c = proc_root[0] # Cut object
-    b = proc_root[1] # Dictionary of branches
-    p = proc_root[2] # Dictionary of pathing variables
-    OUTPATH = proc_root[3] # Get pathing for OUTPATH
+    tree = proc_root[1] # Dictionary of branches
+    OUTPATH = proc_root[2] # Get pathing for OUTPATH
+    strDict = proc_root[3] # Dictionary of cuts as strings
 
     # ----> See lt.Help.path_setup() for more info
 
@@ -61,17 +83,8 @@ class Root():
     If you wish to explicitly define arrays then do the following...
     \'''
 
-    # To define pathing variables as well as check for existing root files (do this if plotting, this will NOT apply cuts)...
-    proc_root = lt.Root(os.path.realpath(__file__),ROOTPrefix, "<Run Type (Plot_<Type>, None)>", runNum, MaxEvent).setup_ana()
-    p = proc_root[2] # Dictionary of pathing variables
-    OUTPATH = proc_root[3] # Get pathing for OUTPATH
-    # To define just pathing variables...
-    proc_root = lt.Root(os.path.realpath(__file__)).setup_ana()
-    p = proc_root[2] # Dictionary of pathing variables
-
     import uproot as up
     # Convert root leaf to array with uproot
-    # Array name must match what is defined in DB/CUTS/general/
     leaf_name  = tree.array("leaf.name") # The periods are replaced with underscores
 
     ----------------------------------------------------------------------------------------------
@@ -80,13 +93,13 @@ class Root():
     tasks for doing in depth analysis in python such as define pathing variables and cuts.
     '''
 
-    def __init__(self, CURRENT_ENV, runType="None", ROOTPrefix="", runNum="-1", MaxEvent="-1", f_cut="", cuts=None, DEBUG=False):
+    def __init__(self, CURRENT_ENV, runType="None", ROOTPrefix="", runNum="-1", MaxEvent="-1", cut_f="", cuts=None, DEBUG=False):
         '''
-        __init__(self, CURRENT_ENV, ROOTPrefix, runType, runNum, MaxEvent, f_cut, cuts=None, DEBUG=False)
+        __init__(self, CURRENT_ENV, ROOTPrefix, runType, runNum, MaxEvent, cut_f, cuts=None, DEBUG=False)
                        |            |           |        |       |         |      |          |
                        |            |           |        |       |         |      |          --> DEBUG: Set true to show debug output
                        |            |           |        |       |         |      --> cuts: 
-                       |            |           |        |       |         --> f_cut:
+                       |            |           |        |       |         --> cut_f:
                        |            |           |        |       --> MaxEvent:
                        |            |           |        --> runNum:
                        |            |           --> runType:
@@ -128,15 +141,17 @@ class Root():
         Defines Output pathing and cut location
         '''
 
-        self.f_cut = self.UTILPATH+f_cut
+        self.cut_f = self.UTILPATH+cut_f
 
         # Add more path setting as needed in a similar manner
         if "HeeP" in self.runType:
             self.OUTPATH = "%s/OUTPUT/Analysis/HeeP" % self.UTILPATH      # Output folder location
         elif "Simc" in self.runType:
             self.OUTPATH = "%s/OUTPUT/Analysis/HeeP" % self.SIMCPATH      # Output folder location
-        elif "%sLT" % self.ANATYPE in self.runType:
+        elif "Prod" in self.runType:
             self.OUTPATH = "%s/OUTPUT/Analysis/%sLT" % (self.UTILPATH,self.ANATYPE)      # Output folder location
+        elif "Hodo" in self.runType:
+            self.OUTPATH = "%s/OUTPUT/Calib/Hodo" % self.UTILPATH      # Output folder location
         else:
             self.OUTPATH = "%s/OUTPUT/Analysis/%s" % (self.UTILPATH, self.runType)      # Output folder location
         self.CUTPATH = "%s/DB/CUTS" % self.UTILPATH
@@ -149,9 +164,11 @@ class Root():
         if self.ROOTPrefix is not "":
             if "Plot" in self.runType:
                 # Construct the name of the rootfile based upon the info we provided
-                if "%sLT" % self.ANATYPE in self.runType:
+                if "Prod" in self.runType:
                     self.rootName = "%s/OUTPUT/Analysis/%sLT/%s_%s_%s.root" % (self.UTILPATH, self.ANATYPE, self.runNum, self.MaxEvent, self.ROOTPrefix,)     # Input file location and variables taking
-                elif "HeeP" or "Simc" in self.runType:
+                elif "HeeP" in self.runType:
+                    self.rootName = "%s/OUTPUT/Analysis/HeeP/%s_%s_%s.root" % (self.UTILPATH, self.runNum, self.MaxEvent, self.ROOTPrefix,)     # Input file location and variables taking
+                elif "Simc" in self.runType:
                     self.rootName = "%s/OUTPUT/Analysis/HeeP/%s_%s_%s.root" % (self.UTILPATH, self.runNum, self.MaxEvent, self.ROOTPrefix,)     # Input file location and variables taking
                 else:
                     self.rootName = "%s/OUTPUT/Analysis/%s/%s_%s_%s.root" % (self.UTILPATH, self.runType, self.runNum, self.MaxEvent, self.ROOTPrefix)     # Input file location and variables taking
@@ -161,9 +178,13 @@ class Root():
                 print("Output path checks out, outputting to %s" % (self.OUTPATH))
             else:
                 # Construct the name of the rootfile based upon the info we provided
-                if "%sLT" % self.ANATYPE in self.runType:
+                if "Prod" in self.runType:
                     self.rootName = "%s/ROOTfiles/Analysis/%sLT/%s_%s_%s.root" % (self.UTILPATH, self.ANATYPE, self.ROOTPrefix, self.runNum, self.MaxEvent)     # Input file location and variables taking
-                elif "HeeP" or "Simc" in self.runType:
+                elif "Hodo" in self.runType:
+                    self.rootName = "%s/ROOTfiles/Analysis/%sLT/%s_%s_%s.root" % (self.UTILPATH, self.ANATYPE, self.ROOTPrefix, self.runNum, self.MaxEvent)     # Input file location and variables taking
+                elif "HeeP" in self.runType:
+                    self.rootName = "%s/ROOTfiles/Analysis/HeeP/%s_%s_%s.root" % (self.UTILPATH, self.ROOTPrefix, self.runNum, self.MaxEvent)     # Input file location and variables taking
+                elif "Simc" in self.runType:
                     self.rootName = "%s/ROOTfiles/Analysis/HeeP/%s_%s_%s.root" % (self.UTILPATH, self.ROOTPrefix, self.runNum, self.MaxEvent)     # Input file location and variables taking
                 else:
                     self.rootName = "%s/ROOTfiles/Analysis/%s/%s_%s_%s.root" % (self.UTILPATH, self.runType, self.ROOTPrefix, self.runNum, self.MaxEvent)     # Input file location and variables taking
@@ -202,45 +223,20 @@ class Root():
         This method brings all the data together and makes it accessible to the script. It calls the other 
         methods to define cuts. It also defines pathing variables and grabs dictionary of branches.
         '''
-
-        # Define pathing variables
-        pathDict = {
-            "VOLATILEPATH" : self.VOLATILEPATH,
-            "ANALYSISPATH" : self.ANALYSISPATH,
-            "HCANAPATH" : self.HCANAPATH,
-            "REPLAYPATH" : self.REPLAYPATH,
-            "UTILPATH" : self.UTILPATH,
-            "PACKAGEPATH" : self.PACKAGEPATH,
-            "OUTPATH" : self.OUTPATH,
-            "ROOTPATH" : self.ROOTPATH,
-            "REPORTPATH" : self.REPORTPATH,
-            "CUTPATH" : self.CUTPATH,
-            "PARAMPATH" : self.PARAMPATH,
-            "SCRIPTPATH" : self.SCRIPTPATH,
-            "SIMCPATH" : self.SIMCPATH,
-            "ANATYPE" : self.ANATYPE,
-            "USER" : self.USER,
-            "HOST" : self.HOST,
-        }        
-
-        if "None" in self.runType:
-            make_cutDict = None
-            bool_cuts = None
-            treeDict = None
-            return [bool_cuts,treeDict,pathDict,None]
-        elif "Plot" in self.runType:
-            make_cutDict = None
-            bool_cuts = None
-            treeDict = None
-            return [bool_cuts,treeDict,pathDict,self.OUTPATH]
-        else:                     
+        if self.ROOTPrefix is not "":
             # Make cut dictionary and convert to boolean list for cut application
             make_cutDict = self.make_cutDict()
             bool_cuts = make_cutDict[0]
 
             # Get dictionary of branch names
-            treeDict = make_cutDict[1]   
-            return [bool_cuts,treeDict,pathDict,self.OUTPATH]
+            treeDict = make_cutDict[1]
+
+            # Get dictionary of cut names and values as strings
+            strDict = make_cutDict[2]
+
+            return [bool_cuts,treeDict,self.OUTPATH,strDict]
+        else:
+            return [None,None,self.OUTPATH,None]
 
 
     def make_cutDict(self):
@@ -543,31 +539,352 @@ class Root():
                     "H_W" : H_W,
                 }  
 
-        else:
-            print("!!!!ERROR!!!!: Invalid run type %s " % (self.runType)) # Error 4        
+        elif "Hodo" in self.runType:
 
-        # read in cuts file and make dictionary
-        importDict = SetCuts(self.CURRENT_ENV).importDict(self.cuts,self.f_cut,self.runNum,self.DEBUG)
-        for i,cut in enumerate(self.cuts):
-            x = SetCuts(self.CURRENT_ENV,importDict).booleanDict(cut)
-            print("\n%s" % cut)
-            print(x, "\n")
-            if i == 0:
-                inputDict = {}
-            cutDict = SetCuts(self.CURRENT_ENV,importDict).readDict(cut,inputDict)
-            try:
-                for j,val in enumerate(x):
-                    cutDict = SetCuts(self.CURRENT_ENV,importDict).evalDict(cut,eval(x[j]),cutDict)
-                    #cutDict = evalDict(cut,eval(x[j]),cutDict)
-            except NameError:
-                raise InvalidEntry('''
-                ======================================================================
-                  ERROR: %s invalid.
-                  Check that run number %s is defined in...
-                  %s/DB/PARAM
-                ======================================================================
-                ''' % (cut,self.runNum,self.UTILPATH))
-        return [SetCuts(self.CURRENT_ENV,cutDict),treeDict]
+            if "SHMS" in self.runType:
+                
+                # SHMS info
+                P_gtr_beta = e_tree.array("P.gtr.beta")                          # Beta is velocity of particle between pairs of hodoscopes
+                P_dc_x_fp = e_tree.array("P.dc.x_fp")                            #
+                P_dc_y_fp = e_tree.array("P.dc.y_fp")                            #
+                P_gtr_dp = e_tree.array("P.gtr.dp")                              # dp is Delta 
+
+                treeDict = {
+                    "P_gtr_beta" : P_gtr_beta,
+                    "P_dc_x_fp" : P_dc_x_fp,
+                    "P_dc_y_fp" : P_dc_y_fp,
+                    "P_gtr_dp" : P_gtr_dp,
+                }
+
+            #if "HMS" in self.runType:
+            else:
+
+                # HMS info
+                H_gtr_beta = e_tree.array("H.gtr.beta")                          # Beta is velocity of particle between pairs of hodoscopes
+                H_dc_x_fp = e_tree.array("H.dc.x_fp")                            #
+                H_dc_y_fp = e_tree.array("H.dc.y_fp")                            #
+                H_gtr_dp = e_tree.array("H.gtr.dp")                              # dp is Delta 
+
+                treeDict = {
+                    "H_gtr_beta" : H_gtr_beta,
+                    "H_dc_x_fp" : H_dc_x_fp,
+                    "H_dc_y_fp" : H_dc_y_fp,
+                    "H_gtr_dp" : H_gtr_dp,
+                }
+
+        elif "Lumi" in self.runType:
+
+            P_cal_etotnorm = e_tree.array("P.cal.etotnorm")
+            P_hgcer_npeSum = e_tree.array("P.hgcer.npeSum")
+            P_aero_npeSum = e_tree.array("P.aero.npeSum")
+            P_gtr_dp = e_tree.array("P.gtr.dp")
+            P_gtr_th = e_tree.array("P.gtr.th")
+            P_gtr_ph = e_tree.array("P.gtr.ph")
+            P_gtr_beta = e_tree.array("P.gtr.beta")
+            P_tr_chi2 = e_tree.array("P.tr.chi2")
+            P_tr_ndof = e_tree.array("P.tr.ndof")
+            P_hod_goodscinhit = e_tree.array("P.hod.goodscinhit")
+            P_hod_betanotrack = e_tree.array("P.hod.betanotrack")
+            P_hod_goodstarttime = e_tree.array("P.hod.goodstarttime")
+            P_dc_ntrack = e_tree.array("P.dc.ntrack")
+            if self.ANATYPE == "Pion":
+                P_ngcer_npeSum = e_tree.array("P.ngcer.npeSum")
+
+            P_dc_1x1_nhit = e_tree.array("P.dc.1x1.nhit")
+            P_dc_1u2_nhit = e_tree.array("P.dc.1u2.nhit")
+            P_dc_1u1_nhit = e_tree.array("P.dc.1u1.nhit")
+            P_dc_1v1_nhit = e_tree.array("P.dc.1v1.nhit")
+            P_dc_1x2_nhit = e_tree.array("P.dc.1x2.nhit")
+            P_dc_1v2_nhit = e_tree.array("P.dc.1v2.nhit")
+            P_dc_2x1_nhit = e_tree.array("P.dc.2x1.nhit")
+            P_dc_2u2_nhit = e_tree.array("P.dc.2u2.nhit")
+            P_dc_2u1_nhit = e_tree.array("P.dc.2u1.nhit")
+            P_dc_2v1_nhit = e_tree.array("P.dc.2v1.nhit")
+            P_dc_2x2_nhit = e_tree.array("P.dc.2x2.nhit")
+            P_dc_2v2_nhit = e_tree.array("P.dc.2v2.nhit")
+
+            P_cal_etottracknorm = e_tree.array("P.cal.etottracknorm")
+
+            H_cal_etotnorm = e_tree.array("H.cal.etotnorm")
+            H_cer_npeSum = e_tree.array("H.cer.npeSum")
+            H_gtr_dp = e_tree.array("H.gtr.dp")
+            H_tr_tg_th = e_tree.array("H.gtr.th")
+            H_tr_tg_ph = e_tree.array("H.gtr.ph")
+            H_gtr_beta = e_tree.array("H.gtr.beta")
+            H_tr_chi2 = e_tree.array("H.tr.chi2")
+            H_tr_ndof = e_tree.array("H.tr.ndof")
+            H_hod_goodscinhit = e_tree.array("H.hod.goodscinhit")
+            H_hod_betanotrack = e_tree.array("H.hod.betanotrack")
+            H_hod_goodstarttime = e_tree.array("H.hod.goodstarttime")
+            H_dc_ntrack = e_tree.array("H.dc.ntrack")
+
+            H_dc_1x1_nhit = e_tree.array("H.dc.1x1.nhit")
+            H_dc_1u2_nhit = e_tree.array("H.dc.1u2.nhit")
+            H_dc_1u1_nhit = e_tree.array("H.dc.1u1.nhit")
+            H_dc_1v1_nhit = e_tree.array("H.dc.1v1.nhit")
+            H_dc_1x2_nhit = e_tree.array("H.dc.1x2.nhit")
+            H_dc_1v2_nhit = e_tree.array("H.dc.1v2.nhit")
+            H_dc_2x1_nhit = e_tree.array("H.dc.2x1.nhit")
+            H_dc_2u2_nhit = e_tree.array("H.dc.2u2.nhit")
+            H_dc_2u1_nhit = e_tree.array("H.dc.2u1.nhit")
+            H_dc_2v1_nhit = e_tree.array("H.dc.2v1.nhit")
+            H_dc_2x2_nhit = e_tree.array("H.dc.2x2.nhit")
+            H_dc_2v2_nhit = e_tree.array("H.dc.2v2.nhit")
+
+            H_cal_etottracknorm = e_tree.array("H.cal.etottracknorm")
+
+            if self.ANATYPE == "Pion":
+                armDict = {
+                    "P_cal_etotnorm" : P_cal_etotnorm,
+                    "P_hgcer_npeSum" : P_hgcer_npeSum,
+                    "P_aero_npeSum" : P_aero_npeSum,
+                    "P_gtr_dp" : P_gtr_dp,
+                    "P_gtr_th" : P_gtr_th,
+                    "P_gtr_ph" : P_gtr_ph,
+                    "P_gtr_beta" : P_gtr_beta,
+                    "P_tr_chi2" : P_tr_chi2,
+                    "P_tr_ndof" : P_tr_ndof,
+                    "P_hod_goodscinhit" : P_hod_goodscinhit,
+                    "P_hod_betanotrack" : P_hod_betanotrack,
+                    "P_hod_goodstarttime" : P_hod_goodstarttime,
+                    "P_dc_ntrack" : P_dc_ntrack,
+
+                    "P_ngcer_npeSum" : P_ngcer_npeSum,
+
+                    "P_dc_1x1_nhit" : P_dc_1x1_nhit,
+                    "P_dc_1u2_nhit" : P_dc_1u2_nhit,
+                    "P_dc_1u1_nhit" : P_dc_1u1_nhit,
+                    "P_dc_1v1_nhit" : P_dc_1v1_nhit,
+                    "P_dc_1x2_nhit" : P_dc_1x2_nhit,
+                    "P_dc_1v2_nhit" : P_dc_1v2_nhit,
+                    "P_dc_2x1_nhit" : P_dc_2x1_nhit,
+                    "P_dc_2u2_nhit" : P_dc_2u2_nhit,
+                    "P_dc_2u1_nhit" : P_dc_2u1_nhit,
+                    "P_dc_2v1_nhit" : P_dc_2v1_nhit,
+                    "P_dc_2x2_nhit" : P_dc_2x2_nhit,
+                    "P_dc_2v2_nhit" : P_dc_2v2_nhit,
+
+                    "P_cal_etottracknorm" : P_cal_etottracknorm,
+
+                    "H_cal_etotnorm" : H_cal_etotnorm,
+                    "H_cer_npeSum" : H_cer_npeSum,
+                    "H_gtr_dp" : H_gtr_dp,
+                    "H_tr_tg_th" : H_tr_tg_th,
+                    "H_tr_tg_ph" : H_tr_tg_ph,
+                    "H_gtr_beta" : H_gtr_beta,
+                    "H_tr_chi2" : H_tr_chi2,
+                    "H_tr_ndof" : H_tr_ndof,
+                    "H_hod_goodscinhit" : H_hod_goodscinhit,
+                    "H_hod_betanotrack" : H_hod_betanotrack,
+                    "H_hod_goodstarttime" : H_hod_goodstarttime,
+                    "H_dc_ntrack" : H_dc_ntrack,
+
+                    "H_dc_1x1_nhit" : H_dc_1x1_nhit,
+                    "H_dc_1u2_nhit" : H_dc_1u2_nhit,
+                    "H_dc_1u1_nhit" : H_dc_1u1_nhit,
+                    "H_dc_1v1_nhit" : H_dc_1v1_nhit,
+                    "H_dc_1x2_nhit" : H_dc_1x2_nhit,
+                    "H_dc_1v2_nhit" : H_dc_1v2_nhit,
+                    "H_dc_2x1_nhit" : H_dc_2x1_nhit,
+                    "H_dc_2u2_nhit" : H_dc_2u2_nhit,
+                    "H_dc_2u1_nhit" : H_dc_2u1_nhit,
+                    "H_dc_2v1_nhit" : H_dc_2v1_nhit,
+                    "H_dc_2x2_nhit" : H_dc_2x2_nhit,
+                    "H_dc_2v2_nhit" : H_dc_2v2_nhit,
+
+                    "H_cal_etottracknorm" : H_cal_etottracknorm,
+
+                }
+
+            else:
+                armDict = {
+                    "P_cal_etotnorm" : P_cal_etotnorm,
+                    "P_hgcer_npeSum" : P_hgcer_npeSum,
+                    "P_aero_npeSum" : P_aero_npeSum,
+                    "P_gtr_dp" : P_gtr_dp,
+                    "P_gtr_th" : P_gtr_th,
+                    "P_gtr_ph" : P_gtr_ph,
+                    "P_gtr_beta" : P_gtr_beta,
+                    "P_tr_chi2" : P_tr_chi2,
+                    "P_tr_ndof" : P_tr_ndof,
+                    "P_hod_goodscinhit" : P_hod_goodscinhit,
+                    "P_hod_betanotrack" : P_hod_betanotrack,
+                    "P_hod_goodstarttime" : P_hod_goodstarttime,
+                    "P_dc_ntrack" : P_dc_ntrack,
+
+                    "P_dc_1x1_nhit" : P_dc_1x1_nhit,
+                    "P_dc_1u2_nhit" : P_dc_1u2_nhit,
+                    "P_dc_1u1_nhit" : P_dc_1u1_nhit,
+                    "P_dc_1v1_nhit" : P_dc_1v1_nhit,
+                    "P_dc_1x2_nhit" : P_dc_1x2_nhit,
+                    "P_dc_1v2_nhit" : P_dc_1v2_nhit,
+                    "P_dc_2x1_nhit" : P_dc_2x1_nhit,
+                    "P_dc_2u2_nhit" : P_dc_2u2_nhit,
+                    "P_dc_2u1_nhit" : P_dc_2u1_nhit,
+                    "P_dc_2v1_nhit" : P_dc_2v1_nhit,
+                    "P_dc_2x2_nhit" : P_dc_2x2_nhit,
+                    "P_dc_2v2_nhit" : P_dc_2v2_nhit,
+
+                    "P_cal_etottracknorm" : P_cal_etottracknorm,
+
+                    "H_cal_etotnorm" : H_cal_etotnorm,
+                    "H_cer_npeSum" : H_cer_npeSum,
+                    "H_gtr_dp" : H_gtr_dp,
+                    "H_tr_tg_th" : H_tr_tg_th,
+                    "H_tr_tg_ph" : H_tr_tg_ph,
+                    "H_gtr_beta" : H_gtr_beta,
+                    "H_tr_chi2" : H_tr_chi2,
+                    "H_tr_ndof" : H_tr_ndof,
+                    "H_hod_goodscinhit" : H_hod_goodscinhit,
+                    "H_hod_betanotrack" : H_hod_betanotrack,
+                    "H_hod_goodstarttime" : H_hod_goodstarttime,
+                    "H_dc_ntrack" : H_dc_ntrack,
+
+                    "H_dc_1x1_nhit" : H_dc_1x1_nhit,
+                    "H_dc_1u2_nhit" : H_dc_1u2_nhit,
+                    "H_dc_1u1_nhit" : H_dc_1u1_nhit,
+                    "H_dc_1v1_nhit" : H_dc_1v1_nhit,
+                    "H_dc_1x2_nhit" : H_dc_1x2_nhit,
+                    "H_dc_1v2_nhit" : H_dc_1v2_nhit,
+                    "H_dc_2x1_nhit" : H_dc_2x1_nhit,
+                    "H_dc_2u2_nhit" : H_dc_2u2_nhit,
+                    "H_dc_2u1_nhit" : H_dc_2u1_nhit,
+                    "H_dc_2v1_nhit" : H_dc_2v1_nhit,
+                    "H_dc_2x2_nhit" : H_dc_2x2_nhit,
+                    "H_dc_2v2_nhit" : H_dc_2v2_nhit,
+
+                    "H_cal_etottracknorm" : H_cal_etottracknorm,
+
+                }
+
+            H_bcm_bcm1_AvgCurrent = e_tree.array("H.bcm.bcm1.AvgCurrent")
+            H_bcm_bcm2_AvgCurrent = e_tree.array("H.bcm.bcm2.AvgCurrent")
+            H_bcm_bcm4a_AvgCurrent = e_tree.array("H.bcm.bcm4a.AvgCurrent")
+            H_bcm_bcm4b_AvgCurrent = e_tree.array("H.bcm.bcm4b.AvgCurrent")
+            H_bcm_bcm4c_AvgCurrent = e_tree.array("H.bcm.bcm4c.AvgCurrent")
+
+            T_coin_pTRIG1_ROC1_tdcTimeRaw = e_tree.array("T.coin.pTRIG1_ROC1_tdcTimeRaw")
+            T_coin_pTRIG1_ROC2_tdcTimeRaw = e_tree.array("T.coin.pTRIG1_ROC2_tdcTimeRaw")
+            T_coin_pTRIG1_ROC1_tdcTime = e_tree.array("T.coin.pTRIG1_ROC1_tdcTime")
+            T_coin_pTRIG1_ROC2_tdcTime = e_tree.array("T.coin.pTRIG1_ROC2_tdcTime")
+
+            T_coin_pTRIG2_ROC1_tdcTimeRaw = e_tree.array("T.coin.pTRIG2_ROC1_tdcTimeRaw")
+            T_coin_pTRIG2_ROC2_tdcTimeRaw = e_tree.array("T.coin.pTRIG2_ROC2_tdcTimeRaw")
+            T_coin_pTRIG2_ROC1_tdcTime = e_tree.array("T.coin.pTRIG2_ROC1_tdcTime")
+            T_coin_pTRIG2_ROC2_tdcTime = e_tree.array("T.coin.pTRIG2_ROC2_tdcTime")
+
+            T_coin_pTRIG3_ROC1_tdcTimeRaw = e_tree.array("T.coin.pTRIG3_ROC1_tdcTimeRaw")
+            T_coin_pTRIG3_ROC2_tdcTimeRaw = e_tree.array("T.coin.pTRIG3_ROC2_tdcTimeRaw")
+            T_coin_pTRIG3_ROC1_tdcTime = e_tree.array("T.coin.pTRIG3_ROC1_tdcTime")
+            T_coin_pTRIG3_ROC2_tdcTime = e_tree.array("T.coin.pTRIG3_ROC2_tdcTime")
+
+            T_coin_pTRIG4_ROC1_tdcTimeRaw = e_tree.array("T.coin.pTRIG4_ROC1_tdcTimeRaw")
+            T_coin_pTRIG4_ROC2_tdcTimeRaw = e_tree.array("T.coin.pTRIG4_ROC2_tdcTimeRaw")
+            T_coin_pTRIG4_ROC1_tdcTime = e_tree.array("T.coin.pTRIG4_ROC1_tdcTime")
+            T_coin_pTRIG4_ROC2_tdcTime = e_tree.array("T.coin.pTRIG4_ROC2_tdcTime")
+
+            T_coin_pTRIG5_ROC1_tdcTimeRaw = e_tree.array("T.coin.pTRIG5_ROC1_tdcTimeRaw")
+            T_coin_pTRIG5_ROC2_tdcTimeRaw = e_tree.array("T.coin.pTRIG5_ROC2_tdcTimeRaw")
+            T_coin_pTRIG5_ROC1_tdcTime = e_tree.array("T.coin.pTRIG5_ROC1_tdcTime")
+            T_coin_pTRIG5_ROC2_tdcTime = e_tree.array("T.coin.pTRIG5_ROC2_tdcTime")
+
+            T_coin_pTRIG6_ROC1_tdcTimeRaw = e_tree.array("T.coin.pTRIG6_ROC1_tdcTimeRaw")
+            T_coin_pTRIG6_ROC2_tdcTimeRaw = e_tree.array("T.coin.pTRIG6_ROC2_tdcTimeRaw")
+            T_coin_pTRIG6_ROC1_tdcTime = e_tree.array("T.coin.pTRIG6_ROC1_tdcTime")
+            T_coin_pTRIG6_ROC2_tdcTime = e_tree.array("T.coin.pTRIG6_ROC2_tdcTime")
+
+            T_coin_pFADC_TREF_ROC2_adcPed = e_tree.array("T.coin.pFADC_TREF_ROC2_adcPed")
+            T_coin_hFADC_TREF_ROC1_adcPed = e_tree.array("T.coin.hFADC_TREF_ROC1_adcPed")
+            T_coin_pFADC_TREF_ROC2_adcPulseTimeRaw = e_tree.array("T.coin.pFADC_TREF_ROC2_adcPulseTimeRaw")
+            T_coin_hFADC_TREF_ROC1_adcPulseTimeRaw = e_tree.array("T.coin.hFADC_TREF_ROC1_adcPulseTimeRaw")
+            T_coin_pEDTM_tdcTimeRaw = e_tree.array("T.coin.pEDTM_tdcTimeRaw")
+            T_coin_pEDTM_tdcTime = e_tree.array("T.coin.pEDTM_tdcTime")
+            EvtType = e_tree.array("fEvtHdr.fEvtType")
+
+            treeDict = {
+                "H_bcm_bcm1_AvgCurrent" : H_bcm_bcm1_AvgCurrent,
+                "H_bcm_bcm2_AvgCurrent" : H_bcm_bcm2_AvgCurrent,
+                "H_bcm_bcm4a_AvgCurrent" : H_bcm_bcm4a_AvgCurrent,
+                "H_bcm_bcm4b_AvgCurrent" : H_bcm_bcm4b_AvgCurrent,
+                "H_bcm_bcm4c_AvgCurrent" : H_bcm_bcm4c_AvgCurrent,
+
+
+                "T_coin_pTRIG1_ROC1_tdcTimeRaw" : T_coin_pTRIG1_ROC1_tdcTimeRaw,
+                "T_coin_pTRIG1_ROC2_tdcTimeRaw" : T_coin_pTRIG1_ROC2_tdcTimeRaw,
+                "T_coin_pTRIG1_ROC1_tdcTime" : T_coin_pTRIG1_ROC1_tdcTime,
+                "T_coin_pTRIG1_ROC2_tdcTime" : T_coin_pTRIG1_ROC2_tdcTime,
+
+                "T_coin_pTRIG2_ROC1_tdcTimeRaw" : T_coin_pTRIG2_ROC1_tdcTimeRaw,
+                "T_coin_pTRIG2_ROC2_tdcTimeRaw" : T_coin_pTRIG2_ROC2_tdcTimeRaw,
+                "T_coin_pTRIG2_ROC1_tdcTime" : T_coin_pTRIG2_ROC1_tdcTime,
+                "T_coin_pTRIG2_ROC2_tdcTime" : T_coin_pTRIG2_ROC2_tdcTime,
+
+                "T_coin_pTRIG3_ROC1_tdcTimeRaw" : T_coin_pTRIG3_ROC1_tdcTimeRaw,
+                "T_coin_pTRIG3_ROC2_tdcTimeRaw" : T_coin_pTRIG3_ROC2_tdcTimeRaw,
+                "T_coin_pTRIG3_ROC1_tdcTime" : T_coin_pTRIG3_ROC1_tdcTime,
+                "T_coin_pTRIG3_ROC2_tdcTime" : T_coin_pTRIG3_ROC2_tdcTime,
+
+                "T_coin_pTRIG4_ROC1_tdcTimeRaw" : T_coin_pTRIG4_ROC1_tdcTimeRaw,
+                "T_coin_pTRIG4_ROC2_tdcTimeRaw" : T_coin_pTRIG4_ROC2_tdcTimeRaw,
+                "T_coin_pTRIG4_ROC1_tdcTime" : T_coin_pTRIG4_ROC1_tdcTime,
+                "T_coin_pTRIG4_ROC2_tdcTime" : T_coin_pTRIG4_ROC2_tdcTime,
+
+                "T_coin_pTRIG5_ROC1_tdcTimeRaw" : T_coin_pTRIG5_ROC1_tdcTimeRaw,
+                "T_coin_pTRIG5_ROC2_tdcTimeRaw" : T_coin_pTRIG5_ROC2_tdcTimeRaw,
+                "T_coin_pTRIG5_ROC1_tdcTime" : T_coin_pTRIG5_ROC1_tdcTime,
+                "T_coin_pTRIG5_ROC2_tdcTime" : T_coin_pTRIG5_ROC2_tdcTime,
+
+                "T_coin_pTRIG6_ROC1_tdcTimeRaw" : T_coin_pTRIG6_ROC1_tdcTimeRaw,
+                "T_coin_pTRIG6_ROC2_tdcTimeRaw" : T_coin_pTRIG6_ROC2_tdcTimeRaw,
+                "T_coin_pTRIG6_ROC1_tdcTime" : T_coin_pTRIG6_ROC1_tdcTime,
+                "T_coin_pTRIG6_ROC2_tdcTime" : T_coin_pTRIG6_ROC2_tdcTime,
+
+                "T_coin_pFADC_TREF_ROC2_adcPed" : T_coin_pFADC_TREF_ROC2_adcPed,
+                "T_coin_hFADC_TREF_ROC1_adcPed" : T_coin_hFADC_TREF_ROC1_adcPed,
+                "T_coin_pFADC_TREF_ROC2_adcPulseTimeRaw" : T_coin_pFADC_TREF_ROC2_adcPulseTimeRaw,
+                "T_coin_hFADC_TREF_ROC1_adcPulseTimeRaw" : T_coin_hFADC_TREF_ROC1_adcPulseTimeRaw,
+                "T_coin_pEDTM_tdcTimeRaw" : T_coin_pEDTM_tdcTimeRaw,
+                "T_coin_pEDTM_tdcTime" : T_coin_pEDTM_tdcTime,
+                "EvtType" : EvtType,
+            }
+
+            # Include single arm arrays
+            treeDict.update(armDict)
+
+        else:
+            print("!!!!ERROR!!!!: Invalid run type %s " % (self.runType)) # Error 4
+
+        cutNames = []        
+        cutVals = []
+        if self.cuts != None:
+            # read in cuts file and make dictionary
+            importDict = SetCuts(self.CURRENT_ENV).importDict(self.cuts,self.cut_f,self.runNum,self.DEBUG)
+            for i,cut in enumerate(self.cuts):
+                x = SetCuts(self.CURRENT_ENV,importDict).booleanDict(cut)
+                print("\n%s" % cut)
+                print(x, "\n")
+                cutNames.append(cut)
+                cutVals.append(x)
+                if i == 0:
+                    inputDict = {}
+                cutDict = SetCuts(self.CURRENT_ENV,importDict).readDict(cut,inputDict)
+                try:
+                    for j,val in enumerate(x):
+                        cutDict = SetCuts(self.CURRENT_ENV,importDict).evalDict(cut,eval(x[j]),cutDict)
+                        #cutDict = evalDict(cut,eval(x[j]),cutDict)
+                except NameError:
+                    raise InvalidEntry('''
+                    ======================================================================
+                      ERROR: %s invalid.
+                      Check that run number %s is properly defined in...
+                      %s/DB/PARAM
+                    ======================================================================
+                    ''' % (cut,self.runNum,self.UTILPATH))
+            strDict = dict(zip(cutNames,cutVals))
+
+            return [SetCuts(self.CURRENT_ENV,cutDict),treeDict,strDict]
+        else:
+            return [SetCuts(self.CURRENT_ENV),treeDict,None]
         
     def csv2root(inputDict,rootName):
         '''

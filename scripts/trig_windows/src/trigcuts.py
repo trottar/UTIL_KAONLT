@@ -3,7 +3,7 @@
 #
 # Description: Script to dynamically set new trigger windows and update the param file with these values
 # ================================================================
-# Time-stamp: "2022-06-15 13:48:54 trottar"
+# Time-stamp: "2022-06-28 01:40:16 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -37,35 +37,14 @@ ltsep package import and pathing definitions
 # Import package for cuts
 import ltsep as lt 
 
-proc_root = lt.Root(os.path.realpath(__file__), "Plot_HeePCoin", ROOTSuffix, runNum, MaxEvent).setup_ana()
-p = proc_root[2] # Dictionary of pathing variables
-OUTPATH = proc_root[3] # Get pathing for OUTPATH
+p=lt.SetPath(os.path.realpath(__file__))
 
 # Add this to all files for more dynamic pathing
-USER =  p["USER"] # Grab user info for file finding
-HOST = p["HOST"]
-REPLAYPATH = p["REPLAYPATH"]
-UTILPATH = p["UTILPATH"]
-ANATYPE=p["ANATYPE"]
-
-################################################################################################################################################
-
-print("Running as %s on %s, hallc_replay_lt path assumed as %s" % (USER, HOST, REPLAYPATH))
-
-out_f = UTILPATH+"/scripts/trig_windows/OUTPUTS/trig_data.csv"
-
-################################################################################################################################################
-'''
-Check that root/output paths and files exist for use
-'''
-
-# Construct the name of the rootfile based upon the info we provided
-OUTPATH = UTILPATH+"/OUTPUT/Analysis/%sLT" % ANATYPE        # Output folder location
-rootName = UTILPATH+"/ROOTfiles/Analysis/Lumi/%s_%s_%s.root" % (ROOTPrefix,runNum,MaxEvent)     # Input file location and variables taking
-print ("Attempting to process %s" %(rootName))
-lt.SetPath(os.path.realpath(__file__)).checkDir(OUTPATH)
-lt.SetPath(os.path.realpath(__file__)).checkFile(rootName)
-print("Output path checks out, outputting to %s" % (OUTPATH))
+USER=p.getPath("USER") # Grab user info for file finding
+HOST=p.getPath("HOST")
+REPLAYPATH=p.getPath("REPLAYPATH")
+UTILPATH=p.getPath("UTILPATH")
+ANATYPE=p.getPath("ANATYPE")
 
 ################################################################################################################################################
 '''
@@ -167,90 +146,48 @@ else:
 
 ################################################################################################################################################
 
-'''
-ANALYSIS TREE, T
-'''
+print("Running as %s on %s, hallc_replay_lt path assumed as %s" % (USER, HOST, REPLAYPATH))
 
-tree = up.open(rootName)["T"]
-
-H_bcm_bcm4a_AvgCurrent = tree.array("H.bcm.bcm4a.AvgCurrent")
-
-if PS_names[0] is "PS1":
-    T_coin_pTRIG_SHMS_ROC1_tdcTimeRaw = tree.array("T.coin.pTRIG1_ROC1_tdcTimeRaw")
-    T_coin_pTRIG_SHMS_ROC2_tdcTimeRaw = tree.array("T.coin.pTRIG1_ROC2_tdcTimeRaw")
-    T_coin_pTRIG_SHMS_ROC1_tdcTime = tree.array("T.coin.pTRIG1_ROC1_tdcTime")
-    T_coin_pTRIG_SHMS_ROC2_tdcTime = tree.array("T.coin.pTRIG1_ROC2_tdcTime")
-
-if PS_names[0] is "PS2":
-    T_coin_pTRIG_SHMS_ROC1_tdcTimeRaw = tree.array("T.coin.pTRIG2_ROC1_tdcTimeRaw")
-    T_coin_pTRIG_SHMS_ROC2_tdcTimeRaw = tree.array("T.coin.pTRIG2_ROC2_tdcTimeRaw")
-    T_coin_pTRIG_SHMS_ROC1_tdcTime = tree.array("T.coin.pTRIG2_ROC1_tdcTime")
-    T_coin_pTRIG_SHMS_ROC2_tdcTime = tree.array("T.coin.pTRIG2_ROC2_tdcTime")
-
-if PS_names[1] is "PS3":
-    T_coin_pTRIG_HMS_ROC1_tdcTimeRaw = tree.array("T.coin.pTRIG3_ROC1_tdcTimeRaw")
-    T_coin_pTRIG_HMS_ROC2_tdcTimeRaw = tree.array("T.coin.pTRIG3_ROC2_tdcTimeRaw")
-    T_coin_pTRIG_HMS_ROC1_tdcTime = tree.array("T.coin.pTRIG3_ROC1_tdcTime")
-    T_coin_pTRIG_HMS_ROC2_tdcTime = tree.array("T.coin.pTRIG3_ROC2_tdcTime")
-
-if PS_names[1] is "PS4":
-    T_coin_pTRIG_HMS_ROC1_tdcTimeRaw = tree.array("T.coin.pTRIG4_ROC1_tdcTimeRaw")
-    T_coin_pTRIG_HMS_ROC2_tdcTimeRaw = tree.array("T.coin.pTRIG4_ROC2_tdcTimeRaw")
-    T_coin_pTRIG_HMS_ROC1_tdcTime = tree.array("T.coin.pTRIG4_ROC1_tdcTime")
-    T_coin_pTRIG_HMS_ROC2_tdcTime = tree.array("T.coin.pTRIG4_ROC2_tdcTime")
-
-# Check if COIN trigger is used
-if len(PS_used) > 2:
-    if PS_names[2] is "PS5":
-        T_coin_pTRIG_COIN_ROC1_tdcTimeRaw = tree.array("T.coin.pTRIG5_ROC1_tdcTimeRaw")
-        T_coin_pTRIG_COIN_ROC2_tdcTimeRaw = tree.array("T.coin.pTRIG5_ROC2_tdcTimeRaw")
-        T_coin_pTRIG_COIN_ROC1_tdcTime = tree.array("T.coin.pTRIG5_ROC1_tdcTime")
-        T_coin_pTRIG_COIN_ROC2_tdcTime = tree.array("T.coin.pTRIG5_ROC2_tdcTime")
-        
-    if PS_names[2] is "PS6":
-        T_coin_pTRIG_COIN_ROC1_tdcTimeRaw = tree.array("T.coin.pTRIG6_ROC1_tdcTimeRaw")
-        T_coin_pTRIG_COIN_ROC2_tdcTimeRaw = tree.array("T.coin.pTRIG6_ROC2_tdcTimeRaw")
-        T_coin_pTRIG_COIN_ROC1_tdcTime = tree.array("T.coin.pTRIG6_ROC1_tdcTime")
-        T_coin_pTRIG_COIN_ROC2_tdcTime = tree.array("T.coin.pTRIG6_ROC2_tdcTime")
-
-T_coin_pEDTM_tdcTimeRaw = tree.array("T.coin.pEDTM_tdcTimeRaw")
-T_coin_pEDTM_tdcTime = tree.array("T.coin.pEDTM_tdcTime")
+out_f = UTILPATH+"/scripts/trig_windows/OUTPUTS/trig_data.csv"
 
 ################################################################################################################################################
 '''
 Define and set up cuts
 '''
 
-fout = UTILPATH+'/DB/CUTS/run_type/lumi.cuts'
+cut_f = '/DB/CUTS/run_type/lumi.cuts'
 
-cuts = ["c_nozero_edtm","c_nozero_ptrigHMS","c_nozero_ptrigSHMS"]
+cuts = ["c_nozero_edtm","c_nozero_ptrigHMS%s" % PS_names[1].replace("PS",""),"c_nozero_ptrigSHMS%s" % PS_names[0].replace("PS","")]
 # Check if COIN trigger is used
 if len(PS_used) > 2:
-    cuts = ["c_nozero_edtm","c_nozero_ptrigHMS","c_nozero_ptrigSHMS","c_nozero_ptrigCOIN"]
+    cuts = ["c_nozero_edtm","c_nozero_ptrigHMS%s" % PS_names[1].replace("PS",""),"c_nozero_ptrigSHMS%s" % PS_names[0].replace("PS",""),"c_nozero_ptrigCOIN%s" % PS_names[2].replace("PS","")]
 
-def make_cutDict(cuts,fout,runNum,CURRENT_ENV):
-    '''
-    This method calls several methods in kaonlt package. It is required to create properly formated
-    dictionaries. The evaluation must be in the analysis script because the analysis variables (i.e. the
-    leaves of interest) are not defined in the kaonlt package. This makes the system more flexible
-    overall, but a bit more cumbersome in the analysis script. Perhaps one day a better solution will be
-    implimented.
-    '''
+proc_root = lt.Root(os.path.realpath(__file__),"Lumi",ROOTPrefix,runNum,MaxEvent,cut_f,cuts).setup_ana()
+c = proc_root[0] # Cut object
+tree = proc_root[1] # Dictionary of branches
+OUTPATH = proc_root[2] # Get pathing for OUTPATH
 
-    # read in cuts file and make dictionary
-    importDict = lt.SetCuts(CURRENT_ENV).importDict(cuts,fout,runNum)
-    for i,cut in enumerate(cuts):
-        x = lt.SetCuts(CURRENT_ENV,importDict).booleanDict(cut)
-        print("\n%s" % cut)
-        print(x, "\n")
-        if i == 0:
-            inputDict = {}
-        cutDict = lt.SetCuts(CURRENT_ENV,importDict).readDict(cut,inputDict)
-        for j,val in enumerate(x):
-            cutDict = lt.SetCuts(CURRENT_ENV,importDict).evalDict(cut,eval(x[j]),cutDict)
-    return lt.SetCuts(CURRENT_ENV,cutDict)
+################################################################################################################################################
 
-c = make_cutDict(cuts,fout,runNum,os.path.realpath(__file__))
+T_coin_pTRIG_SHMS_ROC1_tdcTimeRaw = tree["T_coin_pTRIG%s_ROC1_tdcTimeRaw" % PS_names[0].replace("PS","")]
+T_coin_pTRIG_SHMS_ROC2_tdcTimeRaw = tree["T_coin_pTRIG%s_ROC2_tdcTimeRaw" % PS_names[0].replace("PS","")]
+T_coin_pTRIG_SHMS_ROC1_tdcTime = tree["T_coin_pTRIG%s_ROC1_tdcTime" % PS_names[0].replace("PS","")]
+T_coin_pTRIG_SHMS_ROC2_tdcTime = tree["T_coin_pTRIG%s_ROC2_tdcTime" % PS_names[0].replace("PS","")]
+
+T_coin_pTRIG_HMS_ROC1_tdcTimeRaw = tree["T_coin_pTRIG%s_ROC1_tdcTimeRaw" % PS_names[1].replace("PS","")]
+T_coin_pTRIG_HMS_ROC2_tdcTimeRaw = tree["T_coin_pTRIG%s_ROC2_tdcTimeRaw" % PS_names[1].replace("PS","")]
+T_coin_pTRIG_HMS_ROC1_tdcTime = tree["T_coin_pTRIG%s_ROC1_tdcTime" % PS_names[1].replace("PS","")]
+T_coin_pTRIG_HMS_ROC2_tdcTime = tree["T_coin_pTRIG%s_ROC2_tdcTime" % PS_names[1].replace("PS","")]
+
+# Check if COIN trigger is used
+if len(PS_used) > 2:
+    T_coin_pTRIG_COIN_ROC1_tdcTimeRaw = tree["T_coin_pTRIG%s_ROC1_tdcTimeRaw" % PS_names[2].replace("PS","")]
+    T_coin_pTRIG_COIN_ROC2_tdcTimeRaw = tree["T_coin_pTRIG%s_ROC2_tdcTimeRaw" % PS_names[2].replace("PS","")]
+    T_coin_pTRIG_COIN_ROC1_tdcTime = tree["T_coin_pTRIG%s_ROC1_tdcTime" % PS_names[2].replace("PS","")]
+    T_coin_pTRIG_COIN_ROC2_tdcTime = tree["T_coin_pTRIG%s_ROC2_tdcTime" % PS_names[2].replace("PS","")]
+
+T_coin_pEDTM_tdcTimeRaw = tree["T_coin_pEDTM_tdcTimeRaw"]
+T_coin_pEDTM_tdcTime = tree["T_coin_pEDTM_tdcTime"]
 
 ################################################################################################################################################
 '''
@@ -261,9 +198,10 @@ Grabs the misc param file so it can be updated with trigger windows
 inp_f = UTILPATH+'/DB/PARAM/Misc_Parameters.csv'
 try:
     trig_data = pd.read_csv(inp_f)
+    print(trig_data.keys())
 except IOError:
     print("Error: %s does not appear to exist." % inp_f)
-print(trig_data.keys())
+    sys.exit(0)
 
 ################################################################################################################################################
 
@@ -291,46 +229,40 @@ def setWindows(runNum):
         maxBin = max(binVals)
         return [minBin, maxBin]
 
+    numbins = 50 # previously 200
     # Get windows for {SPEC}_ROC1_tdcTimeRaw and pEDTM_tdcTimeRaw
-    c_T_coin_pTRIG_HMS_ROC1_tdcTimeRaw = [4760,5060] # getBinEdges(T_coin_pTRIG_HMS_ROC1_tdcTimeRaw,"c_nozero_ptrigHMS",200)
-    c_T_coin_pTRIG_SHMS_ROC2_tdcTimeRaw = [5520,5820] # getBinEdges(T_coin_pTRIG_SHMS_ROC2_tdcTimeRaw,"c_nozero_ptrigSHMS",200)
+    c_T_coin_pTRIG_HMS_ROC1_tdcTimeRaw = getBinEdges(T_coin_pTRIG_HMS_ROC1_tdcTimeRaw,"c_nozero_ptrigHMS%s" % PS_names[1].replace("PS",""),numbins)
+    c_T_coin_pTRIG_SHMS_ROC2_tdcTimeRaw = getBinEdges(T_coin_pTRIG_SHMS_ROC2_tdcTimeRaw,"c_nozero_ptrigSHMS%s" % PS_names[0].replace("PS",""),numbins)
     # Check if COIN trigger is used
     if len(PS_used) > 2:
-        c_T_coin_pTRIG_HMS_ROC1_tdcTimeRaw = [4770,5070] # getBinEdges(T_coin_pTRIG_HMS_ROC1_tdcTimeRaw,"c_nozero_ptrigHMS",200)
-        c_T_coin_pTRIG_SHMS_ROC2_tdcTimeRaw = [5520,5820] # getBinEdges(T_coin_pTRIG_SHMS_ROC2_tdcTimeRaw,"c_nozero_ptrigSHMS",200)
-        c_T_coin_pTRIG_COIN_ROC1_tdcTimeRaw = [4770,5070] # getBinEdges(T_coin_pTRIG_COIN_ROC1_tdcTimeRaw,"c_nozero_ptrigCOIN",200)
-    c_T_coin_pEDTM_tdcTimeRaw = [2590,3060] # getBinEdges(T_coin_pEDTM_tdcTimeRaw,"c_nozero_edtm",200)
+        c_T_coin_pTRIG_HMS_ROC1_tdcTimeRaw = getBinEdges(T_coin_pTRIG_HMS_ROC1_tdcTimeRaw,"c_nozero_ptrigHMS%s" % PS_names[1].replace("PS",""),numbins)
+        c_T_coin_pTRIG_SHMS_ROC2_tdcTimeRaw = getBinEdges(T_coin_pTRIG_SHMS_ROC2_tdcTimeRaw,"c_nozero_ptrigSHMS%s" % PS_names[0].replace("PS",""),numbins)
+        c_T_coin_pTRIG_COIN_ROC1_tdcTimeRaw = getBinEdges(T_coin_pTRIG_COIN_ROC1_tdcTimeRaw,"c_nozero_ptrigCOIN%s" % PS_names[2].replace("PS",""),numbins)
+    c_T_coin_pEDTM_tdcTimeRaw = getBinEdges(T_coin_pEDTM_tdcTimeRaw,"c_nozero_edtm",numbins)
 
     # This will need to run twice as it will need (or at least I'd prefer) to have the time raw window cut on time.
     # In theory just using time raw > 0 cut should suffice
     # Get windows for {SPEC}_ROC1_tdcTime and pEDTM_tdcTime
-    c_T_coin_pTRIG_HMS_ROC1_tdcTime = [450,520]  # getBinEdges(T_coin_pTRIG_HMS_ROC1_tdcTime,"c_nozero_ptrigHMS",200)
-    c_T_coin_pTRIG_SHMS_ROC2_tdcTime = [425,455] # getBinEdges(T_coin_pTRIG_SHMS_ROC2_tdcTime,"c_nozero_ptrigSHMS",200)
+    c_T_coin_pTRIG_HMS_ROC1_tdcTime = getBinEdges(T_coin_pTRIG_HMS_ROC1_tdcTime,"c_nozero_ptrigHMS%s" % PS_names[1].replace("PS",""),numbins)
+    c_T_coin_pTRIG_SHMS_ROC2_tdcTime = getBinEdges(T_coin_pTRIG_SHMS_ROC2_tdcTime,"c_nozero_ptrigSHMS%s" % PS_names[0].replace("PS",""),numbins)
     # Check if COIN trigger is used
     if len(PS_used) > 2:
-        c_T_coin_pTRIG_COIN_ROC1_tdcTime = [-10000,10000] # getBinEdges(T_coin_pTRIG_COIN_ROC1_tdcTime,"c_nozero_ptrigCOIN",200)
-    c_T_coin_pEDTM_tdcTime = [178, 180] # getBinEdges(T_coin_pEDTM_tdcTime,"c_nozero_edtm",200)
+        c_T_coin_pTRIG_COIN_ROC1_tdcTime = getBinEdges(T_coin_pTRIG_COIN_ROC1_tdcTime,"c_nozero_ptrigCOIN%s" % PS_names[2].replace("PS",""),numbins)
+    c_T_coin_pEDTM_tdcTime = getBinEdges(T_coin_pEDTM_tdcTime,"c_nozero_edtm",numbins)
 
     # Create a dictionary that contains the information that will be uploaded to Misc_Parameters.csv for a particular run
     new_row = {'Run_Start' : "{:.0f}".format(float(runNum)), 'Run_End' : "{:.0f}".format(float(runNum)), 'noedtm' : 0.0, 'edtmLow' : "{:.0f}".format(float(c_T_coin_pEDTM_tdcTimeRaw[0])), 
-               'edtmHigh' : "{:.0f}".format(float(c_T_coin_pEDTM_tdcTimeRaw[1])), 'edtmTLow' : "{:.0f}".format(float(c_T_coin_pEDTM_tdcTime[0])), 
-               'edtmTHigh' : "{:.0f}".format(float(c_T_coin_pEDTM_tdcTime[1])), 'ptrigHMSLow' : "{:.0f}".format(float(c_T_coin_pTRIG_HMS_ROC1_tdcTimeRaw[0])), 
-               'ptrigHMSHigh' : "{:.0f}".format(float(c_T_coin_pTRIG_HMS_ROC1_tdcTimeRaw[1])),'ptrigHMSTLow' : "{:.0f}".format(float(c_T_coin_pTRIG_HMS_ROC1_tdcTime[0])), 
-               'ptrigHMSTHigh' : "{:.0f}".format(float(c_T_coin_pTRIG_HMS_ROC1_tdcTime[1])), 'ptrigSHMSLow' : "{:.0f}".format(float(c_T_coin_pTRIG_SHMS_ROC2_tdcTimeRaw[0])), 
-               'ptrigSHMSHigh' : "{:.0f}".format(float(c_T_coin_pTRIG_SHMS_ROC2_tdcTimeRaw[1])),'ptrigSHMSTLow' : "{:.0f}".format(float(c_T_coin_pTRIG_SHMS_ROC2_tdcTime[0])), 
-               'ptrigSHMSTHigh' : "{:.0f}".format(float(c_T_coin_pTRIG_SHMS_ROC2_tdcTime[1])), 'ptrigCOINLow' : 0.0, 'ptrigCOINHigh' : 10000.0,'ptrigCOINTLow' : -10000.0, 'ptrigCOINTHigh' : 10000.0, 'goodstarttime' : 1.0, 'goodscinhit' : 1.0}
+               'edtmHigh' : "{:.0f}".format(float(c_T_coin_pEDTM_tdcTimeRaw[1])),'ptrigHMSLow' : "{:.0f}".format(float(c_T_coin_pTRIG_HMS_ROC1_tdcTimeRaw[0])), 
+               'ptrigHMSHigh' : "{:.0f}".format(float(c_T_coin_pTRIG_HMS_ROC1_tdcTimeRaw[1])),'ptrigSHMSLow' : "{:.0f}".format(float(c_T_coin_pTRIG_SHMS_ROC2_tdcTimeRaw[0])), 
+               'ptrigSHMSHigh' : "{:.0f}".format(float(c_T_coin_pTRIG_SHMS_ROC2_tdcTimeRaw[1])),'ptrigCOINLow' : 0.0, 'ptrigCOINHigh' : 10000.0, 'goodstarttime' : 1.0, 'goodscinhit' : 1.0}
     # Check if COIN trigger is used
     if len(PS_used) > 2:
         # Create a dictionary that contains the information that will be uploaded to Misc_Parameters.csv for a particular run
         new_row =  {'Run_Start' : "{:.0f}".format(float(runNum)), 'Run_End' : "{:.0f}".format(float(runNum)), 'noedtm' : 0.0, 'edtmLow' : "{:.0f}".format(float(c_T_coin_pEDTM_tdcTimeRaw[0])), 
-                    'edtmHigh' : "{:.0f}".format(float(c_T_coin_pEDTM_tdcTimeRaw[1])), 'edtmTLow' : "{:.0f}".format(float(c_T_coin_pEDTM_tdcTime[0])), 
-                    'edtmTHigh' : "{:.0f}".format(float(c_T_coin_pEDTM_tdcTime[1])), 'ptrigHMSLow' : "{:.0f}".format(float(c_T_coin_pTRIG_HMS_ROC1_tdcTimeRaw[0])), 
-                    'ptrigHMSHigh' : "{:.0f}".format(float(c_T_coin_pTRIG_HMS_ROC1_tdcTimeRaw[1])),'ptrigHMSTLow' : "{:.0f}".format(float(c_T_coin_pTRIG_HMS_ROC1_tdcTime[0])), 
-                    'ptrigHMSTHigh' : "{:.0f}".format(float(c_T_coin_pTRIG_HMS_ROC1_tdcTime[1])), 'ptrigSHMSLow' : "{:.0f}".format(float(c_T_coin_pTRIG_SHMS_ROC2_tdcTimeRaw[0])), 
-                    'ptrigSHMSHigh' : "{:.0f}".format(float(c_T_coin_pTRIG_SHMS_ROC2_tdcTimeRaw[1])),'ptrigSHMSTLow' : "{:.0f}".format(float(c_T_coin_pTRIG_SHMS_ROC2_tdcTime[0])), 
-                    'ptrigSHMSTHigh' : "{:.0f}".format(float(c_T_coin_pTRIG_SHMS_ROC2_tdcTime[1])),'ptrigCOINLow' : "{:.0f}".format(float(c_T_coin_pTRIG_COIN_ROC1_tdcTimeRaw[0])), 
-                    'ptrigCOINHigh' : "{:.0f}".format(float(c_T_coin_pTRIG_COIN_ROC1_tdcTimeRaw[1])),'ptrigCOINTLow' : "{:.0f}".format(float(c_T_coin_pTRIG_COIN_ROC1_tdcTime[0])), 
-                    'ptrigCOINTHigh' : "{:.0f}".format(float(c_T_coin_pTRIG_COIN_ROC1_tdcTime[1])), 'goodstarttime' : 1.0, 'goodscinhit' : 1.0}
+                    'edtmHigh' : "{:.0f}".format(float(c_T_coin_pEDTM_tdcTimeRaw[1])),'ptrigHMSLow' : "{:.0f}".format(float(c_T_coin_pTRIG_HMS_ROC1_tdcTimeRaw[0])), 
+                    'ptrigHMSHigh' : "{:.0f}".format(float(c_T_coin_pTRIG_HMS_ROC1_tdcTimeRaw[1])),'ptrigSHMSLow' : "{:.0f}".format(float(c_T_coin_pTRIG_SHMS_ROC2_tdcTimeRaw[0])), 
+                    'ptrigSHMSHigh' : "{:.0f}".format(float(c_T_coin_pTRIG_SHMS_ROC2_tdcTimeRaw[1])),'ptrigCOINLow' : "{:.0f}".format(float(c_T_coin_pTRIG_COIN_ROC1_tdcTimeRaw[0])), 
+                    'ptrigCOINHigh' : "{:.0f}".format(float(c_T_coin_pTRIG_COIN_ROC1_tdcTimeRaw[1])),'goodstarttime' : 1.0, 'goodscinhit' : 1.0}
 
     return new_row
 
@@ -355,9 +287,8 @@ def reconParam(runNum):
 
     # Setting an open window row that will be added to the end of Misc_Parameters.csv. This ensures that the script will run in the future without errors. 
     # This row will not overwrite the windows that are set above
-    open_row = {'Run_Start' : 0, 'Run_End' : 99999, 'noedtm' : 0.0, 'edtmLow' : 0.0, 'edtmHigh' : 10000.0,'edtmTLow' : -10000.0, 'edtmTHigh' : 10000.0, 'ptrigHMSLow' : 0.0, 'ptrigHMSHigh' : 10000.0, 
-                'ptrigHMSTLow' : -10000.0, 'ptrigHMSTHigh' : 10000.0, 'ptrigSHMSLow' : 0.0, 'ptrigSHMSHigh' : 10000.0,'ptrigSHMSTLow' : -10000.0, 'ptrigSHMSTHigh' : 10000.0, 'ptrigCOINLow' : 0.0, 
-                'ptrigCOINHigh' : 10000.0, 'ptrigCOINTLow' : -10000.0, 'ptrigCOINTHigh' : 10000.0, 'goodstarttime' : 1.0, 'goodscinhit' : 1.0}
+    open_row = {'Run_Start' : 0, 'Run_End' : 99999, 'noedtm' : 0.0, 'edtmLow' : 0.0, 'edtmHigh' : 10000.0, 'ptrigHMSLow' : 0.0, 'ptrigHMSHigh' : 10000.0, 
+                'ptrigSHMSLow' : 0.0, 'ptrigSHMSHigh' : 10000.0, 'ptrigCOINLow' : 0.0, 'ptrigCOINHigh' : 10000.0, 'goodstarttime' : 1.0, 'goodscinhit' : 1.0}
 
     # Add in newly formed rows to dataframe
     trig_data = trig_data.append(new_row,ignore_index=True)

@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2022-06-13 07:45:01 trottar"
+# Time-stamp: "2022-06-28 07:41:25 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -61,16 +61,17 @@ ltsep package import and pathing definitions
 # Import package for cuts
 import ltsep as lt 
 
-proc_root = lt.Root(os.path.realpath(__file__), "Plot_HeePSing", ROOTSuffix, runNum, MaxEvent).setup_ana()
-p = proc_root[2] # Dictionary of pathing variables
-OUTPATH = proc_root[3] # Get pathing for OUTPATH
+p=lt.SetPath(os.path.realpath(__file__))
 
 # Add this to all files for more dynamic pathing
-USER =  p["USER"] # Grab user info for file finding
-HOST = p["HOST"]
-REPLAYPATH = p["REPLAYPATH"]
-UTILPATH = p["UTILPATH"]
-ANATYPE=p["ANATYPE"]
+USER=p.getPath("USER") # Grab user info for file finding
+HOST=p.getPath("HOST")
+REPLAYPATH=p.getPath("REPLAYPATH")
+UTILPATH=p.getPath("UTILPATH")
+ANATYPE=p.getPath("ANATYPE")
+
+proc_root = lt.Root(os.path.realpath(__file__), "Plot_HeePSing").setup_ana()
+OUTPATH = proc_root[2] # Get pathing for OUTPATH
 
 #################################################################################################################################################
 

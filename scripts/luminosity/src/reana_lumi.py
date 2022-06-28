@@ -2,7 +2,7 @@
 #
 # Description: Script is used to reanalyze all lumi data or to organize lumi data values into subdirectories
 # ================================================================
-# Time-stamp: "2022-06-15 14:08:15 trottar"
+# Time-stamp: "2022-06-27 07:50:08 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -39,6 +39,7 @@ p = proc_root[2] # Dictionary of pathing variables
 USER =  p["USER"] # Grab user info for file finding
 HOST = p["HOST"]
 REPLAYPATH = p["REPLAYPATH"]
+SCRIPTPATH = p["SCRIPTPATH"]
 UTILPATH = p["UTILPATH"]
 ANATYPE=p["ANATYPE"]
 
@@ -68,7 +69,7 @@ if ANATYPE == "Pion":
         lumi_list = [12126,12144]
 else:
     # Flag to chose which runs to plot (mainly for debugging, keep as "all")
-    l_flag = "5154"
+    l_flag = "1"
 
     if l_flag == "all":
         # All lumi runs
@@ -101,9 +102,10 @@ Move lumi analyzed data from general csv to setting and target specific
 inp_f = SCRIPTPATH+"/luminosity/OUTPUTS/lumi_data.csv"
 try:
     lumi_data = pd.read_csv(inp_f)
+    print(lumi_data.keys())
 except IOError:
     print("Error: %s does not appear to exist." % inp_f)
-print(lumi_data.keys())
+    sys.exit(0)
 
 def convertDFtoCSV(inp_data,out_f):
     '''

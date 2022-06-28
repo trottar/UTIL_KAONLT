@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2022-06-18 10:16:32 trottar"
+# Time-stamp: "2022-06-28 06:34:51 trottar"
 # ================================================================
 # 
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -37,17 +37,18 @@ def dictionary(UTILPATH,runNum,MaxEvent):
     # Import package for cuts
     import ltsep as lt 
 
-    proc_root = lt.Root(os.path.realpath(__file__),"Plot_KaonLT_hgcer",ROOTPrefix,runNum,MaxEvent).setup_ana()
-    p = proc_root[2] # Dictionary of pathing variables
-    OUTPATH = proc_root[3] # Get pathing for OUTPATH
+    p=lt.SetPath(os.path.realpath(__file__))
 
     # Add this to all files for more dynamic pathing
-    USER =  p["USER"] # Grab user info for file finding
-    HOST = p["HOST"]
-    REPLAYPATH = p["REPLAYPATH"]
-    SCRIPTPATH = p["SCRIPTPATH"]
-    UTILPATH = p["UTILPATH"]
-    ANATYPE=p["ANATYPE"]
+    USER=p.getPath("USER") # Grab user info for file finding
+    HOST=p.getPath("HOST")
+    REPLAYPATH=p.getPath("REPLAYPATH")
+    UTILPATH=p.getPath("UTILPATH")
+    SIMCPATH=p.getPath("SIMCPATH")
+    ANATYPE=p.getPath("ANATYPE")
+
+    proc_root = lt.Root(os.path.realpath(__file__),"Plot_Prod_hgcer").setup_ana()
+    OUTPATH = proc_root[2] # Get pathing for OUTPATH
 
     ################################################################################################################################################
 
@@ -61,13 +62,18 @@ def dictionary(UTILPATH,runNum,MaxEvent):
     foutname = OUTPATH+"/" + TOutFilename + ".root"
     foutpdf = OUTPATH+"/" + TOutFilename + ".pdf"
 
-    Events_no_cal_hgc_aero_cuts  = InFile.Get("SHMS_cut_no_Cal_HGC_Aero")  
+    #Events_no_cal_hgc_aero_cuts  = InFile.Get("SHMS_cut_no_Cal_HGC_Aero")  
+    Events_no_cal_hgc_aero_cuts  = InFile.Get("SHMS_Pions_Without_HGC_Cuts")
     nEntries_Events_no_cal_hgc_aero_cuts  = Events_no_cal_hgc_aero_cuts.GetEntries()
 
     # Particles information no cuts
     SHMS_Events = InFile.Get("SHMS_Events")    
     nEntries_SHMS_Events = SHMS_Events.GetEntries()
 
+    #################################################################################################################################################
+    ROOT.gROOT.SetBatch(ROOT.kTRUE) # Set ROOT to batch mode explicitly, does not splash anything to screen
+    #ROOT.gStyle.SetOptStat(0) # Set style to hide stat box
+    #ROOT.gROOT.ForceStyle() # Force style change
     #################################################################################################################################################
 
     # Defined Geomatrical cuts
@@ -97,31 +103,74 @@ def dictionary(UTILPATH,runNum,MaxEvent):
     cutg.SetPoint(20,-25,2)
 
     cutg.SetLineColor(kRed)
-    cutg.SetLineWidth(5)
+    cutg.SetLineWidth(2)
 
-    h_hgcer_npeSum_v_aero_npeSum  = ROOT.TH2D("hgcer_npeSum_v_aero_npeSum","hgcer vs aero; hgcer; aero;" ,300,0,30, 300, 0, 30)
+    #################################################################################################################################################
+
+    h_hgcer_xAtCer_v_yAtCer  = ROOT.TH2D("hgcer_xAtCer_v_yAtCer","HGC; X; Y;" ,300, -50 ,50, 300, -50, 50)
+    h3_Pions_hgcer_XyAtCer_NPE = ROOT.TH3D("h3_Pions_hgcer_XyAtCer_NPE","HGC; NPE Sum; X; Y", 300, -40, 40, 300, -40, 40, 300, 0.0, 40)
+
+    h_aero_xAtCer_v_yAtCer  = ROOT.TH2D("aero_xAtCer_v_yAtCer","AERO; X; Y;" ,300, -60 ,60, 300, -60, 60)
+    h3_Pions_aero_XyAtCer_NPE = ROOT.TH3D("h3_Pions_aero_XyAtCer_NPE","AERO; NPE Sum; X; Y", 300, -60, 60, 300, -60, 60, 300, 0.0, 40)
+
+    h_hgcer_npeSum_v_aero_npeSum  = ROOT.TH2D("hgcer_npeSum_v_aero_npeSum","HGC vs AERO; hgcer; aero;" ,300,0,30, 300, 0, 40)
 
     for evt in Events_no_cal_hgc_aero_cuts:
+        h_hgcer_xAtCer_v_yAtCer.Fill(evt.P_hgcer_xAtCer,evt.P_hgcer_yAtCer)
+        h3_Pions_hgcer_XyAtCer_NPE.Fill(evt.P_hgcer_xAtCer, evt.P_hgcer_yAtCer, evt.P_hgcer_npeSum)
+        h_aero_xAtCer_v_yAtCer.Fill(evt.P_aero_xAtCer,evt.P_aero_yAtCer)
+        h3_Pions_aero_XyAtCer_NPE.Fill(evt.P_aero_xAtCer, evt.P_aero_yAtCer, evt.P_aero_npeSum)
         h_hgcer_npeSum_v_aero_npeSum.Fill(evt.P_hgcer_npeSum,evt.P_aero_npeSum)
 
-    #################################################################################################################################################
-    ROOT.gROOT.SetBatch(ROOT.kTRUE) # Set ROOT to batch mode explicitly, does not splash anything to screen
-    #################################################################################################################################################
 
-    c_CT = TCanvas("c_CT", "HGC (with TCutG)")  
-    c_CT.Divide(2,2)   
-    c_CT.cd(1)
-    h_hgcer_npeSum_v_aero_npeSum.Draw("colz [cutg]")
-    c_CT.cd(2)
-    Events_no_cal_hgc_aero_cuts.Draw("P_hgcer_npeSum>>h(300,0.3,30)", "cutg",  "colz");
-    c_CT.cd(3)
+    h3_Pions_hgcer_XyAtCer_NPE_pxy = ROOT.TProfile2D("h3_Pions_hgcer_XyAtCer_NPE_pxy","HGC (vs NPE) NPE Sum; X; Y",300,-40,40, 300,-40,40,0.0,40)
+    h3_Pions_hgcer_XyAtCer_NPE.Project3DProfile("xy")
+
+    h3_Pions_aero_XyAtCer_NPE_pxy = ROOT.TProfile2D("h3_Pions_aero_XyAtCer_NPE_pxy","AERO (vs NPE) NPE Sum; X; Y",300,-60,60, 300,-60,60,0.0,40)
+    h3_Pions_aero_XyAtCer_NPE.Project3DProfile("xy")
+
+    c_hgcer_XY = TCanvas("c_hgcer_XY", "HGC XY")  
+    c_hgcer_XY.Divide(2,2)   
+    c_hgcer_XY.cd(1)
+    h_hgcer_xAtCer_v_yAtCer.Draw("colz")
+    cutg.Draw("same")
+    c_hgcer_XY.cd(2)
+    h3_Pions_hgcer_XyAtCer_NPE_pxy.Draw("colz")
+    cutg.Draw("same")
+    c_hgcer_XY.cd(3)
+    h_hgcer_xAtCer_v_yAtCer.Draw("[cutg],colz")
+    c_hgcer_XY.cd(4)
+    h3_Pions_hgcer_XyAtCer_NPE_pxy.Draw("[cutg],colz")
+    c_hgcer_XY.Print(foutpdf+'(')
+
+    c_aero_XY = TCanvas("c_aero_XY", "AERO XY")  
+    c_aero_XY.Divide(2,2)   
+    c_aero_XY.cd(1)
+    h3_Pions_aero_XyAtCer_NPE_pxy.Draw("colz")
+    c_aero_XY.cd(2)
+    Events_no_cal_hgc_aero_cuts.Draw("P_aero_npeSum>>h(300,0.3,40)", "!cutg",  "colz")
+    c_aero_XY.cd(3)
+    h3_Pions_aero_XyAtCer_NPE_pxy.Draw("[cutg],colz")
+    c_aero_XY.cd(4)
+    Events_no_cal_hgc_aero_cuts.Draw("P_aero_npeSum>>h2(300,0.3,40)", "cutg",  "colz")
+    c_aero_XY.Print(foutpdf)
+
+    c_hgcer_NPE = TCanvas("c_hgcer_NPE", "HGC (with TCutG)")  
+    c_hgcer_NPE.Divide(2,2)   
+    c_hgcer_NPE.cd(1)
     h_hgcer_npeSum_v_aero_npeSum.Draw("colz")
-    c_CT.cd(4)
-    Events_no_cal_hgc_aero_cuts.Draw("P_hgcer_npeSum>>h2(300,0.3,30)", "!cutg",  "colz");
-    c_CT.Print(foutpdf)
+    c_hgcer_NPE.cd(2)
+    Events_no_cal_hgc_aero_cuts.Draw("P_hgcer_npeSum>>h(300,0.3,40)", "!cutg",  "colz")
+    c_hgcer_NPE.cd(3)
+    h_hgcer_npeSum_v_aero_npeSum.Draw("[cutg],colz")
+    c_hgcer_NPE.cd(4)
+    Events_no_cal_hgc_aero_cuts.Draw("P_hgcer_npeSum>>h2(300,0.3,40)", "cutg",  "colz")
+    c_hgcer_NPE.Print(foutpdf+')')
 
-    hgcer_did = cutg.IntegralHist(h_hgcer_npeSum_v_aero_npeSum)
-    hgcer_should = h_hgcer_npeSum_v_aero_npeSum.Integral(0,30,0,30)
+    #hgcer_did = cutg.IntegralHist(h_hgcer_npeSum_v_aero_npeSum)
+    #hgcer_should = h_hgcer_npeSum_v_aero_npeSum.Integral(0,30,0,30)
+    hgcer_did = cutg.IntegralHist(h3_Pions_hgcer_XyAtCer_NPE_pxy)
+    hgcer_should = h3_Pions_hgcer_XyAtCer_NPE_pxy.Integral()
 
     hgcer_eff = hgcer_did/hgcer_should
     hgcer_error = np.sqrt(((hgcer_did*hgcer_should)+(hgcer_did*hgcer_did))/(hgcer_should*hgcer_should*hgcer_should))

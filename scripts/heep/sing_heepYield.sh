@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2022-06-13 07:40:56 trottar"
+# Time-stamp: "2022-06-28 07:36:16 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -94,11 +94,11 @@ if [ ! -f "$UTILPATH/ROOTfiles/Scalers/coin_replay_scalers_${RUNNUMBER}_150000.r
     eval "$REPLAYPATH/hcana -l -q \"SCRIPTS/COIN/SCALERS/replay_coin_scalers.C($RUNNUMBER,150000)\""
     cd "$REPLAYPATH/CALIBRATION/bcm_current_map"
     root -b -l<<EOF 
-.L ScalerCalib.C+
+.L ScalerCalib.C
 .x run.C("${UTILPATH}/ROOTfiles/Scalers/coin_replay_scalers_${RUNNUMBER}_150000.root")
 .q  
 EOF
-    mv bcmcurrent_$RUNNUMBER.param $REPLAYPATH/PARAM/HMS/BCM/CALIB/bcmcurrent_$RUNNUMBER.param
+    mv bcmcurrent_${RUNNUMBER}_.param $REPLAYPATH/PARAM/HMS/BCM/CALIB/bcmcurrent_$RUNNUMBER.param
     cd $REPLAYPATH
 
     echo ""                                                                                                                                                                           
@@ -147,17 +147,17 @@ sleep 3
 
 ################################################################################################################################                                                                                   
 # Section for pion analysis script
-if [ -f "${UTILPATH}/OUTPUT/Analysis/HeeP/${RUNNUMBER}_${MAXEVENTS}_${spec}_Analysed_Data.root" ]; then
+if [ -f "${UTILPATH}/OUTPUT/Analysis/HeeP/${RUNNUMBER}_${MAXEVENTS}_${SPEC}_Analysed_Data.root" ]; then
     read -p "${ANATYPE} production analyzed file already exits, you want to reprocess it? <Y/N> " option1
     if [[ $option1 == "y" || $option1 == "Y" || $option1 == "yes" || $option1 == "Yes" ]]; then
-	rm "${UTILPATH}/OUTPUT/Analysis/HeeP/${RUNNUMBER}_${MAXEVENTS}_${spec}_Analysed_Data.root"
+	rm "${UTILPATH}/OUTPUT/Analysis/HeeP/${RUNNUMBER}_${MAXEVENTS}_${SPEC}_Analysed_Data.root"
 	echo "Reprocessing"
-	python ${UTILPATH}/scripts/heep/src/singyield.py ${ANATYPE}_${spec}_replay_production ${RUNNUMBER} ${MAXEVENTS} ${SPEC}
+	python ${UTILPATH}/scripts/heep/src/singyield.py ${ANATYPE}_${SPEC}_replay_production ${RUNNUMBER} ${MAXEVENTS} ${SPEC}
     else
 	echo "Skipping python analysis script step"
     fi
-elif [ ! -f "${UTILPATH}/OUTPUT/Analysis/HeeP/${RUNNUMBER}_${MAXEVENTS}_${spec}_Analysed_Data.root" ]; then
-	python ${UTILPATH}/scripts/heep/src/singyield.py ${ANATYPE}_${spec}_replay_production ${RUNNUMBER} ${MAXEVENTS} ${SPEC}
+elif [ ! -f "${UTILPATH}/OUTPUT/Analysis/HeeP/${RUNNUMBER}_${MAXEVENTS}_${SPEC}_Analysed_Data.root" ]; then
+	python ${UTILPATH}/scripts/heep/src/singyield.py ${ANATYPE}_${SPEC}_replay_production ${RUNNUMBER} ${MAXEVENTS} ${SPEC}
 else echo "Analysed root file already found in ${UTILPATH}/OUTPUT/Analysis/HeeP/ - Skipped python analyzer script step"
 fi
 
@@ -167,16 +167,16 @@ sleep 3
 
 # Section for pion physics ploting script
 # 23/09/21 - SJDK - Changed the ordering of the arguments given to the python script to make them consistent
-if [ -f "${UTILPATH}/OUTPUT/Analysis/HeeP/${RUNNUMBER}_${MAXEVENTS}_${spec}_Output_Data.root" ]; then
+if [ -f "${UTILPATH}/OUTPUT/Analysis/HeeP/${RUNNUMBER}_${MAXEVENTS}_${SPEC}_Output_Data.root" ]; then
     read -p "${ANATYPE} physics output file already exits, you want to reprocess it? <Y/N> " option2
     if [[ $option2 == "y" || $option2 == "Y" || $option2 == "yes" || $option2 == "Yes" ]]; then
-	rm "${UTILPATH}/OUTPUT/Analysis/HeeP/${RUNNUMBER}_${MAXEVENTS}_${spec}_Output_Data.root"
+	rm "${UTILPATH}/OUTPUT/Analysis/HeeP/${RUNNUMBER}_${MAXEVENTS}_${SPEC}_Output_Data.root"
 	echo "Reprocessing"
 	python3 ${UTILPATH}/scripts/heep/src/plot_sing.py ${SPEC}_Analysed_Data ${RUNNUMBER} ${MAXEVENTS} ${SPEC}
     else
 	echo "Skipping python physics plotting script step"
     fi
-elif [ ! -f  "${UTILPATH}/OUTPUT/Analysis/HeeP/${RUNNUMBER}_${MAXEVENTS}_${spec}_Output_Data.root" ]; then
+elif [ ! -f  "${UTILPATH}/OUTPUT/Analysis/HeeP/${RUNNUMBER}_${MAXEVENTS}_${SPEC}_Output_Data.root" ]; then
 	python3 ${UTILPATH}/scripts/heep/src/plot_sing.py ${SPEC}_Analysed_Data ${RUNNUMBER} ${MAXEVENTS} ${SPEC}
 else echo "${ANATYPE} physics output root file already found in ${UTILPATH}/OUTPUT/Analysis/HeeP/ - Skipped python output script step"
 fi

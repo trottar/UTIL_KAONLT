@@ -3,7 +3,7 @@
 # Description: Grabs lumi data from corresponding csv depending on run setting. Then plots the yields and creates a comprehensive table.
 # Variables calculated: current, rate_HMS, rate_SHMS, sent_edtm_PS, uncern_HMS_evts_scaler, uncern_SHMS_evts_scaler, uncern_HMS_evts_notrack, uncern_SHMS_evts_notrack, uncern_HMS_evts_track, uncern_SHMS_evts_track
 # ================================================================
-# Time-stamp: "2022-06-15 14:08:46 trottar"
+# Time-stamp: "2022-06-28 00:54:05 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -24,151 +24,42 @@ ltsep package import and pathing definitions
 # Import package for cuts
 import ltsep as lt 
 
-proc_root = lt.Root(os.path.realpath(__file__)).setup_ana()
-p = proc_root[2] # Dictionary of pathing variables
+p=lt.SetPath(os.path.realpath(__file__))
 
 # Add this to all files for more dynamic pathing
-USER =  p["USER"] # Grab user info for file finding
-HOST = p["HOST"]
-REPLAYPATH = p["REPLAYPATH"]
-SCRIPTPATH = p["SCRIPTPATH"]
-UTILPATH = p["UTILPATH"]
-ANATYPE=p["ANATYPE"]
+USER=p.getPath("USER") # Grab user info for file finding
+HOST=p.getPath("HOST")
+REPLAYPATH=p.getPath("REPLAYPATH")
+UTILPATH=p.getPath("UTILPATH")
+ANATYPE=p.getPath("ANATYPE")
 
 ################################################################################################################################################
 '''
-Grab proper lumi data file
+Grab proper lumi data file based of input given then define input and output file names as well as the target
 '''
-if ANATYPE == "Pion":
-    # Depending on input, the corresponding data setting csv data will be grabbed
-    inp_name = sys.argv[1]
-    if "1" in inp_name:
-        if "LH2" in inp_name.upper():
-            target = "LH2"
-            inp_f = SCRIPTPATH+"/luminosity/OUTPUTS/Lumi_1/LH2/lumi_data_l1_lh2.csv"
-            out_f = SCRIPTPATH+"/luminosity/OUTPUTS/Lumi_1/LH2/yield_data_l1_lh2.csv"
-            print("\nGrabbing input...\n\n%s" % str(inp_f))
-        if "LD2" in inp_name.upper():
-            target = "LD2"
-            inp_f = SCRIPTPATH+"/luminosity/OUTPUTS/Lumi_1/LD2/lumi_data_l1_ld2.csv"
-            out_f = SCRIPTPATH+"/luminosity/OUTPUTS/Lumi_1/LD2/yield_data_l1_ld2.csv"
-            print("\nGrabbing input...\n\n%s" % str(inp_f))
-        if "C" in inp_name.upper():
-            target = "carbon"
-            inp_f = SCRIPTPATH+"/luminosity/OUTPUTS/Lumi_1/Carbon0p5/lumi_data_l1_c0p5.csv"
-            out_f = SCRIPTPATH+"/luminosity/OUTPUTS/Lumi_1/Carbon0p5/yield_data_l1_c0p5.csv"
-            print("\nGrabbing input...\n\n%s" % str(inp_f))
-    elif "2" in inp_name:
-        if "LH2" in inp_name.upper():
-            target = "LH2"
-            inp_f = SCRIPTPATH+"/luminosity/OUTPUTS/Lumi_2/LH2/lumi_data_l2_lh2.csv"
-            out_f = SCRIPTPATH+"/luminosity/OUTPUTS/Lumi_2/LH2/yield_data_l2_lh2.csv"
-            print("\nGrabbing input...\n\n%s" % str(inp_f))
-        if "LD2" in inp_name.upper():
-            target = "LD2"
-            inp_f = SCRIPTPATH+"/luminosity/OUTPUTS/Lumi_2/LD2/lumi_data_l2_ld2.csv"
-            out_f = SCRIPTPATH+"/luminosity/OUTPUTS/Lumi_2/LD2/yield_data_l2_ld2.csv"
-            print("\nGrabbing input...\n\n%s" % str(inp_f))
-        if "C" in inp_name.upper():
-            target = "carbon"
-            inp_f = SCRIPTPATH+"/luminosity/OUTPUTS/Lumi_2/Carbon0p5/lumi_data_l2_c0p5.csv"
-            out_f = SCRIPTPATH+"/luminosity/OUTPUTS/Lumi_2/Carbon0p5/yield_data_l2_c0p5.csv"
-            print("\nGrabbing input...\n\n%s" % str(inp_f))
-    elif "3" in inp_name:
-        if "LH2" in inp_name.upper():
-            target = "LH2"
-            inp_f = SCRIPTPATH+"/luminosity/OUTPUTS/Lumi_3/LH2/lumi_data_l3_lh2.csv"
-            out_f = SCRIPTPATH+"/luminosity/OUTPUTS/Lumi_3/LH2/yield_data_l3_lh2.csv"
-            print("\nGrabbing input...\n\n%s" % str(inp_f))
-        if "LD2" in inp_name.upper():
-            target = "LD2"
-            inp_f = SCRIPTPATH+"/luminosity/OUTPUTS/Lumi_3/LD2/lumi_data_l3_ld2.csv"
-            out_f = SCRIPTPATH+"/luminosity/OUTPUTS/Lumi_3/LD2/yield_data_l3_ld2.csv"
-            print("\nGrabbing input...\n\n%s" % str(inp_f))
-        if "C" in inp_name.upper():
-            target = "carbon"
-            inp_f = SCRIPTPATH+"/luminosity/OUTPUTS/Lumi_3/Carbon0p5/lumi_data_l3_c0p5.csv"
-            out_f = SCRIPTPATH+"/luminosity/OUTPUTS/Lumi_3/Carbon0p5/yield_data_l3_c0p5.csv"
-            print("\nGrabbing input...\n\n%s" % str(inp_f))
-    elif inp_name == None:
-        target = "carbon"
-        inp_f = SCRIPTPATH+"/luminosity/OUTPUTS/lumi_data.csv"
-        out_f = SCRIPTPATH+"/luminosity/OUTPUTS/yield_data.csv"
-        print("\nError: Invalid input...\nGrabbing default input...\n\n%s" % str(inp_f))
-    else:
-        target = "carbon"
-        inp_f = SCRIPTPATH+"/luminosity/OUTPUTS/lumi_data.csv"
-        out_f = SCRIPTPATH+"/luminosity/OUTPUTS/yield_data.csv"
-        print("\nGrabbing default input...\n\n%s" % str(inp_f))
 
-else:
-    # Depending on input, the corresponding data setting csv data will be grabbed
-    inp_name = sys.argv[1]
-    if "10p6" in inp_name:
-        if "l1" in inp_name:
-            if "LH2" in inp_name.upper():
-                target = "LH2"
-                inp_f = SCRIPTPATH+"/luminosity/OUTPUTS/10p6/Lumi_1/LH2/lumi_data_lh2_l1_10p6.csv"
-                out_f = SCRIPTPATH+"/luminosity/OUTPUTS/10p6/Lumi_1/LH2/yield_data_lh2_l1_10p6.csv"
-                print("\nGrabbing input...\n%s" % str(inp_f))
-            if "C" in inp_name.upper():
-                target = "carbon"
-                inp_f = SCRIPTPATH+"/luminosity/OUTPUTS/10p6/Lumi_1/Carbon0p5/lumi_data_c_l1_10p6.csv"
-                out_f = SCRIPTPATH+"/luminosity/OUTPUTS/10p6/Lumi_1/Carbon0p5/yield_data_c_l1_10p6.csv"
-                print("\nGrabbing input...\n%s" % str(inp_f))
-        elif "l2" in inp_name:
-            if "LH2" in inp_name.upper():
-                target = "LH2"
-                inp_f = SCRIPTPATH+"/luminosity/OUTPUTS/10p6/Lumi_2/LH2/lumi_data_lh2_l2_10p6.csv"
-                out_f = SCRIPTPATH+"/luminosity/OUTPUTS/10p6/Lumi_2/LH2/yield_data_lh2_l2_10p6.csv"
-                print("\nGrabbing input...\n%s" % str(inp_f))
-            if "C" in inp_name.upper():
-                target = "carbon"
-                inp_f = SCRIPTPATH+"/luminosity/OUTPUTS/10p6/Lumi_2/Carbon0p5/lumi_data_c_l2_10p6.csv"
-                out_f = SCRIPTPATH+"/luminosity/OUTPUTS/10p6/Lumi_2/Carbon0p5/yield_data_c_l2_10p6.csv"
-                print("\nGrabbing input...\n%s" % str(inp_f))
-    elif "6p2" in inp_name:
-        if "LH2" in inp_name.upper():
-            target = "LH2"
-            inp_f = SCRIPTPATH+"/luminosity/OUTPUTS/6p2/Lumi_1/LH2/lumi_data_lh2_l1_6p2.csv"
-            out_f = SCRIPTPATH+"/luminosity/OUTPUTS/6p2/Lumi_1/LH2/yield_data_lh2_l1_6p2.csv"
-            print("\nGrabbing input...\n%s" % str(inp_f))
-        if "C" in inp_name.upper():
-            target = "carbon"
-            inp_f = SCRIPTPATH+"/luminosity/OUTPUTS/6p2/Lumi_1/Carbon0p5/lumi_data_c_l1_6p2.csv"
-            out_f = SCRIPTPATH+"/luminosity/OUTPUTS/6p2/Lumi_1/Carbon0p5/yield_data_c_l1_6p2.csv"
-            print("\nGrabbing input...\n%s" % str(inp_f))
-    elif "8p2" in inp_name:
-        if "LH2" in inp_name.upper():
-            target = "LH2"
-            inp_f = SCRIPTPATH+"/luminosity/OUTPUTS/8p2/Lumi_1/LH2/lumi_data_lh2_l1_8p2.csv"
-            out_f = SCRIPTPATH+"/luminosity/OUTPUTS/8p2/Lumi_1/LH2/yield_data_lh2_l1_8p2.csv"
-            print("\nGrabbing input...\n%s" % str(inp_f))
-        if "C" in inp_name.upper():
-            target = "carbon"
-            inp_f = SCRIPTPATH+"/luminosity/OUTPUTS/8p2/Lumi_1/Carbon0p5/lumi_data_c_l1_8p2.csv"
-            out_f = SCRIPTPATH+"/luminosity/OUTPUTS/8p2/Lumi_1/Carbon0p5/yield_data_c_l1_8p2.csv"
-            print("\nGrabbing input...\n%s" % str(inp_f))
-    elif inp_name == None:
-        target = "carbon"
-        inp_f = SCRIPTPATH+"/luminosity/OUTPUTS/lumi_data.csv"
-        out_f = SCRIPTPATH+"/luminosity/OUTPUTS/yield_data.csv"
-        print("\nError: Invalid input...\nGrabbing default input...\n%s" % str(inp_f))
-    else:
-        target = "carbon"
-        inp_f = SCRIPTPATH+"/luminosity/OUTPUTS/lumi_data.csv"
-        out_f = SCRIPTPATH+"/luminosity/OUTPUTS/yield_data.csv"
-        print("\nGrabbing default input...\n%s" % str(inp_f))
+inp_name = sys.argv[1]
 
+sys.path.insert(0,"%s/luminosity/src/%sLT" % (SCRIPTPATH,ANATYPE))
+import data_path
+
+data_path = data_path.get_file(inp_name,SCRIPTPATH)
+target = data_path[0]
+inp_f = data_path[1]
+out_f = data_path[2]
+
+################################################################################################################################################
 
 print("\nRunning as %s on %s, hallc_replay_lt path assumed as %s" % (USER, HOST, REPLAYPATH))
 
 # Converts csv data to dataframe
 try:
     lumi_data = pd.read_csv(inp_f)
+    print(inp_f)
+    print(lumi_data.keys())
 except IOError:
     print("Error: %s does not appear to exist." % inp_f)
-print(lumi_data.keys())
+    sys.exit(0)
 
 ################################################################################################################################################
 
@@ -186,7 +77,6 @@ def removeRun(runNum):
 
 # Convert to dict for proper formatting when eventually merging dictionaries
 lumi_data = dict(lumi_data)
-print(lumi_data.keys())
 
 ################################################################################################################################################
 '''
@@ -243,6 +133,8 @@ def calc_yield():
         #"sent_edtm_PS" : makeList("sent_edtm")/HMS_PS,
         #"PS_mod" : SHMS_PS%HMS_PS,
         "sent_edtm_PS" : makeList("sent_edtm")/HMS_PS+makeList("sent_edtm")/SHMS_PS-makeList("sent_edtm")/(HMS_PS*SHMS_PS),
+        "sent_edtm_SHMS" : makeList("sent_edtm")/SHMS_PS,
+        "sent_edtm_HMS" : makeList("sent_edtm")/(HMS_PS*(1-1/SHMS_PS)),
         
         "CPULT_phys" : (makeList("HMSTRIG_cut")*HMS_PS+makeList("SHMSTRIG_cut")*SHMS_PS)*makeList("CPULT_scaler"),
         
@@ -273,6 +165,8 @@ def calc_yield():
             #"sent_edtm_PS" : makeList("sent_edtm")/HMS_PS,
             #"PS_mod" : SHMS_PS%HMS_PS,
             "sent_edtm_PS" : makeList("sent_edtm")/HMS_PS+makeList("sent_edtm")/SHMS_PS+makeList("sent_edtm")/COIN_PS+makeList("sent_edtm")/(SHMS_PS*HMS_PS*COIN_PS)-makeList("sent_edtm")/(HMS_PS*SHMS_PS)-makeList("sent_edtm")/(COIN_PS*SHMS_PS)-makeList("sent_edtm")/(HMS_PS*COIN_PS),
+            "sent_edtm_SHMS" : makeList("sent_edtm")/SHMS_PS,
+            "sent_edtm_HMS" : makeList("sent_edtm")/(HMS_PS*(1-1/SHMS_PS)),
             
             "uncern_HMS_evts_scaler" : np.sqrt(makeList("HMSTRIG_scaler"))/makeList("HMSTRIG_scaler"),
     
@@ -299,7 +193,11 @@ def calc_yield():
 
     # Total livetime calculation
     TLT = makeList("accp_edtm")/yield_dict["sent_edtm_PS"]
+    pTLT = makeList("paccp_edtm")/yield_dict["sent_edtm_SHMS"]
+    hTLT = makeList("haccp_edtm")/yield_dict["sent_edtm_HMS"]
     yield_dict.update({"TLT" : TLT})
+    yield_dict.update({"pTLT" : pTLT})
+    yield_dict.update({"hTLT" : hTLT})
     #uncer_TLT = np.sqrt(makeList("accp_edtm")/yield_dict["sent_edtm_PS"]**2+makeList("accp_edtm")**2/yield_dict["sent_edtm_PS"]**4)
     #uncer_TLT = np.sqrt(yield_dict["sent_edtm_PS"]*.95*.05)
     #yield_dict.update({"uncern_TLT" : uncern_TLT})
@@ -316,15 +214,15 @@ def calc_yield():
     # Calculate yield values
 
     yield_HMS_scaler = (yield_dict["HMS_scaler_accp"])/(makeList("charge"))
-    yield_HMS_notrack = (makeList("h_int_etotnorm_evts")*makeList("PS4"))/(makeList("charge"))#*yield_dict["TLT"])
-    yield_HMS_track = (makeList("h_int_goodscin_evts")*makeList("PS4"))/(makeList("charge")*yield_dict["TLT"]*makeList("HMS_track"))
+    yield_HMS_notrack = (makeList("h_int_etotnorm_evts")*HMS_PS)/(makeList("charge"))#*yield_dict["TLT"])
+    yield_HMS_track = (makeList("h_int_goodscin_evts")*HMS_PS)/(makeList("charge")*yield_dict["TLT"]*makeList("HMS_track"))
     yield_dict.update({"yield_HMS_scaler" : yield_HMS_scaler})
     yield_dict.update({"yield_HMS_notrack" : yield_HMS_notrack})
     yield_dict.update({"yield_HMS_track" : yield_HMS_track})
 
     yield_SHMS_scaler = (yield_dict["SHMS_scaler_accp"])/(makeList("charge"))
-    yield_SHMS_notrack = (makeList("p_int_etotnorm_evts")*makeList("PS2"))/(makeList("charge"))#*yield_dict["TLT"])
-    yield_SHMS_track = (makeList("p_int_goodscin_evts")*makeList("PS2"))/(makeList("charge")*yield_dict["TLT"]*makeList("SHMS_track"))
+    yield_SHMS_notrack = (makeList("p_int_etotnorm_evts")*SHMS_PS)/(makeList("charge"))#*yield_dict["TLT"])
+    yield_SHMS_track = (makeList("p_int_goodscin_evts")*SHMS_PS)/(makeList("charge")*yield_dict["TLT"]*makeList("SHMS_track"))
     yield_dict.update({"yield_SHMS_scaler" : yield_SHMS_scaler})
     yield_dict.update({"yield_SHMS_notrack" : yield_SHMS_notrack})
     yield_dict.update({"yield_SHMS_track" : yield_SHMS_track})
@@ -811,7 +709,7 @@ def debug():
     print("DEBUG data")
     print("=======================")
     ### Debug prints
-    print(data[["run number","PS2","PS4","sent_edtm","sent_edtm_PS","accp_edtm","TLT","CPULT_phys","current","time","HMS_track","SHMS_track"]])
+    print(data[["run number","PS1","PS3","sent_edtm","sent_edtm_PS","accp_edtm","TLT","CPULT_phys","current","time","HMS_track","SHMS_track"]])
    # print("EDTM scaler rate: ", data["sent_edtm"]/data["time"])
    # print("Accepted EDTM rate: ", data["accp_edtm"]/data["time"])
    # print("Run numbers: ", data["run number"].sort_values())

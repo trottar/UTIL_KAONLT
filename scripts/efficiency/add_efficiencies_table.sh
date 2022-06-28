@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2022-06-18 10:28:06 trottar"
+# Time-stamp: "2022-06-21 02:31:31 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -117,7 +117,8 @@ if [[ $RunType = "HeePCoin" ]]; then
 	done
     fi
 else
-    inputFile="${REPLAYPATH}/UTIL_BATCH/InputRunLists/KaonLT_2018_2019/ProductionLH2_ALL"
+    #inputFile="${REPLAYPATH}/UTIL_BATCH/InputRunLists/KaonLT_2018_2019/ProductionLH2_ALL"
+    inputFile="${REPLAYPATH}/UTIL_BATCH/InputRunLists/KaonLT_2018_2019/Prod_Test"
     if [[ $r_flag = "true" ]]; then
 	while true; do
 	    read -p "Do you wish to analyse hgcer efficiencies with run list ${RunList}? (Please answer yes or no) " yn

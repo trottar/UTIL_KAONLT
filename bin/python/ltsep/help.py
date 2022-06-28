@@ -3,7 +3,7 @@
 #
 # Description: Just calls help functions for various methods to help users
 # ================================================================
-# Time-stamp: "2022-06-15 13:21:17 trottar"
+# Time-stamp: "2022-06-28 06:19:16 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -58,53 +58,64 @@ class Help():
         rather choose which paths are being used in your specific string. Make sure all references
         to UTIL_PION or UTIL_KAONLT are defined using UTILPATH (or any other useful path listed below)
         ----------------------------------------------------------------------------------------------
-
         ################################################################################################################################################
         \'''
-        ltsep package import and pathing definitions
+        Define and set up cuts
         \'''
 
-        import os
         import ltsep as lt
 
-        # To define just pathing variables...
-        proc_root = lt.Root(os.path.realpath(__file__)).setup_ana()
-        p = proc_root[2] # Dictionary of pathing variables
+        p=lt.SetPath(os.path.realpath(__file__))
 
-        # os.path.realpath(__file__) is your current directory path
-        # This will grab the pathing for these variables based off the files in PATH_TO_DIR
-        VOLATILEPATH=p["VOLATILEPATH"]
-        ANALYSISPATH=p["ANALYSISPATH"]
-        HCANAPATH=p["HCANAPATH"]
-        REPLAYPATH=p["REPLAYPATH"]
-        UTILPATH=p["UTILPATH"]
-        PACKAGEPATH=p["PACKAGEPATH"]
-        OUTPATH=p["OUTPATH"]
-        ROOTPATH=p["ROOTPATH"]
-        REPORTPATH=p["REPORTPATH"]
-        CUTPATH=p["CUTPATH"]
-        PARAMPATH=p["PARAMPATH"]
-        SCRIPTPATH=p["SCRIPTPATH"]
-        ANATYPE=p["ANATYPE"]
-        USER=p["USER"]
-        HOST=p["HOST"]
+        # Add this to all files for more dynamic pathing
+        VOLATILEPATH=p.getPath("VOLATILEPATH")
+        ANALYSISPATH=p.getPath("ANALYSISPATH")
+        HCANAPATH=p.getPath("HCANAPATH")
+        REPLAYPATH=p.getPath("REPLAYPATH")
+        UTILPATH=p.getPath("UTILPATH")
+        PACKAGEPATH=p.getPath("PACKAGEPATH")
+        OUTPATH=p.getPath("OUTPATH")
+        ROOTPATH=p.getPath("ROOTPATH")
+        REPORTPATH=p.getPath("REPORTPATH")
+        CUTPATH=p.getPath("CUTPATH")
+        PARAMPATH=p.getPath("PARAMPATH")
+        SCRIPTPATH=p.getPath("SCRIPTPATH")
+        SIMCPATH=p.getPath("SIMCPATH")
+        ANATYPE=p.getPath("ANATYPE")
+        USER=p.getPath("USER")
+        HOST=p.getPath("HOST")
 
-        ################################################################################################################################################
+        # ---> If multple run type files are required then define a new run type file altogether. Do not try to 
+        # chain run type files. It can be done, but is computationally wasteful and pointless.
+        cut_f = "<path_to_run_type_cut>"
 
-        print("Running as %s on %s, hallc_replay_lt path assumed as %s" % (USER, HOST, REPLAYPATH))
+        cuts = ["runTypeCut1","runTypeCut2",<etc>,...]
+
+        # To apply cuts to array and define pathing variables...
+        # Arrays are defined in ltsep, no need to redefine.
+        # cut_f, cuts are optional flags. If you don't have cuts just leave these blank and the runtype root branches will be accessible
+        # ROOTPrefix is also an optional flag but this means your branches will need to be defined explicitly
+        proc_root = lt.Root(os.path.realpath(__file__), "<Run Type (HeePCoin, HeePSing_<spec>, SimcCoin, SimcSing, KaonLT/PionLT, Plot_<Type>, None)>", ROOTPrefix, runNum, MaxEvent, cut_f, cuts).setup_ana()
+        c = proc_root[0] # Cut object
+        tree = proc_root[1] # Dictionary of branches
+        OUTPATH = proc_root[2] # Get pathing for OUTPATH
+        strDict = proc_root[3] # Dictionary of cuts as strings
+
+        # ----> See lt.Help.path_setup() for more info
 
         ################################################################################################################################################
         \'''
-        Check that root/output paths and files exist for use, this is depreciated and done backend in ltsep now
+        If you wish to explicitly define arrays then do the following...
         \'''
 
-        # Construct the name of the rootfile based upon the info we provided
-        OUTPATH = UTILPATH+"/OUTPUT/Analysis/%sLT" % ANATYPE        # Output folder location
-        rootName = UTILPATH+"/ROOTfiles/Analysis/Lumi/%s_%s_%s.root" % (ROOTPrefix,runNum,MaxEvent)     # Input file location and variables taking
-        print ("Attempting to process %s" %(rootName))
-        lt.SetPath(os.path.realpath(__file__)).checkDir(OUTPATH)
-        lt.SetPath(os.path.realpath(__file__)).checkFile(rootName)
-        print("Output path checks out, outputting to %s" % (OUTPATH))
+        import uproot as up
+        # Convert root leaf to array with uproot
+        leaf_name  = tree.array("leaf.name") # The periods are replaced with underscores
+
+        ----------------------------------------------------------------------------------------------
+
+        This is the most extensive class of the ltsep package. This class will grab many of the required 
+        tasks for doing in depth analysis in python such as define pathing variables and cuts.
         '''
         print(path_setup.__doc__)
 
