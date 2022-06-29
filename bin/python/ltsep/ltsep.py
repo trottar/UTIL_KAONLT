@@ -2,7 +2,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2022-06-28 06:18:58 trottar"
+# Time-stamp: "2022-06-29 09:28:05 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -223,20 +223,18 @@ class Root():
         This method brings all the data together and makes it accessible to the script. It calls the other 
         methods to define cuts. It also defines pathing variables and grabs dictionary of branches.
         '''
-        if self.ROOTPrefix is not "":
-            # Make cut dictionary and convert to boolean list for cut application
-            make_cutDict = self.make_cutDict()
-            bool_cuts = make_cutDict[0]
 
-            # Get dictionary of branch names
-            treeDict = make_cutDict[1]
+        # Make cut dictionary and convert to boolean list for cut application
+        make_cutDict = self.make_cutDict()
+        bool_cuts = make_cutDict[0]
 
-            # Get dictionary of cut names and values as strings
-            strDict = make_cutDict[2]
+        # Get dictionary of branch names
+        treeDict = make_cutDict[1]
 
-            return [bool_cuts,treeDict,self.OUTPATH,strDict]
-        else:
-            return [None,None,self.OUTPATH,None]
+        # Get dictionary of cut names and values as strings
+        strDict = make_cutDict[2]
+
+        return [bool_cuts,treeDict,strDict]
 
 
     def make_cutDict(self):

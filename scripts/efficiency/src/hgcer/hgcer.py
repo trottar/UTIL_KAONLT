@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2022-06-28 06:33:52 trottar"
+# Time-stamp: "2022-06-29 09:38:46 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -41,16 +41,7 @@ MaxEvent = sys.argv[3]
 ##############################################################################################################################################
 
 # Import package for cuts
-import ltsep as lt 
-
-p=lt.SetPath(os.path.realpath(__file__))
-
-# Add this to all files for more dynamic pathing
-USER=p.getPath("USER") # Grab user info for file finding
-HOST=p.getPath("HOST")
-REPLAYPATH=p.getPath("REPLAYPATH")
-UTILPATH=p.getPath("UTILPATH")
-ANATYPE=p.getPath("ANATYPE")
+from ltsep import Root
 
 ##############################################################################################################################################
 '''
@@ -62,11 +53,22 @@ cut_f = '/DB/CUTS/run_type/pid_eff.cuts'
 # defining Cuts
 cuts = ["p_picut_eff","p_picut_eff_no_hgcer","p_picut_eff_no_aero","p_picut_eff_no_cal","p_ecut_eff_no_hgcer","p_ecut_eff","p_kcut_eff","p_kcut_eff_no_hgcer","p_pcut_eff","p_pcut_eff_no_hgcer","p_cut_eff_no_cal_hgcer","p_cut_eff_no_hgcer_aero_cal"]
 
-proc_root = lt.Root(os.path.realpath(__file__),"Prod_hgcer",ROOTPrefix,runNum,MaxEvent,cut_f,cuts).setup_ana()
+lt=Root(os.path.realpath(__file__),"Prod_hgcer",ROOTPrefix,runNum,MaxEvent,cut_f,cuts)
+
+# Add this to all files for more dynamic pathing
+USER=lt.USER # Grab user info for file finding
+HOST=lt.HOST
+REPLAYPATH=lt.REPLAYPATH
+UTILPATH=lt.UTILPATH
+ANATYPE=lt.ANATYPE
+OUTPATH=lt.OUTPATH
+
+proc_root = lt.setup_ana()
 c = proc_root[0] # Cut object
 tree = proc_root[1] # Dictionary of branches
-OUTPATH = proc_root[2] # Get pathing for OUTPATH
-strDict = proc_root[3] # Dictionary of cuts as strings
+strDict = proc_root[2] # Dictionary of cuts as strings
+
+##############################################################################################################################################
 
 print("Running as %s on %s, hallc_replay_lt path assumed as %s" % (USER, HOST, REPLAYPATH))
 # Construct the name of the rootfile based upon the info we provided
