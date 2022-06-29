@@ -3,7 +3,7 @@
 # Description: Grabs lumi data from corresponding csv depending on run setting. Then plots the yields and creates a comprehensive table.
 # Variables calculated: current, rate_HMS, rate_SHMS, sent_edtm_PS, uncern_HMS_evts_scaler, uncern_SHMS_evts_scaler, uncern_HMS_evts_notrack, uncern_SHMS_evts_notrack, uncern_HMS_evts_track, uncern_SHMS_evts_track
 # ================================================================
-# Time-stamp: "2022-06-28 00:54:05 trottar"
+# Time-stamp: "2022-06-29 05:24:25 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -31,6 +31,7 @@ USER=p.getPath("USER") # Grab user info for file finding
 HOST=p.getPath("HOST")
 REPLAYPATH=p.getPath("REPLAYPATH")
 UTILPATH=p.getPath("UTILPATH")
+SCRIPTPATH=p.getPath("SCRIPTPATH")
 ANATYPE=p.getPath("ANATYPE")
 
 ################################################################################################################################################
@@ -95,13 +96,13 @@ if "PS4" in lumi_data.keys():
     HMS_PS = lumi_data["PS4"]
 if "PS5" in lumi_data.keys():
     COIN_PS = lumi_data["PS5"]
-if "PS5" in lumi_data.keys():
+if "PS6" in lumi_data.keys():
     COIN_PS = lumi_data["PS6"]
 
 try:
     COIN_PS
 except NameError:
-    COIN_PS = None
+    COIN_PS = pd.dataframe(np.nan)
 
 ################################################################################################################################################
 
@@ -122,38 +123,37 @@ def calc_yield():
     '''
     Creates a new dictionary with yield calculations. The relative yield is defined relative to the maximum current.
     '''
+    if COIN_PS.isnull().all():
+        # Create dictionary for calculations that were not calculated in previous scripts.
+        yield_dict = {
+            "current" : makeList("charge")/makeList("time"),
 
-    # Create dictionary for calculations that were not calculated in previous scripts.
-    yield_dict = {
-        "current" : makeList("charge")/makeList("time"),
-        
-        "rate_HMS" : makeList("HMSTRIG_scaler")/makeList("time"),
-        "rate_SHMS" : makeList("SHMSTRIG_scaler")/makeList("time"),
-        
-        #"sent_edtm_PS" : makeList("sent_edtm")/HMS_PS,
-        #"PS_mod" : SHMS_PS%HMS_PS,
-        "sent_edtm_PS" : makeList("sent_edtm")/HMS_PS+makeList("sent_edtm")/SHMS_PS-makeList("sent_edtm")/(HMS_PS*SHMS_PS),
-        "sent_edtm_SHMS" : makeList("sent_edtm")/SHMS_PS,
-        "sent_edtm_HMS" : makeList("sent_edtm")/(HMS_PS*(1-1/SHMS_PS)),
-        
-        "CPULT_phys" : (makeList("HMSTRIG_cut")*HMS_PS+makeList("SHMSTRIG_cut")*SHMS_PS)*makeList("CPULT_scaler"),
-        
-        "uncern_HMS_evts_scaler" : np.sqrt(makeList("HMSTRIG_scaler"))/makeList("HMSTRIG_scaler"),
-        
-        "uncern_SHMS_evts_scaler" : np.sqrt(makeList("SHMSTRIG_scaler"))/makeList("SHMSTRIG_scaler"),
+            "rate_HMS" : makeList("HMSTRIG_scaler")/makeList("time"),
+            "rate_SHMS" : makeList("SHMSTRIG_scaler")/makeList("time"),
 
-        "uncern_HMS_evts_notrack" : np.sqrt(makeList("h_int_etotnorm_evts"))/makeList("h_int_etotnorm_evts"),
+            #"sent_edtm_PS" : makeList("sent_edtm")/HMS_PS,
+            #"PS_mod" : SHMS_PS%HMS_PS,
+            "sent_edtm_PS" : makeList("sent_edtm")/HMS_PS+makeList("sent_edtm")/SHMS_PS-makeList("sent_edtm")/(HMS_PS*SHMS_PS),
+            "sent_edtm_SHMS" : makeList("sent_edtm")/SHMS_PS,
+            "sent_edtm_HMS" : makeList("sent_edtm")/(HMS_PS*(1-1/SHMS_PS)),
 
-        "uncern_SHMS_evts_notrack" : np.sqrt(makeList("p_int_etotnorm_evts"))/makeList("p_int_etotnorm_evts"),
+            "CPULT_phys" : (makeList("HMSTRIG_cut")*HMS_PS+makeList("SHMSTRIG_cut")*SHMS_PS)*makeList("CPULT_scaler"),
 
-        "uncern_HMS_evts_track" : np.sqrt(makeList("h_int_goodscin_evts"))/makeList("h_int_goodscin_evts"),
+            "uncern_HMS_evts_scaler" : np.sqrt(makeList("HMSTRIG_scaler"))/makeList("HMSTRIG_scaler"),
 
-        "uncern_SHMS_evts_track" : np.sqrt(makeList("p_int_goodscin_evts"))/makeList("p_int_goodscin_evts"),
+            "uncern_SHMS_evts_scaler" : np.sqrt(makeList("SHMSTRIG_scaler"))/makeList("SHMSTRIG_scaler"),
 
-    }
+            "uncern_HMS_evts_notrack" : np.sqrt(makeList("h_int_etotnorm_evts"))/makeList("h_int_etotnorm_evts"),
 
+            "uncern_SHMS_evts_notrack" : np.sqrt(makeList("p_int_etotnorm_evts"))/makeList("p_int_etotnorm_evts"),
+
+            "uncern_HMS_evts_track" : np.sqrt(makeList("h_int_goodscin_evts"))/makeList("h_int_goodscin_evts"),
+
+            "uncern_SHMS_evts_track" : np.sqrt(makeList("p_int_goodscin_evts"))/makeList("p_int_goodscin_evts"),
+
+        }
     # Check if coin trigger was used
-    if COIN_PS != None:
+    else:
         # Create dictionary for calculations that were not calculated in previous scripts.
         yield_dict = {
             "current" : makeList("charge")/makeList("time"),
@@ -167,6 +167,8 @@ def calc_yield():
             "sent_edtm_PS" : makeList("sent_edtm")/HMS_PS+makeList("sent_edtm")/SHMS_PS+makeList("sent_edtm")/COIN_PS+makeList("sent_edtm")/(SHMS_PS*HMS_PS*COIN_PS)-makeList("sent_edtm")/(HMS_PS*SHMS_PS)-makeList("sent_edtm")/(COIN_PS*SHMS_PS)-makeList("sent_edtm")/(HMS_PS*COIN_PS),
             "sent_edtm_SHMS" : makeList("sent_edtm")/SHMS_PS,
             "sent_edtm_HMS" : makeList("sent_edtm")/(HMS_PS*(1-1/SHMS_PS)),
+
+            "CPULT_phys" : (makeList("HMSTRIG_cut")*HMS_PS+makeList("SHMSTRIG_cut")*SHMS_PS)*makeList("CPULT_scaler"),
             
             "uncern_HMS_evts_scaler" : np.sqrt(makeList("HMSTRIG_scaler"))/makeList("HMSTRIG_scaler"),
     
@@ -207,7 +209,7 @@ def calc_yield():
     SHMS_scaler_accp = makeList("SHMSTRIG_scaler") #-yield_dict["sent_edtm_PS"]
     yield_dict.update({"HMS_scaler_accp" : HMS_scaler_accp})
     yield_dict.update({"SHMS_scaler_accp" : SHMS_scaler_accp})
-    if COIN_PS != None:
+    if not COIN_PS.isnull().all():
         COIN_scaler_accp = makeList("COINTRIG_scaler") -yield_dict["sent_edtm_PS"] # This EDTM subtraction is fine because COIN are not PS and get EDTM first
         yield_dict.update({"COIN_scaler_accp" : COIN_scaler_accp})
 

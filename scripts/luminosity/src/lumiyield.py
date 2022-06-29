@@ -3,7 +3,7 @@
 # Description: This is where the variables for the yield calculations are formulated.
 # Variables calculated: tot_events, h_int_goodscin_evts, p_int_goodscin_evts, SHMSTRIG_cut, HMSTRIG_cut, HMS_track, HMS_track_uncern, SHMS_track, SHMS_track_uncern, accp_edtm
 # ================================================================
-# Time-stamp: "2022-06-28 05:12:12 trottar"
+# Time-stamp: "2022-06-29 03:33:16 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -88,9 +88,9 @@ ps3=int(ps3_tmp)
 ps4=int(ps4_tmp)
 ps5=int(ps5_tmp)
 ps6=int(ps6_tmp)
-#SHMS_track_eff = float(SHMS_track_info[0]) # Depreciated, define below 
+SHMS_track_eff = float(SHMS_track_info[0]) # Also define below, I'll probably use the report for consistency's sake
 SHMS_track_uncern = float(SHMS_track_info[1])
-#HMS_track_eff = float(HMS_track_info[0]) # Depreciated, define below 
+HMS_track_eff = float(HMS_track_info[0]) # Also define below, I'll probably use the report for consistency's sake
 HMS_track_uncern = float(HMS_track_info[1])
 
 # Convert the prescale input values to their actual DAQ values
@@ -154,19 +154,31 @@ else:
     HMS_PS = PS_used[1][1]
 
 ################################################################################################################################################
+'''
+Check PID of luminosity run
+'''
+
+from check_pid import check_pid
+
+pid = check_pid(runNum,ANATYPE)
+
+HMS_PID = pid[0]
+SHMS_PID = pid[1]
+
+################################################################################################################################################
 
 cut_f = '/DB/CUTS/run_type/lumi.cuts'
 
 if ANATYPE == "Pion":
-    cuts = ["h_cal_nt","h_cer_nt","p_cal_nt","p_hgcer_nt","p_aero_nt","p_ngcer_nt","p_ecut_lumi_nt","h_ecut_lumi_nt","c_noedtm","c_edtm","c_ptrigHMS%s" % PS_names[1].replace("PS",""),"c_ptrigSHMS%s" % PS_names[0].replace("PS",""),"c_curr","h_etrack_lumi_before","h_etrack_lumi_after","p_etrack_lumi_before","p_etrack_lumi_after"]
+    cuts = ["h_cal_nt","h_cer_nt","p_cal_nt","p_hgcer_nt","p_aero_nt","p_ngcer_nt","p_%scut_lumi_nt" % SHMS_PID,"h_%scut_lumi_nt" % HMS_PID,"c_noedtm","c_edtm","c_ptrigHMS%s" % PS_names[1].replace("PS",""),"c_ptrigSHMS%s" % PS_names[0].replace("PS",""),"c_curr","h_%strack_lumi_before" % HMS_PID,"h_%strack_lumi_after" % HMS_PID,"p_%strack_lumi_before" % SHMS_PID,"p_%strack_lumi_after" % SHMS_PID]
     # Check if COIN trigger is used
     if len(PS_used) > 2:
-        cuts = ["h_cal_nt","h_cer_nt","p_cal_nt","p_hgcer_nt","p_aero_nt","p_ngcer_nt","p_ecut_lumi_nt","h_ecut_lumi_nt","c_noedtm","c_edtm","c_ptrigHMS%s" % PS_names[1].replace("PS",""),"c_ptrigSHMS%s" % PS_names[0].replace("PS",""),"c_ptrigCOIN%s" % PS_names[2].replace("PS",""),"c_curr","h_etrack_lumi_before","h_etrack_lumi_after","p_etrack_lumi_before","p_etrack_lumi_after"]
+        cuts = ["h_cal_nt","h_cer_nt","p_cal_nt","p_hgcer_nt","p_aero_nt","p_ngcer_nt","p_%scut_lumi_nt" % SHMS_PID,"h_%scut_lumi_nt" % HMS_PID,"c_noedtm","c_edtm","c_ptrigHMS%s" % PS_names[1].replace("PS",""),"c_ptrigSHMS%s" % PS_names[0].replace("PS",""),"c_ptrigCOIN%s" % PS_names[2].replace("PS",""),"c_curr","h_%strack_lumi_before" % HMS_PID,"h_%strack_lumi_after" % HMS_PID,"p_%strack_lumi_before" % SHMS_PID,"p_%strack_lumi_after" % SHMS_PID]
 else:
-    cuts = ["h_cal_nt","h_cer_nt","p_cal_nt","p_hgcer_nt","p_aero_nt","p_ecut_lumi_nt","h_ecut_lumi_nt","c_noedtm","c_edtm","c_ptrigHMS%s" % PS_names[1].replace("PS",""),"c_ptrigSHMS%s" % PS_names[0].replace("PS",""),"c_curr","h_etrack_lumi_before","h_etrack_lumi_after","p_etrack_lumi_before","p_etrack_lumi_after"]
+    cuts = ["h_cal_nt","h_cer_nt","p_cal_nt","p_hgcer_nt","p_aero_nt","p_%scut_lumi_nt" % SHMS_PID,"h_%scut_lumi_nt" % HMS_PID,"c_noedtm","c_edtm","c_ptrigHMS%s" % PS_names[1].replace("PS",""),"c_ptrigSHMS%s" % PS_names[0].replace("PS",""),"c_curr","h_%strack_lumi_before" % HMS_PID,"h_%strack_lumi_after" % HMS_PID,"p_%strack_lumi_before" % SHMS_PID,"p_%strack_lumi_after" % SHMS_PID]
     # Check if COIN trigger is used
     if len(PS_used) > 2:
-        cuts = ["h_cal_nt","h_cer_nt","p_cal_nt","p_hgcer_nt","p_aero_nt","p_ecut_lumi_nt","h_ecut_lumi_nt","c_noedtm","c_edtm","c_ptrigHMS%s" % PS_names[1].replace("PS",""),"c_ptrigSHMS%s" % PS_names[0].replace("PS",""),"c_ptrigCOIN%s" % PS_names[2].replace("PS",""),"c_curr","h_etrack_lumi_before","h_etrack_lumi_after","p_etrack_lumi_before","p_etrack_lumi_after"]
+        cuts = ["h_cal_nt","h_cer_nt","p_cal_nt","p_hgcer_nt","p_aero_nt","p_%scut_lumi_nt" % SHMS_PID,"h_%scut_lumi_nt" % HMS_PID,"c_noedtm","c_edtm","c_ptrigHMS%s" % PS_names[1].replace("PS",""),"c_ptrigSHMS%s" % PS_names[0].replace("PS",""),"c_ptrigCOIN%s" % PS_names[2].replace("PS",""),"c_curr","h_%strack_lumi_before" % HMS_PID,"h_%strack_lumi_after" % HMS_PID,"p_%strack_lumi_before" % SHMS_PID,"p_%strack_lumi_after" % SHMS_PID]
 
 proc_root = lt.Root(os.path.realpath(__file__),"Lumi",ROOTPrefix,runNum,MaxEvent,cut_f,cuts).setup_ana()
 c = proc_root[0] # Cut object
@@ -174,13 +186,6 @@ tree = proc_root[1] # Dictionary of branches
 OUTPATH = proc_root[2] # Get pathing for OUTPATH
 strDict = proc_root[3] # Dictionary of cuts as strings
 
-################################################################################################################################################
-'''
-Import scaler script for use in luminosity analysis
-'''
-
-# Import scaler table
-import scaler
 
 ################################################################################################################################################
 
@@ -189,6 +194,14 @@ print("Running as %s on %s, hallc_replay_lt path assumed as %s" % (USER, HOST, R
 # Output for luminosity table
 out_f = UTILPATH+"/scripts/luminosity/OUTPUTS/lumi_data.csv"
 rootName = UTILPATH+"/ROOTfiles/Analysis/Lumi/%s_%s_%s.root" % (ROOTPrefix,runNum,MaxEvent)     # Input file location and variables taking
+
+################################################################################################################################################
+'''
+Import scaler script for use in luminosity analysis
+'''
+
+# Import scaler table
+import scaler
 
 ################################################################################################################################################
 '''
@@ -292,45 +305,45 @@ def pid_cuts():
 
     ax = f.add_subplot(241)
     ax.hist2d(tree['H_cal_etotnorm'],tree['H_cer_npeSum'],bins=[c.setbin(tree['H_cal_etotnorm'],400,0,2.0),c.setbin(tree['H_cer_npeSum'],400,0,30)],cmin=1,label='no cut',alpha=0.5)
-    ax.hist2d(c.add_cut(tree['H_cal_etotnorm'],"h_ecut_lumi_nt"), c.add_cut(tree['H_cer_npeSum'],"h_ecut_lumi_nt"), bins=[c.setbin(tree['H_cal_etotnorm'],400,0,2.0),c.setbin(tree['H_cer_npeSum'],400,0,30)],cmin=1,label='cut', alpha=0.5)
+    ax.hist2d(c.add_cut(tree['H_cal_etotnorm'],"h_%scut_lumi_nt" % HMS_PID), c.add_cut(tree['H_cer_npeSum'],"h_%scut_lumi_nt" % HMS_PID), bins=[c.setbin(tree['H_cal_etotnorm'],400,0,2.0),c.setbin(tree['H_cer_npeSum'],400,0,30)],cmin=1,label='cut', alpha=0.5)
     plt.xlabel('H_cal_etotnorm')
     plt.ylabel('H_cer_npeSum')
 
     ax = f.add_subplot(242)
     ax.hist2d(tree['P_cal_etotnorm'],tree['P_hgcer_npeSum'],bins=[c.setbin(tree['P_cal_etotnorm'],400,0,4),c.setbin(tree['P_hgcer_npeSum'],400,0,80)],cmin=1,label='no cut',alpha=0.5)
-    ax.hist2d(c.add_cut(tree['P_cal_etotnorm'],"p_ecut_lumi_nt"),c.add_cut(tree['P_hgcer_npeSum'],"p_ecut_lumi_nt"),bins=[c.setbin(tree['P_cal_etotnorm'],400,0,4),c.setbin(tree['P_hgcer_npeSum'],400,0,80)],cmin=1,label='cut', alpha=0.5)
+    ax.hist2d(c.add_cut(tree['P_cal_etotnorm'],"p_%scut_lumi_nt" % SHMS_PID),c.add_cut(tree['P_hgcer_npeSum'],"p_%scut_lumi_nt" % SHMS_PID),bins=[c.setbin(tree['P_cal_etotnorm'],400,0,4),c.setbin(tree['P_hgcer_npeSum'],400,0,80)],cmin=1,label='cut', alpha=0.5)
     plt.xlabel('P_cal_etotnorm')
     plt.ylabel('P_hgcer_npeSum')
 
     ax = f.add_subplot(243)
     ax.hist2d(tree['P_cal_etotnorm'],tree['P_aero_npeSum'],bins=[c.setbin(tree['P_cal_etotnorm'],400,0,4),c.setbin(tree['P_aero_npeSum'],400,0,100)],cmin=1,label='no cut',alpha=0.5)
-    ax.hist2d(c.add_cut(tree['P_cal_etotnorm'],"p_ecut_lumi_nt"),c.add_cut(tree['P_aero_npeSum'],"p_ecut_lumi_nt"),bins=[c.setbin(tree['P_cal_etotnorm'],400,0,4),c.setbin(tree['P_aero_npeSum'],400,0,100)],cmin=1,label='cut', alpha=0.5)
+    ax.hist2d(c.add_cut(tree['P_cal_etotnorm'],"p_%scut_lumi_nt" % SHMS_PID),c.add_cut(tree['P_aero_npeSum'],"p_%scut_lumi_nt" % SHMS_PID),bins=[c.setbin(tree['P_cal_etotnorm'],400,0,4),c.setbin(tree['P_aero_npeSum'],400,0,100)],cmin=1,label='cut', alpha=0.5)
     plt.xlabel('P_cal_etotnorm')
     plt.ylabel('P_aero_npeSum')
 
     if ANATYPE == "Pion":
         ax = f.add_subplot(244)
         ax.hist2d(tree['P_cal_etotnorm'],tree['P_ngcer_npeSum'],bins=[c.setbin(tree['P_cal_etotnorm'],400,0,4),c.setbin(tree['P_ngcer_npeSum'],400,0,80)],cmin=1,label='no cut',alpha=0.5)
-        ax.hist2d(c.add_cut(tree['P_cal_etotnorm'],"p_ecut_lumi_nt"),c.add_cut(tree['P_ngcer_npeSum'],"p_ecut_lumi_nt"),bins=[c.setbin(tree['P_cal_etotnorm'],400,0,4),c.setbin(tree['P_ngcer_npeSum'],400,0,80)],cmin=1,label='cut', alpha=0.5)
+        ax.hist2d(c.add_cut(tree['P_cal_etotnorm'],"p_%scut_lumi_nt" % SHMS_PID),c.add_cut(tree['P_ngcer_npeSum'],"p_%scut_lumi_nt" % SHMS_PID),bins=[c.setbin(tree['P_cal_etotnorm'],400,0,4),c.setbin(tree['P_ngcer_npeSum'],400,0,80)],cmin=1,label='cut', alpha=0.5)
         plt.xlabel('P_cal_etotnorm')
         plt.ylabel('P_ngcer_npeSum')
 
     ax = f.add_subplot(245)
     ax.hist2d(tree['P_aero_npeSum'],tree['P_hgcer_npeSum'],bins=[c.setbin(tree['P_aero_npeSum'],400,0,100),c.setbin(tree['P_hgcer_npeSum'],400,0,80)],cmin=1,label='no cut',alpha=0.5)
-    ax.hist2d(c.add_cut(tree['P_aero_npeSum'],"p_ecut_lumi_nt"),c.add_cut(tree['P_hgcer_npeSum'],"p_ecut_lumi_nt"),bins=[c.setbin(tree['P_aero_npeSum'],400,0,100),c.setbin(tree['P_hgcer_npeSum'],400,0,80)],cmin=1,label='cut', alpha=0.5)
+    ax.hist2d(c.add_cut(tree['P_aero_npeSum'],"p_%scut_lumi_nt" % SHMS_PID),c.add_cut(tree['P_hgcer_npeSum'],"p_%scut_lumi_nt" % SHMS_PID),bins=[c.setbin(tree['P_aero_npeSum'],400,0,100),c.setbin(tree['P_hgcer_npeSum'],400,0,80)],cmin=1,label='cut', alpha=0.5)
     plt.xlabel('P_aero_npeSum')
     plt.ylabel('P_hgcer_npeSum')
 
     if ANATYPE == "Pion":
         ax = f.add_subplot(246)
         ax.hist2d(tree['P_ngcer_npeSum'],tree['P_hgcer_npeSum'],bins=[c.setbin(tree['P_ngcer_npeSum'],400,0,80),c.setbin(tree['P_hgcer_npeSum'],400,0,80)],cmin=1,label='no cut',alpha=0.5)
-        ax.hist2d(c.add_cut(tree['P_ngcer_npeSum'],"p_ecut_lumi_nt"),c.add_cut(tree['P_hgcer_npeSum'],"p_ecut_lumi_nt"),bins=[c.setbin(tree['P_ngcer_npeSum'],400,0,80),c.setbin(tree['P_hgcer_npeSum'],400,0,80)],cmin=1,label='cut', alpha=0.5)
+        ax.hist2d(c.add_cut(tree['P_ngcer_npeSum'],"p_%scut_lumi_nt" % SHMS_PID),c.add_cut(tree['P_hgcer_npeSum'],"p_%scut_lumi_nt" % SHMS_PID),bins=[c.setbin(tree['P_ngcer_npeSum'],400,0,80),c.setbin(tree['P_hgcer_npeSum'],400,0,80)],cmin=1,label='cut', alpha=0.5)
         plt.xlabel('P_ngcer_npeSum')
         plt.ylabel('P_hgcer_npeSum')
 
         ax = f.add_subplot(247)
         ax.hist2d(tree['P_aero_npeSum'],tree['P_ngcer_npeSum'],bins=[c.setbin(tree['P_aero_npeSum'],400,0,100),c.setbin(tree['P_ngcer_npeSum'],400,0,80)],cmin=1,label='no cut',alpha=0.5)
-        ax.hist2d(c.add_cut(tree['P_aero_npeSum'],"p_ecut_lumi_nt"),c.add_cut(tree['P_ngcer_npeSum'],"p_ecut_lumi_nt"),bins=[c.setbin(tree['P_aero_npeSum'],400,0,100),c.setbin(tree['P_ngcer_npeSum'],400,0,80)],cmin=1,label='cut', alpha=0.5)
+        ax.hist2d(c.add_cut(tree['P_aero_npeSum'],"p_%scut_lumi_nt" % SHMS_PID),c.add_cut(tree['P_ngcer_npeSum'],"p_%scut_lumi_nt" % SHMS_PID),bins=[c.setbin(tree['P_aero_npeSum'],400,0,100),c.setbin(tree['P_ngcer_npeSum'],400,0,80)],cmin=1,label='cut', alpha=0.5)
         plt.xlabel('P_aero_npeSum')
         plt.ylabel('P_ngcer_npeSum')
 
@@ -339,13 +352,13 @@ def pid_cuts():
     i=0
     plt.text(-0.15,1.00,"HMS cuts...",fontsize=8)
     for key,val in strDict.items():
-        if key == "h_ecut_lumi_nt":
+        if key == "h_%scut_lumi_nt" % HMS_PID:
             for v in val:
                 plt.text(-0.15,0.95-i/10," {}".format(v),fontsize=8)
                 i+=1
     plt.text(-0.15,0.95-((i)/10+0.05),"SHMS cuts...",fontsize=8)
     for key,val in strDict.items():
-        if key == "p_ecut_lumi_nt":
+        if key == "p_%scut_lumi_nt" % SHMS_PID:
             for v in val:
                 plt.text(-0.15,0.95-(i+1)/10," {}".format(v),fontsize=8)
                 i+=1
@@ -408,21 +421,21 @@ def analysis():
                          for (x, evt) in zip(c.add_cut(T_coin_pTRIG_COIN_ROC1_tdcTime,"c_ptrigCOIN%s" % PS_names[2].replace("PS","")), tree["EvtType"])
                          if (evt == 1 or evt == 2)]
 
-    h_et_should = len(c.add_cut(tree["H_cal_etotnorm"],"h_etrack_lumi_before"))
-    h_et_did = len(c.add_cut(tree["H_cal_etotnorm"],"h_etrack_lumi_after"))
-    HMS_track_eff = h_et_did/h_et_should
+    h_et_should = len(c.add_cut(tree["H_cal_etotnorm"],"h_%strack_lumi_before" % HMS_PID))
+    h_et_did = len(c.add_cut(tree["H_cal_etotnorm"],"h_%strack_lumi_after" % HMS_PID))
+    #HMS_track_eff = h_et_did/h_et_should
 
-    p_et_should = len(c.add_cut(tree["P_cal_etotnorm"],"p_etrack_lumi_before"))
-    p_et_did = len(c.add_cut(tree["P_cal_etotnorm"],"p_etrack_lumi_after"))
-    SHMS_track_eff = p_et_did/p_et_should
+    p_et_should = len(c.add_cut(tree["P_cal_etotnorm"],"p_%strack_lumi_before" % SHMS_PID))
+    p_et_did = len(c.add_cut(tree["P_cal_etotnorm"],"p_%strack_lumi_after" % SHMS_PID))
+    #SHMS_track_eff = p_et_did/p_et_should
 
     # Applies PID cuts, once integrated this will give the events (no track)
-    h_etotnorm = c.add_cut(tree["H_cal_etotnorm"],"h_ecut_lumi_nt") 
-    p_etotnorm = c.add_cut(tree["P_cal_etotnorm"],"p_ecut_lumi_nt")
+    h_etotnorm = c.add_cut(tree["H_cal_etotnorm"],"h_%scut_lumi_nt" % HMS_PID) 
+    p_etotnorm = c.add_cut(tree["P_cal_etotnorm"],"p_%scut_lumi_nt" % SHMS_PID)
 
     # Applies PID cuts, once integrated this will give the events (track)
-    h_hadcuts_goodscinhit = c.add_cut(tree["H_hod_goodscinhit"],"h_ecut_lumi_nt")
-    p_pcuts_goodscinhit = c.add_cut(tree["P_hod_goodscinhit"],"p_ecut_lumi_nt")
+    h_hadcuts_goodscinhit = c.add_cut(tree["H_hod_goodscinhit"],"h_%scut_lumi_nt" % HMS_PID)
+    p_pcuts_goodscinhit = c.add_cut(tree["P_hod_goodscinhit"],"p_%scut_lumi_nt" % SHMS_PID)
     
     # Creates a dictionary for the calculated luminosity values 
     track_info = {
