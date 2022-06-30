@@ -3,7 +3,7 @@
 #
 # Description: Script for plotting trigger windows
 # ================================================================
-# Time-stamp: "2022-06-28 01:36:04 trottar"
+# Time-stamp: "2022-06-30 03:04:53 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -37,16 +37,17 @@ ltsep package import and pathing definitions
 '''
 
 # Import package for cuts
-import ltsep as lt 
+from ltsep import Root
 
-p=lt.SetPath(os.path.realpath(__file__))
+lt=Root(os.path.realpath(__file__))
 
 # Add this to all files for more dynamic pathing
-USER=p.getPath("USER") # Grab user info for file finding
-HOST=p.getPath("HOST")
-REPLAYPATH=p.getPath("REPLAYPATH")
-UTILPATH=p.getPath("UTILPATH")
-ANATYPE=p.getPath("ANATYPE")
+USER=lt.USER # Grab user info for file finding
+HOST=lt.HOST
+REPLAYPATH=lt.REPLAYPATH
+UTILPATH=lt.UTILPATH
+SCRIPTPATH=lt.SCRIPTPATH
+ANATYPE=lt.ANATYPE
 
 ################################################################################################################################################
 '''
@@ -67,7 +68,7 @@ for line in f:
     data = line.split(':')
     current_data = line.split(':')
     if ('SW_BCM4A_Beam_Cut_Current' in current_data[0]):
-        report_current = current_data[1].split("+-")
+        report_current = current_data[1].split("+-").strip("\n").strip("[").strip("]")
     for i, obj in enumerate(psList) :
         if (psList[i] in data[0]) : 
             if (i == 0) :  
@@ -161,10 +162,12 @@ cuts = ["c_nozero_edtm","c_noedtm","c_edtm","c_nozero_ptrigHMS%s" % PS_names[1].
 if len(PS_used) > 2:
     cuts = ["c_nozero_edtm","c_noedtm","c_edtm","c_nozero_ptrigHMS%s" % PS_names[1].replace("PS",""),"c_ptrigHMS%s" % PS_names[1].replace("PS",""),"c_nozero_ptrigSHMS%s" % PS_names[0].replace("PS",""),"c_ptrigSHMS%s" % PS_names[0].replace("PS",""),"c_nozero_ptrigCOIN%s" % PS_names[2].replace("PS",""),"c_ptrigCOIN%s" % PS_names[2].replace("PS",""),"c_curr"]
 
-proc_root = lt.Root(os.path.realpath(__file__),"Lumi",ROOTPrefix,runNum,MaxEvent,cut_f,cuts).setup_ana()
+lt=Root(os.path.realpath(__file__),"Lumi",ROOTPrefix,runNum,MaxEvent,cut_f,cuts)
+
+proc_root = lt.setup_ana()
 c = proc_root[0] # Cut object
 tree = proc_root[1] # Dictionary of branches
-OUTPATH = proc_root[2] # Get pathing for OUTPATH
+strDict = proc_root[2] # Dictionary of cuts as strings
 
 ################################################################################################################################################
 

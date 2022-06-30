@@ -2,7 +2,7 @@
 # Description: This package will perform many tasks required for l-t separation physics analysis 
 # Analysis script required dynamically defining pathing.
 # ================================================================
-# Time-stamp: "2022-06-13 03:54:39 trottar"
+# Time-stamp: "2022-06-30 02:24:22 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -31,26 +31,26 @@ class SetPath():
     \'''
 
     import os
-    import ltsep as lt
+    from ltsep import Root
 
-    # os.path.realpath(__file__) is your current directory path
-    # This will grab the pathing for these variables based off the files in PATH_TO_DIR
-    VOLATILEPATH=lt.SetPath(os.path.realpath(__file__)).getPath("VOLATILEPATH")
-    ANALYSISPATH=lt.SetPath(os.path.realpath(__file__)).getPath("ANALYSISPATH")
-    HCANAPATH=lt.SetPath(os.path.realpath(__file__)).getPath("HCANAPATH")
-    REPLAYPATH=lt.SetPath(os.path.realpath(__file__)).getPath("REPLAYPATH")
-    UTILPATH=lt.SetPath(os.path.realpath(__file__)).getPath("UTILPATH")
-    PACKAGEPATH=lt.SetPath(os.path.realpath(__file__)).getPath("PACKAGEPATH")
-    OUTPATH=lt.SetPath(os.path.realpath(__file__)).getPath("OUTPATH")
-    ROOTPATH=lt.SetPath(os.path.realpath(__file__)).getPath("ROOTPATH")
-    REPORTPATH=lt.SetPath(os.path.realpath(__file__)).getPath("REPORTPATH")
-    CUTPATH=lt.SetPath(os.path.realpath(__file__)).getPath("CUTPATH")
-    PARAMPATH=lt.SetPath(os.path.realpath(__file__)).getPath("PARAMPATH")
-    SCRIPTPATH=lt.SetPath(os.path.realpath(__file__)).getPath("SCRIPTPATH")
-    SIMCPATH=lt.SetPath(os.path.realpath(__file__)).getPath("SIMCPATH")
-    ANATYPE=lt.SetPath(os.path.realpath(__file__)).getPath("ANATYPE")
-    USER=lt.SetPath(os.path.realpath(__file__)).getPath("USER")
-    HOST=lt.SetPath(os.path.realpath(__file__)).getPath("HOST")
+    lt=Root(os.path.realpath(__file__))
+
+    VOLATILEPATH=lt.VOLATILEPATH
+    ANALYSISPATH=lt.ANALYSISPATH
+    HCANAPATH=lt.HCANAPATH
+    REPLAYPATH=lt.REPLAYPATH
+    UTILPATH=lt.UTILPATH
+    PACKAGEPATH=lt.PACKAGEPATH
+    OUTPATH=lt.OUTPATH
+    ROOTPATH=lt.ROOTPATH
+    REPORTPATH=lt.REPORTPATH
+    CUTPATH=lt.CUTPATH
+    PARAMPATH=lt.PARAMPATH
+    SCRIPTPATH=lt.SCRIPTPATH
+    SIMCPATH=lt.SIMCPATH
+    ANATYPE=lt.ANATYPE
+    USER=lt.USER
+    HOST=lt.HOST
 
     ################################################################################################################################################
 
@@ -134,12 +134,13 @@ class SetPath():
         else:
             USER = os.getlogin()
 
-        # Grab username and hostname
+        # Grab hostname
         HOST = os.uname()[1]
 
-        # Replace username with general ${USER} so it can be used broadly
+        # Removes /u/ which might be depreciated??
         self.CURRENT_ENV = self.CURRENT_ENV.replace(USER,"${USER}").replace("/u","")
 
+        # Replace username with general ${USER} so it can be used broadly
         if "${USER}" in self.CURRENT_ENV:
             self.CURRENT_ENV = self.CURRENT_ENV.split("/${USER}")[0]+"/${USER}"
 

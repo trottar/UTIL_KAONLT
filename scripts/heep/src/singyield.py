@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2022-06-28 07:26:19 trottar"
+# Time-stamp: "2022-06-30 02:58:27 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -56,7 +56,7 @@ ltsep package import
 '''
 
 # Import package for cuts
-import ltsep as lt 
+from ltsep import Root
 
 ###############################################################################################################################################
 
@@ -72,11 +72,14 @@ if spec == "HMS":
 if spec == "SHMS":
     cuts = ["sing_ee_cut_all_noRF"]
 
-proc_root = lt.Root(os.path.realpath(__file__),"HeePSing_%s" % spec,ROOTPrefix,runNum,MaxEvent,cut_f,cuts).setup_ana()
+lt=Root(os.path.realpath(__file__),"HeePSing_%s" % spec,ROOTPrefix,runNum,MaxEvent,cut_f,cuts)
+
+OUTPATH=lt.OUTPATH
+
+proc_root = lt.setup_ana()
 c = proc_root[0] # Cut object
 tree = proc_root[1] # Dictionary of branches
-OUTPATH = proc_root[2] # Get pathing for OUTPATH
-strDict = proc_root[3] # Dictionary of cuts as strings
+strDict = proc_root[2] # Dictionary of cuts as strings
 
 #################################################################################################################################################################
 

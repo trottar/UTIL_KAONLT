@@ -3,7 +3,7 @@
 #
 # Description: Script to dynamically set new trigger windows and update the param file with these values
 # ================================================================
-# Time-stamp: "2022-06-28 01:40:16 trottar"
+# Time-stamp: "2022-06-30 02:43:07 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -35,16 +35,17 @@ ltsep package import and pathing definitions
 '''
 
 # Import package for cuts
-import ltsep as lt 
+from ltsep import Root
 
-p=lt.SetPath(os.path.realpath(__file__))
+lt=Root(os.path.realpath(__file__))
 
 # Add this to all files for more dynamic pathing
-USER=p.getPath("USER") # Grab user info for file finding
-HOST=p.getPath("HOST")
-REPLAYPATH=p.getPath("REPLAYPATH")
-UTILPATH=p.getPath("UTILPATH")
-ANATYPE=p.getPath("ANATYPE")
+USER=lt.USER # Grab user info for file finding
+HOST=lt.HOST
+REPLAYPATH=lt.REPLAYPATH
+UTILPATH=lt.UTILPATH
+SCRIPTPATH=lt.SCRIPTPATH
+ANATYPE=lt.ANATYPE
 
 ################################################################################################################################################
 '''
@@ -162,10 +163,12 @@ cuts = ["c_nozero_edtm","c_nozero_ptrigHMS%s" % PS_names[1].replace("PS",""),"c_
 if len(PS_used) > 2:
     cuts = ["c_nozero_edtm","c_nozero_ptrigHMS%s" % PS_names[1].replace("PS",""),"c_nozero_ptrigSHMS%s" % PS_names[0].replace("PS",""),"c_nozero_ptrigCOIN%s" % PS_names[2].replace("PS","")]
 
-proc_root = lt.Root(os.path.realpath(__file__),"Lumi",ROOTPrefix,runNum,MaxEvent,cut_f,cuts).setup_ana()
+lt=Root(os.path.realpath(__file__),"Lumi",ROOTPrefix,runNum,MaxEvent,cut_f,cuts)
+
+proc_root = lt.setup_ana()
 c = proc_root[0] # Cut object
 tree = proc_root[1] # Dictionary of branches
-OUTPATH = proc_root[2] # Get pathing for OUTPATH
+strDict = proc_root[2] # Dictionary of cuts as strings
 
 ################################################################################################################################################
 
