@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2022-06-29 09:34:39 trottar"
+# Time-stamp: "2022-06-30 09:36:17 trottar"
 # ================================================================
 # 
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -37,7 +37,7 @@ def dictionary(UTILPATH,runNum,MaxEvent):
     # Import package for cuts
     from ltsep import Root
 
-    lt=Root(os.path.realpath(__file__),"Plot_Prod_hgcer")
+    lt=Root(os.path.realpath(__file__),"Plot_Prod_HGCer")
 
     # Add this to all files for more dynamic pathing
     USER=lt.USER # Grab user info for file finding

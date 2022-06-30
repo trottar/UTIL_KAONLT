@@ -2,7 +2,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2022-06-30 09:23:23 trottar"
+# Time-stamp: "2022-06-30 09:38:46 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -357,6 +357,9 @@ class Root():
         return [bool_cuts,treeDict,strDict]
 
     def check_runType(self):
+        '''
+        Creates a list of the root branches for a specific run type.
+        '''
         
         def_f = "%s/DB/BRANCH_DEF/%sLT/%s" % (self.UTILPATH,self.ANATYPE,self.runType)
 
@@ -375,6 +378,8 @@ class Root():
 
         treeDict = {}
 
+        # Loops over the root branches of a specific run type and
+        # then adds them to the dictionary of branches
         for branch in self.check_runType():
 
             # Timing info
