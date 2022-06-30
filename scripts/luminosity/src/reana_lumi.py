@@ -2,7 +2,7 @@
 #
 # Description: Script is used to reanalyze all lumi data or to organize lumi data values into subdirectories
 # ================================================================
-# Time-stamp: "2022-06-29 05:14:16 trottar"
+# Time-stamp: "2022-06-30 01:22:12 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -30,15 +30,17 @@ ltsep package import and pathing definitions
 '''
 
 # Import package for cuts
-import ltsep as lt 
+from ltsep import Root
 
-p=lt.SetPath(os.path.realpath(__file__))
+lt=Root(os.path.realpath(__file__))
 
 # Add this to all files for more dynamic pathing
-USER=p.getPath("USER") # Grab user info for file finding
-HOST=p.getPath("HOST")
-SCRIPTPATH=p.getPath("SCRIPTPATH")
-ANATYPE=p.getPath("ANATYPE")
+USER=lt.USER # Grab user info for file finding
+HOST=lt.HOST
+REPLAYPATH=lt.REPLAYPATH
+UTILPATH=lt.UTILPATH
+SCRIPTPATH=lt.SCRIPTPATH
+ANATYPE=lt.ANATYPE
 
 ################################################################################################################################################
 '''

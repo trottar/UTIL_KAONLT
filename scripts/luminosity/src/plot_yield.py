@@ -3,7 +3,7 @@
 # Description: Grabs lumi data from corresponding csv depending on run setting. Then plots the yields and creates a comprehensive table.
 # Variables calculated: current, rate_HMS, rate_SHMS, sent_edtm_PS, uncern_HMS_evts_scaler, uncern_SHMS_evts_scaler, uncern_HMS_evts_notrack, uncern_SHMS_evts_notrack, uncern_HMS_evts_track, uncern_SHMS_evts_track
 # ================================================================
-# Time-stamp: "2022-06-29 05:24:25 trottar"
+# Time-stamp: "2022-06-30 01:18:11 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -22,17 +22,17 @@ ltsep package import and pathing definitions
 '''
 
 # Import package for cuts
-import ltsep as lt 
+from ltsep import Root
 
-p=lt.SetPath(os.path.realpath(__file__))
+lt=Root(os.path.realpath(__file__))
 
 # Add this to all files for more dynamic pathing
-USER=p.getPath("USER") # Grab user info for file finding
-HOST=p.getPath("HOST")
-REPLAYPATH=p.getPath("REPLAYPATH")
-UTILPATH=p.getPath("UTILPATH")
-SCRIPTPATH=p.getPath("SCRIPTPATH")
-ANATYPE=p.getPath("ANATYPE")
+USER=lt.USER # Grab user info for file finding
+HOST=lt.HOST
+REPLAYPATH=lt.REPLAYPATH
+UTILPATH=lt.UTILPATH
+SCRIPTPATH=lt.SCRIPTPATH
+ANATYPE=lt.ANATYPE
 
 ################################################################################################################################################
 '''
@@ -73,6 +73,7 @@ def removeRun(runNum):
     return lumi_data
 
 # Remove runs, removeRun(runNumber)
+#removeRun(5154)
 
 ################################################################################################################################################
 
@@ -84,25 +85,30 @@ lumi_data = dict(lumi_data)
 Define prescale variables
 '''
 
-
 # Define prescale variables
-if "PS1" in lumi_data.keys():
+if "PS1" in lumi_data.keys() and not lumi_data["PS1"].isnull().values.any():
     SHMS_PS = lumi_data["PS1"]
-if "PS2" in lumi_data.keys():
+    print("PS1 : ",lumi_data["PS1"])
+if "PS2" in lumi_data.keys() and not lumi_data["PS2"].isnull().values.any():
     SHMS_PS = lumi_data["PS2"]
-if "PS3" in lumi_data.keys():
+    print("PS2 : ",lumi_data["PS2"])
+if "PS3" in lumi_data.keys() and not lumi_data["PS3"].isnull().values.any():
     HMS_PS = lumi_data["PS3"]
-if "PS4" in lumi_data.keys():
+    print("PS3 : ",lumi_data["PS3"])
+if "PS4" in lumi_data.keys() and not lumi_data["PS4"].isnull().values.any():
     HMS_PS = lumi_data["PS4"]
-if "PS5" in lumi_data.keys():
+    print("PS4 : ",lumi_data["PS4"])
+if "PS5" in lumi_data.keys() and not lumi_data["PS5"].isnull().values.any():
     COIN_PS = lumi_data["PS5"]
-if "PS6" in lumi_data.keys():
+    print("PS5 : ",lumi_data["PS5"])
+if "PS6" in lumi_data.keys() and not lumi_data["PS6"].isnull().values.any():
     COIN_PS = lumi_data["PS6"]
+    print("PS6 : ",lumi_data["PS6"])
 
 try:
     COIN_PS
 except NameError:
-    COIN_PS = pd.dataframe(np.nan)
+    COIN_PS = None
 
 ################################################################################################################################################
 
@@ -123,7 +129,7 @@ def calc_yield():
     '''
     Creates a new dictionary with yield calculations. The relative yield is defined relative to the maximum current.
     '''
-    if COIN_PS.isnull().all():
+    if COIN_PS == None:
         # Create dictionary for calculations that were not calculated in previous scripts.
         yield_dict = {
             "current" : makeList("charge")/makeList("time"),
@@ -209,7 +215,7 @@ def calc_yield():
     SHMS_scaler_accp = makeList("SHMSTRIG_scaler") #-yield_dict["sent_edtm_PS"]
     yield_dict.update({"HMS_scaler_accp" : HMS_scaler_accp})
     yield_dict.update({"SHMS_scaler_accp" : SHMS_scaler_accp})
-    if not COIN_PS.isnull().all():
+    if COIN_PS != None:
         COIN_scaler_accp = makeList("COINTRIG_scaler") -yield_dict["sent_edtm_PS"] # This EDTM subtraction is fine because COIN are not PS and get EDTM first
         yield_dict.update({"COIN_scaler_accp" : COIN_scaler_accp})
 
@@ -711,7 +717,7 @@ def debug():
     print("DEBUG data")
     print("=======================")
     ### Debug prints
-    print(data[["run number","PS1","PS3","sent_edtm","sent_edtm_PS","accp_edtm","TLT","CPULT_phys","current","time","HMS_track","SHMS_track"]])
+    print(data[["run number","PS1","PS3","sent_edtm","sent_edtm_PS","sent_edtm_HMS","sent_edtm_SHMS","accp_edtm","TLT","CPULT_phys","current","time","HMS_track","SHMS_track"]])
    # print("EDTM scaler rate: ", data["sent_edtm"]/data["time"])
    # print("Accepted EDTM rate: ", data["accp_edtm"]/data["time"])
    # print("Run numbers: ", data["run number"].sort_values())

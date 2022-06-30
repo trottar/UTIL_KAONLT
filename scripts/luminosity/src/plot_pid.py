@@ -2,7 +2,7 @@
 #
 # Description: Plots the PID cuts
 # ================================================================
-# Time-stamp: "2022-06-28 04:25:03 trottar"
+# Time-stamp: "2022-06-30 02:04:03 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -34,7 +34,7 @@ ltsep package import and pathing definitions
 # Import package for cuts
 import ltsep as lt 
 
-lt.Help.info(lt.SetPath)
+lt.Help.info(lt.Root)
 lt.Help.info(lt.SetCuts.importDict)
 lt.Help.path_setup()
 lt.Help.cut_setup()
