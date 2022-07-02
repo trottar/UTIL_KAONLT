@@ -2,7 +2,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2022-06-30 09:38:46 trottar"
+# Time-stamp: "2022-07-02 09:51:22 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -374,62 +374,41 @@ class Root():
         which contains the dictionary of cut boolean lists. 
         '''
 
+        # Grab tree from root file
         e_tree = up.open(self.rootName)["T"]
 
+        # Initiate dictionary of root branches
         treeDict = {}
 
-        # Loops over the root branches of a specific run type and
-        # then adds them to the dictionary of branches
+        # 1) Loops over the root branches of a specific run type (defined in UTILPATH/DB/BRANCH_DEF/<RunTypeFile>)
+        # 2) Grabs the branch from the root tree (defined above) and defines as array
+        # 3) Adds branch to dictionary 
         for branch in self.check_runType():
-
-            # Timing info
-            if branch == "CTime_eKCoinTime_ROC1":
-                CTime_eKCoinTime_ROC1 = e_tree.array("CTime.eKCoinTime_ROC1")
-                treeDict.update({"CTime_eKCoinTime_ROC1" : CTime_eKCoinTime_ROC1})
-            if branch == "CTime_ePiCoinTime_ROC1":
-                CTime_ePiCoinTime_ROC1 = e_tree.array("CTime.ePiCoinTime_ROC1")
-                treeDict.update({"CTime_ePiCoinTime_ROC1" : CTime_ePiCoinTime_ROC1})
-            if branch == "CTime_epCoinTime_ROC1":
-                CTime_epCoinTime_ROC1 = e_tree.array("CTime.epCoinTime_ROC1")
-                treeDict.update({"CTime_epCoinTime_ROC1" : CTime_epCoinTime_ROC1})
-
-            if branch == "P_RF_tdcTime":
-                P_RF_tdcTime = e_tree.array("T.coin.pRF_tdcTime")   #
-                treeDict.update({"P_RF_tdcTime" : P_RF_tdcTime})
-            if branch == "P_hod_fpHitsTime":
-                P_hod_fpHitsTime = e_tree.array("P.hod.fpHitsTime") #
-                treeDict.update({"P_hod_fpHitsTime" : P_hod_fpHitsTime})
-            if branch == "H_RF_Dist":
-                H_RF_Dist = e_tree.array("RFTime.HMS_RFtimeDist")#
-                treeDict.update({"H_RF_Dist" : H_RF_Dist})
-            if branch == "P_RF_Dist":
-                P_RF_Dist = e_tree.array("RFTime.SHMS_RFtimeDist")   #
-                treeDict.update({"P_RF_Dist" : P_RF_Dist})
 
             # HMS info
             if branch == "H_dc_InsideDipoleExit":
-                H_dc_InsideDipoleExit = e_tree.array("H.dc.InsideDipoleExit")    #
+                H_dc_InsideDipoleExit = e_tree.array("H.dc.InsideDipoleExit")    
                 treeDict.update({"H_dc_InsideDipoleExit" : H_dc_InsideDipoleExit})
             if branch == "H_hod_goodscinhit":
-                H_hod_goodscinhit = e_tree.array("H.hod.goodscinhit")#
+                H_hod_goodscinhit = e_tree.array("H.hod.goodscinhit")
                 treeDict.update({"H_hod_goodscinhit" : H_hod_goodscinhit})
             if branch == "H_hod_goodstarttime":
-                H_hod_goodstarttime = e_tree.array("H.hod.goodstarttime")        #
+                H_hod_goodstarttime = e_tree.array("H.hod.goodstarttime")        
                 treeDict.update({"H_hod_goodstarttime" : H_hod_goodstarttime})
             if branch == "H_gtr_beta":
-                H_gtr_beta = e_tree.array("H.gtr.beta")          # Beta is velocity of particle between pairs of hodoscopes
+                H_gtr_beta = e_tree.array("H.gtr.beta") # Beta is velocity of particle between pairs of hodoscopes
                 treeDict.update({"H_gtr_beta" : H_gtr_beta})
             if branch == "H_dc_x_fp":
-                H_dc_x_fp = e_tree.array("H.dc.x_fp")#
+                H_dc_x_fp = e_tree.array("H.dc.x_fp")
                 treeDict.update({"H_dc_x_fp" : H_dc_x_fp})
             if branch == "H_dc_y_fp":
-                H_dc_y_fp = e_tree.array("H.dc.y_fp")#
+                H_dc_y_fp = e_tree.array("H.dc.y_fp")
                 treeDict.update({"H_dc_y_fp" : H_dc_y_fp})
             if branch == "H_dc_xp_fp":
-                H_dc_xp_fp = e_tree.array("H.dc.xp_fp")          #
+                H_dc_xp_fp = e_tree.array("H.dc.xp_fp") 
                 treeDict.update({"H_dc_xp_fp" : H_dc_xp_fp})
             if branch == "H_dc_yp_fp":
-                H_dc_yp_fp = e_tree.array("H.dc.yp_fp")          #
+                H_dc_yp_fp = e_tree.array("H.dc.yp_fp") 
                 treeDict.update({"H_dc_yp_fp" : H_dc_yp_fp})
             if branch == "H_gtr_xp":
                 H_gtr_xp = e_tree.array("H.gtr.th")  # xpfp -> Theta
@@ -441,19 +420,19 @@ class Root():
                 H_gtr_dp = e_tree.array("H.gtr.dp")  # dp is Delta
                 treeDict.update({"H_gtr_dp" : H_gtr_dp})
             if branch == "H_gtr_p":
-                H_gtr_p = e_tree.array("H.gtr.p")#
+                H_gtr_p = e_tree.array("H.gtr.p")
                 treeDict.update({"H_gtr_p" : H_gtr_p})
             if branch == "H_cal_etotnorm":
-                H_cal_etotnorm = e_tree.array("H.cal.etotnorm")  #
+                H_cal_etotnorm = e_tree.array("H.cal.etotnorm")  
                 treeDict.update({"H_cal_etotnorm" : H_cal_etotnorm})
             if branch == "H_cal_etottracknorm":
-                H_cal_etottracknorm = e_tree.array("H.cal.etottracknorm")        #
+                H_cal_etottracknorm = e_tree.array("H.cal.etottracknorm")        
                 treeDict.update({"H_cal_etottracknorm" : H_cal_etottracknorm})
             if branch == "H_cer_npeSum":
-                H_cer_npeSum = e_tree.array("H.cer.npeSum")      #
+                H_cer_npeSum = e_tree.array("H.cer.npeSum")      
                 treeDict.update({"H_cer_npeSum" : H_cer_npeSum})
             if branch == "H_W":
-                H_W = e_tree.array("H.kin.primary.W")#
+                H_W = e_tree.array("H.kin.primary.W")
                 treeDict.update({"H_W" : H_W})
             if branch == "H_cal_etotnorm":
                 H_cal_etotnorm = e_tree.array("H.cal.etotnorm")
@@ -560,34 +539,34 @@ class Root():
                 P_aero_yAtCer = e_tree.array("P.aero.yAtAero")
                 treeDict.update({"P_aero_yAtCer" : P_aero_yAtCer})
             if branch == "P_dc_InsideDipoleExit":
-                P_dc_InsideDipoleExit = e_tree.array("P.dc.InsideDipoleExit")    #
+                P_dc_InsideDipoleExit = e_tree.array("P.dc.InsideDipoleExit")    
                 treeDict.update({"P_dc_InsideDipoleExit" : P_dc_InsideDipoleExit})
             if branch == "P_hod_goodscinhit":    
-                P_hod_goodscinhit = e_tree.array("P.hod.goodscinhit")#
+                P_hod_goodscinhit = e_tree.array("P.hod.goodscinhit")
                 treeDict.update({"P_hod_goodscinhit" : P_hod_goodscinhit})
             if branch == "P_hod_goodstarttime":
-                P_hod_goodstarttime = e_tree.array("P.hod.goodstarttime")        #
+                P_hod_goodstarttime = e_tree.array("P.hod.goodstarttime")        
                 treeDict.update({"P_hod_goodstarttime" : P_hod_goodstarttime})
             if branch == "P_gtr_beta":
-                P_gtr_beta = e_tree.array("P.gtr.beta")          # Beta is velocity of particle between pairs of hodoscopes
+                P_gtr_beta = e_tree.array("P.gtr.beta") # Beta is velocity of particle between pairs of hodoscopes
                 treeDict.update({"P_gtr_beta" : P_gtr_beta})
             if branch == "P_gtr_x":
                 P_gtr_x = e_tree.array("P.gtr.x")
                 treeDict.update({"P_gtr_x" : P_gtr_x})
             if branch == "P_gtr_y":
                 P_gtr_y = e_tree.array("P.gtr.y")
-                treeDict.update({"P_gtr_y" : P_gtr_y})                
+                treeDict.update({"P_gtr_y" : P_gtr_y})       
             if branch == "P_dc_x_fp":
-                P_dc_x_fp = e_tree.array("P.dc.x_fp")#
+                P_dc_x_fp = e_tree.array("P.dc.x_fp")
                 treeDict.update({"P_dc_x_fp" : P_dc_x_fp})
             if branch == "P_dc_y_fp":
-                P_dc_y_fp = e_tree.array("P.dc.y_fp")#
+                P_dc_y_fp = e_tree.array("P.dc.y_fp")
                 treeDict.update({"P_dc_y_fp" : P_dc_y_fp})
             if branch == "P_dc_xp_fp":
-                P_dc_xp_fp = e_tree.array("P.dc.xp_fp")          #
+                P_dc_xp_fp = e_tree.array("P.dc.xp_fp") 
                 treeDict.update({"P_dc_xp_fp" : P_dc_xp_fp})
             if branch == "P_dc_yp_fp":
-                P_dc_yp_fp = e_tree.array("P.dc.yp_fp")          #
+                P_dc_yp_fp = e_tree.array("P.dc.yp_fp") 
                 treeDict.update({"P_dc_yp_fp" : P_dc_yp_fp})
             if branch == "P_gtr_xp":
                 P_gtr_xp = e_tree.array("P.gtr.th")  # xpfp -> Theta
@@ -596,34 +575,34 @@ class Root():
                 P_gtr_yp = e_tree.array("P.gtr.ph")  # ypfp -> Phi
                 treeDict.update({"P_gtr_yp" : P_gtr_yp})
             if branch == "P_gtr_p":
-                P_gtr_p = e_tree.array("P.gtr.p")#
+                P_gtr_p = e_tree.array("P.gtr.p")
                 treeDict.update({"P_gtr_p" : P_gtr_p})
             if branch == "P_gtr_dp":
                 P_gtr_dp = e_tree.array("P.gtr.dp")  # dp is Delta
                 treeDict.update({"P_gtr_dp" : P_gtr_dp})
             if branch == "P_cal_etotnorm":
-                P_cal_etotnorm = e_tree.array("P.cal.etotnorm")  #
+                P_cal_etotnorm = e_tree.array("P.cal.etotnorm")  
                 treeDict.update({"P_cal_etotnorm" : P_cal_etotnorm})
             if branch == "P_cal_etottracknorm":
-                P_cal_etottracknorm = e_tree.array("P.cal.etottracknorm")        #
+                P_cal_etottracknorm = e_tree.array("P.cal.etottracknorm")        
                 treeDict.update({"P_cal_etottracknorm" : P_cal_etottracknorm})
             if branch == "P_aero_npeSum":
-                P_aero_npeSum = e_tree.array("P.aero.npeSum")    #
+                P_aero_npeSum = e_tree.array("P.aero.npeSum")    
                 treeDict.update({"P_aero_npeSum" : P_aero_npeSum})
             if branch == "P_aero_xAtAero":
-                P_aero_xAtAero = e_tree.array("P.aero.xAtAero")  #
+                P_aero_xAtAero = e_tree.array("P.aero.xAtAero")  
                 treeDict.update({"P_aero_xAtAero" : P_aero_xAtAero})
             if branch == "P_aero_yAtAero":
-                P_aero_yAtAero = e_tree.array("P.aero.yAtAero")  #
+                P_aero_yAtAero = e_tree.array("P.aero.yAtAero")  
                 treeDict.update({"P_aero_yAtAero" : P_aero_yAtAero})
             if branch == "P_hgcer_npeSum":
-                P_hgcer_npeSum = e_tree.array("P.hgcer.npeSum")  #
+                P_hgcer_npeSum = e_tree.array("P.hgcer.npeSum")  
                 treeDict.update({"P_hgcer_npeSum" : P_hgcer_npeSum})
             if branch == "P_hgcer_xAtCer":
-                P_hgcer_xAtCer = e_tree.array("P.hgcer.xAtCer")  #
+                P_hgcer_xAtCer = e_tree.array("P.hgcer.xAtCer")  
                 treeDict.update({"P_hgcer_xAtCer" : P_hgcer_xAtCer})
             if branch == "P_hgcer_yAtCer":
-                P_hgcer_yAtCer = e_tree.array("P.hgcer.yAtCer")  #
+                P_hgcer_yAtCer = e_tree.array("P.hgcer.yAtCer")  
                 treeDict.update({"P_hgcer_yAtCer" : P_hgcer_yAtCer})
             if branch == "P_cal_etotnorm":
                 P_cal_etotnorm = e_tree.array("P.cal.etotnorm")
@@ -690,7 +669,7 @@ class Root():
                 treeDict.update({"P_dc_2u2_nhit" : P_dc_2u2_nhit})
             if branch == "P_dc_2u1_nhit":
                 P_dc_2u1_nhit = e_tree.array("P.dc.2u1.nhit")
-                treeDict.update({"P_dc_2u1_nhit" : P_dc_2u1_nhit})                
+                treeDict.update({"P_dc_2u1_nhit" : P_dc_2u1_nhit})       
             if branch == "P_dc_2v1_nhit":
                 P_dc_2v1_nhit = e_tree.array("P.dc.2v1.nhit")
                 treeDict.update({"P_dc_2v1_nhit" : P_dc_2v1_nhit})
@@ -706,59 +685,49 @@ class Root():
 
             # Kinematic quantitites
             if branch == "Q2":
-                Q2 = e_tree.array("H.kin.primary.Q2")#
+                Q2 = e_tree.array("H.kin.primary.Q2")
                 treeDict.update({"Q2" : Q2})
             if branch == "W":
-                W = e_tree.array("H.kin.primary.W")  #
+                W = e_tree.array("H.kin.primary.W")  
                 treeDict.update({"W" : W})
             if branch == "epsilon":
-                epsilon = e_tree.array("H.kin.primary.epsilon")  #
+                epsilon = e_tree.array("H.kin.primary.epsilon")  
                 treeDict.update({"epsilon" : epsilon})
             if branch == "ph_q":
-                ph_q = e_tree.array("P.kin.secondary.ph_xq")     #
+                ph_q = e_tree.array("P.kin.secondary.ph_xq")     
                 treeDict.update({"ph_q" : ph_q})
             if branch == "emiss":
-                emiss = e_tree.array("P.kin.secondary.emiss")    #
+                emiss = e_tree.array("P.kin.secondary.emiss")    
                 treeDict.update({"emiss" : emiss})
             if branch == "MMpi":
-                MMpi = e_tree.array("P.kin.secondary.MMpi")      #
+                MMpi = e_tree.array("P.kin.secondary.MMpi")      
                 treeDict.update({"MMpi" : MMpi})
             if branch == "MMK":
-                MMK = e_tree.array("P.kin.secondary.MMK")        #
+                MMK = e_tree.array("P.kin.secondary.MMK")        
                 treeDict.update({"MMK" : MMK})
             if branch == "MMp":
-                MMp = e_tree.array("P.kin.secondary.MMp")        #
+                MMp = e_tree.array("P.kin.secondary.MMp")        
                 treeDict.update({"MMp" : MMp})
             if branch == "MandelT":
-                MandelT = e_tree.array("P.kin.secondary.MandelT")#
+                MandelT = e_tree.array("P.kin.secondary.MandelT")
                 treeDict.update({"MandelT" : MandelT})
             if branch == "MandelU":
-                MandelU = e_tree.array("P.kin.secondary.MandelU")   #
+                MandelU = e_tree.array("P.kin.secondary.MandelU")   
                 treeDict.update({"MandelU" : MandelU})
             if branch == "pmiss":
-                pmiss = e_tree.array("P.kin.secondary.pmiss")    #
+                pmiss = e_tree.array("P.kin.secondary.pmiss")    
                 treeDict.update({"pmiss" : pmiss})
             if branch == "pmiss_x":
-                pmiss_x = e_tree.array("P.kin.secondary.pmiss_x")#
+                pmiss_x = e_tree.array("P.kin.secondary.pmiss_x")
                 treeDict.update({"pmiss_x" : pmiss_x})
             if branch == "pmiss_y":
-                pmiss_y = e_tree.array("P.kin.secondary.pmiss_y")#
+                pmiss_y = e_tree.array("P.kin.secondary.pmiss_y")
                 treeDict.update({"pmiss_y" : pmiss_y})
             if branch == "pmiss_z":
-                pmiss_z = e_tree.array("P.kin.secondary.pmiss_z")#
+                pmiss_z = e_tree.array("P.kin.secondary.pmiss_z")
                 treeDict.update({"pmiss_z" : pmiss_z})
 
-            # Misc quantities
-            if branch == "fEvtType":
-                fEvtType = e_tree.array("fEvtHdr.fEvtType")     #
-                treeDict.update({"fEvtType" : fEvtType})
-            if branch == "RFFreq":
-                RFFreq = e_tree.array("MOFC1FREQ")  #
-                treeDict.update({"RFFreq" : RFFreq})
-            if branch == "RFFreqDiff":
-                RFFreqDiff = e_tree.array("MOFC1DELTA")         #
-                treeDict.update({"RFFreqDiff" : RFFreqDiff})
-
+            # Current
             if branch == "H_bcm_bcm1_AvgCurrent":
                 H_bcm_bcm1_AvgCurrent = e_tree.array("H.bcm.bcm1.AvgCurrent")
                 treeDict.update({"H_bcm_bcm1_AvgCurrent" : H_bcm_bcm1_AvgCurrent})
@@ -775,6 +744,31 @@ class Root():
                 H_bcm_bcm4c_AvgCurrent = e_tree.array("H.bcm.bcm4c.AvgCurrent")
                 treeDict.update({"H_bcm_bcm4c_AvgCurrent" : H_bcm_bcm4c_AvgCurrent})
 
+            # Timing info
+            if branch == "CTime_eKCoinTime_ROC1":
+                CTime_eKCoinTime_ROC1 = e_tree.array("CTime.eKCoinTime_ROC1")
+                treeDict.update({"CTime_eKCoinTime_ROC1" : CTime_eKCoinTime_ROC1})
+            if branch == "CTime_ePiCoinTime_ROC1":
+                CTime_ePiCoinTime_ROC1 = e_tree.array("CTime.ePiCoinTime_ROC1")
+                treeDict.update({"CTime_ePiCoinTime_ROC1" : CTime_ePiCoinTime_ROC1})
+            if branch == "CTime_epCoinTime_ROC1":
+                CTime_epCoinTime_ROC1 = e_tree.array("CTime.epCoinTime_ROC1")
+                treeDict.update({"CTime_epCoinTime_ROC1" : CTime_epCoinTime_ROC1})
+
+            if branch == "P_RF_tdcTime":
+                P_RF_tdcTime = e_tree.array("T.coin.pRF_tdcTime")  
+                treeDict.update({"P_RF_tdcTime" : P_RF_tdcTime})
+            if branch == "P_hod_fpHitsTime":
+                P_hod_fpHitsTime = e_tree.array("P.hod.fpHitsTime")
+                treeDict.update({"P_hod_fpHitsTime" : P_hod_fpHitsTime})
+            if branch == "H_RF_Dist":
+                H_RF_Dist = e_tree.array("RFTime.HMS_RFtimeDist")
+                treeDict.update({"H_RF_Dist" : H_RF_Dist})
+            if branch == "P_RF_Dist":
+                P_RF_Dist = e_tree.array("RFTime.SHMS_RFtimeDist")  
+                treeDict.update({"P_RF_Dist" : P_RF_Dist})
+
+                
             if branch == "T_coin_pTRIG1_ROC1_tdcTimeRaw":
                 T_coin_pTRIG1_ROC1_tdcTimeRaw = e_tree.array("T.coin.pTRIG1_ROC1_tdcTimeRaw")
                 treeDict.update({"T_coin_pTRIG1_ROC1_tdcTimeRaw" : T_coin_pTRIG1_ROC1_tdcTimeRaw})
@@ -871,10 +865,21 @@ class Root():
             if branch == "T_coin_pEDTM_tdcTime":
                 T_coin_pEDTM_tdcTime = e_tree.array("T.coin.pEDTM_tdcTime")
                 treeDict.update({"T_coin_pEDTM_tdcTime" : T_coin_pEDTM_tdcTime})
+                
+            # Misc quantities
+            if branch == "fEvtType":
+                fEvtType = e_tree.array("fEvtHdr.fEvtType")     
+                treeDict.update({"fEvtType" : fEvtType})
+            if branch == "RFFreq":
+                RFFreq = e_tree.array("MOFC1FREQ")  
+                treeDict.update({"RFFreq" : RFFreq})
+            if branch == "RFFreqDiff":
+                RFFreqDiff = e_tree.array("MOFC1DELTA")
+                treeDict.update({"RFFreqDiff" : RFFreqDiff})
             if branch == "EvtType":
                 EvtType = e_tree.array("fEvtHdr.fEvtType")
                 treeDict.update({"EvtType" : EvtType})
-
+                
         #################################################################################################################
             
         # For better explaination of the methods below use the Help class defined above
