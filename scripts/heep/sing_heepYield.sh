@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2022-07-26 09:31:50 trottar"
+# Time-stamp: "2022-07-26 13:57:42 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -133,9 +133,9 @@ sleep 3
 if [ ! -f "$UTILPATH/ROOTfiles/Analysis/HeeP/${ANATYPE}_${spec}_replay_production_${RUNNUMBER}_${MAXEVENTS}.root" ]; then
     if [[ "${HOSTNAME}" != *"ifarm"* ]]; then
 	if [[ "${HOSTNAME}" == *"cdaq"* ]]; then
-	    eval "$REPLAYPATH/hcana -l -q \"SCRIPTS/COIN/PRODUCTION/${ANATYPE}LT/FullReplay_${ANATYPE}LT_HeeP_Sing_${SPEC}.C($RUNNUMBER,$MAXEVENTS)\""| tee $UTILPATH/REPORT_OUTPUT/Analysis/HeeP/${ANATYPE}_output_${spec}_production_Summary_${RUNNUMBER}_${MAXEVENTS}.report
+	    eval "$REPLAYPATH/hcana -l -q \"SCRIPTS/COIN/PRODUCTION/FullReplay_${ANATYPE}LT_HeeP_Sing_${SPEC}.C($RUNNUMBER,$MAXEVENTS)\""| tee $UTILPATH/REPORT_OUTPUT/Analysis/HeeP/${ANATYPE}_output_${spec}_production_Summary_${RUNNUMBER}_${MAXEVENTS}.report
 	else	
-	    eval "$REPLAYPATH/hcana -l -q \"SCRIPTS/COIN/PRODUCTION/${ANATYPE}LT/FullReplay_${ANATYPE}LT_HeeP_Sing_${SPEC}.C($RUNNUMBER,$MAXEVENTS)\"" 
+	    eval "$REPLAYPATH/hcana -l -q \"SCRIPTS/COIN/PRODUCTION/FullReplay_${ANATYPE}LT_HeeP_Sing_${SPEC}.C($RUNNUMBER,$MAXEVENTS)\"" 
 	fi
     elif [[ "${HOSTNAME}" == *"ifarm"* ]]; then
 	eval "$REPLAYPATH/hcana -l -q \"SCRIPTS/COIN/PRODUCTION/FullReplay_${ANATYPE}LT_HeeP_Sing_${SPEC}.C($RUNNUMBER,$MAXEVENTS)\""| tee $UTILPATH/REPORT_OUTPUT/Analysis/HeeP/${ANATYPE}_output_${spec}_production_Summary_${RUNNUMBER}_${MAXEVENTS}.report
