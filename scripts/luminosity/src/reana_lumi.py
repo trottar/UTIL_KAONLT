@@ -2,7 +2,7 @@
 #
 # Description: Script is used to reanalyze all lumi data or to organize lumi data values into subdirectories
 # ================================================================
-# Time-stamp: "2022-06-30 01:22:12 trottar"
+# Time-stamp: "2022-07-25 10:04:21 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -110,10 +110,15 @@ def convertDFtoCSV(inp_data,out_f):
     '''
     Converts dataframe to csv file for arbitrary df and output location
     '''
+    file_exists = os.path.isfile(out_f)
+
     table  = pd.DataFrame(inp_data, columns=inp_data.keys())
     table = table.reindex(sorted(table.columns), axis=1)
-    
-    table.to_csv(out_f, index = False, header=True, mode='w+',)  
+
+    if file_exists:
+        table.to_csv(out_f, index = False, header=True, mode='w+',)  
+    else:
+        table.to_csv(out_f, index = False, header=True, mode='a',)
 
 
 if ANATYPE == "Pion":

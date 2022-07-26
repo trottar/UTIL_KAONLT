@@ -33,8 +33,8 @@ while getopts 'hrpy' flag; do
 	    echo "The following flags can be called for the luminosity analysis..."
 	    echo "    -h, help"
 	    echo "    -r, reanalyze all lumi runs"
-	    echo "    -p, plot yield results (requires additional arguments)"
-	    echo "    -y, plot pid to see cuts"
+	    echo "    -p, plot pid to see cuts"
+	    echo "    -y, plot yield results (requires additional arguments)"
 	    exit 0 ;;
 	r) r_flag='true' ;;
 	p) p_flag='true' ;;

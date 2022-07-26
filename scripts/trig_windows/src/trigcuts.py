@@ -3,7 +3,7 @@
 #
 # Description: Script to dynamically set new trigger windows and update the param file with these values
 # ================================================================
-# Time-stamp: "2022-06-30 02:43:07 trottar"
+# Time-stamp: "2022-07-25 11:57:02 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -216,7 +216,7 @@ def setWindows(runNum):
     2) Based off the threshold for the number of events, the min and max windows are set.  
     '''
 
-    def getBinEdges(branch,cut,numbins):
+    def getBinEdges(branch,cut,numbins,window):
         # Calculate the geometric mean
         def geo_mean(inp):
             l_inp = np.log(inp[inp != 0])
@@ -224,34 +224,42 @@ def setWindows(runNum):
         # finds the number of events per bin (the zero events are cut out beforehand)
         counts, bins = np.histogram(c.add_cut(branch,cut),bins=numbins)
         # Set the threshold for the number of events an order of magnitude more than the geometric mean
-        thres_count = geo_mean(counts)*10
+        #thres_count = geo_mean(counts)*10
+        # Get maximum number of counts
+        thres_count = max(counts)
         # Finding the bins that are above the set threshold for the number of events
-        binVals = [b for c,b in zip(counts,bins) if c > thres_count]
+        #binVals = [b for c,b in zip(counts,bins) if c > thres_count]
+        # Get bin with peak value
+        peak = [bins[i] for i,val in enumerate(counts) if thres_count == val][0]
+        # Define window around peak
+        binVals = [val for i,val in enumerate(bins) if peak-window < val < peak+window]
         # Set min and max windows
         minBin = min(binVals)
         maxBin = max(binVals)
         return [minBin, maxBin]
 
-    numbins = 50 # previously 200
+    numbins = 200
+    window = 150
     # Get windows for {SPEC}_ROC1_tdcTimeRaw and pEDTM_tdcTimeRaw
-    c_T_coin_pTRIG_HMS_ROC1_tdcTimeRaw = getBinEdges(T_coin_pTRIG_HMS_ROC1_tdcTimeRaw,"c_nozero_ptrigHMS%s" % PS_names[1].replace("PS",""),numbins)
-    c_T_coin_pTRIG_SHMS_ROC2_tdcTimeRaw = getBinEdges(T_coin_pTRIG_SHMS_ROC2_tdcTimeRaw,"c_nozero_ptrigSHMS%s" % PS_names[0].replace("PS",""),numbins)
+    c_T_coin_pTRIG_HMS_ROC1_tdcTimeRaw = getBinEdges(T_coin_pTRIG_HMS_ROC1_tdcTimeRaw,"c_nozero_ptrigHMS%s" % PS_names[1].replace("PS",""),numbins,window)
+    c_T_coin_pTRIG_SHMS_ROC2_tdcTimeRaw = getBinEdges(T_coin_pTRIG_SHMS_ROC2_tdcTimeRaw,"c_nozero_ptrigSHMS%s" % PS_names[0].replace("PS",""),numbins,window)
     # Check if COIN trigger is used
     if len(PS_used) > 2:
-        c_T_coin_pTRIG_HMS_ROC1_tdcTimeRaw = getBinEdges(T_coin_pTRIG_HMS_ROC1_tdcTimeRaw,"c_nozero_ptrigHMS%s" % PS_names[1].replace("PS",""),numbins)
-        c_T_coin_pTRIG_SHMS_ROC2_tdcTimeRaw = getBinEdges(T_coin_pTRIG_SHMS_ROC2_tdcTimeRaw,"c_nozero_ptrigSHMS%s" % PS_names[0].replace("PS",""),numbins)
-        c_T_coin_pTRIG_COIN_ROC1_tdcTimeRaw = getBinEdges(T_coin_pTRIG_COIN_ROC1_tdcTimeRaw,"c_nozero_ptrigCOIN%s" % PS_names[2].replace("PS",""),numbins)
-    c_T_coin_pEDTM_tdcTimeRaw = getBinEdges(T_coin_pEDTM_tdcTimeRaw,"c_nozero_edtm",numbins)
+        c_T_coin_pTRIG_HMS_ROC1_tdcTimeRaw = getBinEdges(T_coin_pTRIG_HMS_ROC1_tdcTimeRaw,"c_nozero_ptrigHMS%s" % PS_names[1].replace("PS",""),numbins,window)
+        c_T_coin_pTRIG_SHMS_ROC2_tdcTimeRaw = getBinEdges(T_coin_pTRIG_SHMS_ROC2_tdcTimeRaw,"c_nozero_ptrigSHMS%s" % PS_names[0].replace("PS",""),numbins,window)
+        c_T_coin_pTRIG_COIN_ROC1_tdcTimeRaw = getBinEdges(T_coin_pTRIG_COIN_ROC1_tdcTimeRaw,"c_nozero_ptrigCOIN%s" % PS_names[2].replace("PS",""),numbins,window)
+    c_T_coin_pEDTM_tdcTimeRaw = getBinEdges(T_coin_pEDTM_tdcTimeRaw,"c_nozero_edtm",numbins,window)
 
+    window = 50
     # This will need to run twice as it will need (or at least I'd prefer) to have the time raw window cut on time.
     # In theory just using time raw > 0 cut should suffice
     # Get windows for {SPEC}_ROC1_tdcTime and pEDTM_tdcTime
-    c_T_coin_pTRIG_HMS_ROC1_tdcTime = getBinEdges(T_coin_pTRIG_HMS_ROC1_tdcTime,"c_nozero_ptrigHMS%s" % PS_names[1].replace("PS",""),numbins)
-    c_T_coin_pTRIG_SHMS_ROC2_tdcTime = getBinEdges(T_coin_pTRIG_SHMS_ROC2_tdcTime,"c_nozero_ptrigSHMS%s" % PS_names[0].replace("PS",""),numbins)
+    c_T_coin_pTRIG_HMS_ROC1_tdcTime = getBinEdges(T_coin_pTRIG_HMS_ROC1_tdcTime,"c_nozero_ptrigHMS%s" % PS_names[1].replace("PS",""),numbins,window)
+    c_T_coin_pTRIG_SHMS_ROC2_tdcTime = getBinEdges(T_coin_pTRIG_SHMS_ROC2_tdcTime,"c_nozero_ptrigSHMS%s" % PS_names[0].replace("PS",""),numbins,window)
     # Check if COIN trigger is used
     if len(PS_used) > 2:
-        c_T_coin_pTRIG_COIN_ROC1_tdcTime = getBinEdges(T_coin_pTRIG_COIN_ROC1_tdcTime,"c_nozero_ptrigCOIN%s" % PS_names[2].replace("PS",""),numbins)
-    c_T_coin_pEDTM_tdcTime = getBinEdges(T_coin_pEDTM_tdcTime,"c_nozero_edtm",numbins)
+        c_T_coin_pTRIG_COIN_ROC1_tdcTime = getBinEdges(T_coin_pTRIG_COIN_ROC1_tdcTime,"c_nozero_ptrigCOIN%s" % PS_names[2].replace("PS",""),numbins,window)
+    c_T_coin_pEDTM_tdcTime = getBinEdges(T_coin_pEDTM_tdcTime,"c_nozero_edtm",numbins,window)
 
     # Create a dictionary that contains the information that will be uploaded to Misc_Parameters.csv for a particular run
     new_row = {'Run_Start' : "{:.0f}".format(float(runNum)), 'Run_End' : "{:.0f}".format(float(runNum)), 'noedtm' : 0.0, 'edtmLow' : "{:.0f}".format(float(c_T_coin_pEDTM_tdcTimeRaw[0])), 

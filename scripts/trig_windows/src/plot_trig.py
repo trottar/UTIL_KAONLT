@@ -3,7 +3,7 @@
 #
 # Description: Script for plotting trigger windows
 # ================================================================
-# Time-stamp: "2022-06-30 03:04:53 trottar"
+# Time-stamp: "2022-07-25 10:23:42 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -68,7 +68,7 @@ for line in f:
     data = line.split(':')
     current_data = line.split(':')
     if ('SW_BCM4A_Beam_Cut_Current' in current_data[0]):
-        report_current = current_data[1].split("+-").strip("\n").strip("[").strip("]")
+        report_current = current_data[1].split("+-")
     for i, obj in enumerate(psList) :
         if (psList[i] in data[0]) : 
             if (i == 0) :  
@@ -325,12 +325,12 @@ def currentPlots():
     f = plt.figure(figsize=(11.69,8.27))
 
     ax = f.add_subplot(111)
-    ax.hist(c.add_cut(H_bcm_bcm1_AvgCurrent,"c_curr"),bins=c.setbin(H_bcm_bcm1_AvgCurrent,10),label='cut',histtype='step', alpha=0.5, stacked=True, fill=True)
+    ax.hist(c.add_cut(H_bcm_bcm1_AvgCurrent,"c_curr"),bins=c.setbin(c.add_cut(H_bcm_bcm1_AvgCurrent,"c_curr"),10),label='cut',histtype='step', alpha=0.5, stacked=True, fill=True)
     ax.hist(H_bcm_bcm1_AvgCurrent,bins=c.setbin(H_bcm_bcm1_AvgCurrent,10),label='no cut',histtype='step', alpha=0.5, stacked=True, fill=True)
     plt.yscale('log')
     plt.xlabel('H_bcm_bcm1_AvgCurrent')
     plt.ylabel('Count')
-    plt.title("Run %s, %s" % (runNum,report_current))
+    plt.title("Run %s, %s" % (runNum,report_current[0].strip('\t').strip('\n').strip()))
 
     plt.savefig(UTILPATH+'/scripts/trig_windows/OUTPUTS/curr_%s_%s.png' % (ROOTPrefix,runNum))     # Input file location and variables taking)
 
