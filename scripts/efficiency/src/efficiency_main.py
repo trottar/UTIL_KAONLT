@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2022-06-29 09:32:51 trottar"
+# Time-stamp: "2022-07-27 12:29:42 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -59,9 +59,14 @@ import efficiency_hgcer
 import efficiency_report
 import efficiency_standard_kin
 
-hgcerDict = efficiency_hgcer.dictionary(UTILPATH,runNum,MaxEvent)
-reportDict = efficiency_report.dictionary(UTILPATH,ROOTPrefix,runNum,MaxEvent)
-standardDict = efficiency_standard_kin.dictionary(REPLAYPATH,runNum)
+if "coin" in ROOTPrefix:
+    hgcerDict = efficiency_hgcer.dictionary(UTILPATH,runNum,MaxEvent)
+    reportDict = efficiency_report.dictionary(UTILPATH,ROOTPrefix,runNum,MaxEvent)
+    standardDict = efficiency_standard_kin.dictionary(REPLAYPATH,runNum)
+else:
+    hgcerDict = {}
+    reportDict = efficiency_report.dictionary(UTILPATH,ROOTPrefix,runNum,MaxEvent)
+    standardDict = efficiency_standard_kin.dictionary(REPLAYPATH,runNum)
 
 ################################################################################################################################################
 
