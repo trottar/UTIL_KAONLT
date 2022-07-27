@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2022-06-21 02:31:31 trottar"
+# Time-stamp: "2022-07-27 11:29:01 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -11,21 +11,30 @@
 # Copyright (c) trottar
 #
 
-while getopts 'hpr' flag; do
+while getopts 'hprs' flag; do
     case "${flag}" in
         h) 
-        echo "---------------------------------------------------"
-        echo "./add_efficiencies_table.sh -{flags} {run list}"
-        echo "---------------------------------------------------"
+        echo "-------------------------------------------------------------------"
+        echo "./add_efficiencies_table.sh -{flags} {variable arguments, see help}"
+        echo "-------------------------------------------------------------------"
         echo
         echo "The following flags can be called for the heep analysis..."
+	echo "    If no flags called arguments are..."
+	echo "        coin -> RunType=arg1"
+	echo "        sing -> RunType=arg1 SPEC=arg2 (requires -s flag)"		
         echo "    -h, help"
         echo "    -p, plot efficiencies"
+	echo "        coin -> RunType=arg1 DATE=arg2"
+	echo "        sing -> RunType=arg1 DATE=arg2 SPEC=arg3 (requires -s flag)"
 	echo "    -r, run hgcer root analysis"
+	echo "        coin -> RunType=arg1"
+	echo "        sing -> RunType=arg1 SPEC=arg2 (requires -s flag)"	
+	echo "    -s, single arm"
         exit 0
         ;;
         p) p_flag='true' ;;
 	r) r_flag='true' ;;
+	s) s_flag='true' ;;
         *) print_usage
         exit 1 ;;
     esac
@@ -60,107 +69,90 @@ cd "${SCRIPTPATH}/efficiency/src/"
 if [[ $p_flag = "true" ]]; then
     RunType=$2
     DATE=$3
-    #python3 plot/plot_efficiency.py replay_coin_production ${RunType} ${DATE}
-    python3 plot/plot_efficiency_beam.py replay_coin_production ${RunType} ${DATE}
+    ROOTPREFIX=replay_coin_production
+    HGCERPREFIX=${ANATYPE}_coin_replay_production
+    #python3 plot/plot_efficiency.py ${ROOTPREFIX} ${RunType} ${DATE}
+    python3 plot/plot_efficiency_beam.py ${ROOTPREFIX} ${RunType} ${DATE}
     cd "${SCRIPTPATH}/efficiency/OUTPUTS/plots"
     convert *.png "${RunType}_${DATE}.pdf"
     evince "${RunType}_${DATE}.pdf"
     exit 1
+elif [[ $p_flag = "true" && $s_flag = "true" ]]; then
+    RunType=$2
+    DATE=$3
+    spec=$(echo "$4" | tr '[:upper:]' '[:lower:]')
+    SPEC=$(echo "$spec" | tr '[:lower:]' '[:upper:]')
+    ROOTPREFIX=replay_${spec}_production
+    HGCERPREFIX=${ANATYPE}_${SPEC}_replay_production
+    #python3 plot/plot_efficiency.py ${ROOTPREFIX} ${RunType} ${DATE}
+    python3 plot/plot_efficiency_beam.py ${ROOTPREFIX} ${RunType} ${DATE}
+    cd "${SCRIPTPATH}/efficiency/OUTPUTS/plots"
+    convert *.png "${RunType}_${DATE}.pdf"
+    evince "${RunType}_${DATE}.pdf"
+    exit 1
+elif [[ $s_flag = "true" ]]; then
+    RunType=$1
+    spec=$(echo "$2" | tr '[:upper:]' '[:lower:]')
+    SPEC=$(echo "$spec" | tr '[:lower:]' '[:upper:]')    
+    ROOTPREFIX=replay_${spec}_production
+    HGCERPREFIX=${ANATYPE}_${SPEC}_replay_production
 else
     RunType=$1
+    ROOTPREFIX=replay_coin_production
+    HGCERPREFIX=${ANATYPE}_coin_replay_production
 fi
 
 if [[ $RunType = "HeePCoin" ]]; then
-    inputFile="${REPLAYPATH}/UTIL_BATCH/InputRunLists/KaonLT_2018_2019/HeepCoin_ALL"
-    if [[ $r_flag = "true" ]]; then
-	while true; do
-	    read -p "Do you wish to analyse hgcer efficiencies with run list ${RunList}? (Please answer yes or no) " yn
-	    case $yn in
-		[Yy]* )
-		    i=-1
-		    (
-		    ##Reads in input file##
-		    while IFS='' read -r line || [[ -n "$line" ]]; do
-			echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-			echo "Run number read from file: $line"
-			echo ""
-			cd "${SCRIPTPATH}/efficiency/src/hgcer"
-			python3 hgcer.py Kaon_coin_replay_production $line -1
-		    done < "$inputFile"
-		    )
-		    break;;
-		[Nn]* ) 
-		    exit;;
-		* ) echo "Please answer yes or no.";;
-	    esac
-	done
-    else
-	while true; do
-	    read -p "Do you wish to append efficiency table with run list ${RunList}? (Please answer yes or no) " yn
-	    case $yn in
-		[Yy]* )
-		    i=-1
-		    (
-		    ##Reads in input file##
-		    while IFS='' read -r line || [[ -n "$line" ]]; do
-			echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-			echo "Run number read from file: $line"
-			echo ""
-			python3 efficiency_main.py replay_coin_production $RunType $line -1
-		    done < "$inputFile"
-		    )
-		    break;;
-		[Nn]* ) 
-		    exit;;
-		* ) echo "Please answer yes or no.";;
-	    esac
-	done
-    fi
+    inputFile="${REPLAYPATH}/UTIL_BATCH/InputRunLists/KaonLT_2018_2019/HeePCoin_ALL"
+elif [[ $RunType = "HeePSing" ]]; then
+    #inputFile="${REPLAYPATH}/UTIL_BATCH/InputRunLists/KaonLT_2018_2019/HeePSing_ALL"
+    inputFile="${REPLAYPATH}/UTIL_BATCH/InputRunLists/KaonLT_2018_2019/HeePSing_Test"
 else
     #inputFile="${REPLAYPATH}/UTIL_BATCH/InputRunLists/KaonLT_2018_2019/ProductionLH2_ALL"
     inputFile="${REPLAYPATH}/UTIL_BATCH/InputRunLists/KaonLT_2018_2019/Prod_Test"
-    if [[ $r_flag = "true" ]]; then
-	while true; do
-	    read -p "Do you wish to analyse hgcer efficiencies with run list ${RunList}? (Please answer yes or no) " yn
-	    case $yn in
-		[Yy]* )
-		    i=-1
-		    (
-		    ##Reads in input file##
-		    while IFS='' read -r line || [[ -n "$line" ]]; do
-			echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-			echo "Run number read from file: $line"
-			echo ""
-			cd "${SCRIPTPATH}/efficiency/src/hgcer"
-			python3 hgcer.py Kaon_coin_replay_production $line -1
-		    done < "$inputFile"
-		    )
-		    break;;
-		[Nn]* ) 
-		    exit;;
-		* ) echo "Please answer yes or no.";;
-	    esac
-	done
-    else
-	while true; do
-	    read -p "Do you wish to append efficiency table with run list ${RunList}? (Please answer yes or no) " yn
-	    case $yn in
-		[Yy]* )
-		    i=-1
-		    (
-		    ##Reads in input file##
-		    while IFS='' read -r line || [[ -n "$line" ]]; do
-			echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-			echo "Run number read from file: $line"
-			echo ""
-			python3 efficiency_main.py replay_coin_production $RunType $line -1
-		    done < "$inputFile"
-		    )
-		    break;;
-		[Nn]* ) 
-		    exit;;
-		* ) echo "Please answer yes or no.";;
-	    esac
-	done
-    fi
+fi
+
+if [[ $r_flag = "true" ]]; then
+    while true; do
+	read -p "Do you wish to analyse hgcer efficiencies with run list ${RunList}? (Please answer yes or no) " yn
+	case $yn in
+	    [Yy]* )
+		i=-1
+		(
+		##Reads in input file##
+		while IFS='' read -r line || [[ -n "$line" ]]; do
+		    echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+		    echo "Run number read from file: $line"
+		    echo ""
+		    cd "${SCRIPTPATH}/efficiency/src/hgcer"
+		    python3 hgcer.py ${HGCERPREFIX} $line -1
+		done < "$inputFile"
+		)
+		break;;
+	    [Nn]* ) 
+		exit;;
+	    * ) echo "Please answer yes or no.";;
+	esac
+    done
+else
+    while true; do
+	read -p "Do you wish to append efficiency table with run list ${RunList}? (Please answer yes or no) " yn
+	case $yn in
+	    [Yy]* )
+		i=-1
+		(
+		##Reads in input file##
+		while IFS='' read -r line || [[ -n "$line" ]]; do
+		    echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+		    echo "Run number read from file: $line"
+		    echo ""
+		    python3 efficiency_main.py ${ROOTPREFIX} $RunType $line -1
+		done < "$inputFile"
+		)
+		break;;
+	    [Nn]* ) 
+		exit;;
+	    * ) echo "Please answer yes or no.";;
+	esac
+    done
 fi

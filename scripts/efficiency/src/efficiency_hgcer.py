@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2022-06-30 09:36:17 trottar"
+# Time-stamp: "2022-07-27 10:47:20 trottar"
 # ================================================================
 # 
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -22,8 +22,6 @@ from ROOT import kBlack, kBlue, kRed
 import os
 
 # Input should be the input root file name (including suffix) and an output file name string (without any suffix)
-#def hgcer_plots():
-
 def dictionary(UTILPATH,runNum,MaxEvent):
 
     ROOTPrefix = "efficiency"
