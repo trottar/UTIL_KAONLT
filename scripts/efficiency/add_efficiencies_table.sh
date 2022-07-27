@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2022-07-27 11:29:01 trottar"
+# Time-stamp: "2022-07-27 11:31:46 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -23,7 +23,7 @@ while getopts 'hprs' flag; do
 	echo "        coin -> RunType=arg1"
 	echo "        sing -> RunType=arg1 SPEC=arg2 (requires -s flag)"		
         echo "    -h, help"
-        echo "    -p, plot efficiencies"
+        echo "    -p, plot efficiencies (code exits after)"
 	echo "        coin -> RunType=arg1 DATE=arg2"
 	echo "        sing -> RunType=arg1 DATE=arg2 SPEC=arg3 (requires -s flag)"
 	echo "    -r, run hgcer root analysis"
@@ -75,8 +75,7 @@ if [[ $p_flag = "true" ]]; then
     python3 plot/plot_efficiency_beam.py ${ROOTPREFIX} ${RunType} ${DATE}
     cd "${SCRIPTPATH}/efficiency/OUTPUTS/plots"
     convert *.png "${RunType}_${DATE}.pdf"
-    evince "${RunType}_${DATE}.pdf"
-    exit 1
+    evince "${RunType}_${DATE}.pdf"    
 elif [[ $p_flag = "true" && $s_flag = "true" ]]; then
     RunType=$2
     DATE=$3
@@ -88,8 +87,7 @@ elif [[ $p_flag = "true" && $s_flag = "true" ]]; then
     python3 plot/plot_efficiency_beam.py ${ROOTPREFIX} ${RunType} ${DATE}
     cd "${SCRIPTPATH}/efficiency/OUTPUTS/plots"
     convert *.png "${RunType}_${DATE}.pdf"
-    evince "${RunType}_${DATE}.pdf"
-    exit 1
+    evince "${RunType}_${DATE}.pdf"  
 elif [[ $s_flag = "true" ]]; then
     RunType=$1
     spec=$(echo "$2" | tr '[:upper:]' '[:lower:]')
