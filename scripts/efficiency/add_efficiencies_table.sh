@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2022-07-28 09:05:36 trottar"
+# Time-stamp: "2022-07-28 09:15:16 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -69,8 +69,13 @@ cd "${SCRIPTPATH}/efficiency/src/"
 if [[ $p_flag = "true" ]]; then
     RunType=$2
     DATE=$3
-    ROOTPREFIX=replay_coin_production
-    HGCERPREFIX=${ANATYPE}_coin_replay_production
+    if [[ $RunType = "HeePCoin" ]]; then
+	ROOTPREFIX=replay_coin_heep
+	HGCERPREFIX=${ANATYPE}_coin_replay_production
+    else
+	ROOTPREFIX=replay_coin_production
+	HGCERPREFIX=${ANATYPE}_coin_replay_production	
+    fi
     #python3 plot/plot_efficiency.py ${ROOTPREFIX} ${RunType} ${DATE}
     python3 plot/plot_efficiency_beam.py ${ROOTPREFIX} ${RunType} ${DATE}
     cd "${SCRIPTPATH}/efficiency/OUTPUTS/plots"
@@ -82,8 +87,17 @@ elif [[ $p_flag = "true" && $s_flag = "true" ]]; then
     DATE=$3
     spec=$(echo "$4" | tr '[:upper:]' '[:lower:]')
     SPEC=$(echo "$spec" | tr '[:lower:]' '[:upper:]')
-    ROOTPREFIX=replay_${spec}_production
-    HGCERPREFIX=${ANATYPE}_${SPEC}_replay_production
+    if [[ $RunType = "HeePSing" ]]; then
+	ROOTPREFIX=replay_${spec}_heep
+	HGCERPREFIX=${ANATYPE}_${SPEC}_replay_production
+	#inputFile="${REPLAYPATH}/UTIL_BATCH/InputRunLists/KaonLT_2018_2019/HeePSing_ALL"
+	inputFile="${REPLAYPATH}/UTIL_BATCH/InputRunLists/KaonLT_2018_2019/HeePSing_Test"
+    else
+	ROOTPREFIX=replay_${spec}_production
+	HGCERPREFIX=${ANATYPE}_${SPEC}_replay_production
+	#inputFile="${REPLAYPATH}/UTIL_BATCH/InputRunLists/KaonLT_2018_2019/ProductionLH2_ALL"
+	inputFile="${REPLAYPATH}/UTIL_BATCH/InputRunLists/KaonLT_2018_2019/Prod_Test"
+    fi
     #python3 plot/plot_efficiency.py ${ROOTPREFIX} ${RunType} ${DATE}
     python3 plot/plot_efficiency_beam.py ${ROOTPREFIX} ${RunType} ${DATE}
     cd "${SCRIPTPATH}/efficiency/OUTPUTS/plots"
@@ -93,23 +107,30 @@ elif [[ $p_flag = "true" && $s_flag = "true" ]]; then
 elif [[ $s_flag = "true" ]]; then
     RunType=$2
     spec=$(echo "$3" | tr '[:upper:]' '[:lower:]')
-    SPEC=$(echo "$spec" | tr '[:lower:]' '[:upper:]')    
-    ROOTPREFIX=replay_${spec}_production
-    HGCERPREFIX=${ANATYPE}_${SPEC}_replay_production
+    SPEC=$(echo "$spec" | tr '[:lower:]' '[:upper:]')
+    if [[ $RunType = "HeePSing" ]]; then
+	ROOTPREFIX=replay_${spec}_heep
+	HGCERPREFIX=${ANATYPE}_${SPEC}_replay_production
+	#inputFile="${REPLAYPATH}/UTIL_BATCH/InputRunLists/KaonLT_2018_2019/HeePSing_ALL"
+	inputFile="${REPLAYPATH}/UTIL_BATCH/InputRunLists/KaonLT_2018_2019/HeePSing_Test"
+    else
+	ROOTPREFIX=replay_${spec}_production
+	HGCERPREFIX=${ANATYPE}_${SPEC}_replay_production	
+	#inputFile="${REPLAYPATH}/UTIL_BATCH/InputRunLists/KaonLT_2018_2019/ProductionLH2_ALL"
+	inputFile="${REPLAYPATH}/UTIL_BATCH/InputRunLists/KaonLT_2018_2019/Prod_Test"
+    fi    
 else
     RunType=$1
-    ROOTPREFIX=replay_coin_production
-    HGCERPREFIX=${ANATYPE}_coin_replay_production
-fi
-
-if [[ $RunType = "HeePCoin" ]]; then
-    inputFile="${REPLAYPATH}/UTIL_BATCH/InputRunLists/KaonLT_2018_2019/HeePCoin_ALL"
-elif [[ $RunType = "HeePSing" ]]; then
-    #inputFile="${REPLAYPATH}/UTIL_BATCH/InputRunLists/KaonLT_2018_2019/HeePSing_ALL"
-    inputFile="${REPLAYPATH}/UTIL_BATCH/InputRunLists/KaonLT_2018_2019/HeePSing_Test"
-else
-    #inputFile="${REPLAYPATH}/UTIL_BATCH/InputRunLists/KaonLT_2018_2019/ProductionLH2_ALL"
-    inputFile="${REPLAYPATH}/UTIL_BATCH/InputRunLists/KaonLT_2018_2019/Prod_Test"
+    if [[ $RunType = "HeePCoin" ]]; then
+	ROOTPREFIX=replay_coin_heep
+	HGCERPREFIX=${ANATYPE}_coin_replay_production
+	inputFile="${REPLAYPATH}/UTIL_BATCH/InputRunLists/KaonLT_2018_2019/HeePCoin_ALL"
+    else
+	ROOTPREFIX=replay_coin_production
+	HGCERPREFIX=${ANATYPE}_coin_replay_production	
+	#inputFile="${REPLAYPATH}/UTIL_BATCH/InputRunLists/KaonLT_2018_2019/ProductionLH2_ALL"
+	inputFile="${REPLAYPATH}/UTIL_BATCH/InputRunLists/KaonLT_2018_2019/Prod_Test"
+    fi    
 fi
 
 if [[ $r_flag = "true" ]]; then
