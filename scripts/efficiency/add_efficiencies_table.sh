@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2022-07-27 11:34:29 trottar"
+# Time-stamp: "2022-07-28 08:49:33 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -114,7 +114,7 @@ fi
 
 if [[ $r_flag = "true" ]]; then
     while true; do
-	read -p "Do you wish to analyse hgcer efficiencies with run list ${RunList}? (Please answer yes or no) " yn
+	read -p "Do you wish to analyse hgcer efficiencies with run list ${inputFile}? (Please answer yes or no) " yn
 	case $yn in
 	    [Yy]* )
 		i=-1
@@ -136,7 +136,7 @@ if [[ $r_flag = "true" ]]; then
     done
 else
     while true; do
-	read -p "Do you wish to append efficiency table with run list ${RunList}? (Please answer yes or no) " yn
+	read -p "Do you wish to create efficiency table for run list ${inputFile}? (Please answer yes or no) " yn
 	case $yn in
 	    [Yy]* )
 		i=-1
