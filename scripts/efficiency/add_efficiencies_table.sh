@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2022-07-28 09:15:16 trottar"
+# Time-stamp: "2022-07-28 09:19:16 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -111,8 +111,8 @@ elif [[ $s_flag = "true" ]]; then
     if [[ $RunType = "HeePSing" ]]; then
 	ROOTPREFIX=replay_${spec}_heep
 	HGCERPREFIX=${ANATYPE}_${SPEC}_replay_production
-	#inputFile="${REPLAYPATH}/UTIL_BATCH/InputRunLists/KaonLT_2018_2019/HeePSing_ALL"
-	inputFile="${REPLAYPATH}/UTIL_BATCH/InputRunLists/KaonLT_2018_2019/HeePSing_Test"
+	inputFile="${REPLAYPATH}/UTIL_BATCH/InputRunLists/KaonLT_2018_2019/HeePSing_ALL"
+	#inputFile="${REPLAYPATH}/UTIL_BATCH/InputRunLists/KaonLT_2018_2019/HeePSing_Test"
     else
 	ROOTPREFIX=replay_${spec}_production
 	HGCERPREFIX=${ANATYPE}_${SPEC}_replay_production	
