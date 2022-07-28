@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2022-07-28 08:49:33 trottar"
+# Time-stamp: "2022-07-28 09:05:36 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -91,8 +91,8 @@ elif [[ $p_flag = "true" && $s_flag = "true" ]]; then
     evince "${RunType}_${DATE}.pdf"
     exit 1
 elif [[ $s_flag = "true" ]]; then
-    RunType=$1
-    spec=$(echo "$2" | tr '[:upper:]' '[:lower:]')
+    RunType=$2
+    spec=$(echo "$3" | tr '[:upper:]' '[:lower:]')
     SPEC=$(echo "$spec" | tr '[:lower:]' '[:upper:]')    
     ROOTPREFIX=replay_${spec}_production
     HGCERPREFIX=${ANATYPE}_${SPEC}_replay_production
