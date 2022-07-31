@@ -3,7 +3,7 @@
 #
 # Description: Script to dynamically set new trigger windows and update the param file with these values
 # ================================================================
-# Time-stamp: "2022-07-25 11:57:02 trottar"
+# Time-stamp: "2022-07-31 11:34:16 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -239,7 +239,7 @@ def setWindows(runNum):
         return [minBin, maxBin]
 
     numbins = 200
-    window = 150
+    window = 200
     # Get windows for {SPEC}_ROC1_tdcTimeRaw and pEDTM_tdcTimeRaw
     c_T_coin_pTRIG_HMS_ROC1_tdcTimeRaw = getBinEdges(T_coin_pTRIG_HMS_ROC1_tdcTimeRaw,"c_nozero_ptrigHMS%s" % PS_names[1].replace("PS",""),numbins,window)
     c_T_coin_pTRIG_SHMS_ROC2_tdcTimeRaw = getBinEdges(T_coin_pTRIG_SHMS_ROC2_tdcTimeRaw,"c_nozero_ptrigSHMS%s" % PS_names[0].replace("PS",""),numbins,window)
