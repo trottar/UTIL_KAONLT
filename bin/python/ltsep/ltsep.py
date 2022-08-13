@@ -2,7 +2,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2022-07-27 12:32:22 trottar"
+# Time-stamp: "2022-08-13 10:34:50 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -688,7 +688,7 @@ class Root():
             if branch == "P_cal_etottracknorm":
                 P_cal_etottracknorm = e_tree.array("P.cal.etottracknorm")
                 treeDict.update({"P_cal_etottracknorm" : P_cal_etottracknorm})
-
+                
             # Kinematic quantitites
             if branch == "Q2":
                 Q2 = e_tree.array("H.kin.primary.Q2")
@@ -732,6 +732,15 @@ class Root():
             if branch == "pmiss_z":
                 pmiss_z = e_tree.array("P.kin.secondary.pmiss_z")
                 treeDict.update({"pmiss_z" : pmiss_z})
+            if branch == "Erecoil":
+                Erecoil = e_tree.array("P.kin.secondary.Erecoil")
+                treeDict.update({"Erecoil" : Erecoil})
+            if branch == "emiss_nuc":
+                emiss_nuc = e_tree.array("P.kin.secondary.emiss_nuc")
+                treeDict.update({"emiss_nuc" : emiss_nuc})
+            if branch == "Mrecoil":
+                Mrecoil = e_tree.array("P.kin.secondary.Mrecoil")
+                treeDict.update({"Mrecoil" : Mrecoil})                
 
             # Current
             if branch == "H_bcm_bcm1_AvgCurrent":
