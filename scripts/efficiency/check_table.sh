@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2022-08-30 01:08:58 trottar"
+# Time-stamp: "2022-08-30 01:12:17 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -39,10 +39,10 @@ while getopts 'hs' flag; do
     case "${flag}" in
         h) 
         echo "-------------------------------------------------------------------"
-        echo "./add_efficiencies_table.sh -{flags} {variable arguments, see help}"
+        echo "./check_table.sh -{flags} {variable arguments, see help}"
         echo "-------------------------------------------------------------------"
         echo
-        echo "The following flags can be called for the heep analysis..."
+        echo "The following flags can be called to check efficiency table..."
 	echo "    If no flags called arguments are..."
 	echo "        coin -> RUNTYPE=arg1 RUNNUM=arg2"
 	echo "        sing -> RUNTYPE=arg1 SPEC=arg2 RUNNUM=arg3 (requires -s flag)"		
