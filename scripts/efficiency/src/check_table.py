@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2022-08-30 01:11:22 trottar"
+# Time-stamp: "2022-08-30 01:18:35 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -47,7 +47,7 @@ OUTPATH=lt.OUTPATH
 ################################################################################################################################################
 
 # Output for luminosity table
-in_f = UTILPATH+"/scripts/efficiency/OUTPUTS/%s_%s_efficiency_data_%s.csv"  % (ROOTPrefix.replace("replay_",""),runType,timestmp)
+inp_f = UTILPATH+"/scripts/efficiency/OUTPUTS/%s_%s_efficiency_data_%s.csv"  % (ROOTPrefix.replace("replay_",""),runType,timestmp)
 
 # Converts csv data to dataframe
 try:
