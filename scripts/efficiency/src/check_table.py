@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2022-08-30 01:32:59 trottar"
+# Time-stamp: "2022-08-30 01:36:23 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -58,7 +58,7 @@ except IOError:
     print("Error: %s does not appear to exist." % inp_f)
     sys.exit(0)
 
-pd.set_option('display.max_columns', None)    
+pd.set_option('display.max_columns', 1000)
 eff_data = eff_data[eff_data['Run_Number'] == float(runNum)]
 eff_data.head()
 
