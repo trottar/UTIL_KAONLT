@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2022-08-30 01:12:17 trottar"
+# Time-stamp: "2022-08-30 01:28:49 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -75,7 +75,8 @@ else
 	TIMESTMP="2022_06_13"
 	ROOTPREFIX=replay_coin_heep
     else
-	TIMESTMP="2022_08_30"
+	#TIMESTMP="2022_08_30"
+	TIMESTMP="2022_06_09"
 	ROOTPREFIX=replay_coin_production
     fi
 fi

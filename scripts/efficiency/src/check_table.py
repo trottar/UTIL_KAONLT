@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2022-08-30 01:18:35 trottar"
+# Time-stamp: "2022-08-30 01:29:13 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -58,7 +58,7 @@ except IOError:
     print("Error: %s does not appear to exist." % inp_f)
     sys.exit(0)
 
-print(eff_data['Run_Number'])
+print(eff_data[eff_data['Run_Number'] == float(runNum)])
 
 
     
