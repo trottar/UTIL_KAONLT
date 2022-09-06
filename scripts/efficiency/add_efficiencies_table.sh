@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2022-07-28 09:19:16 trottar"
+# Time-stamp: "2022-08-30 01:07:32 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -128,8 +128,8 @@ else
     else
 	ROOTPREFIX=replay_coin_production
 	HGCERPREFIX=${ANATYPE}_coin_replay_production	
-	#inputFile="${REPLAYPATH}/UTIL_BATCH/InputRunLists/KaonLT_2018_2019/ProductionLH2_ALL"
-	inputFile="${REPLAYPATH}/UTIL_BATCH/InputRunLists/KaonLT_2018_2019/Prod_Test"
+	inputFile="${REPLAYPATH}/UTIL_BATCH/InputRunLists/KaonLT_2018_2019/ProductionLH2_ALL"
+	#inputFile="${REPLAYPATH}/UTIL_BATCH/InputRunLists/KaonLT_2018_2019/Prod_Test"
     fi    
 fi
 

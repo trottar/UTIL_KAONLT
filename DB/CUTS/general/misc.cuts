@@ -25,3 +25,12 @@ goodscinhit = {"P_hod_goodscinhit" : (P_hod_goodscinhit == misc.goodscinhit)}, {
 cal_edtm = {"P_cal_ped" : (P_cal_etottracknorm == 0)}, {"H_cal_ped" : (H_cal_etottracknorm == 0)}
 # cer cut
 #cer_edtm = {"P_hgcer_ped" : (P_hgcer_npeSum == 0)}, {"P_ngcer_ped" : (P_ngcer_npeSum == 0)},{"P_aero_ped" : (P_aero_npeSum == 0)},{"H_cer_ped" : (H_cer_npeSum == 0)}
+##############
+# Event Type #
+##############
+evt_type_1 = {"EvtType" : (EvtType == 1)}
+evt_type_2 = {"EvtType" : (EvtType == 2)}
+evt_type_3 = {"EvtType" : (EvtType == 3)}
+evt_type_4 = {"EvtType" : (EvtType == 4)}
+evt_type_5 = {"EvtType" : (EvtType == 5)}
+evt_type_6 = {"EvtType" : (EvtType == 6)}

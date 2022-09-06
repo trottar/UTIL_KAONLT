@@ -3,7 +3,7 @@
 # Description: Grabs lumi data from corresponding csv depending on run setting. Then plots the yields and creates a comprehensive table.
 # Variables calculated: current, rate_HMS, rate_SHMS, sent_edtm_PS, uncern_HMS_evts_scaler, uncern_SHMS_evts_scaler, uncern_HMS_evts_notrack, uncern_SHMS_evts_notrack, uncern_HMS_evts_track, uncern_SHMS_evts_track
 # ================================================================
-# Time-stamp: "2022-07-25 10:07:15 trottar"
+# Time-stamp: "2022-08-31 07:58:15 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -73,8 +73,24 @@ def removeRun(runNum):
     return lumi_data
 
 # Remove runs, removeRun(runNumber)
-#removeRun(5154)
 
+'''
+# Below runs are removed because of poor beam time
+# 10p6 l1c
+removeRun(5158)
+
+# 10p6 l2c
+for val in [5181,5300,5301]:
+    removeRun(val)
+
+# 6p2 l1c
+for val in [7846,7865]:
+    removeRun(val)
+
+# 8p2 l1c
+for val in [7952,7948,7949]:
+    removeRun(val)
+'''
 ################################################################################################################################################
 
 # Convert to dict for proper formatting when eventually merging dictionaries
@@ -235,37 +251,37 @@ def calc_yield():
     yield_dict.update({"yield_SHMS_notrack" : yield_SHMS_notrack})
     yield_dict.update({"yield_SHMS_track" : yield_SHMS_track})
 
-    # Define relative yield relative to maximum current
+    # Define relative yield relative to minimum current
     # Why is this looped 3 times????
     for i,curr in enumerate(yield_dict["current"]):
-        if curr == max(yield_dict["current"]):
-            max_yield_HMS_scaler = yield_dict["yield_HMS_scaler"][i]
-            max_yield_SHMS_scaler = yield_dict["yield_SHMS_scaler"][i]
-    yield_dict.update({"max_yield_HMS_scaler" : max_yield_HMS_scaler})
-    yield_dict.update({"max_yield_SHMS_scaler" : max_yield_SHMS_scaler})                
+        if curr == min(yield_dict["current"]):
+            min_yield_HMS_scaler = yield_dict["yield_HMS_scaler"][i]
+            min_yield_SHMS_scaler = yield_dict["yield_SHMS_scaler"][i]
+    yield_dict.update({"min_yield_HMS_scaler" : min_yield_HMS_scaler})
+    yield_dict.update({"min_yield_SHMS_scaler" : min_yield_SHMS_scaler})                
     for i,curr in enumerate(yield_dict["current"]):
-        if curr == max(yield_dict["current"]):
-            max_yield_HMS_notrack = yield_dict["yield_HMS_notrack"][i]
-            max_yield_SHMS_notrack = yield_dict["yield_SHMS_notrack"][i]
-    yield_dict.update({"max_yield_HMS_notrack" : max_yield_HMS_notrack})
-    yield_dict.update({"max_yield_SHMS_notrack" : max_yield_SHMS_notrack})
+        if curr == min(yield_dict["current"]):
+            min_yield_HMS_notrack = yield_dict["yield_HMS_notrack"][i]
+            min_yield_SHMS_notrack = yield_dict["yield_SHMS_notrack"][i]
+    yield_dict.update({"min_yield_HMS_notrack" : min_yield_HMS_notrack})
+    yield_dict.update({"min_yield_SHMS_notrack" : min_yield_SHMS_notrack})
     for i,curr in enumerate(yield_dict["current"]):
-        if curr == max(yield_dict["current"]):
-            max_yield_HMS_track = yield_dict["yield_HMS_track"][i]
-            max_yield_SHMS_track = yield_dict["yield_SHMS_track"][i]
-    yield_dict.update({"max_yield_HMS_track" : max_yield_HMS_track})
-    yield_dict.update({"max_yield_SHMS_track" : max_yield_SHMS_track})
+        if curr == min(yield_dict["current"]):
+            min_yield_HMS_track = yield_dict["yield_HMS_track"][i]
+            min_yield_SHMS_track = yield_dict["yield_SHMS_track"][i]
+    yield_dict.update({"min_yield_HMS_track" : min_yield_HMS_track})
+    yield_dict.update({"min_yield_SHMS_track" : min_yield_SHMS_track})
 
-    yieldRel_HMS_scaler = yield_dict["yield_HMS_scaler"]/yield_dict["max_yield_HMS_scaler"]
-    yieldRel_HMS_notrack = yield_dict["yield_HMS_notrack"]/yield_dict["max_yield_HMS_notrack"]
-    yieldRel_HMS_track = yield_dict["yield_HMS_track"]/yield_dict["max_yield_HMS_track"]
+    yieldRel_HMS_scaler = yield_dict["yield_HMS_scaler"]/yield_dict["min_yield_HMS_scaler"]
+    yieldRel_HMS_notrack = yield_dict["yield_HMS_notrack"]/yield_dict["min_yield_HMS_notrack"]
+    yieldRel_HMS_track = yield_dict["yield_HMS_track"]/yield_dict["min_yield_HMS_track"]
     yield_dict.update({"yieldRel_HMS_scaler" : yieldRel_HMS_scaler})
     yield_dict.update({"yieldRel_HMS_notrack" : yieldRel_HMS_notrack})
     yield_dict.update({"yieldRel_HMS_track" : yieldRel_HMS_track})
 
-    yieldRel_SHMS_scaler = yield_dict["yield_SHMS_scaler"]/yield_dict["max_yield_SHMS_scaler"]
-    yieldRel_SHMS_notrack = yield_dict["yield_SHMS_notrack"]/yield_dict["max_yield_SHMS_notrack"]
-    yieldRel_SHMS_track = yield_dict["yield_SHMS_track"]/yield_dict["max_yield_SHMS_track"]
+    yieldRel_SHMS_scaler = yield_dict["yield_SHMS_scaler"]/yield_dict["min_yield_SHMS_scaler"]
+    yieldRel_SHMS_notrack = yield_dict["yield_SHMS_notrack"]/yield_dict["min_yield_SHMS_notrack"]
+    yieldRel_SHMS_track = yield_dict["yield_SHMS_track"]/yield_dict["min_yield_SHMS_track"]
     yield_dict.update({"yieldRel_SHMS_scaler" : yieldRel_SHMS_scaler})
     yield_dict.update({"yieldRel_SHMS_notrack" : yieldRel_SHMS_notrack})
     yield_dict.update({"yieldRel_SHMS_track" : yieldRel_SHMS_track})
@@ -303,6 +319,25 @@ def plot_yield():
     Plot yields and various other analysis plots
     '''
     yield_data = mergeDicts()
+
+    # Remove runs with bad TLT, print statement only
+    for i,row in yield_data.iterrows():
+        if row['TLT'] <= 0.75 or row['TLT'] >= 1.00:
+            print('''
+            Removing {0:.0f} because TLT is low...
+            TLT={1:0.2f} %
+            3*TLT={2:0.2f} %
+            '''.format(row["run number"],row["TLT"]*100,(row["TLT"]*3)*100))
+        if row['time'] < 60.0:
+            print('''
+            Removing {0:.0f} because beam on time is short...
+            time={1:0.1f} s
+            '''.format(row["run number"],row["TLT"]*100))
+
+    # Remove runs with bad TLT
+    yield_data = yield_data[ (yield_data['TLT'] >= 0.75) ].reset_index(drop=True)
+    yield_data = yield_data[ (yield_data['TLT'] <= 1.00) ].reset_index(drop=True)
+    yield_data = yield_data[ (yield_data['time'] >= 60.0) ].reset_index(drop=True)
 
     for i, val in enumerate(yield_data["run number"]):
         print("Run numbers:",yield_data["run number"][i],"Current Values:",yield_data["current"][i])
@@ -415,19 +450,19 @@ def plot_yield():
     plt.tight_layout()
     if "1" in inp_name:            
         if target == 'LD2' :
-            plt.savefig(SCRIPTPATH+'/luminosity/OUTPUTS/plots/Lumi1_%s_yield_%s.png' % ("ld2","relYieldPlot"))
+            plt.savefig(SCRIPTPATH+'/luminosity/OUTPUTS/plots/Lumi1_%s_yield_%s.png' % ("ld2","relYieldPlot_%s" % (int(min(yield_data["run number"])))))
         elif target == 'LH2' :
-            plt.savefig(SCRIPTPATH+'/luminosity/OUTPUTS/plots/Lumi1_%s_yield_%s.png' % ("lh2","relYieldPlot"))
+            plt.savefig(SCRIPTPATH+'/luminosity/OUTPUTS/plots/Lumi1_%s_yield_%s.png' % ("lh2","relYieldPlot_%s" % (int(min(yield_data["run number"])))))
         else :
-            plt.savefig(SCRIPTPATH+'/luminosity/OUTPUTS/plots/Lumi1_%s_yield_%s.png' % ("c","relYieldPlot"))
+            plt.savefig(SCRIPTPATH+'/luminosity/OUTPUTS/plots/Lumi1_%s_yield_%s.png' % ("c","relYieldPlot_%s" % (int(min(yield_data["run number"])))))
     
     if "2" in inp_name:            
         if target == 'LD2' :
-            plt.savefig(SCRIPTPATH+'/luminosity/OUTPUTS/plots/Lumi2_%s_yield_%s.png' % ("ld2","relYieldPlot"))
+            plt.savefig(SCRIPTPATH+'/luminosity/OUTPUTS/plots/Lumi2_%s_yield_%s.png' % ("ld2","relYieldPlot_%s" % (int(min(yield_data["run number"])))))
         elif target == 'LH2' :
-            plt.savefig(SCRIPTPATH+'/luminosity/OUTPUTS/plots/Lumi2_%s_yield_%s.png' % ("lh2","relYieldPlot"))
+            plt.savefig(SCRIPTPATH+'/luminosity/OUTPUTS/plots/Lumi2_%s_yield_%s.png' % ("lh2","relYieldPlot_%s" % (int(min(yield_data["run number"])))))
         else :
-            plt.savefig(SCRIPTPATH+'/luminosity/OUTPUTS/plots/Lumi2_%s_yield_%s.png' % ("c","relYieldPlot"))
+            plt.savefig(SCRIPTPATH+'/luminosity/OUTPUTS/plots/Lumi2_%s_yield_%s.png' % ("c","relYieldPlot_%s" % (int(min(yield_data["run number"])))))
             
 
     #########################################################################################################################################################
@@ -524,27 +559,27 @@ def plot_yield():
 
     if "1" in inp_name:            
         if target == 'LD2' :
-            plt.savefig(SCRIPTPATH+'/luminosity/OUTPUTS/plots/Lumi1_%s_yield_%s.png' % ("ld2","edtmPlot"))
+            plt.savefig(SCRIPTPATH+'/luminosity/OUTPUTS/plots/Lumi1_%s_yield_%s.png' % ("ld2","edtmPlot_%s" % (int(min(yield_data["run number"])))))
         elif target == 'LH2' :
-            plt.savefig(SCRIPTPATH+'/luminosity/OUTPUTS/plots/Lumi1_%s_yield_%s.png' % ("lh2","edtmPlot"))
+            plt.savefig(SCRIPTPATH+'/luminosity/OUTPUTS/plots/Lumi1_%s_yield_%s.png' % ("lh2","edtmPlot_%s" % (int(min(yield_data["run number"])))))
         else :
-            plt.savefig(SCRIPTPATH+'/luminosity/OUTPUTS/plots/Lumi1_%s_yield_%s.png' % ("c","edtmPlot"))
+            plt.savefig(SCRIPTPATH+'/luminosity/OUTPUTS/plots/Lumi1_%s_yield_%s.png' % ("c","edtmPlot_%s" % (int(min(yield_data["run number"])))))
     
     if "2" in inp_name:            
         if target == 'LD2' :
-            plt.savefig(SCRIPTPATH+'/luminosity/OUTPUTS/plots/Lumi2_%s_yield_%s.png' % ("ld2","edtmPlot"))
+            plt.savefig(SCRIPTPATH+'/luminosity/OUTPUTS/plots/Lumi2_%s_yield_%s.png' % ("ld2","edtmPlot_%s" % (int(min(yield_data["run number"])))))
         elif target == 'LH2' :
-            plt.savefig(SCRIPTPATH+'/luminosity/OUTPUTS/plots/Lumi2_%s_yield_%s.png' % ("lh2","edtmPlot"))
+            plt.savefig(SCRIPTPATH+'/luminosity/OUTPUTS/plots/Lumi2_%s_yield_%s.png' % ("lh2","edtmPlot_%s" % (int(min(yield_data["run number"])))))
         else :
-            plt.savefig(SCRIPTPATH+'/luminosity/OUTPUTS/plots/Lumi2_%s_yield_%s.png' % ("c","edtmPlot"))
+            plt.savefig(SCRIPTPATH+'/luminosity/OUTPUTS/plots/Lumi2_%s_yield_%s.png' % ("c","edtmPlot_%s" % (int(min(yield_data["run number"])))))
 
     if "3" in inp_name:            
         if target == 'LD2' :
-            plt.savefig(SCRIPTPATH+'/luminosity/OUTPUTS/plots/Lumi3_%s_yield_%s.png' % ("ld2","edtmPlot"))
+            plt.savefig(SCRIPTPATH+'/luminosity/OUTPUTS/plots/Lumi3_%s_yield_%s.png' % ("ld2","edtmPlot_%s" % (int(min(yield_data["run number"])))))
         elif target == 'LH2' :
-            plt.savefig(SCRIPTPATH+'/luminosity/OUTPUTS/plots/Lumi3_%s_yield_%s.png' % ("lh2","edtmPlot"))
+            plt.savefig(SCRIPTPATH+'/luminosity/OUTPUTS/plots/Lumi3_%s_yield_%s.png' % ("lh2","edtmPlot_%s" % (int(min(yield_data["run number"])))))
         else :
-            plt.savefig(SCRIPTPATH+'/luminosity/OUTPUTS/plots/Lumi3_%s_yield_%s.png' % ("c","edtmPlot"))
+            plt.savefig(SCRIPTPATH+'/luminosity/OUTPUTS/plots/Lumi3_%s_yield_%s.png' % ("c","edtmPlot_%s" % (int(min(yield_data["run number"])))))
             
     #########################################################################################################################################################
 
@@ -678,27 +713,27 @@ def plot_yield():
 
     if "1" in inp_name:            
         if target == 'LD2' :
-            plt.savefig(SCRIPTPATH+'/luminosity/OUTPUTS/plots/Lumi1_%s_yield_%s.png' % ("ld2","logPlot"))
+            plt.savefig(SCRIPTPATH+'/luminosity/OUTPUTS/plots/Lumi1_%s_yield_%s.png' % ("ld2","logPlot_%s" % (int(min(yield_data["run number"])))))
         elif target == 'LH2' :
-            plt.savefig(SCRIPTPATH+'/luminosity/OUTPUTS/plots/Lumi1_%s_yield_%s.png' % ("lh2","logPlot"))
+            plt.savefig(SCRIPTPATH+'/luminosity/OUTPUTS/plots/Lumi1_%s_yield_%s.png' % ("lh2","logPlot_%s" % (int(min(yield_data["run number"])))))
         else :
-            plt.savefig(SCRIPTPATH+'/luminosity/OUTPUTS/plots/Lumi1_%s_yield_%s.png' % ("c","logPlot"))
+            plt.savefig(SCRIPTPATH+'/luminosity/OUTPUTS/plots/Lumi1_%s_yield_%s.png' % ("c","logPlot_%s" % (int(min(yield_data["run number"])))))
     
     if "2" in inp_name:            
         if target == 'LD2' :
-            plt.savefig(SCRIPTPATH+'/luminosity/OUTPUTS/plots/Lumi2_%s_yield_%s.png' % ("ld2","logPlot"))
+            plt.savefig(SCRIPTPATH+'/luminosity/OUTPUTS/plots/Lumi2_%s_yield_%s.png' % ("ld2","logPlot_%s" % (int(min(yield_data["run number"])))))
         elif target == 'LH2' :
-            plt.savefig(SCRIPTPATH+'/luminosity/OUTPUTS/plots/Lumi2_%s_yield_%s.png' % ("lh2","logPlot"))
+            plt.savefig(SCRIPTPATH+'/luminosity/OUTPUTS/plots/Lumi2_%s_yield_%s.png' % ("lh2","logPlot_%s" % (int(min(yield_data["run number"])))))
         else :
-            plt.savefig(SCRIPTPATH+'/luminosity/OUTPUTS/plots/Lumi2_%s_yield_%s.png' % ("c","logPlot"))
+            plt.savefig(SCRIPTPATH+'/luminosity/OUTPUTS/plots/Lumi2_%s_yield_%s.png' % ("c","logPlot_%s" % (int(min(yield_data["run number"])))))
 
     if "3" in inp_name:            
         if target == 'LD2' :
-            plt.savefig(SCRIPTPATH+'/luminosity/OUTPUTS/plots/Lumi3_%s_yield_%s.png' % ("ld2","logPlot"))
+            plt.savefig(SCRIPTPATH+'/luminosity/OUTPUTS/plots/Lumi3_%s_yield_%s.png' % ("ld2","logPlot_%s" % (int(min(yield_data["run number"])))))
         elif target == 'LH2' :
-            plt.savefig(SCRIPTPATH+'/luminosity/OUTPUTS/plots/Lumi3_%s_yield_%s.png' % ("lh2","logPlot"))
+            plt.savefig(SCRIPTPATH+'/luminosity/OUTPUTS/plots/Lumi3_%s_yield_%s.png' % ("lh2","logPlot_%s" % (int(min(yield_data["run number"])))))
         else :
-            plt.savefig(SCRIPTPATH+'/luminosity/OUTPUTS/plots/Lumi3_%s_yield_%s.png' % ("c","logPlot"))
+            plt.savefig(SCRIPTPATH+'/luminosity/OUTPUTS/plots/Lumi3_%s_yield_%s.png' % ("c","logPlot_%s" % (int(min(yield_data["run number"])))))
             
     plt.show()
 

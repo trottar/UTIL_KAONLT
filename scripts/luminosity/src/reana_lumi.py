@@ -2,7 +2,7 @@
 #
 # Description: Script is used to reanalyze all lumi data or to organize lumi data values into subdirectories
 # ================================================================
-# Time-stamp: "2022-07-25 10:04:21 trottar"
+# Time-stamp: "2022-08-30 07:01:09 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -157,9 +157,10 @@ if ANATYPE == "Pion":
 
 else:
     # Redefine lumi data by run number
-    lh2_l1_10p6 = dict(lumi_data.loc[((lumi_data["run number"] >= 5149) & (lumi_data["run number"] <= 5153)) 
-                                     | ((lumi_data["run number"] >= 5159) & (lumi_data["run number"] <= 5166)) 
-                                     | ((lumi_data["run number"] >= 5295) & (lumi_data["run number"] <= 5297))])
+    lh2_l1_10p6 = dict(lumi_data.loc[((lumi_data["run number"] >= 5150) & (lumi_data["run number"] <= 5153)) 
+                                     | ((lumi_data["run number"] >= 5160) & (lumi_data["run number"] <= 5166)) 
+                                     | (lumi_data["run number"] == 5295)
+                                     | (lumi_data["run number"] == 5297)])
     # Convert to csv from dataframe    convertDFtoCSV(lh2_l1_10p6,SCRIPTPATH+"/luminosity/OUTPUTS/10p6/Lumi_1/LH2/lumi_data_lh2_l1_10p6.csv")
     print("\n\nLumi #1 LH2 runs {0} are now in {1}".format(list(lh2_l1_10p6["run number"]),SCRIPTPATH+"/luminosity/OUTPUTS/10p6/Lumi_1/LH2/lumi_data_lh2_l1_10p6.csv"))
     c_l1_10p6 = dict(lumi_data.loc[((lumi_data["run number"] >= 5154) & (lumi_data["run number"] <= 5158)) 
@@ -170,7 +171,9 @@ else:
                                      | ((lumi_data["run number"] >= 5302) & (lumi_data["run number"] <= 5303))])
     convertDFtoCSV(lh2_l2_10p6,SCRIPTPATH+"/luminosity/OUTPUTS/10p6/Lumi_2/LH2/lumi_data_lh2_l2_10p6.csv")
     print("\n\nLumi #2 LH2 runs {0} are now in {1}".format(list(lh2_l2_10p6["run number"]),SCRIPTPATH+"/luminosity/OUTPUTS/10p6/Lumi_2/LH2/lumi_data_lh2_l2_10p6.csv"))
-    c_l2_10p6 = dict(lumi_data.loc[((lumi_data["run number"] >= 5174) & (lumi_data["run number"] <= 5181)) 
+    c_l2_10p6 = dict(lumi_data.loc[((lumi_data["run number"] >= 5175) & (lumi_data["run number"] <= 5176)) 
+                                   | ((lumi_data["run number"] >= 5178) & (lumi_data["run number"] <= 5179)) 
+                                   | (lumi_data["run number"] == 5181) 
                                    | ((lumi_data["run number"] >= 5300) & (lumi_data["run number"] <= 5301))])
     convertDFtoCSV(c_l2_10p6,SCRIPTPATH+"/luminosity/OUTPUTS/10p6/Lumi_2/Carbon0p5/lumi_data_c_l2_10p6.csv")
     print("\n\nLumi #2 Carbon0p5 runs {0} are now in {1}".format(list(c_l2_10p6["run number"]),SCRIPTPATH+"/luminosity/OUTPUTS/10p6/Lumi_2/Carbon0p5/lumi_data_c_l2_10p6.csv"))
@@ -178,11 +181,13 @@ else:
                                     | ((lumi_data["run number"] >= 7862) & (lumi_data["run number"] <= 7863))])
     convertDFtoCSV(lh2_l1_6p2,SCRIPTPATH+"/luminosity/OUTPUTS/6p2/Lumi_1/LH2/lumi_data_lh2_l1_6p2.csv")
     print("\n\nLumi #1 LH2 runs {0} are now in {1}".format(list(lh2_l1_6p2["run number"]),SCRIPTPATH+"/luminosity/OUTPUTS/6p2/Lumi_1/LH2/lumi_data_lh2_l1_6p2.csv"))
-    c_l1_6p2 = dict(lumi_data.loc[(lumi_data["run number"] == 7841) | ((lumi_data["run number"] >= 7846) & (lumi_data["run number"] <= 7847)) 
+    c_l1_6p2 = dict(lumi_data.loc[(lumi_data["run number"] == 7841) 
+                                  | ((lumi_data["run number"] >= 7846) & (lumi_data["run number"] <= 7847)) 
                                   | ((lumi_data["run number"] >= 7864) & (lumi_data["run number"] <= 7865))])
     convertDFtoCSV(c_l1_6p2,SCRIPTPATH+"/luminosity/OUTPUTS/6p2/Lumi_1/Carbon0p5/lumi_data_c_l1_6p2.csv")
     print("\n\nLumi #1 Carbon0p5 runs {0} are now in {1}".format(list(c_l1_6p2["run number"]),SCRIPTPATH+"/luminosity/OUTPUTS/6p2/Lumi_1/Carbon0p5/lumi_data_c_l1_6p2.csv"))
-    lh2_l1_8p2 = dict(lumi_data.loc[((lumi_data["run number"] >= 7953) & (lumi_data["run number"] <= 7960))])
+    lh2_l1_8p2 = dict(lumi_data.loc[(lumi_data["run number"] == 7954)
+                                    | ((lumi_data["run number"] >= 7956) & (lumi_data["run number"] <= 7960))])
     convertDFtoCSV(lh2_l1_8p2,SCRIPTPATH+"/luminosity/OUTPUTS/8p2/Lumi_1/LH2/lumi_data_lh2_l1_8p2.csv")
     print("\n\nLumi #1 LH2 runs {0} are now in {1}".format(list(lh2_l1_8p2["run number"]),SCRIPTPATH+"/luminosity/OUTPUTS/8p2/Lumi_1/LH2/lumi_data_lh2_l1_8p2.csv"))
     c_l1_8p2 = dict(lumi_data.loc[((lumi_data["run number"] >= 7948) & (lumi_data["run number"] <= 7952))])

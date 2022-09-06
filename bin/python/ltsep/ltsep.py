@@ -2,7 +2,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2022-08-13 10:34:50 trottar"
+# Time-stamp: "2022-08-31 02:17:13 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -882,9 +882,6 @@ class Root():
                 treeDict.update({"T_coin_pEDTM_tdcTime" : T_coin_pEDTM_tdcTime})
                 
             # Misc quantities
-            if branch == "fEvtType":
-                fEvtType = e_tree.array("fEvtHdr.fEvtType")     
-                treeDict.update({"fEvtType" : fEvtType})
             if branch == "RFFreq":
                 RFFreq = e_tree.array("MOFC1FREQ")  
                 treeDict.update({"RFFreq" : RFFreq})
