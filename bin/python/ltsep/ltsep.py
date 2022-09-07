@@ -2,7 +2,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2022-08-31 02:17:13 trottar"
+# Time-stamp: "2022-09-06 02:20:21 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -702,6 +702,15 @@ class Root():
             if branch == "ph_q":
                 ph_q = e_tree.array("P.kin.secondary.ph_xq")     
                 treeDict.update({"ph_q" : ph_q})
+            if branch == "ph_recoil":
+                ph_recoil = e_tree.array("P.kin.secondary.ph_bq")     
+                treeDict.update({"ph_recoil" : ph_recoil})
+            if branch == "th_q":
+                th_q = e_tree.array("P.kin.secondary.th_xq")     
+                treeDict.update({"th_q" : th_q})
+            if branch == "th_recoil":
+                th_recoil = e_tree.array("P.kin.secondary.th_bq")     
+                treeDict.update({"th_recoil" : th_recoil})
             if branch == "emiss":
                 emiss = e_tree.array("P.kin.secondary.emiss")    
                 treeDict.update({"emiss" : emiss})
