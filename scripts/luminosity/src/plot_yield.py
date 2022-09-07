@@ -3,7 +3,7 @@
 # Description: Grabs lumi data from corresponding csv depending on run setting. Then plots the yields and creates a comprehensive table.
 # Variables calculated: current, rate_HMS, rate_SHMS, sent_edtm_PS, uncern_HMS_evts_scaler, uncern_SHMS_evts_scaler, uncern_HMS_evts_notrack, uncern_SHMS_evts_notrack, uncern_HMS_evts_track, uncern_SHMS_evts_track
 # ================================================================
-# Time-stamp: "2022-09-07 03:20:21 trottar"
+# Time-stamp: "2022-09-07 05:43:04 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -662,7 +662,7 @@ def plot_yield():
     plt.subplot(2,4,3)    
     plt.grid(zorder=1)
     #plt.xlim(0,100)
-    plt.errorbar(yield_data["current"],yield_data["HMS_track"],yerr=yield_data["HMS_track"]*yield_data["HMS_track_uncern"],color='black',linestyle='None',zorder=3)
+    plt.errorbar(yield_data["rate_HMS"]/1000,yield_data["HMS_track"],yerr=yield_data["HMS_track"]*yield_data["HMS_track_uncern"],color='black',linestyle='None',zorder=3)
     plt.scatter(yield_data["rate_HMS"]/1000,yield_data["HMS_track"],color='blue',zorder=4)
     plt.ylabel('HMS track eff', fontsize=16)
     plt.xlabel('HMS Rate [kHz]', fontsize =12)
@@ -741,7 +741,7 @@ def plot_yield():
     plt.subplot(2,4,7)    
     plt.grid(zorder=1)
     #plt.xlim(0,100)
-    plt.errorbar(yield_data["current"],yield_data["SHMS_track"],yerr=yield_data["SHMS_track"]*yield_data["SHMS_track_uncern"],color='black',linestyle='None',zorder=3)
+    plt.errorbar(yield_data["rate_SHMS"]/1000,yield_data["SHMS_track"],yerr=yield_data["SHMS_track"]*yield_data["SHMS_track_uncern"],color='black',linestyle='None',zorder=3)
     plt.scatter(yield_data["rate_SHMS"]/1000,yield_data["SHMS_track"],color='blue',zorder=4)
     plt.ylabel('SHMS track eff', fontsize=16)
     plt.xlabel('SHMS Rate [kHz]', fontsize =12)
