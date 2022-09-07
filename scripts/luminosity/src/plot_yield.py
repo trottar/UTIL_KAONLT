@@ -3,7 +3,7 @@
 # Description: Grabs lumi data from corresponding csv depending on run setting. Then plots the yields and creates a comprehensive table.
 # Variables calculated: current, rate_HMS, rate_SHMS, sent_edtm_PS, uncern_HMS_evts_scaler, uncern_SHMS_evts_scaler, uncern_HMS_evts_notrack, uncern_SHMS_evts_notrack, uncern_HMS_evts_track, uncern_SHMS_evts_track
 # ================================================================
-# Time-stamp: "2022-09-07 05:43:04 trottar"
+# Time-stamp: "2022-09-07 07:33:03 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -246,7 +246,6 @@ def calc_yield():
         yield_dict.update({"COIN_scaler_accp" : COIN_scaler_accp})
 
     # Calculate yield values
-
     yield_HMS_scaler = (yield_dict["HMS_scaler_accp"])/(makeList("charge")*yield_dict["CPULT_phys"])
     yield_HMS_notrack = (makeList("h_int_etotnorm_evts")*HMS_PS)/(makeList("charge")*yield_dict["TLT"])
     yield_HMS_track = (makeList("h_int_goodscin_evts")*HMS_PS)/(makeList("charge")*yield_dict["TLT"]*makeList("HMS_track"))
@@ -391,7 +390,7 @@ def plot_yield():
             time={1:0.1f} s
             '''.format(row["run number"],row["time"]))
 
-    # Remove runs with bad TLT
+    # Remove runs with bad TLT or short on beam time
     #yield_data = yield_data[ (yield_data['TLT'] >= 0.75) & (yield_data['CPULT_phys'] >= 0.75) ].reset_index(drop=True)
     #yield_data = yield_data[ (yield_data['TLT'] < 1.02) & (yield_data['CPULT_phys'] < 1.02)].reset_index(drop=True)
     yield_data = yield_data[ (yield_data['time'] >= 60.0) ].reset_index(drop=True)
@@ -754,11 +753,11 @@ def plot_yield():
 
     plt.tight_layout()
     if target == 'LD2' :
-        plt.savefig(SCRIPTPATH+'/luminosity/OUTPUTS/plots/Lumi1_%s_yield_%s.png' % ("ld2","logPlot_%s_%s" % (int(min(yield_data["run number"])),int(min(yield_data["run number"])))))
+        plt.savefig(SCRIPTPATH+'/luminosity/OUTPUTS/plots/Lumi_%s_yield_%s.png' % ("ld2","logPlot_%s_%s" % (int(min(yield_data["run number"])),int(min(yield_data["run number"])))))
     elif target == 'LH2' :
-        plt.savefig(SCRIPTPATH+'/luminosity/OUTPUTS/plots/Lumi1_%s_yield_%s.png' % ("lh2","logPlot_%s_%s" % (int(min(yield_data["run number"])),int(min(yield_data["run number"])))))
+        plt.savefig(SCRIPTPATH+'/luminosity/OUTPUTS/plots/Lumi_%s_yield_%s.png' % ("lh2","logPlot_%s_%s" % (int(min(yield_data["run number"])),int(min(yield_data["run number"])))))
     else :
-        plt.savefig(SCRIPTPATH+'/luminosity/OUTPUTS/plots/Lumi1_%s_yield_%s.png' % ("c","logPlot_%s_%s" % (int(min(yield_data["run number"])),int(min(yield_data["run number"])))))
+        plt.savefig(SCRIPTPATH+'/luminosity/OUTPUTS/plots/Lumi_%s_yield_%s.png' % ("c","logPlot_%s_%s" % (int(min(yield_data["run number"])),int(min(yield_data["run number"])))))
             
     plt.show()
 

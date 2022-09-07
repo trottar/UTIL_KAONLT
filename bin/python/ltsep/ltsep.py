@@ -2,7 +2,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2022-09-06 02:20:21 trottar"
+# Time-stamp: "2022-09-07 06:30:15 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -688,6 +688,17 @@ class Root():
             if branch == "P_cal_etottracknorm":
                 P_cal_etottracknorm = e_tree.array("P.cal.etottracknorm")
                 treeDict.update({"P_cal_etottracknorm" : P_cal_etottracknorm})
+
+            # Raster
+            if branch == "raster_x":
+                raster_x = e_tree.array("P.rb.x")
+                treeDict.update({"raster_x" : raster_x})
+            if branch == "raster_y":
+                raster_y = e_tree.array("P.rb.y")
+                treeDict.update({"raster_y" : raster_y})
+            if branch == "raster_z":
+                raster_z = e_tree.array("P.rb.z")
+                treeDict.update({"raster_z" : raster_z})
                 
             # Kinematic quantitites
             if branch == "Q2":

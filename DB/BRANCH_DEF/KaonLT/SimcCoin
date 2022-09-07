@@ -41,6 +41,10 @@ P_aero_yAtAero
 P_hgcer_npeSum
 P_hgcer_xAtCer
 P_hgcer_yAtCer
+# Raster
+raster_x
+raster_y
+raster_z
 # Kinematic quantitites
 Q2
 W
