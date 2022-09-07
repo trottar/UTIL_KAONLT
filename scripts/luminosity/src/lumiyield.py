@@ -3,7 +3,7 @@
 # Description: This is where the variables for the yield calculations are formulated.
 # Variables calculated: tot_events, h_int_goodscin_evts, p_int_goodscin_evts, SHMSTRIG_cut, HMSTRIG_cut, HMS_track, HMS_track_uncern, SHMS_track, SHMS_track_uncern, accp_edtm
 # ================================================================
-# Time-stamp: "2022-08-31 04:36:30 trottar"
+# Time-stamp: "2022-09-07 02:10:28 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -435,8 +435,8 @@ def analysis():
     p_etotnorm = c.add_cut(tree["P_cal_etotnorm"],"p_%scut_lumi_nt" % SHMS_PID)
 
     # Applies PID cuts, once integrated this will give the events (track)
-    h_hadcuts_goodscinhit = c.add_cut(tree["H_hod_goodscinhit"],"h_%scut_lumi_nt" % HMS_PID)
-    p_pcuts_goodscinhit = c.add_cut(tree["P_hod_goodscinhit"],"p_%scut_lumi_nt" % SHMS_PID)
+    h_goodscinhit = c.add_cut(tree["H_hod_goodscinhit"],"h_%scut_lumi_nt" % HMS_PID)
+    p_goodscinhit = c.add_cut(tree["P_hod_goodscinhit"],"p_%scut_lumi_nt" % SHMS_PID)
     
     # Creates a dictionary for the calculated luminosity values 
     track_info = {
@@ -444,8 +444,8 @@ def analysis():
         "tot_events" : len(EventType),
         "h_int_etotnorm_evts" : (scipy.integrate.simps(h_etotnorm)),
         "p_int_etotnorm_evts" : (scipy.integrate.simps(p_etotnorm)),
-        "h_int_goodscin_evts" : scipy.integrate.simps(h_hadcuts_goodscinhit),
-        "p_int_goodscin_evts" : scipy.integrate.simps(p_pcuts_goodscinhit),
+        "h_int_goodscin_evts" : scipy.integrate.simps(h_goodscinhit),
+        "p_int_goodscin_evts" : scipy.integrate.simps(p_goodscinhit),
         "SHMSTRIG_cut" : len(SHMSTRIG_cut),
         "HMSTRIG_cut" : len(HMSTRIG_cut),
         "HMS_track" : HMS_track_eff,
@@ -465,8 +465,8 @@ def analysis():
             "tot_events" : len(EventType),
             "h_int_etotnorm_evts" : scipy.integrate.simps(h_etotnorm),
             "p_int_etotnorm_evts" : scipy.integrate.simps(p_etotnorm),
-            "h_int_goodscin_evts" : scipy.integrate.simps(h_hadcuts_goodscinhit),
-            "p_int_goodscin_evts" : scipy.integrate.simps(p_pcuts_goodscinhit),
+            "h_int_goodscin_evts" : scipy.integrate.simps(h_goodscinhit),
+            "p_int_goodscin_evts" : scipy.integrate.simps(p_goodscinhit),
             "SHMSTRIG_cut" : len(SHMSTRIG_cut),
             "HMSTRIG_cut" : len(HMSTRIG_cut),
             "COINTRIG_cut" : len(COINTRIG_cut),

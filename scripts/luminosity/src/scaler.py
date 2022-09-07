@@ -3,7 +3,7 @@
 # Description: This is where the scaler variables for the yield calculations are formulated.
 # Variables calculated: SHMS_PS, HMS_PS, time, charge, SHMSTRIG_scaler, HMSTRIG_scaler, CPULT_scaler, CPULT_scaler_uncern, HMS_eLT, HMS_eLT_uncern, SHMS_eLT, SHMS_eLT_uncern, sent_edtm
 # ================================================================
-# Time-stamp: "2022-06-28 05:28:44 trottar"
+# Time-stamp: "2022-09-07 01:38:50 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
