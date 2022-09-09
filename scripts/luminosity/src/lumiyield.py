@@ -3,7 +3,7 @@
 # Description: This is where the variables for the yield calculations are formulated.
 # Variables calculated: tot_events, h_int_goodscin_evts, p_int_goodscin_evts, SHMSTRIG_cut, HMSTRIG_cut, HMS_track, HMS_track_uncern, SHMS_track, SHMS_track_uncern, accp_edtm
 # ================================================================
-# Time-stamp: "2022-09-08 07:55:48 trottar"
+# Time-stamp: "2022-09-09 04:35:54 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -518,32 +518,44 @@ def track_pid_cuts():
     f = plt.figure(figsize=(19.20,8.00))
     f.suptitle("Run %s" % runNum)
 
-    ax = f.add_subplot(231)
+    ax = f.add_subplot(241)
+    ax.hist2d(tree['H_cer_npeSum'],tree['P_gtr_beta'],bins=[c.setbin(tree['H_cer_npeSum'],400,0,80),c.setbin(tree['P_gtr_beta'],400,-2.0,2.0)],cmin=1,label='no cut',alpha=0.5)
+    ax.hist2d(c.add_cut(tree['H_cer_npeSum'],"p_%scut_lumi" % SHMS_PID),c.add_cut(tree['P_gtr_beta'],"p_%scut_lumi" % SHMS_PID),bins=[c.setbin(tree['H_cer_npeSum'],400,0,80),c.setbin(tree['P_gtr_beta'],400,-2.0,2.0)],cmin=1,label='cut', alpha=1.0)
+    plt.xlabel('H_cer_npeSum')
+    plt.ylabel('P_gtr_beta')
+
+    ax = f.add_subplot(242)
+    ax.hist2d(tree['H_cal_etottracknorm'],tree['P_gtr_beta'],bins=[c.setbin(tree['H_cal_etottracknorm'],400,0,4),c.setbin(tree['P_gtr_beta'],400,-2.0,2.0)],cmin=1,label='no cut',alpha=0.5)
+    ax.hist2d(c.add_cut(tree['H_cal_etottracknorm'],"p_%scut_lumi" % SHMS_PID),c.add_cut(tree['P_gtr_beta'],"p_%scut_lumi" % SHMS_PID),bins=[c.setbin(tree['H_cal_etottracknorm'],400,0,4),c.setbin(tree['P_gtr_beta'],400,-2.0,2.0)],cmin=1,label='cut', alpha=1.0)
+    plt.xlabel('H_cal_etottracknorm')
+    plt.ylabel('P_gtr_beta')
+
+    ax = f.add_subplot(243)
     ax.hist(tree['P_gtr_beta'],bins=c.setbin(tree['P_gtr_beta'],200,-2.0,2.0),label='no cut',histtype='step',alpha=0.5, stacked=True, fill=True)
     ax.hist(c.add_cut(tree['P_gtr_beta'],"h_cal"),bins=c.setbin(tree['P_gtr_beta'],200,-2.0,2.0),label='cut',histtype='step', alpha=0.5, stacked=True, fill=True)
     plt.yscale('log')
     plt.xlabel('P_gtr_beta')
     plt.ylabel('Count')
 
-    ax = f.add_subplot(232)
+    ax = f.add_subplot(244)
     ax.hist2d(tree['P_cal_etottracknorm'],tree['P_gtr_beta'],bins=[c.setbin(tree['P_cal_etottracknorm'],400,0,4),c.setbin(tree['P_gtr_beta'],400,-2.0,2.0)],cmin=1,label='no cut',alpha=0.5)
     ax.hist2d(c.add_cut(tree['P_cal_etottracknorm'],"p_%scut_lumi" % SHMS_PID),c.add_cut(tree['P_gtr_beta'],"p_%scut_lumi" % SHMS_PID),bins=[c.setbin(tree['P_cal_etottracknorm'],400,0,4),c.setbin(tree['P_gtr_beta'],400,-2.0,2.0)],cmin=1,label='cut', alpha=1.0)
     plt.xlabel('P_cal_etottracknorm')
     plt.ylabel('P_gtr_beta')
 
-    ax = f.add_subplot(233)
+    ax = f.add_subplot(245)
     ax.hist2d(tree['P_hgcer_npeSum'],tree['P_gtr_beta'],bins=[c.setbin(tree['P_hgcer_npeSum'],400,0,80),c.setbin(tree['P_gtr_beta'],400,-2.0,2.0)],cmin=1,label='no cut',alpha=0.5)
     ax.hist2d(c.add_cut(tree['P_hgcer_npeSum'],"p_%scut_lumi" % SHMS_PID),c.add_cut(tree['P_gtr_beta'],"p_%scut_lumi" % SHMS_PID),bins=[c.setbin(tree['P_hgcer_npeSum'],400,0,80),c.setbin(tree['P_gtr_beta'],400,-2.0,2.0)],cmin=1,label='cut', alpha=1.0)
     plt.xlabel('P_hgcer_npeSum')
     plt.ylabel('P_gtr_beta')
 
-    ax = f.add_subplot(234)
+    ax = f.add_subplot(246)
     ax.hist2d(tree['P_aero_npeSum'],tree['P_gtr_beta'],bins=[c.setbin(tree['P_aero_npeSum'],400,0,100),c.setbin(tree['P_gtr_beta'],400,-2.0,2.0)],cmin=1,label='no cut',alpha=0.5)
     ax.hist2d(c.add_cut(tree['P_aero_npeSum'],"p_%scut_lumi" % SHMS_PID),c.add_cut(tree['P_gtr_beta'],"p_%scut_lumi" % SHMS_PID),bins=[c.setbin(tree['P_aero_npeSum'],400,0,100),c.setbin(tree['P_gtr_beta'],400,-2.0,2.0)],cmin=1,label='cut', alpha=1.0)
     plt.xlabel('P_aero_npeSum')
     plt.ylabel('P_gtr_beta')
 
-    ax = f.add_subplot(235)
+    ax = f.add_subplot(248)
     plt.axis('off')
     i=0
     plt.text(-0.15,1.00,"HMS cuts... (%s)" % HMS_PID,fontsize=8)
@@ -564,6 +576,7 @@ def track_pid_cuts():
             thres_curr = float(val[0].split(":")[1].split("<")[1].split(")")[0].strip())
             # e.g. Grabbing set current for run (ie 55) from something like this [' {"H_bcm_bcm1_AvgCurrent" : (abs(H_bcm_bcm1_AvgCurrent-55) < 2.5)}']
             report_current = float(val[0].split(":")[1].split("<")[0].split(")")[0].split("-")[1].strip())
+
 
     plt.tight_layout(rect=[0,0.03,1,0.95])   
     plt.savefig(UTILPATH+'/scripts/luminosity/OUTPUTS/plots/track_pid/track_beta_%s.png' % (runNum))
