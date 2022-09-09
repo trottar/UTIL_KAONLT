@@ -1,4 +1,4 @@
-VOLATILEPATH=/volatile/hallc/c-kaonlt/USERS/${USER}
+VOLATILEPATH=/volatile/hallc/c-kaonlt/${USER}
 ANALYSISPATH=/group/c-kaonlt/USERS/${USER}
 HCANAPATH=/group/c-kaonlt/hcana
 REPLAYPATH=/group/c-kaonlt/USERS/${USER}/hallc_replay_lt
