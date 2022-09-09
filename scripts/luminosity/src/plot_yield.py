@@ -3,7 +3,7 @@
 # Description: Grabs lumi data from corresponding csv depending on run setting. Then plots the yields and creates a comprehensive table.
 # Variables calculated: current, rate_HMS, rate_SHMS, sent_edtm_PS, uncern_HMS_evts_scaler, uncern_SHMS_evts_scaler, uncern_HMS_evts_notrack, uncern_SHMS_evts_notrack, uncern_HMS_evts_track, uncern_SHMS_evts_track
 # ================================================================
-# Time-stamp: "2022-09-07 07:33:03 trottar"
+# Time-stamp: "2022-09-09 02:02:14 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -64,6 +64,9 @@ except IOError:
 
 ################################################################################################################################################
 
+# Remove runs that have zero beam on time to avoid error
+lumi_data = lumi_data[lumi_data["time"] > 0.0].reset_index(drop=True)
+
 def removeRun(runNum):
     '''
     Removes runs from DF and subsequently will not be plotted or included in yield csv output
@@ -73,7 +76,6 @@ def removeRun(runNum):
     return lumi_data
 
 # Remove runs, removeRun(runNumber)
-
 '''
 # Below runs are removed because of poor beam time
 # 10p6 l1c
@@ -246,7 +248,7 @@ def calc_yield():
         yield_dict.update({"COIN_scaler_accp" : COIN_scaler_accp})
 
     # Calculate yield values
-    yield_HMS_scaler = (yield_dict["HMS_scaler_accp"])/(makeList("charge")*yield_dict["CPULT_phys"])
+    yield_HMS_scaler = (yield_dict["HMS_scaler_accp"])/(makeList("charge"))
     yield_HMS_notrack = (makeList("h_int_etotnorm_evts")*HMS_PS)/(makeList("charge")*yield_dict["TLT"])
     yield_HMS_track = (makeList("h_int_goodscin_evts")*HMS_PS)/(makeList("charge")*yield_dict["TLT"]*makeList("HMS_track"))
     yield_HMS_CPULT_notrack = (makeList("h_int_etotnorm_evts")*HMS_PS)/(makeList("charge")*yield_dict["CPULT_phys"])
@@ -257,7 +259,7 @@ def calc_yield():
     yield_dict.update({"yield_HMS_CPULT_notrack" : yield_HMS_CPULT_notrack})
     yield_dict.update({"yield_HMS_CPULT_track" : yield_HMS_CPULT_track})
 
-    yield_SHMS_scaler = (yield_dict["SHMS_scaler_accp"])/(makeList("charge")*yield_dict["CPULT_phys"])
+    yield_SHMS_scaler = (yield_dict["SHMS_scaler_accp"])/(makeList("charge"))
     yield_SHMS_notrack = (makeList("p_int_etotnorm_evts")*SHMS_PS)/(makeList("charge")*yield_dict["TLT"])
     yield_SHMS_track = (makeList("p_int_goodscin_evts")*SHMS_PS)/(makeList("charge")*yield_dict["TLT"]*makeList("SHMS_track"))
     yield_SHMS_CPULT_notrack = (makeList("p_int_etotnorm_evts")*SHMS_PS)/(makeList("charge")*yield_dict["CPULT_phys"])
@@ -513,11 +515,11 @@ def plot_yield():
 
     plt.tight_layout()
     if target == 'LD2' :
-        plt.savefig(SCRIPTPATH+'/luminosity/OUTPUTS/plots/Lumi_%s_yield_%s.png' % ("ld2","relYieldPlot_%s_%s" % (int(min(yield_data["run number"])),int(min(yield_data["run number"])))))
+        plt.savefig(SCRIPTPATH+'/luminosity/OUTPUTS/plots/Lumi_%s_yield_%s.png' % ("ld2","relYieldPlot_%s_%s" % (int(min(yield_data["run number"])),int(max(yield_data["run number"])))))
     elif target == 'LH2' :
-        plt.savefig(SCRIPTPATH+'/luminosity/OUTPUTS/plots/Lumi_%s_yield_%s.png' % ("lh2","relYieldPlot_%s_%s" % (int(min(yield_data["run number"])),int(min(yield_data["run number"])))))
+        plt.savefig(SCRIPTPATH+'/luminosity/OUTPUTS/plots/Lumi_%s_yield_%s.png' % ("lh2","relYieldPlot_%s_%s" % (int(min(yield_data["run number"])),int(max(yield_data["run number"])))))
     else :
-        plt.savefig(SCRIPTPATH+'/luminosity/OUTPUTS/plots/Lumi_%s_yield_%s.png' % ("c","relYieldPlot_%s_%s" % (int(min(yield_data["run number"])),int(min(yield_data["run number"])))))
+        plt.savefig(SCRIPTPATH+'/luminosity/OUTPUTS/plots/Lumi_%s_yield_%s.png' % ("c","relYieldPlot_%s_%s" % (int(min(yield_data["run number"])),int(max(yield_data["run number"])))))
             
 
     #########################################################################################################################################################
@@ -613,11 +615,11 @@ def plot_yield():
 
     plt.tight_layout()             
     if target == 'LD2' :
-        plt.savefig(SCRIPTPATH+'/luminosity/OUTPUTS/plots/Lumi_%s_yield_%s.png' % ("ld2","edtmPlot_%s_%s" % (int(min(yield_data["run number"])),int(min(yield_data["run number"])))))
+        plt.savefig(SCRIPTPATH+'/luminosity/OUTPUTS/plots/Lumi_%s_yield_%s.png' % ("ld2","edtmPlot_%s_%s" % (int(min(yield_data["run number"])),int(max(yield_data["run number"])))))
     elif target == 'LH2' :
-        plt.savefig(SCRIPTPATH+'/luminosity/OUTPUTS/plots/Lumi_%s_yield_%s.png' % ("lh2","edtmPlot_%s_%s" % (int(min(yield_data["run number"])),int(min(yield_data["run number"])))))
+        plt.savefig(SCRIPTPATH+'/luminosity/OUTPUTS/plots/Lumi_%s_yield_%s.png' % ("lh2","edtmPlot_%s_%s" % (int(min(yield_data["run number"])),int(max(yield_data["run number"])))))
     else :
-        plt.savefig(SCRIPTPATH+'/luminosity/OUTPUTS/plots/Lumi_%s_yield_%s.png' % ("c","edtmPlot_%s_%s" % (int(min(yield_data["run number"])),int(min(yield_data["run number"])))))
+        plt.savefig(SCRIPTPATH+'/luminosity/OUTPUTS/plots/Lumi_%s_yield_%s.png' % ("c","edtmPlot_%s_%s" % (int(min(yield_data["run number"])),int(max(yield_data["run number"])))))
             
     #########################################################################################################################################################
 
@@ -753,11 +755,11 @@ def plot_yield():
 
     plt.tight_layout()
     if target == 'LD2' :
-        plt.savefig(SCRIPTPATH+'/luminosity/OUTPUTS/plots/Lumi_%s_yield_%s.png' % ("ld2","logPlot_%s_%s" % (int(min(yield_data["run number"])),int(min(yield_data["run number"])))))
+        plt.savefig(SCRIPTPATH+'/luminosity/OUTPUTS/plots/Lumi_%s_yield_%s.png' % ("ld2","logPlot_%s_%s" % (int(min(yield_data["run number"])),int(max(yield_data["run number"])))))
     elif target == 'LH2' :
-        plt.savefig(SCRIPTPATH+'/luminosity/OUTPUTS/plots/Lumi_%s_yield_%s.png' % ("lh2","logPlot_%s_%s" % (int(min(yield_data["run number"])),int(min(yield_data["run number"])))))
+        plt.savefig(SCRIPTPATH+'/luminosity/OUTPUTS/plots/Lumi_%s_yield_%s.png' % ("lh2","logPlot_%s_%s" % (int(min(yield_data["run number"])),int(max(yield_data["run number"])))))
     else :
-        plt.savefig(SCRIPTPATH+'/luminosity/OUTPUTS/plots/Lumi_%s_yield_%s.png' % ("c","logPlot_%s_%s" % (int(min(yield_data["run number"])),int(min(yield_data["run number"])))))
+        plt.savefig(SCRIPTPATH+'/luminosity/OUTPUTS/plots/Lumi_%s_yield_%s.png' % ("c","logPlot_%s_%s" % (int(min(yield_data["run number"])),int(max(yield_data["run number"])))))
             
     plt.show()
 

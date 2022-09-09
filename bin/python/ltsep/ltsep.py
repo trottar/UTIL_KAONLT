@@ -2,7 +2,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2022-09-07 06:30:15 trottar"
+# Time-stamp: "2022-09-08 01:40:57 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -512,9 +512,6 @@ class Root():
             if branch == "H_dc_2v2_nhit":
                 H_dc_2v2_nhit = e_tree.array("H.dc.2v2.nhit")
                 treeDict.update({"H_dc_2v2_nhit" : H_dc_2v2_nhit})
-            if branch == "H_cal_etottracknorm":
-                H_cal_etottracknorm = e_tree.array("H.cal.etottracknorm")
-                treeDict.update({"H_cal_etottracknorm" : H_cal_etottracknorm})
 
             # SHMS info
             if branch == "P_cal_fly_earray":
@@ -685,9 +682,6 @@ class Root():
             if branch == "P_dc_2v2_nhit":
                 P_dc_2v2_nhit = e_tree.array("P.dc.2v2.nhit")
                 treeDict.update({"P_dc_2v2_nhit" : P_dc_2v2_nhit})
-            if branch == "P_cal_etottracknorm":
-                P_cal_etottracknorm = e_tree.array("P.cal.etottracknorm")
-                treeDict.update({"P_cal_etottracknorm" : P_cal_etottracknorm})
 
             # Raster
             if branch == "raster_x":

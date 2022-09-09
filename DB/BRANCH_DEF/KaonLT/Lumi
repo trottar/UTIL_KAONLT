@@ -1,4 +1,5 @@
 P_cal_etotnorm
+P_cal_etottracknorm
 P_hgcer_npeSum
 P_aero_npeSum
 P_gtr_dp
@@ -24,8 +25,8 @@ P_dc_2u1_nhit
 P_dc_2v1_nhit
 P_dc_2x2_nhit
 P_dc_2v2_nhit
-P_cal_etottracknorm
 H_cal_etotnorm
+H_cal_etottracknorm
 H_cer_npeSum
 H_gtr_dp
 H_tr_tg_th
@@ -49,7 +50,6 @@ H_dc_2u1_nhit
 H_dc_2v1_nhit
 H_dc_2x2_nhit
 H_dc_2v2_nhit
-H_cal_etottracknorm
 H_bcm_bcm1_AvgCurrent
 H_bcm_bcm2_AvgCurrent
 H_bcm_bcm4a_AvgCurrent

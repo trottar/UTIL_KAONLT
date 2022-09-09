@@ -3,7 +3,7 @@
 # Description: This is where the variables for the yield calculations are formulated.
 # Variables calculated: tot_events, h_int_goodscin_evts, p_int_goodscin_evts, SHMSTRIG_cut, HMSTRIG_cut, HMS_track, HMS_track_uncern, SHMS_track, SHMS_track_uncern, accp_edtm
 # ================================================================
-# Time-stamp: "2022-09-07 02:10:28 trottar"
+# Time-stamp: "2022-09-08 07:55:48 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -171,15 +171,15 @@ SHMS_PID = pid[1]
 cut_f = '/DB/CUTS/run_type/lumi.cuts'
 
 if ANATYPE == "Pion":
-    cuts = ["h_cal_nt","h_cer_nt","p_cal_nt","p_hgcer_nt","p_aero_nt","p_ngcer_nt","p_%scut_lumi_nt" % SHMS_PID,"h_%scut_lumi_nt" % HMS_PID,"c_noedtm","c_edtm","c_edtmHMS","c_edtmSHMS","c_ptrigHMS%s" % PS_names[1].replace("PS",""),"c_ptrigSHMS%s" % PS_names[0].replace("PS",""),"c_curr","h_%strack_lumi_before" % HMS_PID,"h_%strack_lumi_after" % HMS_PID,"p_%strack_lumi_before" % SHMS_PID,"p_%strack_lumi_after" % SHMS_PID]
+    cuts = ["h_cal_nt","h_cer_nt","p_cal_nt","p_hgcer_nt","p_aero_nt","h_cal","h_cer","p_cal","p_hgcer","p_aero","p_ngcer_nt","p_%scut_lumi_nt" % SHMS_PID,"h_%scut_lumi_nt" % HMS_PID,"p_%scut_lumi" % SHMS_PID,"h_%scut_lumi" % HMS_PID,"c_noedtm","c_edtm","c_edtmHMS","c_edtmSHMS","c_ptrigHMS%s" % PS_names[1].replace("PS",""),"c_ptrigSHMS%s" % PS_names[0].replace("PS",""),"c_curr","h_%strack_lumi_before" % HMS_PID,"h_%strack_lumi_after" % HMS_PID,"p_%strack_lumi_before" % SHMS_PID,"p_%strack_lumi_after" % SHMS_PID]
     # Check if COIN trigger is used
     if len(PS_used) > 2:
-        cuts = ["h_cal_nt","h_cer_nt","p_cal_nt","p_hgcer_nt","p_aero_nt","p_ngcer_nt","p_%scut_lumi_nt" % SHMS_PID,"h_%scut_lumi_nt" % HMS_PID,"c_noedtm","c_edtm","c_edtmHMS","c_edtmSHMS","c_ptrigHMS%s" % PS_names[1].replace("PS",""),"c_ptrigSHMS%s" % PS_names[0].replace("PS",""),"c_ptrigCOIN%s" % PS_names[2].replace("PS",""),"c_curr","h_%strack_lumi_before" % HMS_PID,"h_%strack_lumi_after" % HMS_PID,"p_%strack_lumi_before" % SHMS_PID,"p_%strack_lumi_after" % SHMS_PID]
+        cuts = ["h_cal_nt","h_cer_nt","p_cal_nt","p_hgcer_nt","p_aero_nt","h_cal","h_cer","p_cal","p_hgcer","p_aero","p_ngcer_nt","p_%scut_lumi_nt" % SHMS_PID,"h_%scut_lumi_nt" % HMS_PID,"p_%scut_lumi" % SHMS_PID,"h_%scut_lumi" % HMS_PID,"c_noedtm","c_edtm","c_edtmHMS","c_edtmSHMS","c_ptrigHMS%s" % PS_names[1].replace("PS",""),"c_ptrigSHMS%s" % PS_names[0].replace("PS",""),"c_ptrigCOIN%s" % PS_names[2].replace("PS",""),"c_curr","h_%strack_lumi_before" % HMS_PID,"h_%strack_lumi_after" % HMS_PID,"p_%strack_lumi_before" % SHMS_PID,"p_%strack_lumi_after" % SHMS_PID]
 else:
-    cuts = ["h_cal_nt","h_cer_nt","p_cal_nt","p_hgcer_nt","p_aero_nt","p_%scut_lumi_nt" % SHMS_PID,"h_%scut_lumi_nt" % HMS_PID,"c_noedtm","c_edtm","c_edtmHMS","c_edtmSHMS","c_ptrigHMS%s" % PS_names[1].replace("PS",""),"c_ptrigSHMS%s" % PS_names[0].replace("PS",""),"c_curr","h_%strack_lumi_before" % HMS_PID,"h_%strack_lumi_after" % HMS_PID,"p_%strack_lumi_before" % SHMS_PID,"p_%strack_lumi_after" % SHMS_PID]
+    cuts = ["h_cal_nt","h_cer_nt","p_cal_nt","p_hgcer_nt","p_aero_nt","h_cal","h_cer","p_cal","p_hgcer","p_aero","p_%scut_lumi_nt" % SHMS_PID,"h_%scut_lumi_nt" % HMS_PID,"p_%scut_lumi" % SHMS_PID,"h_%scut_lumi" % HMS_PID,"c_noedtm","c_edtm","c_edtmHMS","c_edtmSHMS","c_ptrigHMS%s" % PS_names[1].replace("PS",""),"c_ptrigSHMS%s" % PS_names[0].replace("PS",""),"c_curr","h_%strack_lumi_before" % HMS_PID,"h_%strack_lumi_after" % HMS_PID,"p_%strack_lumi_before" % SHMS_PID,"p_%strack_lumi_after" % SHMS_PID]
     # Check if COIN trigger is used
     if len(PS_used) > 2:
-        cuts = ["h_cal_nt","h_cer_nt","p_cal_nt","p_hgcer_nt","p_aero_nt","p_%scut_lumi_nt" % SHMS_PID,"h_%scut_lumi_nt" % HMS_PID,"c_noedtm","c_edtm","c_edtmHMS","c_edtmSHMS","c_ptrigHMS%s" % PS_names[1].replace("PS",""),"c_ptrigSHMS%s" % PS_names[0].replace("PS",""),"c_ptrigCOIN%s" % PS_names[2].replace("PS",""),"c_curr","h_%strack_lumi_before" % HMS_PID,"h_%strack_lumi_after" % HMS_PID,"p_%strack_lumi_before" % SHMS_PID,"p_%strack_lumi_after" % SHMS_PID]
+        cuts = ["h_cal_nt","h_cer_nt","p_cal_nt","p_hgcer_nt","p_aero_nt","h_cal","h_cer","p_cal","p_hgcer","p_aero","p_%scut_lumi_nt" % SHMS_PID,"h_%scut_lumi_nt" % HMS_PID,"p_%scut_lumi" % SHMS_PID,"h_%scut_lumi" % HMS_PID,"c_noedtm","c_edtm","c_edtmHMS","c_edtmSHMS","c_ptrigHMS%s" % PS_names[1].replace("PS",""),"c_ptrigSHMS%s" % PS_names[0].replace("PS",""),"c_ptrigCOIN%s" % PS_names[2].replace("PS",""),"c_curr","h_%strack_lumi_before" % HMS_PID,"h_%strack_lumi_after" % HMS_PID,"p_%strack_lumi_before" % SHMS_PID,"p_%strack_lumi_after" % SHMS_PID]
 
 lt=Root(os.path.realpath(__file__),"Lumi",ROOTPrefix,runNum,MaxEvent,cut_f,cuts)
 
@@ -373,6 +373,202 @@ def pid_cuts():
     plt.tight_layout(rect=[0,0.03,1,0.95])   
     plt.savefig(UTILPATH+'/scripts/luminosity/OUTPUTS/plots/pid/pid2D_%s.png' % (runNum))
 
+def track_pid_cuts():
+    '''
+    Plots of track pid cuts that will be applied to the event selection
+    '''
+
+    ###########################
+    ######## 1D plots  ########
+    ###########################
+
+    f = plt.figure(figsize=(11.69,8.27))
+    f.suptitle("Run %s" % runNum)
+
+    ax = f.add_subplot(231)
+    ax.hist(tree['H_cal_etottracknorm'],bins=c.setbin(tree['H_cal_etottracknorm'],200,0,2.0),label='no cut',histtype='step',alpha=0.5, stacked=True, fill=True)
+    ax.hist(c.add_cut(tree['H_cal_etottracknorm'],"h_cal"),bins=c.setbin(tree['H_cal_etottracknorm'],200,0,2.0),label='cut',histtype='step', alpha=0.5, stacked=True, fill=True)
+    plt.yscale('log')
+    plt.xlabel('H_cal_etottracknorm')
+    plt.ylabel('Count')
+
+    ax = f.add_subplot(232)
+    ax.hist(tree['H_cer_npeSum'],bins=c.setbin(tree['H_cer_npeSum'],200,0,60),label='no cut',histtype='step', alpha=0.5,stacked=True, fill=True)
+    ax.hist(c.add_cut(tree['H_cer_npeSum'],"h_cer"),bins=c.setbin(tree['H_cer_npeSum'],200,0,60),label='cut',histtype='step', alpha=0.5, stacked=True, fill=True)
+    plt.yscale('log')
+    plt.xlabel('H_cer_npeSum')
+    plt.ylabel('Count')
+
+    ax = f.add_subplot(233)
+    ax.hist(tree['P_cal_etottracknorm'],bins=c.setbin(tree['P_cal_etottracknorm'],200,0,4),label='no cut',histtype='step',alpha=0.5, stacked=True, fill=True)
+    ax.hist(c.add_cut(tree['P_cal_etottracknorm'],"p_cal"),bins=c.setbin(tree['P_cal_etottracknorm'],200,0,4),label='cut',histtype='step', alpha=0.5, stacked=True, fill=True)
+    plt.yscale('log')
+    plt.xlabel('P_cal_etottracknorm')
+    plt.ylabel('Count')
+
+    ax = f.add_subplot(234)
+    ax.hist(tree['P_hgcer_npeSum'],bins=c.setbin(tree['P_hgcer_npeSum'],200,0,200),label='no cut',histtype='step',alpha=0.5, stacked=True, fill=True)
+    ax.hist(c.add_cut(tree['P_hgcer_npeSum'],"p_hgcer"),bins=c.setbin(tree['P_hgcer_npeSum'],200,0,200),label='cut',histtype='step', alpha=0.5, stacked=True, fill=True)
+    plt.yscale('log')
+    plt.xlabel('P_hgcer_npeSum')
+    plt.ylabel('Count')
+
+    ax = f.add_subplot(235)
+    ax.hist(tree['P_aero_npeSum'],bins=c.setbin(tree['P_aero_npeSum'],200,0,400),label='no cut',histtype='step',alpha=0.5, stacked=True, fill=True)
+    ax.hist(c.add_cut(tree['P_aero_npeSum'],"p_aero"),bins=c.setbin(tree['P_aero_npeSum'],200,0,400),label='cut',histtype='step', alpha=0.5, stacked=True, fill=True)
+    plt.yscale('log')
+    plt.xlabel('P_aero_npeSum')
+    plt.ylabel('Count')   
+
+    if ANATYPE == "Pion":
+        ax = f.add_subplot(236)
+        ax.hist(tree['P_ngcer_npeSum'],bins=c.setbin(tree['P_ngcer_npeSum'],200,0,250),label='no cut',histtype='step',alpha=0.5, stacked=True, fill=True)
+        ax.hist(c.add_cut(tree['P_ngcer_npeSum'],"p_ngcer"), bins=c.setbin(tree['P_ngcer_npeSum'],200,0,250),label='cut',histtype='step', alpha=0.5, stacked=True, fill=True)
+        plt.yscale('log')
+        plt.xlabel('P_ngcer_npeSum')
+        plt.ylabel('Count')
+
+    plt.legend(loc="upper right")
+
+    plt.tight_layout(rect=[0,0.03,1,0.95])   
+    plt.savefig(UTILPATH+'/scripts/luminosity/OUTPUTS/plots/track_pid/track_pid_%s.png' % (runNum))
+
+    ###########################
+    ######## 2D plots  ########
+    ###########################
+
+    f = plt.figure(figsize=(19.20,8.00))
+    f.suptitle("Run %s" % runNum)
+
+    ax = f.add_subplot(241)
+    ax.hist2d(tree['H_cal_etottracknorm'],tree['H_cer_npeSum'],bins=[c.setbin(tree['H_cal_etottracknorm'],400,0,2.0),c.setbin(tree['H_cer_npeSum'],400,0,30)],cmin=1,label='no cut',alpha=0.5)
+    ax.hist2d(c.add_cut(tree['H_cal_etottracknorm'],"h_%scut_lumi" % HMS_PID), c.add_cut(tree['H_cer_npeSum'],"h_%scut_lumi" % HMS_PID), bins=[c.setbin(tree['H_cal_etottracknorm'],400,0,2.0),c.setbin(tree['H_cer_npeSum'],400,0,30)],cmin=1,label='cut', alpha=1.0)
+    plt.xlabel('H_cal_etottracknorm')
+    plt.ylabel('H_cer_npeSum')
+
+    ax = f.add_subplot(242)
+    ax.hist2d(tree['P_cal_etottracknorm'],tree['P_hgcer_npeSum'],bins=[c.setbin(tree['P_cal_etottracknorm'],400,0,4),c.setbin(tree['P_hgcer_npeSum'],400,0,80)],cmin=1,label='no cut',alpha=0.5)
+    ax.hist2d(c.add_cut(tree['P_cal_etottracknorm'],"p_%scut_lumi" % SHMS_PID),c.add_cut(tree['P_hgcer_npeSum'],"p_%scut_lumi" % SHMS_PID),bins=[c.setbin(tree['P_cal_etottracknorm'],400,0,4),c.setbin(tree['P_hgcer_npeSum'],400,0,80)],cmin=1,label='cut', alpha=1.0)
+    plt.xlabel('P_cal_etottracknorm')
+    plt.ylabel('P_hgcer_npeSum')
+
+    ax = f.add_subplot(243)
+    ax.hist2d(tree['P_cal_etottracknorm'],tree['P_aero_npeSum'],bins=[c.setbin(tree['P_cal_etottracknorm'],400,0,4),c.setbin(tree['P_aero_npeSum'],400,0,100)],cmin=1,label='no cut',alpha=0.5)
+    ax.hist2d(c.add_cut(tree['P_cal_etottracknorm'],"p_%scut_lumi" % SHMS_PID),c.add_cut(tree['P_aero_npeSum'],"p_%scut_lumi" % SHMS_PID),bins=[c.setbin(tree['P_cal_etottracknorm'],400,0,4),c.setbin(tree['P_aero_npeSum'],400,0,100)],cmin=1,label='cut', alpha=1.0)
+    plt.xlabel('P_cal_etottracknorm')
+    plt.ylabel('P_aero_npeSum')
+
+    if ANATYPE == "Pion":
+        ax = f.add_subplot(244)
+        ax.hist2d(tree['P_cal_etottracknorm'],tree['P_ngcer_npeSum'],bins=[c.setbin(tree['P_cal_etottracknorm'],400,0,4),c.setbin(tree['P_ngcer_npeSum'],400,0,80)],cmin=1,label='no cut',alpha=0.5)
+        ax.hist2d(c.add_cut(tree['P_cal_etottracknorm'],"p_%scut_lumi" % SHMS_PID),c.add_cut(tree['P_ngcer_npeSum'],"p_%scut_lumi" % SHMS_PID),bins=[c.setbin(tree['P_cal_etottracknorm'],400,0,4),c.setbin(tree['P_ngcer_npeSum'],400,0,80)],cmin=1,label='cut', alpha=1.0)
+        plt.xlabel('P_cal_etottracknorm')
+        plt.ylabel('P_ngcer_npeSum')
+
+    ax = f.add_subplot(245)
+    ax.hist2d(tree['P_aero_npeSum'],tree['P_hgcer_npeSum'],bins=[c.setbin(tree['P_aero_npeSum'],400,0,100),c.setbin(tree['P_hgcer_npeSum'],400,0,80)],cmin=1,label='no cut',alpha=0.5)
+    ax.hist2d(c.add_cut(tree['P_aero_npeSum'],"p_%scut_lumi" % SHMS_PID),c.add_cut(tree['P_hgcer_npeSum'],"p_%scut_lumi" % SHMS_PID),bins=[c.setbin(tree['P_aero_npeSum'],400,0,100),c.setbin(tree['P_hgcer_npeSum'],400,0,80)],cmin=1,label='cut', alpha=1.0)
+    plt.xlabel('P_aero_npeSum')
+    plt.ylabel('P_hgcer_npeSum')
+
+    if ANATYPE == "Pion":
+        ax = f.add_subplot(246)
+        ax.hist2d(tree['P_ngcer_npeSum'],tree['P_hgcer_npeSum'],bins=[c.setbin(tree['P_ngcer_npeSum'],400,0,80),c.setbin(tree['P_hgcer_npeSum'],400,0,80)],cmin=1,label='no cut',alpha=0.5)
+        ax.hist2d(c.add_cut(tree['P_ngcer_npeSum'],"p_%scut_lumi" % SHMS_PID),c.add_cut(tree['P_hgcer_npeSum'],"p_%scut_lumi" % SHMS_PID),bins=[c.setbin(tree['P_ngcer_npeSum'],400,0,80),c.setbin(tree['P_hgcer_npeSum'],400,0,80)],cmin=1,label='cut', alpha=1.0)
+        plt.xlabel('P_ngcer_npeSum')
+        plt.ylabel('P_hgcer_npeSum')
+
+        ax = f.add_subplot(247)
+        ax.hist2d(tree['P_aero_npeSum'],tree['P_ngcer_npeSum'],bins=[c.setbin(tree['P_aero_npeSum'],400,0,100),c.setbin(tree['P_ngcer_npeSum'],400,0,80)],cmin=1,label='no cut',alpha=0.5)
+        ax.hist2d(c.add_cut(tree['P_aero_npeSum'],"p_%scut_lumi" % SHMS_PID),c.add_cut(tree['P_ngcer_npeSum'],"p_%scut_lumi" % SHMS_PID),bins=[c.setbin(tree['P_aero_npeSum'],400,0,100),c.setbin(tree['P_ngcer_npeSum'],400,0,80)],cmin=1,label='cut', alpha=1.0)
+        plt.xlabel('P_aero_npeSum')
+        plt.ylabel('P_ngcer_npeSum')
+
+
+    ax = f.add_subplot(248)
+    plt.axis('off')
+    i=0
+    plt.text(-0.15,1.00,"HMS cuts... (%s)" % HMS_PID,fontsize=8)
+    for key,val in strDict.items():
+        if key == "h_%scut_lumi" % HMS_PID:
+            for v in val:
+                plt.text(-0.15,0.95-i/10," {}".format(v),fontsize=8)
+                i+=1
+    plt.text(-0.15,0.95-((i)/10+0.05),"SHMS cuts... (%s)" % SHMS_PID,fontsize=8)
+    for key,val in strDict.items():
+        if key == "p_%scut_lumi" % SHMS_PID:
+            for v in val:
+                plt.text(-0.15,0.95-(i+1)/10," {}".format(v),fontsize=8)
+                i+=1
+        if key == "c_curr":
+            global thres_curr, report_current
+            # e.g. Grabbing threshold current (ie 2.5) from something like this [' {"H_bcm_bcm1_AvgCurrent" : (abs(H_bcm_bcm1_AvgCurrent-55) < 2.5)}']
+            thres_curr = float(val[0].split(":")[1].split("<")[1].split(")")[0].strip())
+            # e.g. Grabbing set current for run (ie 55) from something like this [' {"H_bcm_bcm1_AvgCurrent" : (abs(H_bcm_bcm1_AvgCurrent-55) < 2.5)}']
+            report_current = float(val[0].split(":")[1].split("<")[0].split(")")[0].split("-")[1].strip())
+
+    plt.tight_layout(rect=[0,0.03,1,0.95])   
+    plt.savefig(UTILPATH+'/scripts/luminosity/OUTPUTS/plots/track_pid/track_pid2D_%s.png' % (runNum))
+
+
+    #######################
+    ######## Beta  ########
+    #######################
+
+    f = plt.figure(figsize=(19.20,8.00))
+    f.suptitle("Run %s" % runNum)
+
+    ax = f.add_subplot(231)
+    ax.hist(tree['P_gtr_beta'],bins=c.setbin(tree['P_gtr_beta'],200,-2.0,2.0),label='no cut',histtype='step',alpha=0.5, stacked=True, fill=True)
+    ax.hist(c.add_cut(tree['P_gtr_beta'],"h_cal"),bins=c.setbin(tree['P_gtr_beta'],200,-2.0,2.0),label='cut',histtype='step', alpha=0.5, stacked=True, fill=True)
+    plt.yscale('log')
+    plt.xlabel('P_gtr_beta')
+    plt.ylabel('Count')
+
+    ax = f.add_subplot(232)
+    ax.hist2d(tree['P_cal_etottracknorm'],tree['P_gtr_beta'],bins=[c.setbin(tree['P_cal_etottracknorm'],400,0,4),c.setbin(tree['P_gtr_beta'],400,-2.0,2.0)],cmin=1,label='no cut',alpha=0.5)
+    ax.hist2d(c.add_cut(tree['P_cal_etottracknorm'],"p_%scut_lumi" % SHMS_PID),c.add_cut(tree['P_gtr_beta'],"p_%scut_lumi" % SHMS_PID),bins=[c.setbin(tree['P_cal_etottracknorm'],400,0,4),c.setbin(tree['P_gtr_beta'],400,-2.0,2.0)],cmin=1,label='cut', alpha=1.0)
+    plt.xlabel('P_cal_etottracknorm')
+    plt.ylabel('P_gtr_beta')
+
+    ax = f.add_subplot(233)
+    ax.hist2d(tree['P_hgcer_npeSum'],tree['P_gtr_beta'],bins=[c.setbin(tree['P_hgcer_npeSum'],400,0,80),c.setbin(tree['P_gtr_beta'],400,-2.0,2.0)],cmin=1,label='no cut',alpha=0.5)
+    ax.hist2d(c.add_cut(tree['P_hgcer_npeSum'],"p_%scut_lumi" % SHMS_PID),c.add_cut(tree['P_gtr_beta'],"p_%scut_lumi" % SHMS_PID),bins=[c.setbin(tree['P_hgcer_npeSum'],400,0,80),c.setbin(tree['P_gtr_beta'],400,-2.0,2.0)],cmin=1,label='cut', alpha=1.0)
+    plt.xlabel('P_hgcer_npeSum')
+    plt.ylabel('P_gtr_beta')
+
+    ax = f.add_subplot(234)
+    ax.hist2d(tree['P_aero_npeSum'],tree['P_gtr_beta'],bins=[c.setbin(tree['P_aero_npeSum'],400,0,100),c.setbin(tree['P_gtr_beta'],400,-2.0,2.0)],cmin=1,label='no cut',alpha=0.5)
+    ax.hist2d(c.add_cut(tree['P_aero_npeSum'],"p_%scut_lumi" % SHMS_PID),c.add_cut(tree['P_gtr_beta'],"p_%scut_lumi" % SHMS_PID),bins=[c.setbin(tree['P_aero_npeSum'],400,0,100),c.setbin(tree['P_gtr_beta'],400,-2.0,2.0)],cmin=1,label='cut', alpha=1.0)
+    plt.xlabel('P_aero_npeSum')
+    plt.ylabel('P_gtr_beta')
+
+    ax = f.add_subplot(235)
+    plt.axis('off')
+    i=0
+    plt.text(-0.15,1.00,"HMS cuts... (%s)" % HMS_PID,fontsize=8)
+    for key,val in strDict.items():
+        if key == "h_%scut_lumi_nt" % HMS_PID:
+            for v in val:
+                plt.text(-0.15,0.95-i/10," {}".format(v),fontsize=8)
+                i+=1
+    plt.text(-0.15,0.95-((i)/10+0.05),"SHMS cuts... (%s)" % SHMS_PID,fontsize=8)
+    for key,val in strDict.items():
+        if key == "p_%scut_lumi_nt" % SHMS_PID:
+            for v in val:
+                plt.text(-0.15,0.95-(i+1)/10," {}".format(v),fontsize=8)
+                i+=1
+        if key == "c_curr":
+            global thres_curr, report_current
+            # e.g. Grabbing threshold current (ie 2.5) from something like this [' {"H_bcm_bcm1_AvgCurrent" : (abs(H_bcm_bcm1_AvgCurrent-55) < 2.5)}']
+            thres_curr = float(val[0].split(":")[1].split("<")[1].split(")")[0].strip())
+            # e.g. Grabbing set current for run (ie 55) from something like this [' {"H_bcm_bcm1_AvgCurrent" : (abs(H_bcm_bcm1_AvgCurrent-55) < 2.5)}']
+            report_current = float(val[0].split(":")[1].split("<")[0].split(")")[0].split("-")[1].strip())
+
+    plt.tight_layout(rect=[0,0.03,1,0.95])   
+    plt.savefig(UTILPATH+'/scripts/luminosity/OUTPUTS/plots/track_pid/track_beta_%s.png' % (runNum))
+
+
 ################################################################################################################################################
     
 def analysis():
@@ -435,8 +631,8 @@ def analysis():
     p_etotnorm = c.add_cut(tree["P_cal_etotnorm"],"p_%scut_lumi_nt" % SHMS_PID)
 
     # Applies PID cuts, once integrated this will give the events (track)
-    h_goodscinhit = c.add_cut(tree["H_hod_goodscinhit"],"h_%scut_lumi_nt" % HMS_PID)
-    p_goodscinhit = c.add_cut(tree["P_hod_goodscinhit"],"p_%scut_lumi_nt" % SHMS_PID)
+    h_goodscinhit = c.add_cut(tree["H_hod_goodscinhit"],"h_%scut_lumi" % HMS_PID)
+    p_goodscinhit = c.add_cut(tree["P_hod_goodscinhit"],"p_%scut_lumi" % SHMS_PID)
     
     # Creates a dictionary for the calculated luminosity values 
     track_info = {
@@ -503,6 +699,7 @@ def analysis():
 def main():
 
     pid_cuts()
+    track_pid_cuts()
     #plt.show()
 
     # lumi_data = {**scalers , **track_info} # only python 3.5+

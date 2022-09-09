@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2022-08-30 01:07:32 trottar"
+# Time-stamp: "2022-09-08 07:30:32 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -90,13 +90,13 @@ elif [[ $p_flag = "true" && $s_flag = "true" ]]; then
     if [[ $RunType = "HeePSing" ]]; then
 	ROOTPREFIX=replay_${spec}_heep
 	HGCERPREFIX=${ANATYPE}_${SPEC}_replay_production
-	#inputFile="${REPLAYPATH}/UTIL_BATCH/InputRunLists/KaonLT_2018_2019/HeePSing_ALL"
-	inputFile="${REPLAYPATH}/UTIL_BATCH/InputRunLists/KaonLT_2018_2019/HeePSing_Test"
+	inputFile="${REPLAYPATH}/UTIL_BATCH/InputRunLists/KaonLT_2018_2019/HeePSing_ALL"
+	#inputFile="${REPLAYPATH}/UTIL_BATCH/InputRunLists/KaonLT_2018_2019/HeePSing_Test"
     else
 	ROOTPREFIX=replay_${spec}_production
 	HGCERPREFIX=${ANATYPE}_${SPEC}_replay_production
-	#inputFile="${REPLAYPATH}/UTIL_BATCH/InputRunLists/KaonLT_2018_2019/ProductionLH2_ALL"
-	inputFile="${REPLAYPATH}/UTIL_BATCH/InputRunLists/KaonLT_2018_2019/Prod_Test"
+	inputFile="${REPLAYPATH}/UTIL_BATCH/InputRunLists/KaonLT_2018_2019/ProductionLH2_ALL"
+	#inputFile="${REPLAYPATH}/UTIL_BATCH/InputRunLists/KaonLT_2018_2019/Prod_Test"
     fi
     #python3 plot/plot_efficiency.py ${ROOTPREFIX} ${RunType} ${DATE}
     python3 plot/plot_efficiency_beam.py ${ROOTPREFIX} ${RunType} ${DATE}
@@ -116,8 +116,8 @@ elif [[ $s_flag = "true" ]]; then
     else
 	ROOTPREFIX=replay_${spec}_production
 	HGCERPREFIX=${ANATYPE}_${SPEC}_replay_production	
-	#inputFile="${REPLAYPATH}/UTIL_BATCH/InputRunLists/KaonLT_2018_2019/ProductionLH2_ALL"
-	inputFile="${REPLAYPATH}/UTIL_BATCH/InputRunLists/KaonLT_2018_2019/Prod_Test"
+	inputFile="${REPLAYPATH}/UTIL_BATCH/InputRunLists/KaonLT_2018_2019/ProductionLH2_ALL"
+	#inputFile="${REPLAYPATH}/UTIL_BATCH/InputRunLists/KaonLT_2018_2019/Prod_Test"
     fi    
 else
     RunType=$1
@@ -125,6 +125,7 @@ else
 	ROOTPREFIX=replay_coin_heep
 	HGCERPREFIX=${ANATYPE}_coin_replay_production
 	inputFile="${REPLAYPATH}/UTIL_BATCH/InputRunLists/KaonLT_2018_2019/HeePCoin_ALL"
+	#inputFile="${REPLAYPATH}/UTIL_BATCH/InputRunLists/KaonLT_2018_2019/HeePCoin_Test"
     else
 	ROOTPREFIX=replay_coin_production
 	HGCERPREFIX=${ANATYPE}_coin_replay_production	

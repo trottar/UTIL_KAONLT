@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2022-07-27 12:29:42 trottar"
+# Time-stamp: "2022-09-08 07:30:17 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -57,21 +57,21 @@ out_f = UTILPATH+"/scripts/efficiency/OUTPUTS/%s_%s_efficiency_data_%s.csv"  % (
 
 import efficiency_hgcer
 import efficiency_report
-import efficiency_standard_kin
+
+DEBUG=True
 
 if "coin" in ROOTPrefix:
-    hgcerDict = efficiency_hgcer.dictionary(UTILPATH,runNum,MaxEvent)
+    #hgcerDict = efficiency_hgcer.dictionary(UTILPATH,runNum,MaxEvent)
+    hgcerDict = {}
     reportDict = efficiency_report.dictionary(UTILPATH,ROOTPrefix,runNum,MaxEvent)
-    standardDict = efficiency_standard_kin.dictionary(REPLAYPATH,runNum)
 else:
     hgcerDict = {}
     reportDict = efficiency_report.dictionary(UTILPATH,ROOTPrefix,runNum,MaxEvent)
-    standardDict = efficiency_standard_kin.dictionary(REPLAYPATH,runNum)
 
 ################################################################################################################################################
 
 data = {}
-for d in (hgcerDict, reportDict, standardDict): 
+for d in (hgcerDict, reportDict): 
     data.update(d)
 
 eff_data = {i : data[i] for i in sorted(data.keys())}

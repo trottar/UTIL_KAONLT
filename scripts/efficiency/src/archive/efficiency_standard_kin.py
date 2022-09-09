@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2022-06-09 04:02:22 trottar"
+# Time-stamp: "2022-09-08 06:13:02 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -15,10 +15,10 @@
 '''
 '''
 
-def dictionary(REPLAYPATH,runNum):
+def dictionary(ANATYPE,REPLAYPATH,runNum):
 
     # Open report file to grab prescale values and tracking efficiency
-    standard_kinematics = REPLAYPATH+"/DBASE/COIN/DB_KaonLT/standard_OfflineKaonLT.kinematics"
+    standard_kinematics = REPLAYPATH+"/DBASE/COIN/DB_KaonLT/standard_Offline%sLT.kinematics" % ANATYPE
 
     with open(standard_kinematics) as f:
         effDict = {
@@ -42,7 +42,7 @@ def dictionary(REPLAYPATH,runNum):
                 if '-' in line and '=' not in line:
                     runline = line.split('-')
                     #print(runline)
-                    if int(runNum) > int(runline[0]) and int(runNum) < int(runline[1]):
+                    if int(runNum) >= int(runline[0]) and int(runNum) <= int(runline[1]):
                         runcheck = True
                     else:
                         runcheck = False
@@ -53,6 +53,6 @@ def dictionary(REPLAYPATH,runNum):
                             if key in data[0]:
                                 effDict[key] = float(data[1])
                     
-        #print(effDict)
+        print(effDict)
 
     return effDict

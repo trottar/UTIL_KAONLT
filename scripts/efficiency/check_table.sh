@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2022-08-30 01:28:49 trottar"
+# Time-stamp: "2022-09-09 01:49:44 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -72,11 +72,10 @@ else
     RUNTYPE=$1
     RUNNUM=$2
     if [[ $RUNTYPE = "HeePCoin" ]]; then
-	TIMESTMP="2022_06_13"
+	TIMESTMP="2022_09_09"
 	ROOTPREFIX=replay_coin_heep
     else
-	#TIMESTMP="2022_08_30"
-	TIMESTMP="2022_06_09"
+	TIMESTMP="2022_09_09"
 	ROOTPREFIX=replay_coin_production
     fi
 fi
