@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2022-09-09 01:49:44 trottar"
+# Time-stamp: "2022-09-09 03:26:06 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -35,7 +35,7 @@ ANATYPE=`echo ${PATHFILE_INFO} | cut -d ','  -f13`
 USER=`echo ${PATHFILE_INFO} | cut -d ','  -f14`
 HOST=`echo ${PATHFILE_INFO} | cut -d ','  -f15`
 
-while getopts 'hs' flag; do
+while getopts 'hlus' flag; do
     case "${flag}" in
         h) 
         echo "-------------------------------------------------------------------"
@@ -47,30 +47,76 @@ while getopts 'hs' flag; do
 	echo "        coin -> RUNTYPE=arg1 RUNNUM=arg2"
 	echo "        sing -> RUNTYPE=arg1 SPEC=arg2 RUNNUM=arg3 (requires -s flag)"		
         echo "    -h, help"
+        echo "    -l, list table columns"
+	echo "    -u, Unique column"
+	echo "        coin -> RUNTYPE=arg1 RUNNUM=arg2 COLUMN=arg3"
+	echo "        sing -> RUNTYPE=arg1 SPEC=arg2 RUNNUM=arg3 COLUMN=arg4 (requires -s flag)"
 	echo "    -s, single arm"
         exit 0
         ;;
+	l) l_flag='true' ;;
+	u) u_flag='true' ;;
 	s) s_flag='true' ;;
         *) print_usage
         exit 1 ;;
     esac
 done
 
-if [[ $s_flag = "true" ]]; then
-    RUNTYPE=$1
-    spec=$(echo "$2" | tr '[:upper:]' '[:lower:]')
-    SPEC=$(echo "$spec" | tr '[:lower:]' '[:upper:]')
+if [[ $l_flag = "true" ]]; then
+    RUNTYPE=$2
     RUNNUM=$3
+    COLUMN="List"
+    if [[ $RUNTYPE = "HeePCoin" ]]; then
+	TIMESTMP="2022_09_09"
+	ROOTPREFIX=replay_coin_heep
+    else
+	TIMESTMP="2022_09_09"
+	ROOTPREFIX=replay_coin_production
+    fi
+    cd "${SCRIPTPATH}/efficiency/src/"
+    python3 check_table.py $ROOTPREFIX $RUNTYPE $RUNNUM $TIMESTMP $COLUMN
+    exit 0
+fi
+
+if [[ $s_flag = "true" ]]; then
+    RUNTYPE=$2
+    spec=$(echo "$3" | tr '[:upper:]' '[:lower:]')
+    SPEC=$(echo "$spec" | tr '[:lower:]' '[:upper:]')
+    RUNNUM=$4
+    COLUMN="All"
     TIMESTMP="2022_07_28"
     if [[ $RUNTYPE = "HeePSing" ]]; then
 	ROOTPREFIX=replay_${spec}_heep
     else
 	ROOTPREFIX=replay_${spec}_production
     fi
-    
+elif [[ $s_flag = "true" && $u_flag = "true" ]]; then
+    RUNTYPE=$2
+    spec=$(echo "$3" | tr '[:upper:]' '[:lower:]')
+    SPEC=$(echo "$spec" | tr '[:lower:]' '[:upper:]')
+    RUNNUM=$4
+    COLUMN=$5
+    TIMESTMP="2022_07_28"
+    if [[ $RUNTYPE = "HeePSing" ]]; then
+	ROOTPREFIX=replay_${spec}_heep
+    else
+	ROOTPREFIX=replay_${spec}_production
+    fi
+elif [[ $u_flag = "true" ]]; then
+    RUNTYPE=$2
+    RUNNUM=$3
+    COLUMN=$4
+    if [[ $RUNTYPE = "HeePCoin" ]]; then
+	TIMESTMP="2022_09_09"
+	ROOTPREFIX=replay_coin_heep
+    else
+	TIMESTMP="2022_09_09"
+	ROOTPREFIX=replay_coin_production
+    fi    
 else
     RUNTYPE=$1
     RUNNUM=$2
+    COLUMN="All"
     if [[ $RUNTYPE = "HeePCoin" ]]; then
 	TIMESTMP="2022_09_09"
 	ROOTPREFIX=replay_coin_heep
@@ -82,4 +128,4 @@ fi
 
 cd "${SCRIPTPATH}/efficiency/src/"
 
-python3 check_table.py $ROOTPREFIX $RUNTYPE $RUNNUM $TIMESTMP
+python3 check_table.py $ROOTPREFIX $RUNTYPE $RUNNUM $TIMESTMP $COLUMN

@@ -3,7 +3,7 @@
 # Description: Grabs lumi data from corresponding csv depending on run setting. Then plots the yields and creates a comprehensive table.
 # Variables calculated: current, rate_HMS, rate_SHMS, sent_edtm_PS, uncern_HMS_evts_scaler, uncern_SHMS_evts_scaler, uncern_HMS_evts_notrack, uncern_SHMS_evts_notrack, uncern_HMS_evts_track, uncern_SHMS_evts_track
 # ================================================================
-# Time-stamp: "2022-09-09 02:02:14 trottar"
+# Time-stamp: "2022-09-09 04:25:06 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -514,12 +514,7 @@ def plot_yield():
         plt.title('SHMS Carbon %s-%s' % (int(min(yield_data["run number"])),int(max(yield_data["run number"]))), fontsize =16)
 
     plt.tight_layout()
-    if target == 'LD2' :
-        plt.savefig(SCRIPTPATH+'/luminosity/OUTPUTS/plots/Lumi_%s_yield_%s.png' % ("ld2","relYieldPlot_%s_%s" % (int(min(yield_data["run number"])),int(max(yield_data["run number"])))))
-    elif target == 'LH2' :
-        plt.savefig(SCRIPTPATH+'/luminosity/OUTPUTS/plots/Lumi_%s_yield_%s.png' % ("lh2","relYieldPlot_%s_%s" % (int(min(yield_data["run number"])),int(max(yield_data["run number"])))))
-    else :
-        plt.savefig(SCRIPTPATH+'/luminosity/OUTPUTS/plots/Lumi_%s_yield_%s.png' % ("c","relYieldPlot_%s_%s" % (int(min(yield_data["run number"])),int(max(yield_data["run number"])))))
+    plt.savefig(SCRIPTPATH+'/luminosity/OUTPUTS/plots/Yield_%s_%s.png' % (out_f.split("yield_data_")[1].replace(".csv",""),"relYieldPlot"))
             
 
     #########################################################################################################################################################
@@ -614,12 +609,7 @@ def plot_yield():
         plt.title('SHMS Carbon %s-%s' % (int(min(yield_data["run number"])),int(max(yield_data["run number"]))), fontsize =16)
 
     plt.tight_layout()             
-    if target == 'LD2' :
-        plt.savefig(SCRIPTPATH+'/luminosity/OUTPUTS/plots/Lumi_%s_yield_%s.png' % ("ld2","edtmPlot_%s_%s" % (int(min(yield_data["run number"])),int(max(yield_data["run number"])))))
-    elif target == 'LH2' :
-        plt.savefig(SCRIPTPATH+'/luminosity/OUTPUTS/plots/Lumi_%s_yield_%s.png' % ("lh2","edtmPlot_%s_%s" % (int(min(yield_data["run number"])),int(max(yield_data["run number"])))))
-    else :
-        plt.savefig(SCRIPTPATH+'/luminosity/OUTPUTS/plots/Lumi_%s_yield_%s.png' % ("c","edtmPlot_%s_%s" % (int(min(yield_data["run number"])),int(max(yield_data["run number"])))))
+    plt.savefig(SCRIPTPATH+'/luminosity/OUTPUTS/plots/Yield_%s_%s.png' % (out_f.split("yield_data_")[1].replace(".csv",""),"edtmPlot"))
             
     #########################################################################################################################################################
 
@@ -754,14 +744,9 @@ def plot_yield():
         plt.title('SHMS Carbon %s-%s' % (int(min(yield_data["run number"])),int(max(yield_data["run number"]))), fontsize =12)
 
     plt.tight_layout()
-    if target == 'LD2' :
-        plt.savefig(SCRIPTPATH+'/luminosity/OUTPUTS/plots/Lumi_%s_yield_%s.png' % ("ld2","logPlot_%s_%s" % (int(min(yield_data["run number"])),int(max(yield_data["run number"])))))
-    elif target == 'LH2' :
-        plt.savefig(SCRIPTPATH+'/luminosity/OUTPUTS/plots/Lumi_%s_yield_%s.png' % ("lh2","logPlot_%s_%s" % (int(min(yield_data["run number"])),int(max(yield_data["run number"])))))
-    else :
-        plt.savefig(SCRIPTPATH+'/luminosity/OUTPUTS/plots/Lumi_%s_yield_%s.png' % ("c","logPlot_%s_%s" % (int(min(yield_data["run number"])),int(max(yield_data["run number"])))))
+    plt.savefig(SCRIPTPATH+'/luminosity/OUTPUTS/plots/Yield_%s_%s.png' % (out_f.split("yield_data_")[1].replace(".csv",""),"logPlot"))
             
-    plt.show()
+    #plt.show()
 
     print("\nYield info...\n",yield_data[["run number","yieldRel_HMS_scaler","yieldRel_SHMS_scaler","yieldRel_HMS_notrack","yieldRel_SHMS_notrack","yieldRel_HMS_track","yieldRel_SHMS_track"]])
 

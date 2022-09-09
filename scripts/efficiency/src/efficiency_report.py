@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2022-09-09 01:25:25 trottar"
+# Time-stamp: "2022-09-09 03:54:50 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -171,14 +171,24 @@ def dictionary(UTILPATH,ROOTPrefix,runNum,MaxEvent,DEBUG=False):
                         if DEBUG:
                             print("ERROR:",nkey,"\t",key)
                             print(data)
-                        #effDict[key] = float(re.sub("\D","","%s" % data[1].split("+-")[1]))/10000
                         effDict[key] = float(re.compile(r'[^\d.]+').sub("","%s" % data[1].split("+-")[1]))
                 if key in data[0]:
                     if DEBUG:
                         print(key)
                         print(data)
-                    if "+-" in data[1]:
-                        #effDict[key] = float(re.sub("\D","","%s" % data[1].split("+-")[0]))/10000
+                    # Check that the HMS in file line isn't actually part of SHMS
+                    # Check if first element of string is H in key
+                    if "H" == key[0]:
+                        # Then check that the file line isn't actually SHMS
+                        if "SHMS" not in data[0]:
+                            if "+-" in data[1]:
+                                effDict[key] = float(re.compile(r'[^\d.]+').sub("","%s" % data[1].split("+-")[0]))
+                            else:
+                                effDict[key] = float(re.compile(r'[^\d.]+').sub("","%s" % data[1]))
+                        # Otherwise skip key
+                        else:
+                            continue
+                    elif "+-" in data[1]:
                         effDict[key] = float(re.compile(r'[^\d.]+').sub("","%s" % data[1].split("+-")[0]))
                     else:
                         effDict[key] = float(re.compile(r'[^\d.]+').sub("","%s" % data[1]))
