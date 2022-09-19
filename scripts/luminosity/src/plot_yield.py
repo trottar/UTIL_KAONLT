@@ -3,7 +3,7 @@
 # Description: Grabs lumi data from corresponding csv depending on run setting. Then plots the yields and creates a comprehensive table.
 # Variables calculated: current, rate_HMS, rate_SHMS, sent_edtm_PS, uncern_HMS_evts_scaler, uncern_SHMS_evts_scaler, uncern_HMS_evts_notrack, uncern_SHMS_evts_notrack, uncern_HMS_evts_track, uncern_SHMS_evts_track
 # ================================================================
-# Time-stamp: "2022-09-09 04:25:06 trottar"
+# Time-stamp: "2022-09-19 13:48:44 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -250,9 +250,9 @@ def calc_yield():
     # Calculate yield values
     yield_HMS_scaler = (yield_dict["HMS_scaler_accp"])/(makeList("charge"))
     yield_HMS_notrack = (makeList("h_int_etotnorm_evts")*HMS_PS)/(makeList("charge")*yield_dict["TLT"])
-    yield_HMS_track = (makeList("h_int_goodscin_evts")*HMS_PS)/(makeList("charge")*yield_dict["TLT"]*makeList("HMS_track"))
+    yield_HMS_track = (makeList("h_int_goodscin_evts")*HMS_PS)/(makeList("charge")*yield_dict["TLT"])#*makeList("HMS_track"))
     yield_HMS_CPULT_notrack = (makeList("h_int_etotnorm_evts")*HMS_PS)/(makeList("charge")*yield_dict["CPULT_phys"])
-    yield_HMS_CPULT_track = (makeList("h_int_goodscin_evts")*HMS_PS)/(makeList("charge")*yield_dict["CPULT_phys"]*makeList("HMS_track"))
+    yield_HMS_CPULT_track = (makeList("h_int_goodscin_evts")*HMS_PS)/(makeList("charge")*yield_dict["CPULT_phys"])#*makeList("HMS_track"))
     yield_dict.update({"yield_HMS_scaler" : yield_HMS_scaler})
     yield_dict.update({"yield_HMS_notrack" : yield_HMS_notrack})
     yield_dict.update({"yield_HMS_track" : yield_HMS_track})
@@ -261,9 +261,9 @@ def calc_yield():
 
     yield_SHMS_scaler = (yield_dict["SHMS_scaler_accp"])/(makeList("charge"))
     yield_SHMS_notrack = (makeList("p_int_etotnorm_evts")*SHMS_PS)/(makeList("charge")*yield_dict["TLT"])
-    yield_SHMS_track = (makeList("p_int_goodscin_evts")*SHMS_PS)/(makeList("charge")*yield_dict["TLT"]*makeList("SHMS_track"))
+    yield_SHMS_track = (makeList("p_int_goodscin_evts")*SHMS_PS)/(makeList("charge")*yield_dict["TLT"])#*makeList("SHMS_track"))
     yield_SHMS_CPULT_notrack = (makeList("p_int_etotnorm_evts")*SHMS_PS)/(makeList("charge")*yield_dict["CPULT_phys"])
-    yield_SHMS_CPULT_track = (makeList("p_int_goodscin_evts")*SHMS_PS)/(makeList("charge")*yield_dict["CPULT_phys"]*makeList("SHMS_track"))
+    yield_SHMS_CPULT_track = (makeList("p_int_goodscin_evts")*SHMS_PS)/(makeList("charge")*yield_dict["CPULT_phys"])#*makeList("SHMS_track"))
     yield_dict.update({"yield_SHMS_scaler" : yield_SHMS_scaler})
     yield_dict.update({"yield_SHMS_notrack" : yield_SHMS_notrack})
     yield_dict.update({"yield_SHMS_track" : yield_SHMS_track})
