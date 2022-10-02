@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2022-10-02 13:16:55 trottar"
+# Time-stamp: "2022-10-02 13:18:01 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -127,7 +127,6 @@ plt.grid(zorder=1)
 #plt.errorbar(efficiency_data_4p9["SHMS_3/4_Trigger_Rate"],efficiency_data_4p9["SHMS_Hodo_3_of_4_EFF"],yerr=efficiency_data_4p9["SHMS_Hodo_3_of_4_EFF_ERROR"],color='black',zorder=3,label='4p9')
 #plt.errorbar(efficiency_data_6p2["SHMS_3/4_Trigger_Rate"],efficiency_data_6p2["SHMS_Hodo_3_of_4_EFF"],yerr=efficiency_data_6p2["SHMS_Hodo_3_of_4_EFF_ERROR"],color='black',zorder=3,label='6p2')
 #plt.errorbar(efficiency_data_8p2["SHMS_3/4_Trigger_Rate"],efficiency_data_8p2["SHMS_Hodo_3_of_4_EFF"],yerr=efficiency_data_8p2["SHMS_Hodo_3_of_4_EFF_ERROR"],color='black',zorder=3,label='8p2')
-plt.legend(loc="lower right", markerscale=0.7, errorbarpoints=1, fontsize=10)
 plt.scatter(efficiency_data_3p8["SHMS_3/4_Trigger_Rate"],efficiency_data_3p8["SHMS_Hodo_3_of_4_EFF"],color='red',zorder=4,label='3p8')
 plt.scatter(efficiency_data_4p9["SHMS_3/4_Trigger_Rate"],efficiency_data_4p9["SHMS_Hodo_3_of_4_EFF"],color='purple',zorder=4,label='4p9')
 plt.scatter(efficiency_data_6p2["SHMS_3/4_Trigger_Rate"],efficiency_data_6p2["SHMS_Hodo_3_of_4_EFF"],color='orange',zorder=4,label='6p2')
@@ -208,7 +207,6 @@ plt.grid(zorder=1)
 #plt.errorbar(efficiency_data_4p9["SHMS_Hodoscope_S1X_Rate"],efficiency_data_4p9["SHMS_Hodo_3_of_4_EFF"],yerr=efficiency_data_4p9["SHMS_Hodo_3_of_4_EFF_ERROR"],color='black',zorder=3,label='4p9')
 #plt.errorbar(efficiency_data_6p2["SHMS_Hodoscope_S1X_Rate"],efficiency_data_6p2["SHMS_Hodo_3_of_4_EFF"],yerr=efficiency_data_6p2["SHMS_Hodo_3_of_4_EFF_ERROR"],color='black',zorder=3,label='6p2')
 #plt.errorbar(efficiency_data_8p2["SHMS_Hodoscope_S1X_Rate"],efficiency_data_8p2["SHMS_Hodo_3_of_4_EFF"],yerr=efficiency_data_8p2["SHMS_Hodo_3_of_4_EFF_ERROR"],color='black',zorder=3,label='8p2')
-plt.legend(loc="lower right", markerscale=0.7, errorbarpoints=1, fontsize=10)
 plt.scatter(efficiency_data_3p8["SHMS_Hodoscope_S1X_Rate"],efficiency_data_3p8["SHMS_Hodo_3_of_4_EFF"],color='red',zorder=4,label='3p8')
 plt.scatter(efficiency_data_4p9["SHMS_Hodoscope_S1X_Rate"],efficiency_data_4p9["SHMS_Hodo_3_of_4_EFF"],color='purple',zorder=4,label='4p9')
 plt.scatter(efficiency_data_6p2["SHMS_Hodoscope_S1X_Rate"],efficiency_data_6p2["SHMS_Hodo_3_of_4_EFF"],color='orange',zorder=4,label='6p2')
@@ -289,7 +287,6 @@ plt.grid(zorder=1)
 #plt.errorbar(efficiency_data_4p9["HMS_EL-REAL_Trigger_Rate"],efficiency_data_4p9["HMS_Hodo_3_of_4_EFF"],yerr=efficiency_data_4p9["HMS_Hodo_3_of_4_EFF_ERROR"],color='black',zorder=3,label='4p9')
 #plt.errorbar(efficiency_data_6p2["HMS_EL-REAL_Trigger_Rate"],efficiency_data_6p2["HMS_Hodo_3_of_4_EFF"],yerr=efficiency_data_6p2["HMS_Hodo_3_of_4_EFF_ERROR"],color='black',zorder=3,label='6p2')
 #plt.errorbar(efficiency_data_8p2["HMS_EL-REAL_Trigger_Rate"],efficiency_data_8p2["HMS_Hodo_3_of_4_EFF"],yerr=efficiency_data_8p2["HMS_Hodo_3_of_4_EFF_ERROR"],color='black',zorder=3,label='8p2')
-plt.legend(loc="lower right", markerscale=0.7, errorbarpoints=1, fontsize=10)
 plt.scatter(efficiency_data_3p8["HMS_EL-REAL_Trigger_Rate"],efficiency_data_3p8["HMS_Hodo_3_of_4_EFF"],color='red',zorder=4,label='3p8')
 plt.scatter(efficiency_data_4p9["HMS_EL-REAL_Trigger_Rate"],efficiency_data_4p9["HMS_Hodo_3_of_4_EFF"],color='purple',zorder=4,label='4p9')
 plt.scatter(efficiency_data_6p2["HMS_EL-REAL_Trigger_Rate"],efficiency_data_6p2["HMS_Hodo_3_of_4_EFF"],color='orange',zorder=4,label='6p2')
@@ -370,7 +367,6 @@ plt.grid(zorder=1)
 #plt.errorbar(efficiency_data_4p9["HMS_Hodoscope_S1X_Rate"],efficiency_data_4p9["HMS_Hodo_3_of_4_EFF"],yerr=efficiency_data_4p9["HMS_Hodo_3_of_4_EFF_ERROR"],color='black',zorder=3,label='4p9')
 #plt.errorbar(efficiency_data_6p2["HMS_Hodoscope_S1X_Rate"],efficiency_data_6p2["HMS_Hodo_3_of_4_EFF"],yerr=efficiency_data_6p2["HMS_Hodo_3_of_4_EFF_ERROR"],color='black',zorder=3,label='6p2')
 #plt.errorbar(efficiency_data_8p2["HMS_Hodoscope_S1X_Rate"],efficiency_data_8p2["HMS_Hodo_3_of_4_EFF"],yerr=efficiency_data_8p2["HMS_Hodo_3_of_4_EFF_ERROR"],color='black',zorder=3,label='8p2')
-plt.legend(loc="lower right", markerscale=0.7, errorbarpoints=1, fontsize=10)
 plt.scatter(efficiency_data_3p8["HMS_Hodoscope_S1X_Rate"],efficiency_data_3p8["HMS_Hodo_3_of_4_EFF"],color='red',zorder=4,label='3p8')
 plt.scatter(efficiency_data_4p9["HMS_Hodoscope_S1X_Rate"],efficiency_data_4p9["HMS_Hodo_3_of_4_EFF"],color='purple',zorder=4,label='4p9')
 plt.scatter(efficiency_data_6p2["HMS_Hodoscope_S1X_Rate"],efficiency_data_6p2["HMS_Hodo_3_of_4_EFF"],color='orange',zorder=4,label='6p2')
@@ -523,7 +519,6 @@ plt.grid(zorder=1)
 #plt.errorbar(efficiency_data_4p9["Run_Number"],efficiency_data_4p9["SHMS_Hodo_3_of_4_EFF"],yerr=efficiency_data_4p9["SHMS_Hodo_3_of_4_EFF_ERROR"],color='black',zorder=3,label='4p9')
 #plt.errorbar(efficiency_data_6p2["Run_Number"],efficiency_data_6p2["SHMS_Hodo_3_of_4_EFF"],yerr=efficiency_data_6p2["SHMS_Hodo_3_of_4_EFF_ERROR"],color='black',zorder=3,label='6p2')
 #plt.errorbar(efficiency_data_8p2["Run_Number"],efficiency_data_8p2["SHMS_Hodo_3_of_4_EFF"],yerr=efficiency_data_8p2["SHMS_Hodo_3_of_4_EFF_ERROR"],color='black',zorder=3,label='8p2')
-plt.legend(loc="lower right", markerscale=0.7, errorbarpoints=1, fontsize=10)
 plt.scatter(efficiency_data_3p8["Run_Number"],efficiency_data_3p8["SHMS_Hodo_3_of_4_EFF"],color='red',zorder=4,label='3p8')
 plt.scatter(efficiency_data_4p9["Run_Number"],efficiency_data_4p9["SHMS_Hodo_3_of_4_EFF"],color='purple',zorder=4,label='4p9')
 plt.scatter(efficiency_data_6p2["Run_Number"],efficiency_data_6p2["SHMS_Hodo_3_of_4_EFF"],color='orange',zorder=4,label='6p2')
