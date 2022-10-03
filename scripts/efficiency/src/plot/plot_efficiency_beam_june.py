@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2022-10-03 11:54:21 trottar"
+# Time-stamp: "2022-10-03 11:44:12 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -384,7 +384,7 @@ plt.tight_layout(rect=[0,0.03,1,0.95])
 plt.savefig(UTILPATH+'/scripts/efficiency/OUTPUTS/plots/HMS_S1X_%s.png' % (ROOTPrefix.replace("replay_","")))
 
 plt.figure(figsize=(12,8))
-'''
+
 plt.subplot(141)    
 plt.grid(zorder=1)
 #plt.xlim(0,100)
@@ -454,7 +454,6 @@ plt.title('HMS %s-%s' % (int(min(efficiency_data["Run_Number"])),int(max(efficie
 
 plt.tight_layout(rect=[0,0.03,1,0.95])
 plt.savefig(UTILPATH+'/scripts/efficiency/OUTPUTS/plots/COIN_%s.png' % (ROOTPrefix.replace("replay_","")))
-'''
 
 plt.figure(figsize=(12,8))
 
