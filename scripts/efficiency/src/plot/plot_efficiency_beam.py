@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2022-10-02 13:29:11 trottar"
+# Time-stamp: "2022-10-03 11:37:35 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -122,12 +122,13 @@ plt.subplot(144)
 plt.grid(zorder=1)
 #plt.xlim(0,100)
 #plt.ylim(0.9,1.1)
+plt.scatter(efficiency_data_10p6["SHMS_3/4_Trigger_Rate"],efficiency_data_10p6["SHMS_Hodo_3_of_4_EFF"],color='blue',zorder=4,label='10p6')
 plt.scatter(efficiency_data_3p8["SHMS_3/4_Trigger_Rate"],efficiency_data_3p8["SHMS_Hodo_3_of_4_EFF"],color='red',zorder=4,label='3p8')
 plt.scatter(efficiency_data_4p9["SHMS_3/4_Trigger_Rate"],efficiency_data_4p9["SHMS_Hodo_3_of_4_EFF"],color='purple',zorder=4,label='4p9')
 plt.scatter(efficiency_data_6p2["SHMS_3/4_Trigger_Rate"],efficiency_data_6p2["SHMS_Hodo_3_of_4_EFF"],color='orange',zorder=4,label='6p2')
 plt.scatter(efficiency_data_8p2["SHMS_3/4_Trigger_Rate"],efficiency_data_8p2["SHMS_Hodo_3_of_4_EFF"],color='green',zorder=4,label='8p2')
 plt.legend(loc="lower right", markerscale=0.7, scatterpoints=1, fontsize=10)
-#plt.errorbar(efficiency_data_10p6["SHMS_3/4_Trigger_Rate"],efficiency_data_10p6["SHMS_Hodo_3_of_4_EFF"],yerr=efficiency_data_10p6["SHMS_Hodo_3_of_4_EFF_ERROR"],color='blue',zorder=3)
+#plt.errorbar(efficiency_data_10p6["SHMS_3/4_Trigger_Rate"],efficiency_data_10p6["SHMS_Hodo_3_of_4_EFF"],yerr=efficiency_data_10p6["SHMS_Hodo_3_of_4_EFF_ERROR"],color='black',zorder=3)
 #plt.errorbar(efficiency_data_3p8["SHMS_3/4_Trigger_Rate"],efficiency_data_3p8["SHMS_Hodo_3_of_4_EFF"],yerr=efficiency_data_3p8["SHMS_Hodo_3_of_4_EFF_ERROR"],color='black',zorder=3)
 #plt.errorbar(efficiency_data_4p9["SHMS_3/4_Trigger_Rate"],efficiency_data_4p9["SHMS_Hodo_3_of_4_EFF"],yerr=efficiency_data_4p9["SHMS_Hodo_3_of_4_EFF_ERROR"],color='black',zorder=3)
 #plt.errorbar(efficiency_data_6p2["SHMS_3/4_Trigger_Rate"],efficiency_data_6p2["SHMS_Hodo_3_of_4_EFF"],yerr=efficiency_data_6p2["SHMS_Hodo_3_of_4_EFF_ERROR"],color='black',zorder=3)
