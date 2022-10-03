@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2022-09-09 03:50:44 trottar"
+# Time-stamp: "2022-10-03 12:58:48 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -81,6 +81,7 @@ if [[ $p_flag = "true" ]]; then
     cd "${SCRIPTPATH}/efficiency/OUTPUTS/plots"
     convert *.png "${RunType}_${DATE}.pdf"
     evince "${RunType}_${DATE}.pdf"
+    rm -f *.png
     exit 1
 elif [[ $p_flag = "true" && $s_flag = "true" ]]; then
     RunType=$2
