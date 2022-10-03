@@ -3,7 +3,7 @@
 # Description: This is where the scaler variables for the yield calculations are formulated.
 # Variables calculated: SHMS_PS, HMS_PS, time, charge, SHMSTRIG_scaler, HMSTRIG_scaler, CPULT_scaler, CPULT_scaler_uncern, HMS_eLT, HMS_eLT_uncern, SHMS_eLT, SHMS_eLT_uncern, sent_edtm
 # ================================================================
-# Time-stamp: "2022-09-07 01:38:50 trottar"
+# Time-stamp: "2022-09-29 06:51:59 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -160,7 +160,10 @@ def scaler(PS_names, HMS_PS, SHMS_PS, thres_curr, report_current, runNum, MaxEve
     EDTM_sum = 0
     EDTM_current = 0
     previous_EDTM = 0
-        
+    
+    # Set bcm to use (0-bcm1, 1-bcm2, 2-bcm4A, 3-bcm4B, 4-bcm4C)
+    bcm_ix = 0
+    
     for ibcm in range(0, 5):
         previous_acctrig = (acctrig_value[0] - EDTM_current)
         previous_EDTM = EDTM_value[0]
@@ -187,7 +190,7 @@ def scaler(PS_names, HMS_PS, SHMS_PS, thres_curr, report_current, runNum, MaxEve
                 charge_sum[ibcm] += (bcm_value[ibcm][i] - previous_charge[ibcm])
                 time_sum[ibcm] += (time_value[i] - previous_time[ibcm])
             # Current cuts and selection of BCM4A
-            if (ibcm == 0 and abs( current[ibcm][i]-report_current) < thres_curr):
+            if (ibcm == bcm_ix and abs( current[ibcm][i]-report_current) < thres_curr):
                 # EDTM scaler iteration.
                 # Iterate over current value then subtracting previous so that there is no double counting. Subtracted values are uncut.
                 EDTM_current = (EDTM_value[i] - previous_EDTM)
@@ -248,8 +251,8 @@ def scaler(PS_names, HMS_PS, SHMS_PS, thres_curr, report_current, runNum, MaxEve
         "run number" : runNum,
         "%s" % PS_names[0]: SHMS_PS,
         "%s" % PS_names[1]: HMS_PS,
-        "time": time_sum[2],
-        "charge": charge_sum[2],
+        "time": time_sum[bcm_ix],
+        "charge": charge_sum[bcm_ix],
         "SHMSTRIG_scaler": trig_sum[shms_ps_ix],
         "HMSTRIG_scaler": trig_sum[hms_ps_ix],
         "CPULT_scaler": acctrig_sum/((trig_sum[shms_ps_ix]/SHMS_PS) + (trig_sum[hms_ps_ix]/HMS_PS)),
@@ -273,8 +276,8 @@ def scaler(PS_names, HMS_PS, SHMS_PS, thres_curr, report_current, runNum, MaxEve
             "%s" % PS_names[0]: SHMS_PS,
             "%s" % PS_names[1]: HMS_PS,
             "%s" % PS_names[2]: COIN_PS,
-            "time": time_sum[2],
-            "charge": charge_sum[2],
+            "time": time_sum[bcm_ix],
+            "charge": charge_sum[bcm_ix],
             "SHMSTRIG_scaler": trig_sum[shms_ps_ix],
             "HMSTRIG_scaler": trig_sum[hms_ps_ix],
             "COINTRIG_scaler": trig_sum[coin_ps_ix],

@@ -3,7 +3,7 @@
 # Description: This is where the variables for the yield calculations are formulated.
 # Variables calculated: tot_events, h_int_goodscin_evts, p_int_goodscin_evts, SHMSTRIG_cut, HMSTRIG_cut, HMS_track, HMS_track_uncern, SHMS_track, SHMS_track_uncern, accp_edtm
 # ================================================================
-# Time-stamp: "2022-09-09 04:35:54 trottar"
+# Time-stamp: "2022-09-29 07:45:24 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -55,7 +55,7 @@ Grab prescale values and tracking efficiencies from report file
 # Open report file to grab prescale values and tracking efficiency
 report = UTILPATH+"/REPORT_OUTPUT/Analysis/Lumi/%s_%s_%s.report" % (ROOTPrefix,runNum,MaxEvent)
 f = open(report)
-psList = ['SW_Ps1_factor','SW_Ps2_factor','SW_Ps3_factor','SW_Ps4_factor','SW_Ps5_factor','SW_Ps6_factor']
+psList = ['KLT_Ps1_factor','KLT_Ps2_factor','KLT_Ps3_factor','KLT_Ps4_factor','KLT_Ps5_factor','KLT_Ps6_factor']
     
 # Prescale input value (psValue) to its actual DAQ understanding (psActual)
 psActual = [-1,1,2,3,5,9,17,33,65,129,257,513,1025,2049,4097,8193,16385,32769]
@@ -65,9 +65,13 @@ psValue = [-1,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16]
 for line in f:
     data = line.split(':')
     track_data = line.split(':')
-    if ('SW_SHMS_Electron_Singles_TRACK_EFF' in track_data[0]):
-        SHMS_track_info = track_data[1].split("+-")
-    if ('SW_HMS_Electron_Singles_TRACK_EFF' in track_data[0]):
+    if (5149 <= int(runNum) <= 5303):
+        if ('KLT_SHMS_Pion_ALL_TRACK_EFF' in track_data[0]):
+            SHMS_track_info = track_data[1].split("+-")
+    else:
+        if ('KLT_SHMS_Elec_ALL_TRACK_EFF' in track_data[0]):
+            SHMS_track_info = track_data[1].split("+-")
+    if ('KLT_HMS_Elec_SING_TRACK_EFF' in track_data[0]):
         HMS_track_info = track_data[1].split("+-")
     for i, obj in enumerate(psList) :
         if (psList[i] in data[0]) : 
@@ -83,12 +87,30 @@ for line in f:
                 ps5_tmp = data[1].strip()
             if (i == 5) :
                 ps6_tmp = data[1].strip()
-ps1=int(ps1_tmp)
-ps2=int(ps2_tmp)
-ps3=int(ps3_tmp)
-ps4=int(ps4_tmp)
-ps5=int(ps5_tmp)
-ps6=int(ps6_tmp)
+try:
+    ps1=int(ps1_tmp)
+except NameError:
+    ps1=-1
+try:
+    ps2=int(ps2_tmp)
+except NameError:
+    ps2=-1
+try:
+    ps3=int(ps3_tmp)
+except NameError:
+    ps3=-1
+try:
+    ps4=int(ps4_tmp)
+except NameError:
+    ps4=-1
+try:
+    ps5=int(ps5_tmp)
+except NameError:
+    ps5=-1
+try:
+    ps6=int(ps6_tmp)
+except NameError:
+    ps6=-1
 SHMS_track_eff = float(SHMS_track_info[0]) # Also define below, I'll probably use the report for consistency's sake
 SHMS_track_uncern = float(SHMS_track_info[1])
 HMS_track_eff = float(HMS_track_info[0]) # Also define below, I'll probably use the report for consistency's sake
@@ -191,7 +213,6 @@ strDict = proc_root[2] # Dictionary of cuts as strings
 ################################################################################################################################################
 
 print("Running as %s on %s, hallc_replay_lt path assumed as %s" % (USER, HOST, REPLAYPATH))
-
 # Output for luminosity table
 out_f = UTILPATH+"/scripts/luminosity/OUTPUTS/lumi_data.csv"
 rootName = UTILPATH+"/ROOTfiles/Analysis/Lumi/%s_%s_%s.root" % (ROOTPrefix,runNum,MaxEvent)     # Input file location and variables taking
@@ -210,8 +231,6 @@ SCALER TREE, TSP
 '''
 
 s_tree = up.open(rootName)["TSP"]
-
-P_BCM_scalerCharge = s_tree.array("P.BCM1.scalerCharge")
 
 ################################################################################################################################################
 
@@ -571,7 +590,7 @@ def track_pid_cuts():
                 plt.text(-0.15,0.95-(i+1)/10," {}".format(v),fontsize=8)
                 i+=1
         if key == "c_curr":
-            global thres_curr, report_current
+            #global thres_curr, report_current
             # e.g. Grabbing threshold current (ie 2.5) from something like this [' {"H_bcm_bcm1_AvgCurrent" : (abs(H_bcm_bcm1_AvgCurrent-55) < 2.5)}']
             thres_curr = float(val[0].split(":")[1].split("<")[1].split(")")[0].strip())
             # e.g. Grabbing set current for run (ie 55) from something like this [' {"H_bcm_bcm1_AvgCurrent" : (abs(H_bcm_bcm1_AvgCurrent-55) < 2.5)}']
@@ -743,7 +762,8 @@ def main():
         run_index = out_data.index[out_data['run number'] == int(runNum)].tolist()
         out_data.drop(run_index, inplace=True)
         out_data = out_data.append(table,ignore_index=True)
-        print("Output luminosity values\n",out_data)
+        with pd.option_context('display.max_rows', None, 'display.max_columns', None):  # more options can be specified also
+            print("Output luminosity values\n",out_data)
         out_data.to_csv(out_f, index = False, header=True, mode='w+',)
     else:
         table.to_csv(out_f, index = False, header=True, mode='a',)
