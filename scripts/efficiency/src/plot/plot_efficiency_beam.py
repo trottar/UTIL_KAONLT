@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2022-10-03 12:06:03 trottar"
+# Time-stamp: "2022-10-03 12:11:29 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -233,11 +233,11 @@ plt.grid(zorder=1)
 #plt.scatter(efficiency_data_6p2["HMS_EL-REAL_Trigger_Rate"],efficiency_data_6p2["Non_Scaler_EDTM_Live_Time"],color='orange',zorder=4,label='6p2')
 #plt.scatter(efficiency_data_8p2["HMS_EL-REAL_Trigger_Rate"],efficiency_data_8p2["Non_Scaler_EDTM_Live_Time"],color='green',zorder=4,label='8p2')
 plt.legend(loc="lower right", markerscale=0.7, scatterpoints=1, fontsize=10)
-plt.errorbar(efficiency_data_10p6["HMS_EL-REAL_Trigger_Rate"],efficiency_data_10p6["Non_Scaler_EDTM_Live_Time"],yerr=efficiency_data_10p6["Non_Scaler_EDTM_Live_Time_ERROR"],color='blue',zorder=3)
-plt.errorbar(efficiency_data_3p8["HMS_EL-REAL_Trigger_Rate"],efficiency_data_3p8["Non_Scaler_EDTM_Live_Time"],yerr=efficiency_data_3p8["Non_Scaler_EDTM_Live_Time_ERROR"],color='black',zorder=3)
-plt.errorbar(efficiency_data_4p9["HMS_EL-REAL_Trigger_Rate"],efficiency_data_4p9["Non_Scaler_EDTM_Live_Time"],yerr=efficiency_data_4p9["Non_Scaler_EDTM_Live_Time_ERROR"],color='black',zorder=3)
-plt.errorbar(efficiency_data_6p2["HMS_EL-REAL_Trigger_Rate"],efficiency_data_6p2["Non_Scaler_EDTM_Live_Time"],yerr=efficiency_data_6p2["Non_Scaler_EDTM_Live_Time_ERROR"],color='black',zorder=3)
-plt.errorbar(efficiency_data_8p2["HMS_EL-REAL_Trigger_Rate"],efficiency_data_8p2["Non_Scaler_EDTM_Live_Time"],yerr=efficiency_data_8p2["Non_Scaler_EDTM_Live_Time_ERROR"],color='black',zorder=3)
+plt.errorbar(efficiency_data_10p6["HMS_EL-REAL_Trigger_Rate"],efficiency_data_10p6["Non_Scaler_EDTM_Live_Time"],yerr=efficiency_data_10p6["Non_Scaler_EDTM_Live_Time_ERROR"],color='black',zorder=3)
+#plt.errorbar(efficiency_data_3p8["HMS_EL-REAL_Trigger_Rate"],efficiency_data_3p8["Non_Scaler_EDTM_Live_Time"],yerr=efficiency_data_3p8["Non_Scaler_EDTM_Live_Time_ERROR"],color='black',zorder=3)
+#plt.errorbar(efficiency_data_4p9["HMS_EL-REAL_Trigger_Rate"],efficiency_data_4p9["Non_Scaler_EDTM_Live_Time"],yerr=efficiency_data_4p9["Non_Scaler_EDTM_Live_Time_ERROR"],color='black',zorder=3)
+#plt.errorbar(efficiency_data_6p2["HMS_EL-REAL_Trigger_Rate"],efficiency_data_6p2["Non_Scaler_EDTM_Live_Time"],yerr=efficiency_data_6p2["Non_Scaler_EDTM_Live_Time_ERROR"],color='black',zorder=3)
+#plt.errorbar(efficiency_data_8p2["HMS_EL-REAL_Trigger_Rate"],efficiency_data_8p2["Non_Scaler_EDTM_Live_Time"],yerr=efficiency_data_8p2["Non_Scaler_EDTM_Live_Time_ERROR"],color='black',zorder=3)
 plt.ylabel('EDTM', fontsize=12)
 plt.xlabel('HMS EL-REAL Trigger Rate [kHz]', fontsize=12)
 plt.title('HMS %s-%s' % (int(min(efficiency_data["Run_Number"])),int(max(efficiency_data["Run_Number"]))), fontsize=12)
