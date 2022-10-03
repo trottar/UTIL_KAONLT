@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2022-10-03 11:37:35 trottar"
+# Time-stamp: "2022-10-03 11:44:12 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -203,6 +203,7 @@ plt.subplot(144)
 plt.grid(zorder=1)
 #plt.xlim(0,100)
 #plt.ylim(0.9,1.1)
+plt.scatter(efficiency_data_10p6["SHMS_Hodoscope_S1X_Rate"],efficiency_data_10p6["SHMS_Hodo_3_of_4_EFF"],color='blue',zorder=4,label='10p6')
 plt.scatter(efficiency_data_3p8["SHMS_Hodoscope_S1X_Rate"],efficiency_data_3p8["SHMS_Hodo_3_of_4_EFF"],color='red',zorder=4,label='3p8')
 plt.scatter(efficiency_data_4p9["SHMS_Hodoscope_S1X_Rate"],efficiency_data_4p9["SHMS_Hodo_3_of_4_EFF"],color='purple',zorder=4,label='4p9')
 plt.scatter(efficiency_data_6p2["SHMS_Hodoscope_S1X_Rate"],efficiency_data_6p2["SHMS_Hodo_3_of_4_EFF"],color='orange',zorder=4,label='6p2')
@@ -283,6 +284,7 @@ plt.subplot(144)
 plt.grid(zorder=1)
 #plt.xlim(0,100)
 #plt.ylim(0.9,1.1)
+plt.scatter(efficiency_data_10p6["HMS_EL-REAL_Trigger_Rate"],efficiency_data_10p6["HMS_Hodo_3_of_4_EFF"],color='blue',zorder=4,label='10p6')
 plt.scatter(efficiency_data_3p8["HMS_EL-REAL_Trigger_Rate"],efficiency_data_3p8["HMS_Hodo_3_of_4_EFF"],color='red',zorder=4,label='3p8')
 plt.scatter(efficiency_data_4p9["HMS_EL-REAL_Trigger_Rate"],efficiency_data_4p9["HMS_Hodo_3_of_4_EFF"],color='purple',zorder=4,label='4p9')
 plt.scatter(efficiency_data_6p2["HMS_EL-REAL_Trigger_Rate"],efficiency_data_6p2["HMS_Hodo_3_of_4_EFF"],color='orange',zorder=4,label='6p2')
@@ -363,6 +365,7 @@ plt.subplot(144)
 plt.grid(zorder=1)
 #plt.xlim(0,100)
 #plt.ylim(0.9,1.1)
+plt.scatter(efficiency_data_10p6["HMS_Hodoscope_S1X_Rate"],efficiency_data_10p6["HMS_Hodo_3_of_4_EFF"],color='blue',zorder=4,label='10p6')
 plt.scatter(efficiency_data_3p8["HMS_Hodoscope_S1X_Rate"],efficiency_data_3p8["HMS_Hodo_3_of_4_EFF"],color='red',zorder=4,label='3p8')
 plt.scatter(efficiency_data_4p9["HMS_Hodoscope_S1X_Rate"],efficiency_data_4p9["HMS_Hodo_3_of_4_EFF"],color='purple',zorder=4,label='4p9')
 plt.scatter(efficiency_data_6p2["HMS_Hodoscope_S1X_Rate"],efficiency_data_6p2["HMS_Hodo_3_of_4_EFF"],color='orange',zorder=4,label='6p2')
@@ -515,6 +518,7 @@ plt.subplot(144)
 plt.grid(zorder=1)
 #plt.xlim(0,100)
 #plt.ylim(0.9,1.1)
+plt.scatter(efficiency_data_10p6["Run_Number"],efficiency_data_10p6["SHMS_Hodo_3_of_4_EFF"],color='blue',zorder=4,label='10p6')
 plt.scatter(efficiency_data_3p8["Run_Number"],efficiency_data_3p8["SHMS_Hodo_3_of_4_EFF"],color='red',zorder=4,label='3p8')
 plt.scatter(efficiency_data_4p9["Run_Number"],efficiency_data_4p9["SHMS_Hodo_3_of_4_EFF"],color='purple',zorder=4,label='4p9')
 plt.scatter(efficiency_data_6p2["Run_Number"],efficiency_data_6p2["SHMS_Hodo_3_of_4_EFF"],color='orange',zorder=4,label='6p2')
