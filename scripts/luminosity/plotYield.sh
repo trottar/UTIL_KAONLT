@@ -29,6 +29,8 @@ PLOTINFO=$1
 
 cd "${SCRIPTPATH}/luminosity/src/"
 
+python3 reana_lumi.py
+
 echo
 echo "Plotting yield data for ${PLOTINFO}..."
 python3 plot_yield.py ${PLOTINFO}
