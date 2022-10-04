@@ -2,7 +2,7 @@
 #
 # Description: Script is used to reanalyze all lumi data or to organize lumi data values into subdirectories
 # ================================================================
-# Time-stamp: "2022-10-04 11:38:52 trottar"
+# Time-stamp: "2022-10-04 11:41:57 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -124,7 +124,7 @@ def convertDFtoCSV(inp_data,out_f):
         except IOError:
             print("Error: %s does not appear to exist." % out_f)
         # Checks if run number is alread in csv and replaces it if it is there
-        run_index = out_data.index[out_data['run number'] == int(inp_data["run number"])].tolist()
+        run_index = out_data.index[out_data['run number'] == int(runNum) for runNum in inp_data["run number"]].tolist()
         out_data.drop(run_index, inplace=True)
         out_data = out_data.append(table,ignore_index=True)
         out_data.to_csv(out_f, index = False, header=True, mode='w+',)
