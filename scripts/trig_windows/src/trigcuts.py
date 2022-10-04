@@ -3,7 +3,7 @@
 #
 # Description: Script to dynamically set new trigger windows and update the param file with these values
 # ================================================================
-# Time-stamp: "2022-10-04 16:24:51 trottar"
+# Time-stamp: "2022-10-04 16:46:32 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -55,7 +55,7 @@ Grab prescale values and tracking efficiencies from report file
 # Open report file to grab prescale values
 report = UTILPATH+"/REPORT_OUTPUT/Analysis/%s/%s_%s_%s.report" % (RunType,ROOTPrefix,runNum,MaxEvent)
 f = open(report)
-psList = ['SW_Ps1_factor','SW_Ps2_factor','SW_Ps3_factor','SW_Ps4_factor','SW_Ps5_factor','SW_Ps6_factor']
+psList = ['KLT_Ps1_factor','KLT_Ps2_factor','KLT_Ps3_factor','KLT_Ps4_factor','KLT_Ps5_factor','KLT_Ps6_factor']
    
 # Prescale input value (psValue) to its actual DAQ understanding (psActual)
 psActual = [-1,1,2,3,5,9,17,33,65,129,257,513,1025,2049,4097,8193,16385,32769]

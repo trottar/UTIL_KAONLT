@@ -3,7 +3,7 @@
 #
 # Description: Script for plotting trigger windows
 # ================================================================
-# Time-stamp: "2022-10-04 16:25:21 trottar"
+# Time-stamp: "2022-10-04 16:49:50 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -57,7 +57,7 @@ Grab prescale values and tracking efficiencies from report file
 # Open report file to grab prescale values
 report = UTILPATH+"/REPORT_OUTPUT/Analysis/%s/%s_%s_%s.report" % (RunType,ROOTPrefix,runNum,MaxEvent)
 f = open(report)
-psList = ['SW_Ps1_factor','SW_Ps2_factor','SW_Ps3_factor','SW_Ps4_factor','SW_Ps5_factor','SW_Ps6_factor']
+psList = ['KLT_Ps1_factor','KLT_Ps2_factor','KLT_Ps3_factor','KLT_Ps4_factor','KLT_Ps5_factor','KLT_Ps6_factor']
     
 # Prescale input value (psValue) to its actual DAQ understanding (psActual)
 psActual = [-1,1,2,3,5,9,17,33,65,129,257,513,1025,2049,4097,8193,16385,32769]
@@ -66,9 +66,6 @@ psValue = [-1,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16]
 # Search root file for prescale values, then save as variables
 for line in f:
     data = line.split(':')
-    current_data = line.split(':')
-    if ('SW_BCM4A_Beam_Cut_Current' in current_data[0]):
-        report_current = current_data[1].split("+-")
     for i, obj in enumerate(psList) :
         if (psList[i] in data[0]) : 
             if (i == 0) :  
@@ -186,6 +183,14 @@ proc_root = lt.setup_ana()
 c = proc_root[0] # Cut object
 tree = proc_root[1] # Dictionary of branches
 strDict = proc_root[2] # Dictionary of cuts as strings
+
+for key,val in strDict.items():
+    if key == "c_curr":
+        global thres_curr, report_current
+        # e.g. Grabbing threshold current (ie 2.5) from something like this [' {"H_bcm_bcm1_AvgCurrent" : (abs(H_bcm_bcm1_AvgCurrent-55) < 2.5)}']
+        thres_curr = float(val[0].split(":")[1].split("<")[1].split(")")[0].strip())
+        # e.g. Grabbing set current for run (ie 55) from something like this [' {"H_bcm_bcm1_AvgCurrent" : (abs(H_bcm_bcm1_AvgCurrent-55) < 2.5)}']
+        report_current = float(val[0].split(":")[1].split("<")[0].split(")")[0].split("-")[1].strip())
 
 ################################################################################################################################################
 
