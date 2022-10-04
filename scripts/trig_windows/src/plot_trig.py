@@ -3,7 +3,7 @@
 #
 # Description: Script for plotting trigger windows
 # ================================================================
-# Time-stamp: "2022-10-04 16:49:50 trottar"
+# Time-stamp: "2022-10-04 18:22:23 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -353,7 +353,7 @@ def currentPlots():
     plt.yscale('log')
     plt.xlabel('H_bcm_bcm1_AvgCurrent')
     plt.ylabel('Count')
-    plt.title("Run %s, %s" % (runNum,report_current[0].strip('\t').strip('\n').strip()))
+    plt.title("Run %s, %s" % (runNum,report_current))
 
     plt.savefig(UTILPATH+'/scripts/trig_windows/OUTPUTS/curr_%s_%s.png' % (ROOTPrefix,runNum))     # Input file location and variables taking)
 
