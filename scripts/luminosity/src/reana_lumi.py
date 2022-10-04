@@ -2,7 +2,7 @@
 #
 # Description: Script is used to reanalyze all lumi data or to organize lumi data values into subdirectories
 # ================================================================
-# Time-stamp: "2022-08-30 07:01:09 trottar"
+# Time-stamp: "2022-10-04 11:29:52 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -110,16 +110,26 @@ def convertDFtoCSV(inp_data,out_f):
     '''
     Converts dataframe to csv file for arbitrary df and output location
     '''
-    file_exists = os.path.isfile(out_f)
 
+    # Convert merged dictionary to a pandas dataframe then sort it
     table  = pd.DataFrame(inp_data, columns=inp_data.keys())
     table = table.reindex(sorted(table.columns), axis=1)
 
+    file_exists = os.path.isfile(out_f)
+
+    # Updates csv file with luminosity calculated values for later analysis (see plot_yield.py)
     if file_exists:
-        table.to_csv(out_f, index = False, header=True, mode='w+',)  
+        try:
+            out_data = pd.read_csv(out_f)
+        except IOError:
+            print("Error: %s does not appear to exist." % out_f)
+        # Checks if run number is alread in csv and replaces it if it is there
+        run_index = out_data.index[out_data['run number'] == int(runNum)].tolist()
+        out_data.drop(run_index, inplace=True)
+        out_data = out_data.append(table,ignore_index=True)
+        out_data.to_csv(out_f, index = False, header=True, mode='w+',)
     else:
         table.to_csv(out_f, index = False, header=True, mode='a',)
-
 
 if ANATYPE == "Pion":
     # Redefine lumi data by run number
