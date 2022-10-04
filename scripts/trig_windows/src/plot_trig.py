@@ -3,7 +3,7 @@
 #
 # Description: Script for plotting trigger windows
 # ================================================================
-# Time-stamp: "2022-07-25 10:23:42 trottar"
+# Time-stamp: "2022-10-04 16:25:21 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -83,12 +83,30 @@ for line in f:
                 ps5_tmp = data[1].strip()
             if (i == 5) :
                 ps6_tmp = data[1].strip()
-ps1=int(ps1_tmp)
-ps2=int(ps2_tmp)
-ps3=int(ps3_tmp)
-ps4=int(ps4_tmp)
-ps5=int(ps5_tmp)
-ps6=int(ps6_tmp)
+try:
+    ps1=int(ps1_tmp)
+except NameError:
+    ps1=-1
+try:
+    ps2=int(ps2_tmp)
+except NameError:
+    ps2=-1
+try:
+    ps3=int(ps3_tmp)
+except NameError:
+    ps3=-1
+try:
+    ps4=int(ps4_tmp)
+except NameError:
+    ps4=-1
+try:
+    ps5=int(ps5_tmp)
+except NameError:
+    ps5=-1
+try:
+    ps6=int(ps6_tmp)
+except NameError:
+    ps6=-1
 
 # Convert the prescale input values to their actual DAQ values
 for i,index in enumerate(psActual):

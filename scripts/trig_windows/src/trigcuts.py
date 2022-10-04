@@ -3,7 +3,7 @@
 #
 # Description: Script to dynamically set new trigger windows and update the param file with these values
 # ================================================================
-# Time-stamp: "2022-10-04 14:14:19 trottar"
+# Time-stamp: "2022-10-04 16:24:51 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -76,7 +76,7 @@ for line in f:
                 ps4_tmp = data[1].strip()
             if (i == 4) :
                 ps5_tmp = data[1].strip()
-                if (i == 5) :
+            if (i == 5) :
                 ps6_tmp = data[1].strip()                
 try:
     ps1=int(ps1_tmp)
