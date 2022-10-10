@@ -3,7 +3,7 @@
 # Description: This is where the variables for the yield calculations are formulated.
 # Variables calculated: tot_events, h_int_etottracknorm_evts, p_int_etottracknorm_evts, SHMSTRIG_cut, HMSTRIG_cut, HMS_track, HMS_track_uncern, SHMS_track, SHMS_track_uncern, accp_edtm
 # ================================================================
-# Time-stamp: "2022-10-10 15:53:54 trottar"
+# Time-stamp: "2022-10-10 17:54:01 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -111,9 +111,9 @@ try:
     ps6=int(ps6_tmp)
 except NameError:
     ps6=-1
-SHMS_track_eff = float(SHMS_track_info[0]) # Also define below, I'll probably use the report for consistency's sake
+#SHMS_track_eff = float(SHMS_track_info[0]) # Also define below, I'll probably use the report for consistency's sake
 SHMS_track_uncern = float(SHMS_track_info[1])
-HMS_track_eff = float(HMS_track_info[0]) # Also define below, I'll probably use the report for consistency's sake
+#HMS_track_eff = float(HMS_track_info[0]) # Also define below, I'll probably use the report for consistency's sake
 HMS_track_uncern = float(HMS_track_info[1])
 
 # Convert the prescale input values to their actual DAQ values
@@ -652,11 +652,11 @@ def analysis():
 
     h_et_should = len(c.add_cut(tree["H_cal_etotnorm"],"h_%strack_lumi_before" % HMS_PID))
     h_et_did = len(c.add_cut(tree["H_cal_etotnorm"],"h_%strack_lumi_after" % HMS_PID))
-    #HMS_track_eff = h_et_did/h_et_should
+    HMS_track_eff = h_et_did/h_et_should
 
     p_et_should = len(c.add_cut(tree["P_cal_etotnorm"],"p_%strack_lumi_before" % SHMS_PID))
     p_et_did = len(c.add_cut(tree["P_cal_etotnorm"],"p_%strack_lumi_after" % SHMS_PID))
-    #SHMS_track_eff = p_et_did/p_et_should
+    SHMS_track_eff = p_et_did/p_et_should
 
     # Applies PID cuts, once integrated this will give the events (no track)
     h_etotnorm = c.add_cut(tree["H_cal_etotnorm"],"h_%scut_lumi_nt" % HMS_PID) 
