@@ -1,9 +1,9 @@
 #! /usr/bin/python
 #
 # Description: This is where the variables for the yield calculations are formulated.
-# Variables calculated: tot_events, h_int_goodscin_evts, p_int_goodscin_evts, SHMSTRIG_cut, HMSTRIG_cut, HMS_track, HMS_track_uncern, SHMS_track, SHMS_track_uncern, accp_edtm
+# Variables calculated: tot_events, h_int_etottracknorm_evts, p_int_etottracknorm_evts, SHMSTRIG_cut, HMSTRIG_cut, HMS_track, HMS_track_uncern, SHMS_track, SHMS_track_uncern, accp_edtm
 # ================================================================
-# Time-stamp: "2022-09-29 07:45:24 trottar"
+# Time-stamp: "2022-10-10 15:53:54 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -638,7 +638,7 @@ def analysis():
     # Applies trigger window cuts to trigger to get accepted trigger events
     SHMSTRIG_cut = [trig1
                     for (trig1,evt) in zip(c.add_cut(T_coin_pTRIG_SHMS_ROC2_tdcTime,"c_ptrigSHMS%s" % PS_names[0].replace("PS","")),tree["EvtType"])
-                    if evt == 1]
+                    if evt == 1 or evt == 3]
     # Applies trigger window cuts to trigger to get accepted trigger events
     HMSTRIG_cut = [ x
                     for (x, evt) in zip(c.add_cut(T_coin_pTRIG_HMS_ROC1_tdcTime,"c_ptrigHMS%s" % PS_names[1].replace("PS","")), tree["EvtType"])
@@ -663,8 +663,10 @@ def analysis():
     p_etotnorm = c.add_cut(tree["P_cal_etotnorm"],"p_%scut_lumi_nt" % SHMS_PID)
 
     # Applies PID cuts, once integrated this will give the events (track)
-    h_goodscinhit = c.add_cut(tree["H_hod_goodscinhit"],"h_%scut_lumi" % HMS_PID)
-    p_goodscinhit = c.add_cut(tree["P_hod_goodscinhit"],"p_%scut_lumi" % SHMS_PID)
+    #h_goodscinhit = c.add_cut(tree["H_hod_goodscinhit"],"h_%scut_lumi" % HMS_PID)
+    #p_goodscinhit = c.add_cut(tree["P_hod_goodscinhit"],"p_%scut_lumi" % SHMS_PID)
+    h_etottracknorm = c.add_cut(tree["H_cal_etottracknorm"],"h_%scut_lumi" % HMS_PID)
+    p_etottracknorm = c.add_cut(tree["P_cal_etottracknorm"],"p_%scut_lumi" % SHMS_PID)    
     
     # Creates a dictionary for the calculated luminosity values 
     track_info = {
@@ -672,8 +674,8 @@ def analysis():
         "tot_events" : len(EventType),
         "h_int_etotnorm_evts" : (scipy.integrate.simps(h_etotnorm)),
         "p_int_etotnorm_evts" : (scipy.integrate.simps(p_etotnorm)),
-        "h_int_goodscin_evts" : scipy.integrate.simps(h_goodscinhit),
-        "p_int_goodscin_evts" : scipy.integrate.simps(p_goodscinhit),
+        "h_int_etottracknorm_evts" : scipy.integrate.simps(h_etottracknorm),
+        "p_int_etottracknorm_evts" : scipy.integrate.simps(p_etottracknorm),
         "SHMSTRIG_cut" : len(SHMSTRIG_cut),
         "HMSTRIG_cut" : len(HMSTRIG_cut),
         "HMS_track" : HMS_track_eff,
@@ -693,8 +695,8 @@ def analysis():
             "tot_events" : len(EventType),
             "h_int_etotnorm_evts" : scipy.integrate.simps(h_etotnorm),
             "p_int_etotnorm_evts" : scipy.integrate.simps(p_etotnorm),
-            "h_int_goodscin_evts" : scipy.integrate.simps(h_goodscinhit),
-            "p_int_goodscin_evts" : scipy.integrate.simps(p_goodscinhit),
+            "h_int_etottracknorm_evts" : scipy.integrate.simps(h_etottracknorm),
+            "p_int_etottracknorm_evts" : scipy.integrate.simps(p_etottracknorm),
             "SHMSTRIG_cut" : len(SHMSTRIG_cut),
             "HMSTRIG_cut" : len(HMSTRIG_cut),
             "COINTRIG_cut" : len(COINTRIG_cut),
@@ -716,10 +718,10 @@ def analysis():
     print("Number of HMSTRIG Events: %.0f" % (HMS_PS*track_info['HMSTRIG_cut']))
     print("Number of SHMSTRIG Events: %.0f" % (SHMS_PS*track_info['SHMSTRIG_cut']))
 
-    print("\nNumber of HMS good events: %.0f +/- %.0f " % ((HMS_PS*track_info['h_int_goodscin_evts']), math.sqrt(HMS_PS*track_info['h_int_goodscin_evts'])))
+    print("\nNumber of HMS good events: %.0f +/- %.0f " % ((HMS_PS*track_info['h_int_etottracknorm_evts']), math.sqrt(HMS_PS*track_info['h_int_etottracknorm_evts'])))
     print("Calculated HMS tracking efficiency: %f +/- %f\n" % ((track_info['HMS_track']), (track_info['HMS_track_uncern'])))
 
-    print("Number of SHMS good events: %.0f +/- %.0f " % ((SHMS_PS*track_info['h_int_goodscin_evts']), math.sqrt(SHMS_PS*track_info['h_int_goodscin_evts'])))
+    print("Number of SHMS good events: %.0f +/- %.0f " % ((SHMS_PS*track_info['h_int_etottracknorm_evts']), math.sqrt(SHMS_PS*track_info['h_int_etottracknorm_evts'])))
     print("Calculated SHMS tracking efficiency: %f +/- %f\n" % ((track_info['SHMS_track']), (track_info['SHMS_track_uncern'])))
 
     print("============================================================================\n\n")
