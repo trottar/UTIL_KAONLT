@@ -2,8 +2,6 @@
 
 # 10/08/21 - Stephen JD Kay - University of Regina
 # This script sets up the relevant sym links for running analysis scripts
-# This version is specific for cdaq
-
 
 # Runs script in the ltsep python package that grabs current path enviroment
 if [[ ${HOSTNAME} = *"cdaq"* ]]; then
