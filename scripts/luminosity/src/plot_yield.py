@@ -3,7 +3,7 @@
 # Description: Grabs lumi data from corresponding csv depending on run setting. Then plots the yields and creates a comprehensive table.
 # Variables calculated: current, rate_HMS, rate_SHMS, sent_edtm_PS, uncern_HMS_evts_scaler, uncern_SHMS_evts_scaler, uncern_HMS_evts_notrack, uncern_SHMS_evts_notrack, uncern_HMS_evts_track, uncern_SHMS_evts_track
 # ================================================================
-# Time-stamp: "2022-10-10 15:52:11 trottar"
+# Time-stamp: "2022-10-11 14:38:11 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -76,23 +76,8 @@ def removeRun(runNum):
     return lumi_data
 
 # Remove runs, removeRun(runNumber)
-'''
-# Below runs are removed because of poor beam time
-# 10p6 l1c
-removeRun(5158)
+removeRun(5154)
 
-# 10p6 l2c
-for val in [5181,5300,5301]:
-    removeRun(val)
-
-# 6p2 l1c
-for val in [7846,7865]:
-    removeRun(val)
-
-# 8p2 l1c
-for val in [7952,7948,7949]:
-    removeRun(val)
-'''
 ################################################################################################################################################
 
 # Convert to dict for proper formatting when eventually merging dictionaries
