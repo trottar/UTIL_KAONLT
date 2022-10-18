@@ -1,6 +1,6 @@
 Run_Start,Run_End,HMS_PID,SHMS_PID
-5149,5181,electron,proton
-5295,5303,electron,proton
+5149,5181,electron,hadron
+5295,5303,electron,hadron
 7841,7847,electron,electron
 7948,7961,electron,electron
 8299,8303,electron,electron
