@@ -3,7 +3,7 @@
 # Description: Grabs lumi data from corresponding csv depending on run setting. Then plots the yields and creates a comprehensive table.
 # Variables calculated: current, rate_HMS, rate_SHMS, sent_edtm_PS, uncern_HMS_evts_scaler, uncern_SHMS_evts_scaler, uncern_HMS_evts_notrack, uncern_SHMS_evts_notrack, uncern_HMS_evts_track, uncern_SHMS_evts_track
 # ================================================================
-# Time-stamp: "2022-06-30 00:54:53 trottar"
+# Time-stamp: "2022-10-25 10:55:01 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -40,6 +40,20 @@ def get_file(inp_name,SCRIPTPATH):
                 inp_f = SCRIPTPATH+"/luminosity/OUTPUTS/10p6/Lumi_2/Carbon0p5/lumi_data_c_l2_10p6.csv"
                 out_f = SCRIPTPATH+"/luminosity/OUTPUTS/10p6/Lumi_2/Carbon0p5/yield_data_c_l2_10p6.csv"
                 print("\nGrabbing input...\n%s" % str(inp_f))
+        elif "l3" in inp_name:
+            if "LH2" in inp_name.upper():
+                target = "LH2"
+                inp_f = SCRIPTPATH+"/luminosity/OUTPUTS/10p6/Lumi_3/LH2/lumi_data_lh2_l3_10p6.csv"
+                out_f = SCRIPTPATH+"/luminosity/OUTPUTS/10p6/Lumi_3/LH2/yield_data_lh2_l3_10p6.csv"
+            if "C" in inp_name.upper():
+                target = "carbon"
+                inp_f = SCRIPTPATH+"/luminosity/OUTPUTS/10p6/Lumi_3/Carbon0p5/lumi_data_c_l3_10p6.csv"
+                out_f = SCRIPTPATH+"/luminosity/OUTPUTS/10p6/Lumi_3/Carbon0p5/yield_data_c_l3_10p6.csv"
+            if "AL" in inp_name.upper():
+                target = "aluminum"
+                inp_f = SCRIPTPATH+"/luminosity/OUTPUTS/10p6/Lumi_3/Aluminum/lumi_data_al_l3_10p6.csv"
+                out_f = SCRIPTPATH+"/luminosity/OUTPUTS/10p6/Lumi_3/Aluminum/yield_data_al_l3_10p6.csv"                
+                print("\nGrabbing input...\n%s" % str(inp_f))                
 
     elif "6p2" in inp_name:
         if "LH2" in inp_name.upper():
