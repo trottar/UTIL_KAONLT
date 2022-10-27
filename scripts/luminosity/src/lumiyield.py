@@ -3,7 +3,7 @@
 # Description: This is where the variables for the yield calculations are formulated.
 # Variables calculated: tot_events, h_int_etottracknorm_evts, p_int_etottracknorm_evts, SHMSTRIG_cut, HMSTRIG_cut, HMS_track, HMS_track_uncern, SHMS_track, SHMS_track_uncern, accp_edtm
 # ================================================================
-# Time-stamp: "2022-10-10 23:10:08 trottar"
+# Time-stamp: "2022-10-27 10:47:21 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -161,10 +161,23 @@ print("\nPre-scale values...\nPS1:{0}, PS2:{1}, PS3:{2}, PS4:{3}, PS5:{4}, PS6:{
 # Save only the used prescale triggers to the PS_used list
 PS_list = [["PS1",PS1],["PS2",PS2],["PS3",PS3],["PS4",PS4],["PS5",PS5],["PS6",PS6]]
 PS_used = []
+PS_names = []
 for val in PS_list:
-    if val[1] != 0:
-        PS_used.append(val)
+    if val[0] == "PS3" or val[0] == "PS4":
+        #PS_used.append(val)
+        PS_names.append(val[0])
+        if val[1] != 0:
+            SHMS_PS = val[1]
+    if (val[0] == "PS1" or val[0] == "PS2") and val[1] != 0:
+        PS_names.append(val[0])
+        if val[1] != 0:
+            HMS_PS = val[1]
+    if (val[0] == "PS5" or val[0] == "PS6") and val[1] != 0:
+        PS_names.append(val[0])
+        if val[1] != 0:
+            COIN_PS = val[1]
 
+'''
 # Check if COIN trigger is used by seeing it was saved in the PS_used list
 if len(PS_used) > 2:
     PS_names = [PS_used[0][0],PS_used[1][0],PS_used[2][0]]
@@ -175,6 +188,7 @@ else:
     PS_names = [PS_used[0][0],PS_used[1][0]]
     SHMS_PS = PS_used[0][1]
     HMS_PS = PS_used[1][1]
+'''
 
 ################################################################################################################################################
 '''
