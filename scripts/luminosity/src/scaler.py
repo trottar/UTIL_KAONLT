@@ -3,7 +3,7 @@
 # Description: This is where the scaler variables for the yield calculations are formulated.
 # Variables calculated: SHMS_PS, HMS_PS, time, charge, SHMSTRIG_scaler, HMSTRIG_scaler, CPULT_scaler, CPULT_scaler_uncern, HMS_eLT, HMS_eLT_uncern, SHMS_eLT, SHMS_eLT_uncern, sent_edtm
 # ================================================================
-# Time-stamp: "2022-10-27 17:27:39 trottar"
+# Time-stamp: "2022-10-27 17:31:40 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -291,9 +291,7 @@ def scaler(PS_names, HMS_PS, SHMS_PS, thres_curr, report_current, runNum, MaxEve
         print("%s charge: %.3f uC, Beam over threshold for %.3f s" %
               (bcm_name[ibcm], charge_sum[ibcm], time_sum[ibcm]))
 
-    print("\n\n")
-
-    print("L1ACC counts: %.0f, \nComputer Livetime: %f +/- %f" % (acctrig_sum, scalers["CPULT_scaler"],scalers["CPULT_scaler_uncern"]))
+    print("\nL1ACC counts: %.0f, \nComputer Livetime: %f +/- %f" % (acctrig_sum, scalers["CPULT_scaler"],scalers["CPULT_scaler_uncern"]))
     for ps in PS_names:
         if ps == "PS1" or ps == "PS2":
             print("%s Prescaled Pretrigger Counts: %.0f" % (trig_name[0], scalers["SHMSTRIG_scaler"]))
