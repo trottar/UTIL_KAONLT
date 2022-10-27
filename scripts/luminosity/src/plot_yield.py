@@ -3,7 +3,7 @@
 # Description: Grabs lumi data from corresponding csv depending on run setting. Then plots the yields and creates a comprehensive table.
 # Variables calculated: current, rate_HMS, rate_SHMS, sent_edtm_PS, uncern_HMS_evts_scaler, uncern_SHMS_evts_scaler, uncern_HMS_evts_notrack, uncern_SHMS_evts_notrack, uncern_HMS_evts_track, uncern_SHMS_evts_track
 # ================================================================
-# Time-stamp: "2022-10-27 17:56:19 trottar"
+# Time-stamp: "2022-10-27 17:57:19 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -155,7 +155,11 @@ def calc_yield():
         yield_dict.update({"sent_edtm_PS" : makeList("sent_edtm")/HMS_PS+makeList("sent_edtm")/SHMS_PS+makeList("sent_edtm")/COIN_PS+makeList("sent_edtm")/(SHMS_PS*HMS_PS*COIN_PS)-makeList("sent_edtm")/(HMS_PS*SHMS_PS)-makeList("sent_edtm")/(COIN_PS*SHMS_PS)-makeList("sent_edtm")/(HMS_PS*COIN_PS)})
         # Total livetime calculation
         TLT = makeList("accp_edtm")/yield_dict["sent_edtm_PS"]
-        yield_dict.update({"TLT" : TLT})    
+        yield_dict.update({"TLT" : TLT})
+        uncern_TLT = np.sqrt(makeList("accp_edtm")/yield_dict["sent_edtm_PS"]**2+makeList("accp_edtm")**2/yield_dict["sent_edtm_PS"]**4)
+        #uncern_TLT = np.sqrt(yield_dict["sent_edtm_PS"]*.95*.05)
+        yield_dict.update({"uncern_TLT" : uncern_TLT})
+        
     
     if SHMS_PS != None:
         yield_dict.update({"rate_SHMS" : makeList("SHMSTRIG_scaler")/makeList("time")})
@@ -313,10 +317,6 @@ def calc_yield():
         #else:
          #   sent_edtm_PS_final[i] = yield_dict["sent_edtm_PS"][i]            
     #yield_dict.update({"sent_edtm_PS_final" : sent_edtm_PS_final})
-
-    uncern_TLT = np.sqrt(makeList("accp_edtm")/yield_dict["sent_edtm_PS"]**2+makeList("accp_edtm")**2/yield_dict["sent_edtm_PS"]**4)
-    #uncern_TLT = np.sqrt(yield_dict["sent_edtm_PS"]*.95*.05)
-    yield_dict.update({"uncern_TLT" : uncern_TLT})
 
     # Restructure dictionary to dataframe format so it matches lumi_data
     yield_table = pd.DataFrame(yield_dict, columns=yield_dict.keys())
