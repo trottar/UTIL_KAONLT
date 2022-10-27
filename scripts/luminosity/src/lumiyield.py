@@ -3,7 +3,7 @@
 # Description: This is where the variables for the yield calculations are formulated.
 # Variables calculated: tot_events, h_int_etottracknorm_evts, p_int_etottracknorm_evts, SHMSTRIG_cut, HMSTRIG_cut, HMS_track, HMS_track_uncern, SHMS_track, SHMS_track_uncern, accp_edtm
 # ================================================================
-# Time-stamp: "2022-10-27 16:50:49 trottar"
+# Time-stamp: "2022-10-27 17:30:12 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -708,16 +708,19 @@ def analysis():
     print("\nTerminate","Selection rules have been applied, plotting results")
     print("Total number of events: %.0f" % (track_info['tot_events']))
     print("Number of EDTM  Events: %.0f" % (track_info['accp_edtm']))
-    print("Number of SHMS EDTM  Events: %.0f" % (track_info['paccp_edtm']))
-    print("Number of HMS EDTM  Events: %.0f" % (track_info['haccp_edtm']))
-    print("Number of HMSTRIG Events: %.0f" % (HMS_PS*track_info['HMSTRIG_cut']))
-    print("Number of SHMSTRIG Events: %.0f" % (SHMS_PS*track_info['SHMSTRIG_cut']))
-
-    print("\nNumber of HMS good events: %.0f +/- %.0f " % ((HMS_PS*track_info['h_int_etottracknorm_evts']), math.sqrt(HMS_PS*track_info['h_int_etottracknorm_evts'])))
-    print("Calculated HMS tracking efficiency: %f +/- %f\n" % ((track_info['HMS_track']), (track_info['HMS_track_uncern'])))
-
-    print("Number of SHMS good events: %.0f +/- %.0f " % ((SHMS_PS*track_info['h_int_etottracknorm_evts']), math.sqrt(SHMS_PS*track_info['h_int_etottracknorm_evts'])))
-    print("Calculated SHMS tracking efficiency: %f +/- %f\n" % ((track_info['SHMS_track']), (track_info['SHMS_track_uncern'])))
+    for ps in PS_names:
+        if ps == "PS1" or ps == "PS2":
+            print("Number of SHMSTRIG Events: %.0f" % (SHMS_PS*track_info['SHMSTRIG_cut']))
+            print("Number of SHMS EDTM  Events: %.0f" % (track_info['paccp_edtm']))
+            print("Number of SHMS good events: %.0f +/- %.0f " % ((SHMS_PS*track_info['h_int_etottracknorm_evts']), math.sqrt(SHMS_PS*track_info['h_int_etottracknorm_evts'])))
+            print("Calculated SHMS tracking efficiency: %f +/- %f\n" % ((track_info['SHMS_track']), (track_info['SHMS_track_uncern'])))            
+        if ps == "PS3" or ps == "PS4":
+            print("Number of HMSTRIG Events: %.0f" % (HMS_PS*track_info['HMSTRIG_cut']))
+            print("Number of HMS EDTM  Events: %.0f" % (track_info['haccp_edtm']))
+            print("\nNumber of HMS good events: %.0f +/- %.0f " % ((HMS_PS*track_info['h_int_etottracknorm_evts']), math.sqrt(HMS_PS*track_info['h_int_etottracknorm_evts'])))
+            print("Calculated HMS tracking efficiency: %f +/- %f\n" % ((track_info['HMS_track']), (track_info['HMS_track_uncern'])))
+        if ps == "PS5" or ps == "PS6":
+            print("Number of COINTRIG Events: %.0f" % (COIN_PS*track_info['COINTRIG_cut']))
 
     print("============================================================================\n\n")
           
