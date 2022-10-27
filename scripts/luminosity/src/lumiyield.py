@@ -3,7 +3,7 @@
 # Description: This is where the variables for the yield calculations are formulated.
 # Variables calculated: tot_events, h_int_etottracknorm_evts, p_int_etottracknorm_evts, SHMSTRIG_cut, HMSTRIG_cut, HMS_track, HMS_track_uncern, SHMS_track, SHMS_track_uncern, accp_edtm
 # ================================================================
-# Time-stamp: "2022-10-27 16:23:44 trottar"
+# Time-stamp: "2022-10-27 16:30:53 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -176,20 +176,6 @@ for val in PS_list:
             PS_names.append(val[0])
 print(PS_names)
     
-
-'''
-# Check if COIN trigger is used by seeing it was saved in the PS_used list
-if len(PS_used) > 2:
-    PS_names = [PS_used[0][0],PS_used[1][0],PS_used[2][0]]
-    SHMS_PS = PS_used[0][1]
-    HMS_PS = PS_used[1][1]
-    COIN_PS = PS_used[2][1]
-else:
-    PS_names = [PS_used[0][0],PS_used[1][0]]
-    SHMS_PS = PS_used[0][1]
-    HMS_PS = PS_used[1][1]
-'''
-
 ################################################################################################################################################
 '''
 Check PID of luminosity run
@@ -206,6 +192,7 @@ SHMS_PID = pid[1]
 
 cut_f = '/DB/CUTS/run_type/lumi.cuts'
 
+'''
 if ANATYPE == "Pion":
     cuts = ["h_cal_nt","h_cer_nt","p_cal_nt","p_hgcer_nt","p_aero_nt","h_cal","h_cer","p_cal","p_hgcer","p_aero","p_ngcer_nt","p_%scut_lumi_nt" % SHMS_PID,"h_%scut_lumi_nt" % HMS_PID,"p_%scut_lumi" % SHMS_PID,"h_%scut_lumi" % HMS_PID,"c_noedtm","c_edtm","c_edtmHMS","c_edtmSHMS","c_ptrigHMS%s" % PS_names[1].replace("PS",""),"c_ptrigSHMS%s" % PS_names[0].replace("PS",""),"c_curr","h_%strack_lumi_before" % HMS_PID,"h_%strack_lumi_after" % HMS_PID,"p_%strack_lumi_before" % SHMS_PID,"p_%strack_lumi_after" % SHMS_PID]
     # Check if COIN trigger is used
@@ -216,6 +203,21 @@ else:
     # Check if COIN trigger is used
     if len(PS_used) > 2:
         cuts = ["h_cal_nt","h_cer_nt","p_cal_nt","p_hgcer_nt","p_aero_nt","h_cal","h_cer","p_cal","p_hgcer","p_aero","p_%scut_lumi_nt" % SHMS_PID,"h_%scut_lumi_nt" % HMS_PID,"p_%scut_lumi" % SHMS_PID,"h_%scut_lumi" % HMS_PID,"c_noedtm","c_edtm","c_edtmHMS","c_edtmSHMS","c_ptrigHMS%s" % PS_names[1].replace("PS",""),"c_ptrigSHMS%s" % PS_names[0].replace("PS",""),"c_ptrigCOIN%s" % PS_names[2].replace("PS",""),"c_curr","h_%strack_lumi_before" % HMS_PID,"h_%strack_lumi_after" % HMS_PID,"p_%strack_lumi_before" % SHMS_PID,"p_%strack_lumi_after" % SHMS_PID]
+'''
+
+if ANATYPE == "Pion":
+    cuts = ["h_cal_nt","h_cer_nt","p_cal_nt","p_hgcer_nt","p_aero_nt","h_cal","h_cer","p_cal","p_hgcer","p_aero","p_ngcer_nt","p_%scut_lumi_nt" % SHMS_PID,"h_%scut_lumi_nt" % HMS_PID,"p_%scut_lumi" % SHMS_PID,"h_%scut_lumi" % HMS_PID,"c_noedtm","c_edtm","c_edtmHMS","c_edtmSHMS","c_curr","h_%strack_lumi_before" % HMS_PID,"h_%strack_lumi_after" % HMS_PID,"p_%strack_lumi_before" % SHMS_PID,"p_%strack_lumi_after" % SHMS_PID]
+else:
+    cuts = ["h_cal_nt","h_cer_nt","p_cal_nt","p_hgcer_nt","p_aero_nt","h_cal","h_cer","p_cal","p_hgcer","p_aero","p_%scut_lumi_nt" % SHMS_PID,"h_%scut_lumi_nt" % HMS_PID,"p_%scut_lumi" % SHMS_PID,"h_%scut_lumi" % HMS_PID,"c_noedtm","c_edtm","c_edtmHMS","c_edtmSHMS","c_curr","h_%strack_lumi_before" % HMS_PID,"h_%strack_lumi_after" % HMS_PID,"p_%strack_lumi_before" % SHMS_PID,"p_%strack_lumi_after" % SHMS_PID]
+    
+for ps in PS_names:
+    if ps == "PS1" or ps == "PS2":
+        cuts+=["c_ptrigHMS%s" % PS_names[1].replace("PS","")]
+    if ps == "PS3" or ps == "PS4":
+        cuts+=["c_ptrigSHMS%s" % PS_names[0].replace("PS","")]
+    if ps == "PS5" or ps == "PS6":
+        cuts+=["c_ptrigCOIN%s" % PS_names[2].replace("PS","")]    
+
 
 lt=Root(os.path.realpath(__file__),"Lumi",ROOTPrefix,runNum,MaxEvent,cut_f,cuts)
 
