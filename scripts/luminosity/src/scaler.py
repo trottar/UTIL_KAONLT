@@ -3,7 +3,7 @@
 # Description: This is where the scaler variables for the yield calculations are formulated.
 # Variables calculated: SHMS_PS, HMS_PS, time, charge, SHMSTRIG_scaler, HMSTRIG_scaler, CPULT_scaler, CPULT_scaler_uncern, HMS_eLT, HMS_eLT_uncern, SHMS_eLT, SHMS_eLT_uncern, sent_edtm
 # ================================================================
-# Time-stamp: "2022-10-27 17:17:33 trottar"
+# Time-stamp: "2022-10-27 17:18:27 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -267,7 +267,7 @@ def scaler(PS_names, HMS_PS, SHMS_PS, thres_curr, report_current, runNum, MaxEve
         scalers.update({"CPULT_scaler_uncern": (acctrig_sum/((trig_sum[shms_ps_ix]/SHMS_PS)))*np.sqrt((1/(trig_sum[shms_ps_ix]/SHMS_PS))+(1/acctrig_sum))})
     elif ("PS3" in PS_names or "PS4" in PS_names) and ("PS1" not in PS_names and "PS2" not in PS_names):
         scalers.update({"CPULT_scaler": acctrig_sum/((trig_sum[hms_ps_ix]/HMS_PS))})
-        scalers.update({"CPULT_scaler_uncern": (acctrig_sum/((trig_sum[hms_ps_ix]/HMS_PS)))*np.sqrt((1/(trig_sum[hms_ps_ix]/HMS_PS)))+(1/acctrig_sum))})
+        scalers.update({"CPULT_scaler_uncern": (acctrig_sum/((trig_sum[hms_ps_ix]/HMS_PS)))*np.sqrt((1/(trig_sum[hms_ps_ix]/HMS_PS))+(1/acctrig_sum))})
         scalers.update({})
         
     for ps in PS_names:
