@@ -3,7 +3,7 @@
 # Description: This is where the variables for the yield calculations are formulated.
 # Variables calculated: tot_events, h_int_etottracknorm_evts, p_int_etottracknorm_evts, SHMSTRIG_cut, HMSTRIG_cut, HMS_track, HMS_track_uncern, SHMS_track, SHMS_track_uncern, accp_edtm
 # ================================================================
-# Time-stamp: "2022-10-27 16:30:53 trottar"
+# Time-stamp: "2022-10-27 16:45:18 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -158,7 +158,6 @@ Define prescale variables
 
 print("\nPre-scale values...\nPS1:{0}, PS2:{1}, PS3:{2}, PS4:{3}, PS5:{4}, PS6:{5}\n".format(PS1,PS2,PS3,PS4,PS5,PS6))
 
-# Save only the used prescale triggers to the PS_used list
 PS_list = [["PS1",PS1],["PS2",PS2],["PS3",PS3],["PS4",PS4],["PS5",PS5],["PS6",PS6]]
 PS_names = []
 for val in PS_list:
@@ -192,19 +191,6 @@ SHMS_PID = pid[1]
 
 cut_f = '/DB/CUTS/run_type/lumi.cuts'
 
-'''
-if ANATYPE == "Pion":
-    cuts = ["h_cal_nt","h_cer_nt","p_cal_nt","p_hgcer_nt","p_aero_nt","h_cal","h_cer","p_cal","p_hgcer","p_aero","p_ngcer_nt","p_%scut_lumi_nt" % SHMS_PID,"h_%scut_lumi_nt" % HMS_PID,"p_%scut_lumi" % SHMS_PID,"h_%scut_lumi" % HMS_PID,"c_noedtm","c_edtm","c_edtmHMS","c_edtmSHMS","c_ptrigHMS%s" % PS_names[1].replace("PS",""),"c_ptrigSHMS%s" % PS_names[0].replace("PS",""),"c_curr","h_%strack_lumi_before" % HMS_PID,"h_%strack_lumi_after" % HMS_PID,"p_%strack_lumi_before" % SHMS_PID,"p_%strack_lumi_after" % SHMS_PID]
-    # Check if COIN trigger is used
-    if len(PS_used) > 2:
-        cuts = ["h_cal_nt","h_cer_nt","p_cal_nt","p_hgcer_nt","p_aero_nt","h_cal","h_cer","p_cal","p_hgcer","p_aero","p_ngcer_nt","p_%scut_lumi_nt" % SHMS_PID,"h_%scut_lumi_nt" % HMS_PID,"p_%scut_lumi" % SHMS_PID,"h_%scut_lumi" % HMS_PID,"c_noedtm","c_edtm","c_edtmHMS","c_edtmSHMS","c_ptrigHMS%s" % PS_names[1].replace("PS",""),"c_ptrigSHMS%s" % PS_names[0].replace("PS",""),"c_ptrigCOIN%s" % PS_names[2].replace("PS",""),"c_curr","h_%strack_lumi_before" % HMS_PID,"h_%strack_lumi_after" % HMS_PID,"p_%strack_lumi_before" % SHMS_PID,"p_%strack_lumi_after" % SHMS_PID]
-else:
-    cuts = ["h_cal_nt","h_cer_nt","p_cal_nt","p_hgcer_nt","p_aero_nt","h_cal","h_cer","p_cal","p_hgcer","p_aero","p_%scut_lumi_nt" % SHMS_PID,"h_%scut_lumi_nt" % HMS_PID,"p_%scut_lumi" % SHMS_PID,"h_%scut_lumi" % HMS_PID,"c_noedtm","c_edtm","c_edtmHMS","c_edtmSHMS","c_ptrigHMS%s" % PS_names[1].replace("PS",""),"c_ptrigSHMS%s" % PS_names[0].replace("PS",""),"c_curr","h_%strack_lumi_before" % HMS_PID,"h_%strack_lumi_after" % HMS_PID,"p_%strack_lumi_before" % SHMS_PID,"p_%strack_lumi_after" % SHMS_PID]
-    # Check if COIN trigger is used
-    if len(PS_used) > 2:
-        cuts = ["h_cal_nt","h_cer_nt","p_cal_nt","p_hgcer_nt","p_aero_nt","h_cal","h_cer","p_cal","p_hgcer","p_aero","p_%scut_lumi_nt" % SHMS_PID,"h_%scut_lumi_nt" % HMS_PID,"p_%scut_lumi" % SHMS_PID,"h_%scut_lumi" % HMS_PID,"c_noedtm","c_edtm","c_edtmHMS","c_edtmSHMS","c_ptrigHMS%s" % PS_names[1].replace("PS",""),"c_ptrigSHMS%s" % PS_names[0].replace("PS",""),"c_ptrigCOIN%s" % PS_names[2].replace("PS",""),"c_curr","h_%strack_lumi_before" % HMS_PID,"h_%strack_lumi_after" % HMS_PID,"p_%strack_lumi_before" % SHMS_PID,"p_%strack_lumi_after" % SHMS_PID]
-'''
-
 if ANATYPE == "Pion":
     cuts = ["h_cal_nt","h_cer_nt","p_cal_nt","p_hgcer_nt","p_aero_nt","h_cal","h_cer","p_cal","p_hgcer","p_aero","p_ngcer_nt","p_%scut_lumi_nt" % SHMS_PID,"h_%scut_lumi_nt" % HMS_PID,"p_%scut_lumi" % SHMS_PID,"h_%scut_lumi" % HMS_PID,"c_noedtm","c_edtm","c_edtmHMS","c_edtmSHMS","c_curr","h_%strack_lumi_before" % HMS_PID,"h_%strack_lumi_after" % HMS_PID,"p_%strack_lumi_before" % SHMS_PID,"p_%strack_lumi_after" % SHMS_PID]
 else:
@@ -212,12 +198,11 @@ else:
     
 for ps in PS_names:
     if ps == "PS1" or ps == "PS2":
-        cuts+=["c_ptrigHMS%s" % PS_names[1].replace("PS","")]
+        cuts+=["c_ptrigHMS%s" % ps.replace("PS","")]
     if ps == "PS3" or ps == "PS4":
-        cuts+=["c_ptrigSHMS%s" % PS_names[0].replace("PS","")]
+        cuts+=["c_ptrigSHMS%s" % ps.replace("PS","")]
     if ps == "PS5" or ps == "PS6":
-        cuts+=["c_ptrigCOIN%s" % PS_names[2].replace("PS","")]    
-
+        cuts+=["c_ptrigCOIN%s" % ps.replace("PS","")]    
 
 lt=Root(os.path.realpath(__file__),"Lumi",ROOTPrefix,runNum,MaxEvent,cut_f,cuts)
 
@@ -250,22 +235,24 @@ s_tree = up.open(rootName)["TSP"]
 
 ################################################################################################################################################
 
-T_coin_pTRIG_SHMS_ROC1_tdcTimeRaw = tree["T_coin_pTRIG%s_ROC1_tdcTimeRaw" % PS_names[0].replace("PS","")]
-T_coin_pTRIG_SHMS_ROC2_tdcTimeRaw = tree["T_coin_pTRIG%s_ROC2_tdcTimeRaw" % PS_names[0].replace("PS","")]
-T_coin_pTRIG_SHMS_ROC1_tdcTime = tree["T_coin_pTRIG%s_ROC1_tdcTime" % PS_names[0].replace("PS","")]
-T_coin_pTRIG_SHMS_ROC2_tdcTime = tree["T_coin_pTRIG%s_ROC2_tdcTime" % PS_names[0].replace("PS","")]
-
-T_coin_pTRIG_HMS_ROC1_tdcTimeRaw = tree["T_coin_pTRIG%s_ROC1_tdcTimeRaw" % PS_names[1].replace("PS","")]
-T_coin_pTRIG_HMS_ROC2_tdcTimeRaw = tree["T_coin_pTRIG%s_ROC2_tdcTimeRaw" % PS_names[1].replace("PS","")]
-T_coin_pTRIG_HMS_ROC1_tdcTime = tree["T_coin_pTRIG%s_ROC1_tdcTime" % PS_names[1].replace("PS","")]
-T_coin_pTRIG_HMS_ROC2_tdcTime = tree["T_coin_pTRIG%s_ROC2_tdcTime" % PS_names[1].replace("PS","")]
-
-# Check if COIN trigger is used
-if len(PS_used) > 2:
-    T_coin_pTRIG_COIN_ROC1_tdcTimeRaw = tree["T_coin_pTRIG%s_ROC1_tdcTimeRaw" % PS_names[2].replace("PS","")]
-    T_coin_pTRIG_COIN_ROC2_tdcTimeRaw = tree["T_coin_pTRIG%s_ROC2_tdcTimeRaw" % PS_names[2].replace("PS","")]
-    T_coin_pTRIG_COIN_ROC1_tdcTime = tree["T_coin_pTRIG%s_ROC1_tdcTime" % PS_names[2].replace("PS","")]
-    T_coin_pTRIG_COIN_ROC2_tdcTime = tree["T_coin_pTRIG%s_ROC2_tdcTime" % PS_names[2].replace("PS","")]
+for ps in PS_names:
+    if ps == "PS1" or ps == "PS2":
+        T_coin_pTRIG_SHMS_ROC1_tdcTimeRaw = tree["T_coin_pTRIG%s_ROC1_tdcTimeRaw" % ps.replace("PS","")]
+        T_coin_pTRIG_SHMS_ROC2_tdcTimeRaw = tree["T_coin_pTRIG%s_ROC2_tdcTimeRaw" % ps.replace("PS","")]
+        T_coin_pTRIG_SHMS_ROC1_tdcTime = tree["T_coin_pTRIG%s_ROC1_tdcTime" % ps.replace("PS","")]
+        T_coin_pTRIG_SHMS_ROC2_tdcTime = tree["T_coin_pTRIG%s_ROC2_tdcTime" % ps.replace("PS","")]
+        
+    if ps == "PS3" or ps == "PS4":
+        T_coin_pTRIG_SHMS_ROC1_tdcTimeRaw = tree["T_coin_pTRIG%s_ROC1_tdcTimeRaw" % ps.replace("PS","")]
+        T_coin_pTRIG_SHMS_ROC2_tdcTimeRaw = tree["T_coin_pTRIG%s_ROC2_tdcTimeRaw" % ps.replace("PS","")]
+        T_coin_pTRIG_SHMS_ROC1_tdcTime = tree["T_coin_pTRIG%s_ROC1_tdcTime" % ps.replace("PS","")]
+        T_coin_pTRIG_SHMS_ROC2_tdcTime = tree["T_coin_pTRIG%s_ROC2_tdcTime" % ps.replace("PS","")]
+        
+    if ps == "PS5" or ps == "PS6":
+        T_coin_pTRIG_COIN_ROC1_tdcTimeRaw = tree["T_coin_pTRIG%s_ROC1_tdcTimeRaw" % ps.replace("PS","")]
+        T_coin_pTRIG_COIN_ROC2_tdcTimeRaw = tree["T_coin_pTRIG%s_ROC2_tdcTimeRaw" % ps.replace("PS","")]
+        T_coin_pTRIG_COIN_ROC1_tdcTime = tree["T_coin_pTRIG%s_ROC1_tdcTime" % ps.replace("PS","")]
+        T_coin_pTRIG_COIN_ROC2_tdcTime = tree["T_coin_pTRIG%s_ROC2_tdcTime" % ps.replace("PS","")]
 
 T_coin_pEDTM_tdcTimeRaw = tree["T_coin_pEDTM_tdcTimeRaw"]
 T_coin_pEDTM_tdcTime = tree["T_coin_pEDTM_tdcTime"]
@@ -633,38 +620,46 @@ def analysis():
                 for (x,evt) in zip(c.add_cut(T_coin_pEDTM_tdcTimeRaw,"c_edtm"),tree["EvtType"])
                 if evt == 2]
 
-    # Applies trigger window cuts to trigger to get accepted trigger events
-    SHMSTRIG = [x
-                for x in c.add_cut(T_coin_pTRIG_SHMS_ROC2_tdcTime,"c_ptrigSHMS%s" % PS_names[0].replace("PS",""))
-                if x != 0.0]
-    # Applies trigger window cuts to trigger to get accepted trigger events
-    HMSTRIG  = [x
-                for x in c.add_cut(T_coin_pTRIG_HMS_ROC1_tdcTime,"c_ptrigHMS%s" % PS_names[1].replace("PS",""))
-                if x !=0.0]
-    # Check if COIN trigger is used
-    if len(PS_used) > 2:
-        # Applies trigger window cuts to trigger to get accepted trigger events
-        COINTRIG  = [x
-                     for x in c.add_cut(T_coin_pTRIG_COIN_ROC1_tdcTime,"c_ptrigCOIN%s" % PS_names[2].replace("PS",""))
-                     if x !=0.0]
+    for ps in PS_names:
+        if ps == "PS1" or ps == "PS2":
+            # Applies trigger window cuts to trigger to get accepted trigger events
+            HMSTRIG  = [x
+                        for x in c.add_cut(T_coin_pTRIG_HMS_ROC1_tdcTime,"c_ptrigHMS%s" % PS_names[1].replace("PS",""))
+                        if x !=0.0]
 
+        if ps == "PS3" or ps == "PS4":
+            # Applies trigger window cuts to trigger to get accepted trigger events
+            SHMSTRIG = [x
+                        for x in c.add_cut(T_coin_pTRIG_SHMS_ROC2_tdcTime,"c_ptrigSHMS%s" % PS_names[0].replace("PS",""))
+                        if x != 0.0]
+
+        if ps == "PS5" or ps == "PS6":
+            # Applies trigger window cuts to trigger to get accepted trigger events
+            COINTRIG  = [x
+                         for x in c.add_cut(T_coin_pTRIG_COIN_ROC1_tdcTime,"c_ptrigCOIN%s" % PS_names[2].replace("PS",""))
+                         if x !=0.0]
+    
     # Cuts event type with current cut, probably pointless?
     EventType = c.add_cut(tree["EvtType"],"c_curr")
 
-    # Applies trigger window cuts to trigger to get accepted trigger events
-    SHMSTRIG_cut = [trig1
-                    for (trig1,evt) in zip(c.add_cut(T_coin_pTRIG_SHMS_ROC2_tdcTime,"c_ptrigSHMS%s" % PS_names[0].replace("PS","")),tree["EvtType"])
-                    if evt == 1 or evt == 3]
-    # Applies trigger window cuts to trigger to get accepted trigger events
-    HMSTRIG_cut = [ x
-                    for (x, evt) in zip(c.add_cut(T_coin_pTRIG_HMS_ROC1_tdcTime,"c_ptrigHMS%s" % PS_names[1].replace("PS","")), tree["EvtType"])
-                    if evt == 2]
-    # Check if COIN trigger is used
-    if len(PS_used) > 2:
-        # Applies trigger window cuts to trigger to get accepted trigger events
-        COINTRIG_cut = [ x
-                         for (x, evt) in zip(c.add_cut(T_coin_pTRIG_COIN_ROC1_tdcTime,"c_ptrigCOIN%s" % PS_names[2].replace("PS","")), tree["EvtType"])
-                         if (evt == 1 or evt == 2)]
+    for ps in PS_names:
+        if ps == "PS1" or ps == "PS2":
+            # Applies trigger window cuts to trigger to get accepted trigger events
+            HMSTRIG_cut = [ x
+                            for (x, evt) in zip(c.add_cut(T_coin_pTRIG_HMS_ROC1_tdcTime,"c_ptrigHMS%s" % PS_names[1].replace("PS","")), tree["EvtType"])
+                            if evt == 2]
+
+        if ps == "PS3" or ps == "PS4":
+            # Applies trigger window cuts to trigger to get accepted trigger events
+            SHMSTRIG_cut = [trig1
+                            for (trig1,evt) in zip(c.add_cut(T_coin_pTRIG_SHMS_ROC2_tdcTime,"c_ptrigSHMS%s" % PS_names[0].replace("PS","")),tree["EvtType"])
+                            if evt == 1 or evt == 3]
+
+        if ps == "PS5" or ps == "PS6":
+            # Applies trigger window cuts to trigger to get accepted trigger events
+            COINTRIG_cut = [ x
+                             for (x, evt) in zip(c.add_cut(T_coin_pTRIG_COIN_ROC1_tdcTime,"c_ptrigCOIN%s" % PS_names[2].replace("PS","")), tree["EvtType"])
+                             if (evt == 1 or evt == 2)]
 
     h_et_should = len(c.add_cut(tree["H_cal_etotnorm"],"h_%strack_lumi_before" % HMS_PID))
     h_et_did = len(c.add_cut(tree["H_cal_etotnorm"],"h_%strack_lumi_after" % HMS_PID))
@@ -686,46 +681,26 @@ def analysis():
     
     # Creates a dictionary for the calculated luminosity values 
     track_info = {
-        
+
         "tot_events" : len(EventType),
-        "h_int_etotnorm_evts" : (scipy.integrate.simps(h_etotnorm)),
-        "p_int_etotnorm_evts" : (scipy.integrate.simps(p_etotnorm)),
+        "h_int_etotnorm_evts" : scipy.integrate.simps(h_etotnorm),
+        "p_int_etotnorm_evts" : scipy.integrate.simps(p_etotnorm),
         "h_int_etottracknorm_evts" : scipy.integrate.simps(h_etottracknorm),
-        "p_int_etottracknorm_evts" : scipy.integrate.simps(p_etottracknorm),
-        "SHMSTRIG_cut" : len(SHMSTRIG_cut),
-        "HMSTRIG_cut" : len(HMSTRIG_cut),
-        "HMS_track" : HMS_track_eff,
-        "HMS_track_uncern" : HMS_track_uncern,
-        "SHMS_track" : SHMS_track_eff,
-        "SHMS_track_uncern" : SHMS_track_uncern,
+        "p_int_etottracknorm_evts" : scipy.integrate.simps(p_etottracknorm),                
         "accp_edtm" : (len(EDTM)),
         "paccp_edtm" : (len(EDTM_SHMS)),
         "haccp_edtm" : (len(EDTM_HMS)),
-            
-    }
-    # Check if COIN trigger is used
-    if len(PS_used) > 2:
-        # Creates a dictionary for the calculated luminosity values 
-        track_info = {
-        
-            "tot_events" : len(EventType),
-            "h_int_etotnorm_evts" : scipy.integrate.simps(h_etotnorm),
-            "p_int_etotnorm_evts" : scipy.integrate.simps(p_etotnorm),
-            "h_int_etottracknorm_evts" : scipy.integrate.simps(h_etottracknorm),
-            "p_int_etottracknorm_evts" : scipy.integrate.simps(p_etottracknorm),
-            "SHMSTRIG_cut" : len(SHMSTRIG_cut),
-            "HMSTRIG_cut" : len(HMSTRIG_cut),
-            "COINTRIG_cut" : len(COINTRIG_cut),
-            "HMS_track" : HMS_track_eff,
-            "HMS_track_uncern" : HMS_track_uncern,
-            "SHMS_track" : SHMS_track_eff,
-            "SHMS_track_uncern" : SHMS_track_uncern,
-            "accp_edtm" : (len(EDTM)),
-            "paccp_edtm" : (len(EDTM_SHMS)),
-            "haccp_edtm" : (len(EDTM_HMS)),
-            
-        }
 
+    }
+
+    for ps in PS_names:
+        if ps == "PS1" or ps == "PS2":
+            track_info.update({"HMSTRIG_cut" : len(HMSTRIG_cut)},{"HMS_track" : HMS_track_eff},{"HMS_track_uncern" : HMS_track_uncern})
+        if ps == "PS3" or ps == "PS4":
+            track_info.update({"SHMSTRIG_cut" : len(SHMSTRIG_cut)},{"SHMS_track" : SHMS_track_eff},{"SHMS_track_uncern" : SHMS_track_uncern})
+        if ps == "PS5" or ps == "PS6":
+            track_info.update({"COINTRIG_cut" : len(COINTRIG_cut)})
+    
     print("\nTerminate","Selection rules have been applied, plotting results")
     print("Total number of events: %.0f" % (track_info['tot_events']))
     print("Number of EDTM  Events: %.0f" % (track_info['accp_edtm']))
