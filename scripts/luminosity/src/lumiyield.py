@@ -3,7 +3,7 @@
 # Description: This is where the variables for the yield calculations are formulated.
 # Variables calculated: tot_events, h_int_etottracknorm_evts, p_int_etottracknorm_evts, SHMSTRIG_cut, HMSTRIG_cut, HMS_track, HMS_track_uncern, SHMS_track, SHMS_track_uncern, accp_edtm
 # ================================================================
-# Time-stamp: "2022-10-27 16:45:18 trottar"
+# Time-stamp: "2022-10-27 16:48:17 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -198,9 +198,9 @@ else:
     
 for ps in PS_names:
     if ps == "PS1" or ps == "PS2":
-        cuts+=["c_ptrigHMS%s" % ps.replace("PS","")]
+        cuts+=["c_ptrigSHMS%s" % ps.replace("PS","")]        
     if ps == "PS3" or ps == "PS4":
-        cuts+=["c_ptrigSHMS%s" % ps.replace("PS","")]
+        cuts+=["c_ptrigHMS%s" % ps.replace("PS","")]
     if ps == "PS5" or ps == "PS6":
         cuts+=["c_ptrigCOIN%s" % ps.replace("PS","")]    
 
@@ -243,10 +243,10 @@ for ps in PS_names:
         T_coin_pTRIG_SHMS_ROC2_tdcTime = tree["T_coin_pTRIG%s_ROC2_tdcTime" % ps.replace("PS","")]
         
     if ps == "PS3" or ps == "PS4":
-        T_coin_pTRIG_SHMS_ROC1_tdcTimeRaw = tree["T_coin_pTRIG%s_ROC1_tdcTimeRaw" % ps.replace("PS","")]
-        T_coin_pTRIG_SHMS_ROC2_tdcTimeRaw = tree["T_coin_pTRIG%s_ROC2_tdcTimeRaw" % ps.replace("PS","")]
-        T_coin_pTRIG_SHMS_ROC1_tdcTime = tree["T_coin_pTRIG%s_ROC1_tdcTime" % ps.replace("PS","")]
-        T_coin_pTRIG_SHMS_ROC2_tdcTime = tree["T_coin_pTRIG%s_ROC2_tdcTime" % ps.replace("PS","")]
+        T_coin_pTRIG_HMS_ROC1_tdcTimeRaw = tree["T_coin_pTRIG%s_ROC1_tdcTimeRaw" % ps.replace("PS","")]
+        T_coin_pTRIG_HMS_ROC2_tdcTimeRaw = tree["T_coin_pTRIG%s_ROC2_tdcTimeRaw" % ps.replace("PS","")]
+        T_coin_pTRIG_HMS_ROC1_tdcTime = tree["T_coin_pTRIG%s_ROC1_tdcTime" % ps.replace("PS","")]
+        T_coin_pTRIG_HMS_ROC2_tdcTime = tree["T_coin_pTRIG%s_ROC2_tdcTime" % ps.replace("PS","")]
         
     if ps == "PS5" or ps == "PS6":
         T_coin_pTRIG_COIN_ROC1_tdcTimeRaw = tree["T_coin_pTRIG%s_ROC1_tdcTimeRaw" % ps.replace("PS","")]
@@ -623,16 +623,16 @@ def analysis():
     for ps in PS_names:
         if ps == "PS1" or ps == "PS2":
             # Applies trigger window cuts to trigger to get accepted trigger events
-            HMSTRIG  = [x
-                        for x in c.add_cut(T_coin_pTRIG_HMS_ROC1_tdcTime,"c_ptrigHMS%s" % PS_names[1].replace("PS",""))
-                        if x !=0.0]
-
-        if ps == "PS3" or ps == "PS4":
-            # Applies trigger window cuts to trigger to get accepted trigger events
             SHMSTRIG = [x
                         for x in c.add_cut(T_coin_pTRIG_SHMS_ROC2_tdcTime,"c_ptrigSHMS%s" % PS_names[0].replace("PS",""))
                         if x != 0.0]
 
+        if ps == "PS3" or ps == "PS4":
+            # Applies trigger window cuts to trigger to get accepted trigger events
+            HMSTRIG  = [x
+                        for x in c.add_cut(T_coin_pTRIG_HMS_ROC1_tdcTime,"c_ptrigHMS%s" % PS_names[1].replace("PS",""))
+                        if x !=0.0]
+            
         if ps == "PS5" or ps == "PS6":
             # Applies trigger window cuts to trigger to get accepted trigger events
             COINTRIG  = [x
@@ -645,16 +645,16 @@ def analysis():
     for ps in PS_names:
         if ps == "PS1" or ps == "PS2":
             # Applies trigger window cuts to trigger to get accepted trigger events
-            HMSTRIG_cut = [ x
-                            for (x, evt) in zip(c.add_cut(T_coin_pTRIG_HMS_ROC1_tdcTime,"c_ptrigHMS%s" % PS_names[1].replace("PS","")), tree["EvtType"])
-                            if evt == 2]
-
-        if ps == "PS3" or ps == "PS4":
-            # Applies trigger window cuts to trigger to get accepted trigger events
             SHMSTRIG_cut = [trig1
                             for (trig1,evt) in zip(c.add_cut(T_coin_pTRIG_SHMS_ROC2_tdcTime,"c_ptrigSHMS%s" % PS_names[0].replace("PS","")),tree["EvtType"])
                             if evt == 1 or evt == 3]
 
+        if ps == "PS3" or ps == "PS4":
+            # Applies trigger window cuts to trigger to get accepted trigger events
+            HMSTRIG_cut = [ x
+                            for (x, evt) in zip(c.add_cut(T_coin_pTRIG_HMS_ROC1_tdcTime,"c_ptrigHMS%s" % PS_names[1].replace("PS","")), tree["EvtType"])
+                            if evt == 2]
+            
         if ps == "PS5" or ps == "PS6":
             # Applies trigger window cuts to trigger to get accepted trigger events
             COINTRIG_cut = [ x
@@ -695,9 +695,9 @@ def analysis():
 
     for ps in PS_names:
         if ps == "PS1" or ps == "PS2":
-            track_info.update({"HMSTRIG_cut" : len(HMSTRIG_cut)},{"HMS_track" : HMS_track_eff},{"HMS_track_uncern" : HMS_track_uncern})
-        if ps == "PS3" or ps == "PS4":
             track_info.update({"SHMSTRIG_cut" : len(SHMSTRIG_cut)},{"SHMS_track" : SHMS_track_eff},{"SHMS_track_uncern" : SHMS_track_uncern})
+        if ps == "PS3" or ps == "PS4":
+            track_info.update({"HMSTRIG_cut" : len(HMSTRIG_cut)},{"HMS_track" : HMS_track_eff},{"HMS_track_uncern" : HMS_track_uncern})
         if ps == "PS5" or ps == "PS6":
             track_info.update({"COINTRIG_cut" : len(COINTRIG_cut)})
     
