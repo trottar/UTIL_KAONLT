@@ -3,7 +3,7 @@
 # Description: This is where the variables for the yield calculations are formulated.
 # Variables calculated: tot_events, h_int_etottracknorm_evts, p_int_etottracknorm_evts, SHMSTRIG_cut, HMSTRIG_cut, HMS_track, HMS_track_uncern, SHMS_track, SHMS_track_uncern, accp_edtm
 # ================================================================
-# Time-stamp: "2022-10-27 10:47:21 trottar"
+# Time-stamp: "2022-10-27 14:39:44 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -166,16 +166,16 @@ for val in PS_list:
     if val[0] == "PS3" or val[0] == "PS4":
         #PS_used.append(val)
         PS_names.append(val[0])
-        if val[1] != 0:
-            SHMS_PS = val[1]
+        #if val[1] != 0:
+        SHMS_PS = val[1]
     if (val[0] == "PS1" or val[0] == "PS2") and val[1] != 0:
         PS_names.append(val[0])
-        if val[1] != 0:
-            HMS_PS = val[1]
+        #if val[1] != 0:
+        HMS_PS = val[1]
     if (val[0] == "PS5" or val[0] == "PS6") and val[1] != 0:
         PS_names.append(val[0])
-        if val[1] != 0:
-            COIN_PS = val[1]
+        #if val[1] != 0:
+        COIN_PS = val[1]
 
 '''
 # Check if COIN trigger is used by seeing it was saved in the PS_used list
