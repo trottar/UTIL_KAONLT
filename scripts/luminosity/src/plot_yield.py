@@ -3,7 +3,7 @@
 # Description: Grabs lumi data from corresponding csv depending on run setting. Then plots the yields and creates a comprehensive table.
 # Variables calculated: current, rate_HMS, rate_SHMS, sent_edtm_PS, uncern_HMS_evts_scaler, uncern_SHMS_evts_scaler, uncern_HMS_evts_notrack, uncern_SHMS_evts_notrack, uncern_HMS_evts_track, uncern_SHMS_evts_track
 # ================================================================
-# Time-stamp: "2022-10-20 10:51:26 trottar"
+# Time-stamp: "2022-10-27 17:37:03 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -76,7 +76,7 @@ def removeRun(runNum):
     return lumi_data
 
 # Remove runs, removeRun(runNumber)
-removeRun(5154)
+#removeRun(5154)
 
 ################################################################################################################################################
 
@@ -109,8 +109,12 @@ if "PS6" in lumi_data.keys() and not lumi_data["PS6"].isnull().values.any():
     print("PS6 : ",lumi_data["PS6"])
 
 try:
+    SHMS_PS
+    HMS_PS
     COIN_PS
 except NameError:
+    SHMS_PS = None
+    HMS_PS = None
     COIN_PS = None
 
 ################################################################################################################################################
