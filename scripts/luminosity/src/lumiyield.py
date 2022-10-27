@@ -3,7 +3,7 @@
 # Description: This is where the variables for the yield calculations are formulated.
 # Variables calculated: tot_events, h_int_etottracknorm_evts, p_int_etottracknorm_evts, SHMSTRIG_cut, HMSTRIG_cut, HMS_track, HMS_track_uncern, SHMS_track, SHMS_track_uncern, accp_edtm
 # ================================================================
-# Time-stamp: "2022-10-27 16:21:32 trottar"
+# Time-stamp: "2022-10-27 16:23:44 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -162,20 +162,19 @@ print("\nPre-scale values...\nPS1:{0}, PS2:{1}, PS3:{2}, PS4:{3}, PS5:{4}, PS6:{
 PS_list = [["PS1",PS1],["PS2",PS2],["PS3",PS3],["PS4",PS4],["PS5",PS5],["PS6",PS6]]
 PS_names = []
 for val in PS_list:
-    if val[0] == "PS3" or val[0] == "PS4":
-        SHMS_PS = val[1] 
-        if val[1] != 0:
-            PS_names.append(val[0])
     if val[0] == "PS1" or val[0] == "PS2":
         HMS_PS = val[1]
+        if val[1] != 0:
+            PS_names.append(val[0])    
+    if val[0] == "PS3" or val[0] == "PS4":
+        SHMS_PS = val[1] 
         if val[1] != 0:
             PS_names.append(val[0])
     if val[0] == "PS5" or val[0] == "PS6":
         COIN_PS = val[1]
         if val[1] != 0:
             PS_names.append(val[0])
-for val in PS_names:            
-    print(val)
+print(PS_names)
     
 
 '''
