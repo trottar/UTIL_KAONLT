@@ -3,7 +3,7 @@
 # Description: This is where the variables for the yield calculations are formulated.
 # Variables calculated: tot_events, h_int_etottracknorm_evts, p_int_etottracknorm_evts, SHMSTRIG_cut, HMSTRIG_cut, HMS_track, HMS_track_uncern, SHMS_track, SHMS_track_uncern, accp_edtm
 # ================================================================
-# Time-stamp: "2022-10-27 16:49:43 trottar"
+# Time-stamp: "2022-10-27 16:50:49 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -699,7 +699,9 @@ def analysis():
             track_info.update({"SHMS_track" : SHMS_track_eff})
             track_info.update({"SHMS_track_uncern" : SHMS_track_uncern})
         if ps == "PS3" or ps == "PS4":
-            track_info.update({"HMSTRIG_cut" : len(HMSTRIG_cut)},{"HMS_track" : HMS_track_eff},{"HMS_track_uncern" : HMS_track_uncern})
+            track_info.update({"HMSTRIG_cut" : len(HMSTRIG_cut)})
+            track_info.update({"HMS_track" : HMS_track_eff})
+            track_info.update({"HMS_track_uncern" : HMS_track_uncern})
         if ps == "PS5" or ps == "PS6":
             track_info.update({"COINTRIG_cut" : len(COINTRIG_cut)})
     
