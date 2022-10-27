@@ -3,7 +3,7 @@
 # Description: This is where the scaler variables for the yield calculations are formulated.
 # Variables calculated: SHMS_PS, HMS_PS, time, charge, SHMSTRIG_scaler, HMSTRIG_scaler, CPULT_scaler, CPULT_scaler_uncern, HMS_eLT, HMS_eLT_uncern, SHMS_eLT, SHMS_eLT_uncern, sent_edtm
 # ================================================================
-# Time-stamp: "2022-10-27 17:05:31 trottar"
+# Time-stamp: "2022-10-27 17:16:06 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -250,18 +250,29 @@ def scaler(PS_names, HMS_PS, SHMS_PS, thres_curr, report_current, runNum, MaxEve
         "run number" : runNum,
         "time": time_sum[bcm_ix],
         "charge": charge_sum[bcm_ix],
-        "CPULT_scaler": acctrig_sum/((trig_sum[shms_ps_ix]/SHMS_PS) + (trig_sum[hms_ps_ix]/HMS_PS)),
+        # "CPULT_scaler": acctrig_sum/((trig_sum[shms_ps_ix]/SHMS_PS) + (trig_sum[hms_ps_ix]/HMS_PS)), # GOOD
         #"CPULT_scaler": acctrig_sum/((trig_sum[shms_ps_ix]) + (trig_sum[hms_ps_ix]) - EDTM_sum),
-        "CPULT_scaler_uncern": (acctrig_sum/((trig_sum[shms_ps_ix]/SHMS_PS) + (trig_sum[hms_ps_ix]/HMS_PS)))*np.sqrt((1/(trig_sum[shms_ps_ix]/SHMS_PS))+(1/(trig_sum[hms_ps_ix]/HMS_PS))+(1/acctrig_sum)),
+        #"CPULT_scaler_uncern": (acctrig_sum/((trig_sum[shms_ps_ix]/SHMS_PS) + (trig_sum[hms_ps_ix]/HMS_PS)))*np.sqrt((1/(trig_sum[shms_ps_ix]/SHMS_PS))+(1/(trig_sum[hms_ps_ix]/HMS_PS))+(1/acctrig_sum)), # GOOD
         #"CPULT_scaler_uncern": (1/((trig_sum[shms_ps_ix]) + (trig_sum[hms_ps_ix])))*np.sqrt(acctrig_sum+EDTM_sum*2+((trig_sum[shms_ps_ix]) + (trig_sum[hms_ps_ix]))(acctrig_sum/((trig_sum[shms_ps_ix]) + (trig_sum[hms_ps_ix])))**2),
         #"CPULT_scaler_uncern": np.sqrt(((trig_sum[shms_ps_ix]) + (trig_sum[hms_ps_ix]))*.95*.05),
         "sent_edtm": EDTM_sum
             
     }
-
+    
+    if ("PS1" in PS_names or "PS2" in PS_names) and ("PS3" in PS_names or "PS4" in PS_names):
+        scalers.update({"CPULT_scaler": acctrig_sum/((trig_sum[shms_ps_ix]/SHMS_PS) + (trig_sum[hms_ps_ix]/HMS_PS))})
+        scalers.update({"CPULT_scaler_uncern": (acctrig_sum/((trig_sum[shms_ps_ix]/SHMS_PS) + (trig_sum[hms_ps_ix]/HMS_PS)))*np.sqrt((1/(trig_sum[shms_ps_ix]/SHMS_PS))+(1/(trig_sum[hms_ps_ix]/HMS_PS))+(1/acctrig_sum))})
+    elif ("PS1" in PS_names or "PS2" in PS_names) and ("PS3" not in PS_names and "PS4" not in PS_names):
+        scalers.update({"CPULT_scaler": acctrig_sum/((trig_sum[shms_ps_ix]/SHMS_PS))})
+        scalers.update({"CPULT_scaler_uncern": (acctrig_sum/((trig_sum[shms_ps_ix]/SHMS_PS)))*np.sqrt((1/(trig_sum[shms_ps_ix]/SHMS_PS)))+(1/acctrig_sum))})
+    elif ("PS3" in PS_names or "PS4" in PS_names) and ("PS1" not in PS_names and "PS2" not in PS_names):
+        scalers.update({"CPULT_scaler": acctrig_sum/((trig_sum[hms_ps_ix]/HMS_PS))})
+        scalers.update({"CPULT_scaler_uncern": (acctrig_sum/((trig_sum[hms_ps_ix]/HMS_PS)))*np.sqrt((1/(trig_sum[hms_ps_ix]/HMS_PS)))+(1/acctrig_sum))})
+        scalers.update({})
+        
     for ps in PS_names:
         if ps == "PS1" or ps == "PS2":
-            scalers.update({"%s" % ps: SHMS_PS})
+            scalers.update({"%s" % ps: SHMS_PS})            
             scalers.update({"SHMSTRIG_scaler": trig_sum[shms_ps_ix]})
             scalers.update({"SHMS_eLT_scaler": 1 - ((6/5)*(SHMS_PRE_sum[1]-SHMS_PRE_sum[2])/(SHMS_PRE_sum[1]))})
             scalers.update({"SHMS_eLT_scaler_uncern": (SHMS_PRE_sum[1]-SHMS_PRE_sum[2])/(SHMS_PRE_sum[1])*np.sqrt((np.sqrt(SHMS_PRE_sum[1]) + np.sqrt(SHMS_PRE_sum[2]))/(SHMS_PRE_sum[1] - SHMS_PRE_sum[2]) + (np.sqrt(SHMS_PRE_sum[1])/SHMS_PRE_sum[1]))})
