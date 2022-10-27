@@ -3,7 +3,7 @@
 # Description: This is where the scaler variables for the yield calculations are formulated.
 # Variables calculated: SHMS_PS, HMS_PS, time, charge, SHMSTRIG_scaler, HMSTRIG_scaler, CPULT_scaler, CPULT_scaler_uncern, HMS_eLT, HMS_eLT_uncern, SHMS_eLT, SHMS_eLT_uncern, sent_edtm
 # ================================================================
-# Time-stamp: "2022-10-27 17:18:27 trottar"
+# Time-stamp: "2022-10-27 17:26:22 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -294,16 +294,17 @@ def scaler(PS_names, HMS_PS, SHMS_PS, thres_curr, report_current, runNum, MaxEve
 
     print("\n\n")
 
-    print("L1ACC counts: %.0f, \n%s Prescaled Pretrigger Counts: %.0f \n%s Prescaled Pretrigger Counts: %.0f \nComputer Livetime: %f +/- %f" %
-          (acctrig_sum, trig_name[0], scalers["SHMSTRIG_scaler"], trig_name[2], scalers["HMSTRIG_scaler"], scalers["CPULT_scaler"], scalers["CPULT_scaler_uncern"]))
-    # Check if COIN trigger is used
-    if len(PS_names) > 2:
-        print("L1ACC counts: %.0f, \n%s Prescaled Pretrigger Counts: %.0f \n%s Prescaled Pretrigger Counts: %.0f \n%s Prescaled Pretrigger Counts: %.0f \nComputer Livetime: %f +/- %f" %
-              (acctrig_sum, trig_name[0], scalers["SHMSTRIG_scaler"], trig_name[2], scalers["HMSTRIG_scaler"], trig_name[3], scalers["COINTRIG_scaler"], 
-               scalers["CPULT_scaler"], scalers["CPULT_scaler_uncern"]))
+    print("L1ACC counts: %.0f, \nComputer Livetime: %f +/- %f" % (acctrig_sum, scalers["CPULT_scaler"],scalers["CPULT_scaler_uncern"]))
+    for ps in PS_names:
+        if ps == "PS1" or ps == "PS2":
+            print("%s Prescaled Pretrigger Counts: %.0f" % (trig_name[0], scalers["SHMSTRIG_scaler"]))
+            print("SHMS Electronic livetime: %f +/- %f" % (scalers["SHMS_eLT_scaler"], scalers["SHMS_eLT_scaler_uncern"]))            
+        if ps == "PS3" or ps == "PS4":
+            print("%s Prescaled Pretrigger Counts: %.0f" % (trig_name[0], scalers["HMSTRIG_scaler"]))
+            print("HMS Electronic livetime: %f +/- %f" % (scalers["HMS_eLT_scaler"], scalers["HMS_eLT_scaler_uncern"]))
+        if ps == "PS5" or ps == "PS6":
+            print("%s Prescaled Pretrigger Counts: %.0f" % (trig_name[0], scalers["COINTRIG_scaler"]))
 
-    print("HMS Electronic livetime: %f +/- %f" % (scalers["HMS_eLT_scaler"], scalers["HMS_eLT_scaler_uncern"]))
-    print("SHMS Electronic livetime: %f +/- %f" % (scalers["SHMS_eLT_scaler"], scalers["SHMS_eLT_scaler_uncern"]))
     print("EDTM Events: %.0f" % scalers["sent_edtm"])
 
     return scalers
