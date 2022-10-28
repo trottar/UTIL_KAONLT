@@ -3,7 +3,7 @@
 # Description: This is where the variables for the yield calculations are formulated.
 # Variables calculated: tot_events, h_int_etottracknorm_evts, p_int_etottracknorm_evts, SHMSTRIG_cut, HMSTRIG_cut, HMS_track, HMS_track_uncern, SHMS_track, SHMS_track_uncern, accp_edtm
 # ================================================================
-# Time-stamp: "2022-10-28 13:19:29 trottar"
+# Time-stamp: "2022-10-28 13:21:08 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -163,11 +163,11 @@ PS_names = []
 for val in PS_list:
     if val[0] == "PS1" or val[0] == "PS2":        
         if val[1] != 0:
-            HMS_PS = val[1]
+            SHMS_PS = val[1]
             PS_names.append(val[0])    
     if val[0] == "PS3" or val[0] == "PS4":        
         if val[1] != 0:
-            SHMS_PS = val[1] 
+            HMS_PS = val[1] 
             PS_names.append(val[0])
     if val[0] == "PS5" or val[0] == "PS6":        
         if val[1] != 0:
