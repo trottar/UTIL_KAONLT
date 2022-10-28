@@ -3,7 +3,7 @@
 #
 # Description: Script for plotting trigger windows
 # ================================================================
-# Time-stamp: "2022-10-04 18:22:23 trottar"
+# Time-stamp: "2022-10-28 13:57:27 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -147,23 +147,36 @@ Define prescale variables
 
 print("\nPre-scale values...\nPS1:{0}, PS2:{1}, PS3:{2}, PS4:{3}, PS5:{4}, PS6:{5}\n".format(PS1,PS2,PS3,PS4,PS5,PS6))
 
-# Save only the used prescale triggers to the PS_used list
 PS_list = [["PS1",PS1],["PS2",PS2],["PS3",PS3],["PS4",PS4],["PS5",PS5],["PS6",PS6]]
-PS_used = []
+PS_names = []
 for val in PS_list:
-    if val[1] != 0:
-        PS_used.append(val)
+    if val[0] == "PS1" or val[0] == "PS2":        
+        if val[1] != 0:
+            SHMS_PS = val[1]
+            PS_names.append(val[0])    
+    if val[0] == "PS3" or val[0] == "PS4":        
+        if val[1] != 0:
+            HMS_PS = val[1] 
+            PS_names.append(val[0])
+    if val[0] == "PS5" or val[0] == "PS6":        
+        if val[1] != 0:
+            COIN_PS = val[1]
+            PS_names.append(val[0])
 
-# Check if COIN trigger is used by seeing it was saved in the PS_used list
-if len(PS_used) > 2:
-    PS_names = [PS_used[0][0],PS_used[1][0],PS_used[2][0]]
-    SHMS_PS = PS_used[0][1]
-    HMS_PS = PS_used[1][1]
-    COIN_PS = PS_used[2][1]
-else:
-    PS_names = [PS_used[0][0],PS_used[1][0]]
-    SHMS_PS = PS_used[0][1]
-    HMS_PS = PS_used[1][1]
+try:
+    SHMS_PS
+except NameError:
+    SHMS_PS = None
+
+try:
+    HMS_PS
+except NameError:
+    HMS_PS = None
+
+try:
+    COIN_PS
+except NameError:
+    COIN_PS = None
 
 ################################################################################################################################################
 '''
@@ -172,10 +185,15 @@ Define and set up cuts
 
 cut_f = '/DB/CUTS/run_type/lumi.cuts'
 
-cuts = ["c_nozero_edtm","c_noedtm","c_edtm","c_nozero_ptrigHMS%s" % PS_names[1].replace("PS",""),"c_ptrigHMS%s" % PS_names[1].replace("PS",""),"c_nozero_ptrigSHMS%s" % PS_names[0].replace("PS",""),"c_ptrigSHMS%s" % PS_names[0].replace("PS",""),"c_curr"]
-# Check if COIN trigger is used
-if len(PS_used) > 2:
-    cuts = ["c_nozero_edtm","c_noedtm","c_edtm","c_nozero_ptrigHMS%s" % PS_names[1].replace("PS",""),"c_ptrigHMS%s" % PS_names[1].replace("PS",""),"c_nozero_ptrigSHMS%s" % PS_names[0].replace("PS",""),"c_ptrigSHMS%s" % PS_names[0].replace("PS",""),"c_nozero_ptrigCOIN%s" % PS_names[2].replace("PS",""),"c_ptrigCOIN%s" % PS_names[2].replace("PS",""),"c_curr"]
+cuts = ["c_nozero_edtm"]
+
+for ps in PS_names:
+    if ps == "PS1" or ps == "PS2":
+        cuts+=["c_nozero_ptrigSHMS%s" % ps.replace("PS","")]        
+    if ps == "PS3" or ps == "PS4":
+        cuts+=["c_nozero_ptrigHMS%s" % ps.replace("PS","")]
+    if ps == "PS5" or ps == "PS6":
+        cuts+=["c_nozero_ptrigCOIN%s" % ps.replace("PS","")]    
 
 lt=Root(os.path.realpath(__file__),"Lumi",ROOTPrefix,runNum,MaxEvent,cut_f,cuts)
 
@@ -194,25 +212,28 @@ for key,val in strDict.items():
 
 ################################################################################################################################################
 
-T_coin_pTRIG_SHMS_ROC1_tdcTimeRaw = tree["T_coin_pTRIG%s_ROC1_tdcTimeRaw" % PS_names[0].replace("PS","")]
-T_coin_pTRIG_SHMS_ROC2_tdcTimeRaw = tree["T_coin_pTRIG%s_ROC2_tdcTimeRaw" % PS_names[0].replace("PS","")]
-T_coin_pTRIG_SHMS_ROC1_tdcTime = tree["T_coin_pTRIG%s_ROC1_tdcTime" % PS_names[0].replace("PS","")]
-T_coin_pTRIG_SHMS_ROC2_tdcTime = tree["T_coin_pTRIG%s_ROC2_tdcTime" % PS_names[0].replace("PS","")]
-
-T_coin_pTRIG_HMS_ROC1_tdcTimeRaw = tree["T_coin_pTRIG%s_ROC1_tdcTimeRaw" % PS_names[1].replace("PS","")]
-T_coin_pTRIG_HMS_ROC2_tdcTimeRaw = tree["T_coin_pTRIG%s_ROC2_tdcTimeRaw" % PS_names[1].replace("PS","")]
-T_coin_pTRIG_HMS_ROC1_tdcTime = tree["T_coin_pTRIG%s_ROC1_tdcTime" % PS_names[1].replace("PS","")]
-T_coin_pTRIG_HMS_ROC2_tdcTime = tree["T_coin_pTRIG%s_ROC2_tdcTime" % PS_names[1].replace("PS","")]
-
-# Check if COIN trigger is used
-if len(PS_used) > 2:
-    T_coin_pTRIG_COIN_ROC1_tdcTimeRaw = tree["T_coin_pTRIG%s_ROC1_tdcTimeRaw" % PS_names[2].replace("PS","")]
-    T_coin_pTRIG_COIN_ROC2_tdcTimeRaw = tree["T_coin_pTRIG%s_ROC2_tdcTimeRaw" % PS_names[2].replace("PS","")]
-    T_coin_pTRIG_COIN_ROC1_tdcTime = tree["T_coin_pTRIG%s_ROC1_tdcTime" % PS_names[2].replace("PS","")]
-    T_coin_pTRIG_COIN_ROC2_tdcTime = tree["T_coin_pTRIG%s_ROC2_tdcTime" % PS_names[2].replace("PS","")]
+for ps in PS_names:
+    if ps == "PS1" or ps == "PS2":
+        T_coin_pTRIG_SHMS_ROC1_tdcTimeRaw = tree["T_coin_pTRIG%s_ROC1_tdcTimeRaw" % ps.replace("PS","")]
+        T_coin_pTRIG_SHMS_ROC2_tdcTimeRaw = tree["T_coin_pTRIG%s_ROC2_tdcTimeRaw" % ps.replace("PS","")]
+        T_coin_pTRIG_SHMS_ROC1_tdcTime = tree["T_coin_pTRIG%s_ROC1_tdcTime" % ps.replace("PS","")]
+        T_coin_pTRIG_SHMS_ROC2_tdcTime = tree["T_coin_pTRIG%s_ROC2_tdcTime" % ps.replace("PS","")]
+        
+    if ps == "PS3" or ps == "PS4":
+        T_coin_pTRIG_HMS_ROC1_tdcTimeRaw = tree["T_coin_pTRIG%s_ROC1_tdcTimeRaw" % ps.replace("PS","")]
+        T_coin_pTRIG_HMS_ROC2_tdcTimeRaw = tree["T_coin_pTRIG%s_ROC2_tdcTimeRaw" % ps.replace("PS","")]
+        T_coin_pTRIG_HMS_ROC1_tdcTime = tree["T_coin_pTRIG%s_ROC1_tdcTime" % ps.replace("PS","")]
+        T_coin_pTRIG_HMS_ROC2_tdcTime = tree["T_coin_pTRIG%s_ROC2_tdcTime" % ps.replace("PS","")]
+        
+    if ps == "PS5" or ps == "PS6":
+        T_coin_pTRIG_COIN_ROC1_tdcTimeRaw = tree["T_coin_pTRIG%s_ROC1_tdcTimeRaw" % ps.replace("PS","")]
+        T_coin_pTRIG_COIN_ROC2_tdcTimeRaw = tree["T_coin_pTRIG%s_ROC2_tdcTimeRaw" % ps.replace("PS","")]
+        T_coin_pTRIG_COIN_ROC1_tdcTime = tree["T_coin_pTRIG%s_ROC1_tdcTime" % ps.replace("PS","")]
+        T_coin_pTRIG_COIN_ROC2_tdcTime = tree["T_coin_pTRIG%s_ROC2_tdcTime" % ps.replace("PS","")]
 
 T_coin_pEDTM_tdcTimeRaw = tree["T_coin_pEDTM_tdcTimeRaw"]
 T_coin_pEDTM_tdcTime = tree["T_coin_pEDTM_tdcTime"]
+
 H_bcm_bcm1_AvgCurrent = tree["H_bcm_bcm1_AvgCurrent"]
 
 ################################################################################################################################################
@@ -228,114 +249,51 @@ def trig_Plots():
 
     f = plt.figure(figsize=(11.69,8.27))
 
-    # Check if COIN trigger is used
-    if len(PS_used) > 2:
+    ax = f.add_subplot(231)
+    ax.hist(c.add_cut(T_coin_pTRIG_HMS_ROC1_tdcTimeRaw,"c_nozero_ptrigHMS%s" % PS_names[1].replace("PS","")),bins=c.setbin(c.add_cut(T_coin_pTRIG_HMS_ROC1_tdcTimeRaw,"c_nozero_ptrigHMS%s" % PS_names[1].replace("PS","")),200),label='no cut',histtype='step', alpha=0.5, stacked=True, fill=True)
+    ax.hist(c.add_cut(T_coin_pTRIG_HMS_ROC1_tdcTimeRaw,"c_ptrigHMS%s" % PS_names[1].replace("PS","")),bins=c.setbin(c.add_cut(T_coin_pTRIG_HMS_ROC1_tdcTimeRaw,"c_nozero_ptrigHMS%s" % PS_names[1].replace("PS","")),200),label='cut',histtype='step', alpha=0.5, stacked=True, fill=True)
+    plt.yscale('log')
+    plt.xlabel('T_coin_pTRIG_HMS_ROC1_tdcTimeRaw')
+    plt.ylabel('Count')
 
-        ax = f.add_subplot(241)
-        ax.hist(c.add_cut(T_coin_pTRIG_HMS_ROC1_tdcTimeRaw,"c_nozero_ptrigHMS%s" % PS_names[1].replace("PS","")),bins=c.setbin(c.add_cut(T_coin_pTRIG_HMS_ROC1_tdcTimeRaw,"c_nozero_ptrigHMS%s" % PS_names[1].replace("PS","")),200),label='no cut',histtype='step', alpha=0.5, stacked=True, fill=True)
-        ax.hist(c.add_cut(T_coin_pTRIG_HMS_ROC1_tdcTimeRaw,"c_ptrigHMS%s" % PS_names[1].replace("PS","")),bins=c.setbin(c.add_cut(T_coin_pTRIG_HMS_ROC1_tdcTimeRaw,"c_nozero_ptrigHMS%s" % PS_names[1].replace("PS","")),200),label='cut',histtype='step', alpha=0.5, stacked=True, fill=True)
-        plt.yscale('log')
-        plt.xlabel('T_coin_pTRIG_HMS_ROC1_tdcTimeRaw')
-        plt.ylabel('Count')
-        
-        ax = f.add_subplot(242)
-        ax.hist(c.add_cut(T_coin_pTRIG_SHMS_ROC2_tdcTimeRaw,"c_nozero_ptrigSHMS%s" % PS_names[0].replace("PS","")),bins=c.setbin(c.add_cut(T_coin_pTRIG_SHMS_ROC2_tdcTimeRaw,"c_nozero_ptrigSHMS%s" % PS_names[0].replace("PS","")),200),label='no cut',histtype='step', alpha=0.5, stacked=True, fill=True)
-        ax.hist(c.add_cut(T_coin_pTRIG_SHMS_ROC2_tdcTimeRaw,"c_ptrigSHMS%s" % PS_names[0].replace("PS","")),bins=c.setbin(c.add_cut(T_coin_pTRIG_SHMS_ROC2_tdcTimeRaw,"c_nozero_ptrigSHMS%s" % PS_names[0].replace("PS","")),200),label='cut',histtype='step', alpha=0.5, stacked=True, fill=True)
-        plt.yscale('log')
-        plt.xlabel('T_coin_pTRIG_SHMS_ROC2_tdcTimeRaw')
-        plt.ylabel('Count')
+    ax = f.add_subplot(232)
+    ax.hist(c.add_cut(T_coin_pTRIG_SHMS_ROC2_tdcTimeRaw,"c_nozero_ptrigSHMS%s" % PS_names[0].replace("PS","")),bins=c.setbin(c.add_cut(T_coin_pTRIG_SHMS_ROC2_tdcTimeRaw,"c_nozero_ptrigSHMS%s" % PS_names[0].replace("PS","")),200),label='no cut',histtype='step', alpha=0.5, stacked=True, fill=True)
+    ax.hist(c.add_cut(T_coin_pTRIG_SHMS_ROC2_tdcTimeRaw,"c_ptrigSHMS%s" % PS_names[0].replace("PS","")),bins=c.setbin(c.add_cut(T_coin_pTRIG_SHMS_ROC2_tdcTimeRaw,"c_nozero_ptrigSHMS%s" % PS_names[0].replace("PS","")),200),label='cut',histtype='step', alpha=0.5, stacked=True, fill=True)
+    plt.yscale('log')
+    plt.xlabel('T_coin_pTRIG_SHMS_ROC2_tdcTimeRaw')
+    plt.ylabel('Count')
 
-        plt.title("Run %s" % runNum)
+    plt.title("Run %s" % runNum)
 
-        ax = f.add_subplot(243)
-        ax.hist(c.add_cut(T_coin_pTRIG_COIN_ROC1_tdcTimeRaw,"c_nozero_ptrigCOIN%s" % PS_names[2].replace("PS","")),bins=c.setbin(c.add_cut(T_coin_pTRIG_COIN_ROC1_tdcTimeRaw,"c_nozero_ptrigCOIN%s" % PS_names[2].replace("PS","")),200),label='no cut',histtype='step', alpha=0.5, stacked=True, fill=True)
-        ax.hist(c.add_cut(T_coin_pTRIG_COIN_ROC1_tdcTimeRaw,"c_ptrigCOIN%s" % PS_names[2].replace("PS","")),bins=c.setbin(c.add_cut(T_coin_pTRIG_COIN_ROC1_tdcTimeRaw,"c_nozero_ptrigCOIN%s" % PS_names[2].replace("PS","")),200),label='cut',histtype='step', alpha=0.5, stacked=True, fill=True)
-        plt.yscale('log')
-        plt.xlabel('T_coin_pTRIG_COIN_ROC1_tdcTimeRaw')
-        plt.ylabel('Count')
+    ax = f.add_subplot(233)
+    ax.hist(c.add_cut(T_coin_pEDTM_tdcTimeRaw,"c_nozero_edtm"),bins=c.setbin(c.add_cut(T_coin_pEDTM_tdcTimeRaw,"c_nozero_edtm"),200),label='no cut',histtype='step', alpha=0.5, stacked=True, fill=True)
+    ax.hist(c.add_cut(T_coin_pEDTM_tdcTimeRaw,"c_edtm"),bins=c.setbin(c.add_cut(T_coin_pEDTM_tdcTimeRaw,"c_nozero_edtm"),200),label='cut',histtype='step', alpha=0.5, stacked=True, fill=True)
+    plt.yscale('log')
+    plt.xlabel('T_coin_pEDTM_tdcTimeRaw')
+    plt.ylabel('Count')
 
-        ax = f.add_subplot(244)
-        ax.hist(c.add_cut(T_coin_pEDTM_tdcTimeRaw,"c_nozero_edtm"),bins=c.setbin(c.add_cut(T_coin_pEDTM_tdcTimeRaw,"c_nozero_edtm"),200),label='no cut',histtype='step', alpha=0.5, stacked=True, fill=True)
-        ax.hist(c.add_cut(T_coin_pEDTM_tdcTimeRaw,"c_edtm"),bins=c.setbin(c.add_cut(T_coin_pEDTM_tdcTimeRaw,"c_nozero_edtm"),200),label='cut',histtype='step', alpha=0.5, stacked=True, fill=True)
-        plt.yscale('log')
-        plt.xlabel('T_coin_pEDTM_tdcTimeRaw')
-        plt.ylabel('Count')
-        
-        ax = f.add_subplot(245)
-        ax.hist(c.add_cut(T_coin_pTRIG_HMS_ROC1_tdcTime,"c_nozero_ptrigHMS%s" % PS_names[1].replace("PS","")),bins=c.setbin(c.add_cut(T_coin_pTRIG_HMS_ROC1_tdcTime,"c_nozero_ptrigHMS%s" % PS_names[1].replace("PS","")),200),label='no cut',histtype='step', alpha=0.5, stacked=True, fill=True)
-        ax.hist(c.add_cut(T_coin_pTRIG_HMS_ROC1_tdcTime,"c_ptrigHMS%s" % PS_names[1].replace("PS","")),bins=c.setbin(c.add_cut(T_coin_pTRIG_HMS_ROC1_tdcTime,"c_nozero_ptrigHMS%s" % PS_names[1].replace("PS","")),200),label='cut',histtype='step', alpha=0.5, stacked=True, fill=True)
-        plt.yscale('log')
-        plt.xlabel('T_coin_pTRIG_HMS_ROC1_tdcTime')
-        plt.ylabel('Count')
+    ax = f.add_subplot(234)
+    ax.hist(c.add_cut(T_coin_pTRIG_HMS_ROC1_tdcTime,"c_nozero_ptrigHMS%s" % PS_names[1].replace("PS","")),bins=c.setbin(c.add_cut(T_coin_pTRIG_HMS_ROC1_tdcTime,"c_nozero_ptrigHMS%s" % PS_names[1].replace("PS","")),200),label='no cut',histtype='step', alpha=0.5, stacked=True, fill=True)
+    ax.hist(c.add_cut(T_coin_pTRIG_HMS_ROC1_tdcTime,"c_ptrigHMS%s" % PS_names[1].replace("PS","")),bins=c.setbin(c.add_cut(T_coin_pTRIG_HMS_ROC1_tdcTime,"c_nozero_ptrigHMS%s" % PS_names[1].replace("PS","")),200),label='cut',histtype='step', alpha=0.5, stacked=True, fill=True)
+    plt.yscale('log')
+    plt.xlabel('T_coin_pTRIG_HMS_ROC1_tdcTime')
+    plt.ylabel('Count')
 
-        ax = f.add_subplot(246)
-        ax.hist(c.add_cut(T_coin_pTRIG_SHMS_ROC2_tdcTime,"c_nozero_ptrigSHMS%s" % PS_names[0].replace("PS","")),bins=c.setbin(c.add_cut(T_coin_pTRIG_SHMS_ROC2_tdcTime,"c_nozero_ptrigSHMS%s" % PS_names[0].replace("PS","")),200),label='no cut',histtype='step', alpha=0.5, stacked=True, fill=True)
-        ax.hist(c.add_cut(T_coin_pTRIG_SHMS_ROC2_tdcTime,"c_ptrigSHMS%s" % PS_names[0].replace("PS","")),bins=c.setbin(c.add_cut(T_coin_pTRIG_SHMS_ROC2_tdcTime,"c_nozero_ptrigSHMS%s" % PS_names[0].replace("PS","")),200),label='cut',histtype='step', alpha=0.5, stacked=True, fill=True)
-        plt.yscale('log')
-        plt.xlabel('T_coin_pTRIG_SHMS_ROC2_tdcTime')
-        plt.ylabel('Count')
+    ax = f.add_subplot(235)
+    ax.hist(c.add_cut(T_coin_pTRIG_SHMS_ROC2_tdcTime,"c_nozero_ptrigSHMS%s" % PS_names[0].replace("PS","")),bins=c.setbin(c.add_cut(T_coin_pTRIG_SHMS_ROC2_tdcTime,"c_nozero_ptrigSHMS%s" % PS_names[0].replace("PS","")),200),label='no cut',histtype='step', alpha=0.5, stacked=True, fill=True)
+    ax.hist(c.add_cut(T_coin_pTRIG_SHMS_ROC2_tdcTime,"c_ptrigSHMS%s" % PS_names[0].replace("PS","")),bins=c.setbin(c.add_cut(T_coin_pTRIG_SHMS_ROC2_tdcTime,"c_nozero_ptrigSHMS%s" % PS_names[0].replace("PS","")),200),label='cut',histtype='step', alpha=0.5, stacked=True, fill=True)
+    plt.yscale('log')
+    plt.xlabel('T_coin_pTRIG_SHMS_ROC2_tdcTime')
+    plt.ylabel('Count')
 
-        ax = f.add_subplot(247)
-        ax.hist(c.add_cut(T_coin_pTRIG_COIN_ROC1_tdcTime,"c_nozero_ptrigCOIN%s" % PS_names[2].replace("PS","")),bins=c.setbin(c.add_cut(T_coin_pTRIG_COIN_ROC1_tdcTime,"c_nozero_ptrigCOIN%s" % PS_names[2].replace("PS","")),200),label='no cut',histtype='step', alpha=0.5, stacked=True, fill=True)
-        ax.hist(c.add_cut(T_coin_pTRIG_COIN_ROC1_tdcTime,"c_ptrigCOIN%s" % PS_names[2].replace("PS","")),bins=c.setbin(c.add_cut(T_coin_pTRIG_COIN_ROC1_tdcTime,"c_nozero_ptrigCOIN%s" % PS_names[2].replace("PS","")),200),label='cut',histtype='step', alpha=0.5, stacked=True, fill=True)
-        plt.yscale('log')
-        plt.xlabel('T_coin_pTRIG_COIN_ROC1_tdcTime')
-        plt.ylabel('Count')
+    ax = f.add_subplot(236)
+    ax.hist(c.add_cut(T_coin_pEDTM_tdcTime,"c_nozero_edtm"),bins=c.setbin(c.add_cut(T_coin_pEDTM_tdcTime,"c_nozero_edtm"),200),label='no cut',histtype='step', alpha=0.5, stacked=True, fill=True)
+    ax.hist(c.add_cut(T_coin_pEDTM_tdcTime,"c_edtm"),bins=c.setbin(c.add_cut(T_coin_pEDTM_tdcTime,"c_nozero_edtm"),200),label='cut',histtype='step', alpha=0.5, stacked=True, fill=True)
+    plt.yscale('log')
+    plt.xlabel('T_coin_pEDTM_tdcTime')
+    plt.ylabel('Count')
 
-        ax = f.add_subplot(248)
-        ax.hist(c.add_cut(T_coin_pEDTM_tdcTime,"c_edtm"),bins=c.setbin(c.add_cut(T_coin_pEDTM_tdcTime,"c_nozero_edtm"),200),label='cut',histtype='step', alpha=0.5, stacked=True, fill=True)
-        ax.hist(c.add_cut(T_coin_pEDTM_tdcTime,"c_nozero_edtm"),bins=c.setbin(c.add_cut(T_coin_pEDTM_tdcTime,"c_nozero_edtm"),200),label='no cut',histtype='step', alpha=0.5, stacked=True, fill=True)
-        plt.yscale('log')
-        plt.xlabel('T_coin_pEDTM_tdcTime')
-        plt.ylabel('Count')
-
-    else:
-
-        ax = f.add_subplot(231)
-        ax.hist(c.add_cut(T_coin_pTRIG_HMS_ROC1_tdcTimeRaw,"c_nozero_ptrigHMS%s" % PS_names[1].replace("PS","")),bins=c.setbin(c.add_cut(T_coin_pTRIG_HMS_ROC1_tdcTimeRaw,"c_nozero_ptrigHMS%s" % PS_names[1].replace("PS","")),200),label='no cut',histtype='step', alpha=0.5, stacked=True, fill=True)
-        ax.hist(c.add_cut(T_coin_pTRIG_HMS_ROC1_tdcTimeRaw,"c_ptrigHMS%s" % PS_names[1].replace("PS","")),bins=c.setbin(c.add_cut(T_coin_pTRIG_HMS_ROC1_tdcTimeRaw,"c_nozero_ptrigHMS%s" % PS_names[1].replace("PS","")),200),label='cut',histtype='step', alpha=0.5, stacked=True, fill=True)
-        plt.yscale('log')
-        plt.xlabel('T_coin_pTRIG_HMS_ROC1_tdcTimeRaw')
-        plt.ylabel('Count')
-
-        ax = f.add_subplot(232)
-        ax.hist(c.add_cut(T_coin_pTRIG_SHMS_ROC2_tdcTimeRaw,"c_nozero_ptrigSHMS%s" % PS_names[0].replace("PS","")),bins=c.setbin(c.add_cut(T_coin_pTRIG_SHMS_ROC2_tdcTimeRaw,"c_nozero_ptrigSHMS%s" % PS_names[0].replace("PS","")),200),label='no cut',histtype='step', alpha=0.5, stacked=True, fill=True)
-        ax.hist(c.add_cut(T_coin_pTRIG_SHMS_ROC2_tdcTimeRaw,"c_ptrigSHMS%s" % PS_names[0].replace("PS","")),bins=c.setbin(c.add_cut(T_coin_pTRIG_SHMS_ROC2_tdcTimeRaw,"c_nozero_ptrigSHMS%s" % PS_names[0].replace("PS","")),200),label='cut',histtype='step', alpha=0.5, stacked=True, fill=True)
-        plt.yscale('log')
-        plt.xlabel('T_coin_pTRIG_SHMS_ROC2_tdcTimeRaw')
-        plt.ylabel('Count')
-
-        plt.title("Run %s" % runNum)
-
-        ax = f.add_subplot(233)
-        ax.hist(c.add_cut(T_coin_pEDTM_tdcTimeRaw,"c_nozero_edtm"),bins=c.setbin(c.add_cut(T_coin_pEDTM_tdcTimeRaw,"c_nozero_edtm"),200),label='no cut',histtype='step', alpha=0.5, stacked=True, fill=True)
-        ax.hist(c.add_cut(T_coin_pEDTM_tdcTimeRaw,"c_edtm"),bins=c.setbin(c.add_cut(T_coin_pEDTM_tdcTimeRaw,"c_nozero_edtm"),200),label='cut',histtype='step', alpha=0.5, stacked=True, fill=True)
-        plt.yscale('log')
-        plt.xlabel('T_coin_pEDTM_tdcTimeRaw')
-        plt.ylabel('Count')
-        
-        ax = f.add_subplot(234)
-        ax.hist(c.add_cut(T_coin_pTRIG_HMS_ROC1_tdcTime,"c_nozero_ptrigHMS%s" % PS_names[1].replace("PS","")),bins=c.setbin(c.add_cut(T_coin_pTRIG_HMS_ROC1_tdcTime,"c_nozero_ptrigHMS%s" % PS_names[1].replace("PS","")),200),label='no cut',histtype='step', alpha=0.5, stacked=True, fill=True)
-        ax.hist(c.add_cut(T_coin_pTRIG_HMS_ROC1_tdcTime,"c_ptrigHMS%s" % PS_names[1].replace("PS","")),bins=c.setbin(c.add_cut(T_coin_pTRIG_HMS_ROC1_tdcTime,"c_nozero_ptrigHMS%s" % PS_names[1].replace("PS","")),200),label='cut',histtype='step', alpha=0.5, stacked=True, fill=True)
-        plt.yscale('log')
-        plt.xlabel('T_coin_pTRIG_HMS_ROC1_tdcTime')
-        plt.ylabel('Count')
-
-        ax = f.add_subplot(235)
-        ax.hist(c.add_cut(T_coin_pTRIG_SHMS_ROC2_tdcTime,"c_nozero_ptrigSHMS%s" % PS_names[0].replace("PS","")),bins=c.setbin(c.add_cut(T_coin_pTRIG_SHMS_ROC2_tdcTime,"c_nozero_ptrigSHMS%s" % PS_names[0].replace("PS","")),200),label='no cut',histtype='step', alpha=0.5, stacked=True, fill=True)
-        ax.hist(c.add_cut(T_coin_pTRIG_SHMS_ROC2_tdcTime,"c_ptrigSHMS%s" % PS_names[0].replace("PS","")),bins=c.setbin(c.add_cut(T_coin_pTRIG_SHMS_ROC2_tdcTime,"c_nozero_ptrigSHMS%s" % PS_names[0].replace("PS","")),200),label='cut',histtype='step', alpha=0.5, stacked=True, fill=True)
-        plt.yscale('log')
-        plt.xlabel('T_coin_pTRIG_SHMS_ROC2_tdcTime')
-        plt.ylabel('Count')
-
-        ax = f.add_subplot(236)
-        ax.hist(c.add_cut(T_coin_pEDTM_tdcTime,"c_nozero_edtm"),bins=c.setbin(c.add_cut(T_coin_pEDTM_tdcTime,"c_nozero_edtm"),200),label='no cut',histtype='step', alpha=0.5, stacked=True, fill=True)
-        ax.hist(c.add_cut(T_coin_pEDTM_tdcTime,"c_edtm"),bins=c.setbin(c.add_cut(T_coin_pEDTM_tdcTime,"c_nozero_edtm"),200),label='cut',histtype='step', alpha=0.5, stacked=True, fill=True)
-        plt.yscale('log')
-        plt.xlabel('T_coin_pEDTM_tdcTime')
-        plt.ylabel('Count')
-
-        plt.legend(loc="upper right")
+    plt.legend(loc="upper right")
         
     plt.tight_layout()      
     plt.savefig(UTILPATH+'/scripts/trig_windows/OUTPUTS/trig_%s_%s.png' % (ROOTPrefix,runNum))     # Input file location and variables taking)
