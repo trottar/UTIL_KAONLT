@@ -3,7 +3,7 @@
 # Description: Grabs lumi data from corresponding csv depending on run setting. Then plots the yields and creates a comprehensive table.
 # Variables calculated: current, rate_HMS, rate_SHMS, sent_edtm_PS, uncern_HMS_evts_scaler, uncern_SHMS_evts_scaler, uncern_HMS_evts_notrack, uncern_SHMS_evts_notrack, uncern_HMS_evts_track, uncern_SHMS_evts_track
 # ================================================================
-# Time-stamp: "2022-10-28 12:23:40 trottar"
+# Time-stamp: "2022-10-28 12:25:12 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -92,21 +92,33 @@ Define prescale variables
 if "PS1" in lumi_data.keys() and not lumi_data["PS1"].isnull().values.any():
     SHMS_PS = lumi_data["PS1"]
     print("PS1 : ",lumi_data["PS1"])
+else:
+    SHMS_PS = None
 if "PS2" in lumi_data.keys() and not lumi_data["PS2"].isnull().values.any():
     SHMS_PS = lumi_data["PS2"]
     print("PS2 : ",lumi_data["PS2"])
+else:
+    SHMS_PS = None    
 if "PS3" in lumi_data.keys() and not lumi_data["PS3"].isnull().values.any():
     HMS_PS = lumi_data["PS3"]
     print("PS3 : ",lumi_data["PS3"])
+else:
+    HMS_PS = None    
 if "PS4" in lumi_data.keys() and not lumi_data["PS4"].isnull().values.any():
     HMS_PS = lumi_data["PS4"]
     print("PS4 : ",lumi_data["PS4"])
+else:
+    HMS_PS = None    
 if "PS5" in lumi_data.keys() and not lumi_data["PS5"].isnull().values.any():
     COIN_PS = lumi_data["PS5"]
     print("PS5 : ",lumi_data["PS5"])
+else:
+    COIN_PS = None    
 if "PS6" in lumi_data.keys() and not lumi_data["PS6"].isnull().values.any():
     COIN_PS = lumi_data["PS6"]
     print("PS6 : ",lumi_data["PS6"])
+else:
+    COIN_PS = None
 
 '''
 try:
