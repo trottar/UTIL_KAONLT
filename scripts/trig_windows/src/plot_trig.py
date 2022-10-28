@@ -3,7 +3,7 @@
 #
 # Description: Script for plotting trigger windows
 # ================================================================
-# Time-stamp: "2022-10-28 14:02:46 trottar"
+# Time-stamp: "2022-10-28 14:04:08 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -185,7 +185,7 @@ Define and set up cuts
 
 cut_f = '/DB/CUTS/run_type/lumi.cuts'
 
-cuts = ["c_nozero_edtm","c_edtm"]
+cuts = ["c_nozero_edtm","c_edtm","c_curr"]
 
 for ps in PS_names:
     if ps == "PS1" or ps == "PS2":
