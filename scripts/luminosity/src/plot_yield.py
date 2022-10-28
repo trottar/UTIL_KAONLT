@@ -3,7 +3,7 @@
 # Description: Grabs lumi data from corresponding csv depending on run setting. Then plots the yields and creates a comprehensive table.
 # Variables calculated: current, rate_HMS, rate_SHMS, sent_edtm_PS, uncern_HMS_evts_scaler, uncern_SHMS_evts_scaler, uncern_HMS_evts_notrack, uncern_SHMS_evts_notrack, uncern_HMS_evts_track, uncern_SHMS_evts_track
 # ================================================================
-# Time-stamp: "2022-10-28 13:35:38 trottar"
+# Time-stamp: "2022-10-28 13:43:34 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -111,17 +111,17 @@ if "PS6" in lumi_data.keys() and not lumi_data["PS6"].isnull().values.any():
 try:
     SHMS_PS
 except NameError:
-    SHMS_PS = None
+    SHMS_PS = 0
 
 try:
     HMS_PS
 except NameError:
-    HMS_PS = None
+    HMS_PS = 0
 
 try:
     COIN_PS
 except NameError:
-    COIN_PS = None
+    COIN_PS = 0
     
 ################################################################################################################################################
 
@@ -175,12 +175,12 @@ def calc_yield():
 
     }
 
-    if COIN_PS is None:
+    if COIN_PS == 0:
         print ("\n\n\n\nCOIN_PS: %s" % (COIN_PS) )
-        if SHMS_PS is None:
+        if SHMS_PS == 0:
             print ("\n\n\n\nHMS_PS: %s" % (HMS_PS) )
             yield_dict.update({"sent_edtm_PS" : makeList("sent_edtm")/HMS_PS})
-        elif HMS_PS is None:
+        elif HMS_PS == 0:
             print ("\n\n\n\nSHMS_PS: %s" % (SHMS_PS) )
             yield_dict.update({"sent_edtm_PS" : makeList("sent_edtm")/SHMS_PS})
         else:
@@ -197,7 +197,6 @@ def calc_yield():
         
     # SHMS
     yield_dict.update({"rate_SHMS" : makeList("SHMSTRIG_scaler")/makeList("time")})
-    yield_dict.update({"sent_edtm_PS" : makeList("sent_edtm")/SHMS_PS})
     yield_dict.update({"sent_edtm_SHMS" : makeList("sent_edtm")/SHMS_PS})
 
     yield_dict.update({"uncern_SHMS_evts_scaler" : np.sqrt(makeList("SHMSTRIG_scaler"))/makeList("SHMSTRIG_scaler")})
