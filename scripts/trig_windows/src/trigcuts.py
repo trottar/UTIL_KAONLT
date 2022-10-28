@@ -3,7 +3,7 @@
 #
 # Description: Script to dynamically set new trigger windows and update the param file with these values
 # ================================================================
-# Time-stamp: "2022-10-28 14:11:33 trottar"
+# Time-stamp: "2022-10-28 14:12:40 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -294,17 +294,17 @@ def setWindows(runNum):
     try:
         c_T_coin_pTRIG_SHMS_ROC2_tdcTimeRaw
     except NameError:
-        c_T_coin_pTRIG_SHMS_ROC2_tdcTimeRaw = None
+        c_T_coin_pTRIG_SHMS_ROC2_tdcTimeRaw = [None]
 
     try:
         c_T_coin_pTRIG_HMS_ROC1_tdcTimeRaw
     except NameError:
-        c_T_coin_pTRIG_HMS_ROC1_tdcTimeRaw = None
+        c_T_coin_pTRIG_HMS_ROC1_tdcTimeRaw = [None]
 
     try:
         c_T_coin_pTRIG_COIN_ROC1_tdcTimeRaw
     except NameError:
-        c_T_coin_pTRIG_COIN_ROC1_tdcTimeRaw = None        
+        c_T_coin_pTRIG_COIN_ROC1_tdcTimeRaw = [None]        
     
     window = 50
     # This will need to run twice as it will need (or at least I'd prefer) to have the time raw window cut on time.
@@ -325,17 +325,17 @@ def setWindows(runNum):
     try:
         c_T_coin_pTRIG_SHMS_ROC2_tdcTime
     except NameError:
-        c_T_coin_pTRIG_SHMS_ROC2_tdcTime = None
+        c_T_coin_pTRIG_SHMS_ROC2_tdcTime = [None]
 
     try:
         c_T_coin_pTRIG_HMS_ROC1_tdcTime
     except NameError:
-        c_T_coin_pTRIG_HMS_ROC1_tdcTime = None
+        c_T_coin_pTRIG_HMS_ROC1_tdcTime = [None]
 
     try:
         c_T_coin_pTRIG_COIN_ROC1_tdcTime
     except NameError:
-        c_T_coin_pTRIG_COIN_ROC1_tdcTime = None        
+        c_T_coin_pTRIG_COIN_ROC1_tdcTime = [None]        
 
     # Create a dictionary that contains the information that will be uploaded to Misc_Parameters.csv for a particular run
     new_row =  {'Run_Start' : "{:.0f}".format(float(runNum)), 'Run_End' : "{:.0f}".format(float(runNum)), 'noedtm' : 0.0, 'edtmLow' : "{:.0f}".format(float(c_T_coin_pEDTM_tdcTimeRaw[0])), 
