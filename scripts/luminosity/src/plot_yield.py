@@ -3,7 +3,7 @@
 # Description: Grabs lumi data from corresponding csv depending on run setting. Then plots the yields and creates a comprehensive table.
 # Variables calculated: current, rate_HMS, rate_SHMS, sent_edtm_PS, uncern_HMS_evts_scaler, uncern_SHMS_evts_scaler, uncern_HMS_evts_notrack, uncern_SHMS_evts_notrack, uncern_HMS_evts_track, uncern_SHMS_evts_track
 # ================================================================
-# Time-stamp: "2022-10-28 12:08:44 trottar"
+# Time-stamp: "2022-10-28 12:14:28 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -140,18 +140,31 @@ def calc_yield():
     # Create dictionary for calculations that were not calculated in previous scripts.
     yield_dict = {
         "current" : makeList("charge")/makeList("time"),
-                        
+        
+        "rate_HMS" : makeList("HMSTRIG_scaler")/makeList("time"),
+        "rate_SHMS" : makeList("SHMSTRIG_scaler")/makeList("time"),
+        "rate_COIN" : makeList("COINTRIG_scaler")/makeList("time"),
+        
         #"sent_edtm_PS" : makeList("sent_edtm")/HMS_PS,
         #"PS_mod" : SHMS_PS%HMS_PS,
+        
+        "CPULT_phys" : (makeList("HMSTRIG_cut")*HMS_PS+makeList("SHMSTRIG_cut")*SHMS_PS)*makeList("CPULT_scaler"),
+        
+        "uncern_HMS_evts_scaler" : np.sqrt(makeList("HMSTRIG_scaler"))/makeList("HMSTRIG_scaler"),
+        
+        "uncern_SHMS_evts_scaler" : np.sqrt(makeList("SHMSTRIG_scaler"))/makeList("SHMSTRIG_scaler"),
 
-        #"CPULT_phys" : (makeList("HMSTRIG_cut")*HMS_PS+makeList("SHMSTRIG_cut")*SHMS_PS)*makeList("CPULT_scaler"),
-        "CPULT_phys" : makeList("CPULT_scaler"),
+        "uncern_HMS_evts_notrack" : np.sqrt(makeList("h_int_etotnorm_evts"))/makeList("h_int_etotnorm_evts"),
 
-        "uncern_CPULT_phys" : makeList("CPULT_scaler_uncern"),
-            
-        }
+        "uncern_SHMS_evts_notrack" : np.sqrt(makeList("p_int_etotnorm_evts"))/makeList("p_int_etotnorm_evts"),
 
-    if COIN_PS == 0:
+        "uncern_HMS_evts_track" : np.sqrt(makeList("h_int_goodscin_evts"))/makeList("h_int_goodscin_evts"),
+
+        "uncern_SHMS_evts_track" : np.sqrt(makeList("p_int_goodscin_evts"))/makeList("p_int_goodscin_evts"),
+
+    }
+
+    if COIN_PS == None:
         yield_dict.update({"sent_edtm_PS" : makeList("sent_edtm")/HMS_PS+makeList("sent_edtm")/SHMS_PS-makeList("sent_edtm")/(HMS_PS*SHMS_PS)})
     else:
         yield_dict.update({"sent_edtm_PS" : makeList("sent_edtm")/HMS_PS+makeList("sent_edtm")/SHMS_PS+makeList("sent_edtm")/COIN_PS+makeList("sent_edtm")/(SHMS_PS*HMS_PS*COIN_PS)-makeList("sent_edtm")/(HMS_PS*SHMS_PS)-makeList("sent_edtm")/(COIN_PS*SHMS_PS)-makeList("sent_edtm")/(HMS_PS*COIN_PS)})
