@@ -3,7 +3,7 @@
 # Description: Grabs lumi data from corresponding csv depending on run setting. Then plots the yields and creates a comprehensive table.
 # Variables calculated: current, rate_HMS, rate_SHMS, sent_edtm_PS, uncern_HMS_evts_scaler, uncern_SHMS_evts_scaler, uncern_HMS_evts_notrack, uncern_SHMS_evts_notrack, uncern_HMS_evts_track, uncern_SHMS_evts_track
 # ================================================================
-# Time-stamp: "2022-10-28 12:14:28 trottar"
+# Time-stamp: "2022-10-28 12:17:26 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -148,11 +148,16 @@ def calc_yield():
         #"sent_edtm_PS" : makeList("sent_edtm")/HMS_PS,
         #"PS_mod" : SHMS_PS%HMS_PS,
         
-        "CPULT_phys" : (makeList("HMSTRIG_cut")*HMS_PS+makeList("SHMSTRIG_cut")*SHMS_PS)*makeList("CPULT_scaler"),
+        #"CPULT_phys" : (makeList("HMSTRIG_cut")*HMS_PS+makeList("SHMSTRIG_cut")*SHMS_PS)*makeList("CPULT_scaler"),
+        "CPULT_phys" : makeList("CPULT_scaler"),
+
+        "uncern_CPULT_phys" : makeList("CPULT_scaler_uncern"),
         
         "uncern_HMS_evts_scaler" : np.sqrt(makeList("HMSTRIG_scaler"))/makeList("HMSTRIG_scaler"),
         
         "uncern_SHMS_evts_scaler" : np.sqrt(makeList("SHMSTRIG_scaler"))/makeList("SHMSTRIG_scaler"),
+
+        "uncern_COIN_evts_scaler" : np.sqrt(makeList("COINTRIG_scaler"))/makeList("COINTRIG_scaler"),
 
         "uncern_HMS_evts_notrack" : np.sqrt(makeList("h_int_etotnorm_evts"))/makeList("h_int_etotnorm_evts"),
 
@@ -164,7 +169,8 @@ def calc_yield():
 
     }
 
-    if COIN_PS == None:
+
+    if COIN_PS == 0:
         yield_dict.update({"sent_edtm_PS" : makeList("sent_edtm")/HMS_PS+makeList("sent_edtm")/SHMS_PS-makeList("sent_edtm")/(HMS_PS*SHMS_PS)})
     else:
         yield_dict.update({"sent_edtm_PS" : makeList("sent_edtm")/HMS_PS+makeList("sent_edtm")/SHMS_PS+makeList("sent_edtm")/COIN_PS+makeList("sent_edtm")/(SHMS_PS*HMS_PS*COIN_PS)-makeList("sent_edtm")/(HMS_PS*SHMS_PS)-makeList("sent_edtm")/(COIN_PS*SHMS_PS)-makeList("sent_edtm")/(HMS_PS*COIN_PS)})
