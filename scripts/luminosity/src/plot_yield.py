@@ -3,7 +3,7 @@
 # Description: Grabs lumi data from corresponding csv depending on run setting. Then plots the yields and creates a comprehensive table.
 # Variables calculated: current, rate_HMS, rate_SHMS, sent_edtm_PS, uncern_HMS_evts_scaler, uncern_SHMS_evts_scaler, uncern_HMS_evts_notrack, uncern_SHMS_evts_notrack, uncern_HMS_evts_track, uncern_SHMS_evts_track
 # ================================================================
-# Time-stamp: "2022-10-27 18:13:35 trottar"
+# Time-stamp: "2022-10-28 12:03:36 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -107,7 +107,7 @@ if "PS5" in lumi_data.keys() and not lumi_data["PS5"].isnull().values.any():
 if "PS6" in lumi_data.keys() and not lumi_data["PS6"].isnull().values.any():
     COIN_PS = lumi_data["PS6"]
     print("PS6 : ",lumi_data["PS6"])
-
+'''
 try:
     SHMS_PS
     HMS_PS
@@ -116,7 +116,7 @@ except NameError:
     SHMS_PS = 0
     HMS_PS = 0
     COIN_PS = 0
-
+'''
 ################################################################################################################################################
 
 # Define number of runs to analyze
@@ -143,6 +143,7 @@ def calc_yield():
                         
         #"sent_edtm_PS" : makeList("sent_edtm")/HMS_PS,
         #"PS_mod" : SHMS_PS%HMS_PS,
+        "sent_edtm_PS" : makeList("sent_edtm")/HMS_PS+makeList("sent_edtm")/SHMS_PS+makeList("sent_edtm")/COIN_PS+makeList("sent_edtm")/(SHMS_PS*HMS_PS*COIN_PS)-makeList("sent_edtm")/(HMS_PS*SHMS_PS)-makeList("sent_edtm")/(COIN_PS*SHMS_PS)-makeList("sent_edtm")/(HMS_PS*COIN_PS),
 
         #"CPULT_phys" : (makeList("HMSTRIG_cut")*HMS_PS+makeList("SHMSTRIG_cut")*SHMS_PS)*makeList("CPULT_scaler"),
         "CPULT_phys" : makeList("CPULT_scaler"),
@@ -151,7 +152,7 @@ def calc_yield():
             
         }
 
-    yield_dict.update({"sent_edtm_PS" : makeList("sent_edtm")/HMS_PS+makeList("sent_edtm")/SHMS_PS+makeList("sent_edtm")/COIN_PS+makeList("sent_edtm")/(SHMS_PS*HMS_PS*COIN_PS)-makeList("sent_edtm")/(HMS_PS*SHMS_PS)-makeList("sent_edtm")/(COIN_PS*SHMS_PS)-makeList("sent_edtm")/(HMS_PS*COIN_PS)})
+    yield_dict.update({})
     # Total livetime calculation
     TLT = makeList("accp_edtm")/yield_dict["sent_edtm_PS"]
     yield_dict.update({"TLT" : TLT})
@@ -159,6 +160,7 @@ def calc_yield():
     #uncern_TLT = np.sqrt(yield_dict["sent_edtm_PS"]*.95*.05)
     yield_dict.update({"uncern_TLT" : uncern_TLT})
         
+    # SHMS
     yield_dict.update({"rate_SHMS" : makeList("SHMSTRIG_scaler")/makeList("time")})
     yield_dict.update({"sent_edtm_PS" : makeList("sent_edtm")/SHMS_PS})
     yield_dict.update({"sent_edtm_SHMS" : makeList("sent_edtm")/SHMS_PS})
@@ -228,7 +230,8 @@ def calc_yield():
     uncern_yieldRel_SHMS_CPULT_track =  (yield_dict["uncern_SHMS_evts_notrack"]+yield_dict["uncern_CPULT_phys"]+makeList("SHMS_track_uncern"))
     yield_dict.update({"uncern_yieldRel_SHMS_CPULT_notrack" : uncern_yieldRel_SHMS_CPULT_notrack})
     yield_dict.update({"uncern_yieldRel_SHMS_CPULT_track" : uncern_yieldRel_SHMS_CPULT_track})
-        
+
+    # HMS
     yield_dict.update({"rate_HMS" : makeList("HMSTRIG_scaler")/makeList("time")})
     yield_dict.update({"sent_edtm_PS" : makeList("sent_edtm")/HMS_PS})
     yield_dict.update({"sent_edtm_HMS" : makeList("sent_edtm")/HMS_PS})
