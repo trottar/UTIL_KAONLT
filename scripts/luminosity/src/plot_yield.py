@@ -3,7 +3,7 @@
 # Description: Grabs lumi data from corresponding csv depending on run setting. Then plots the yields and creates a comprehensive table.
 # Variables calculated: current, rate_HMS, rate_SHMS, sent_edtm_PS, uncern_HMS_evts_scaler, uncern_SHMS_evts_scaler, uncern_HMS_evts_notrack, uncern_SHMS_evts_notrack, uncern_HMS_evts_track, uncern_SHMS_evts_track
 # ================================================================
-# Time-stamp: "2022-10-28 12:22:43 trottar"
+# Time-stamp: "2022-10-28 12:23:40 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -108,7 +108,7 @@ if "PS6" in lumi_data.keys() and not lumi_data["PS6"].isnull().values.any():
     COIN_PS = lumi_data["PS6"]
     print("PS6 : ",lumi_data["PS6"])
 
-    
+'''
 try:
     SHMS_PS
     HMS_PS
@@ -117,6 +117,7 @@ except NameError:
     SHMS_PS = None
     HMS_PS = None
     COIN_PS = None
+'''
 
 ################################################################################################################################################
 
