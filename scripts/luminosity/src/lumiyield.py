@@ -3,7 +3,7 @@
 # Description: This is where the variables for the yield calculations are formulated.
 # Variables calculated: tot_events, h_int_etottracknorm_evts, p_int_etottracknorm_evts, SHMSTRIG_cut, HMSTRIG_cut, HMS_track, HMS_track_uncern, SHMS_track, SHMS_track_uncern, accp_edtm
 # ================================================================
-# Time-stamp: "2022-10-28 13:21:08 trottar"
+# Time-stamp: "2022-10-28 13:21:27 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -173,7 +173,6 @@ for val in PS_list:
         if val[1] != 0:
             COIN_PS = val[1]
             PS_names.append(val[0])
-print(PS_list,SHMS_PS,HMS_PS)
 
 try:
     SHMS_PS
