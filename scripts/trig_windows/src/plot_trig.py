@@ -3,7 +3,7 @@
 #
 # Description: Script for plotting trigger windows
 # ================================================================
-# Time-stamp: "2022-10-28 13:57:27 trottar"
+# Time-stamp: "2022-10-28 14:01:24 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -189,11 +189,11 @@ cuts = ["c_nozero_edtm"]
 
 for ps in PS_names:
     if ps == "PS1" or ps == "PS2":
-        cuts+=["c_nozero_ptrigSHMS%s" % ps.replace("PS","")]        
+        cuts+=["c_nozero_ptrigSHMS%s" % ps.replace("PS",""),"c_ptrigSHMS%s" % ps.replace("PS","")]        
     if ps == "PS3" or ps == "PS4":
-        cuts+=["c_nozero_ptrigHMS%s" % ps.replace("PS","")]
+        cuts+=["c_nozero_ptrigHMS%s" % ps.replace("PS",""),"c_ptrigHMS%s" % ps.replace("PS","")]
     if ps == "PS5" or ps == "PS6":
-        cuts+=["c_nozero_ptrigCOIN%s" % ps.replace("PS","")]    
+        cuts+=["c_nozero_ptrigCOIN%s" % ps.replace("PS",""),"c_ptrigCOIN%s" % ps.replace("PS","")]    
 
 lt=Root(os.path.realpath(__file__),"Lumi",ROOTPrefix,runNum,MaxEvent,cut_f,cuts)
 
