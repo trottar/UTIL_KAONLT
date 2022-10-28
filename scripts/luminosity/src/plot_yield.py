@@ -3,7 +3,7 @@
 # Description: Grabs lumi data from corresponding csv depending on run setting. Then plots the yields and creates a comprehensive table.
 # Variables calculated: current, rate_HMS, rate_SHMS, sent_edtm_PS, uncern_HMS_evts_scaler, uncern_SHMS_evts_scaler, uncern_HMS_evts_notrack, uncern_SHMS_evts_notrack, uncern_HMS_evts_track, uncern_SHMS_evts_track
 # ================================================================
-# Time-stamp: "2022-10-28 12:32:18 trottar"
+# Time-stamp: "2022-10-28 12:34:49 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -177,7 +177,7 @@ def calc_yield():
     }
 
     print ("\n\n\n\n%s%s%s" % (HMS_PS,SHMS_PS,COIN_PS) )
-    if COIN_PS == None:
+    if COIN_PS == None and (SHMS_PS != None or HMS_PS != None):
         yield_dict.update({"sent_edtm_PS" : makeList("sent_edtm")/HMS_PS+makeList("sent_edtm")/SHMS_PS-makeList("sent_edtm")/(HMS_PS*SHMS_PS)})
     elif SHMS_PS == None:
         yield_dict.update({"sent_edtm_PS" : makeList("sent_edtm")/SHMS_PS})
