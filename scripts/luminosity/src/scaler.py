@@ -3,7 +3,7 @@
 # Description: This is where the scaler variables for the yield calculations are formulated.
 # Variables calculated: SHMS_PS, HMS_PS, time, charge, SHMSTRIG_scaler, HMSTRIG_scaler, CPULT_scaler, CPULT_scaler_uncern, HMS_eLT, HMS_eLT_uncern, SHMS_eLT, SHMS_eLT_uncern, sent_edtm
 # ================================================================
-# Time-stamp: "2022-10-27 18:23:36 trottar"
+# Time-stamp: "2022-10-28 13:07:23 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -269,20 +269,24 @@ def scaler(PS_names, HMS_PS, SHMS_PS, thres_curr, report_current, runNum, MaxEve
         scalers.update({"CPULT_scaler": acctrig_sum/((trig_sum[hms_ps_ix]/HMS_PS))})
         scalers.update({"CPULT_scaler_uncern": (acctrig_sum/((trig_sum[hms_ps_ix]/HMS_PS)))*np.sqrt((1/(trig_sum[hms_ps_ix]/HMS_PS))+(1/acctrig_sum))})
         scalers.update({})
-        
+
+    print("\nPre-scale values...")
     for ps in PS_names:
         if ps == "PS1" or ps == "PS2":
-            scalers.update({"%s" % ps: SHMS_PS})            
+            scalers.update({"%s" % ps: SHMS_PS})
+            print("SHMS_PS:%s" % SHMS_PS )
             scalers.update({"SHMSTRIG_scaler": trig_sum[shms_ps_ix]})
             scalers.update({"SHMS_eLT_scaler": 1 - ((6/5)*(SHMS_PRE_sum[1]-SHMS_PRE_sum[2])/(SHMS_PRE_sum[1]))})
             scalers.update({"SHMS_eLT_scaler_uncern": (SHMS_PRE_sum[1]-SHMS_PRE_sum[2])/(SHMS_PRE_sum[1])*np.sqrt((np.sqrt(SHMS_PRE_sum[1]) + np.sqrt(SHMS_PRE_sum[2]))/(SHMS_PRE_sum[1] - SHMS_PRE_sum[2]) + (np.sqrt(SHMS_PRE_sum[1])/SHMS_PRE_sum[1]))})
         if ps == "PS3" or ps == "PS4":
             scalers.update({"%s" % ps: HMS_PS})
+            print("HMS_PS:%s" % HMS_PS )
             scalers.update({"HMSTRIG_scaler": trig_sum[hms_ps_ix]})
             scalers.update({"HMS_eLT_scaler": 1 - ((6/5)*(PRE_sum[1]-PRE_sum[2])/(PRE_sum[1]))})
             scalers.update({"HMS_eLT_scaler_uncern": (PRE_sum[1]-PRE_sum[2])/(PRE_sum[1])*np.sqrt((np.sqrt(PRE_sum[1]) + np.sqrt(PRE_sum[2]))/(PRE_sum[1] - PRE_sum[2]) + (np.sqrt(PRE_sum[1])/PRE_sum[1]))})
         if ps == "PS5" or ps == "PS6":
-            scalers.update({"%s" % ps: COIN_PS})            
+            scalers.update({"%s" % ps: COIN_PS})
+            print("COIN_PS:%s" % COIN_PS )
             scalers.update({"COINTRIG_scaler": trig_sum[coin_ps_ix]})
 
     print("\n\nUsed current threshold value: %.2f uA" % thres_curr)
