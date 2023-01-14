@@ -2,7 +2,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2022-09-08 01:40:57 trottar"
+# Time-stamp: "2023-01-14 12:59:38 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -57,6 +57,7 @@ class Root():
     PARAMPATH=lt.PARAMPATH
     SCRIPTPATH=lt.SCRIPTPATH
     SIMCPATH=lt.SIMCPATH
+    LTANAPATH=lt.LTANAPATH
     ANATYPE=lt.ANATYPE
     USER=lt.USER
     HOST=lt.HOST
@@ -92,6 +93,7 @@ class Root():
     PARAMPATH=lt.PARAMPATH
     SCRIPTPATH=lt.SCRIPTPATH
     SIMCPATH=lt.SIMCPATH
+    LTANAPATH=lt.LTANAPATH
     ANATYPE=lt.ANATYPE
     USER=lt.USER
     HOST=lt.HOST
@@ -128,6 +130,7 @@ class Root():
     PARAMPATH=lt.PARAMPATH
     SCRIPTPATH=lt.SCRIPTPATH
     SIMCPATH=lt.SIMCPATH
+    LTANAPATH=lt.LTANAPATH
     ANATYPE=lt.ANATYPE
     USER=lt.USER
     HOST=lt.HOST
@@ -174,6 +177,7 @@ class Root():
     PARAMPATH=lt.PARAMPATH
     SCRIPTPATH=lt.SCRIPTPATH
     SIMCPATH=lt.SIMCPATH
+    LTANAPATH=lt.LTANAPATH
     ANATYPE=lt.ANATYPE
     USER=lt.USER
     HOST=lt.HOST
@@ -252,6 +256,7 @@ class Root():
         self.PARAMPATH=SetPath(self.CURRENT_ENV).getPath("PARAMPATH")
         self.SCRIPTPATH=SetPath(self.CURRENT_ENV).getPath("SCRIPTPATH")
         self.SIMCPATH=SetPath(self.CURRENT_ENV).getPath("SIMCPATH")
+        self.LTANAPATH=SetPath(self.CURRENT_ENV).getPath("LTANAPATH")
         self.ANATYPE=SetPath(self.CURRENT_ENV).getPath("ANATYPE")
         self.USER=SetPath(self.CURRENT_ENV).getPath("USER")
         self.HOST=SetPath(self.CURRENT_ENV).getPath("HOST",self.DEBUG)
@@ -267,7 +272,7 @@ class Root():
         if "HeeP" in self.runType:
             self.OUTPATH = "%s/OUTPUT/Analysis/HeeP" % self.UTILPATH      # Output folder location
         elif "Simc" in self.runType:
-            self.OUTPATH = "%s/OUTPUT/Analysis/HeeP" % self.SIMCPATH      # Output folder location
+            self.OUTPATH = "%s/OUTPUT/Analysis/HeeP" % self.LTANAPATH      # Output folder location
         elif "Prod" in self.runType:
             self.OUTPATH = "%s/OUTPUT/Analysis/%sLT" % (self.UTILPATH,self.ANATYPE)      # Output folder location
         elif "HGCer" in self.runType:

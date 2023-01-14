@@ -11,4 +11,5 @@ CUTPATH=/group/c-kaonlt/USERS/${USER}/hallc_replay_lt/UTIL_KAONLT/DB/CUTS
 PARAMPATH=/group/c-kaonlt/USERS/${USER}/hallc_replay_lt/UTIL_KAONLT/DB/PARAM
 SCRIPTPATH=/group/c-kaonlt/USERS/${USER}/hallc_replay_lt/UTIL_KAONLT/scripts
 SIMCPATH=/group/c-kaonlt/USERS/${USER}/simc_gfortran
+LTANAPATH=/group/c-kaonlt/USERS/${USER}/lt_analysis
 ANATYPE=Kaon
