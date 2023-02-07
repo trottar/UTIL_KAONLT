@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2022-10-03 12:58:48 trottar"
+# Time-stamp: "2022-12-30 22:25:11 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -96,7 +96,7 @@ elif [[ $p_flag = "true" && $s_flag = "true" ]]; then
     else
 	ROOTPREFIX=replay_${spec}_production
 	HGCERPREFIX=${ANATYPE}_${SPEC}_replay_production
-	inputFile="${REPLAYPATH}/UTIL_BATCH/InputRunLists/KaonLT_2018_2019/ProductionLH2_ALL"
+	inputFile="${REPLAYPATH}/UTIL_BATCH/InputRunLists/KaonLT_2018_2019/Prod_ALL"
 	#inputFile="${REPLAYPATH}/UTIL_BATCH/InputRunLists/KaonLT_2018_2019/Prod_Test"
     fi
     #python3 plot/plot_efficiency.py ${ROOTPREFIX} ${RunType} ${DATE}
@@ -130,7 +130,8 @@ else
     else
 	ROOTPREFIX=replay_coin_production
 	HGCERPREFIX=${ANATYPE}_coin_replay_production	
-	inputFile="${REPLAYPATH}/UTIL_BATCH/InputRunLists/KaonLT_2018_2019/ProductionLH2_ALL"
+	#inputFile="${REPLAYPATH}/UTIL_BATCH/InputRunLists/KaonLT_2018_2019/ProductionLH2_ALL"
+	inputFile="${REPLAYPATH}/UTIL_BATCH/InputRunLists/KaonLT_2018_2019/Prod_ALL"
 	#inputFile="${REPLAYPATH}/UTIL_BATCH/InputRunLists/KaonLT_2018_2019/Prod_Test"
     fi    
 fi
