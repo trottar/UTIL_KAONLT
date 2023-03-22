@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-03-22 13:44:29 trottar"
+# Time-stamp: "2023-03-22 13:45:16 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -61,7 +61,7 @@ runTypeDict = {
 }
 
 # Matches run type cuts with the general cuts (e.g pid, track, etc.)
-gencutDict = {
+generalDict = {
     "pid" : general_dir+"pid.cuts",
     "track" : general_dir+"track.cuts",
     "accept" : general_dir+"accept.cuts",
@@ -93,7 +93,7 @@ def grabcut(cuts):
 
     file_content = []
     for cut in cut_lst:
-        for key, val in gencutDict.items():
+        for key, val in generalDict.items():
             if key in cut:
                 with open(generalDict[cut], "r") as f:
                     for line in f:
