@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-03-22 15:26:35 trottar"
+# Time-stamp: "2023-03-22 15:30:32 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -12,6 +12,8 @@
 #
 import numpy as np
 import pandas as pd
+# Required for up arrow returns
+import readline
 import os, sys
 
 ################################################################################################################################################
@@ -166,10 +168,22 @@ def runcut(cut, user_inp, runNum):
 user_run_type_inp =  input('\n\nPlease enter a run type cut...')
 cut_lst = readcutname(user_run_type_inp)
 
+# Keep track of the last user input
+last_user_cut_input = ""
+last_user_check_input = ""
+last_user_run_input = ""
+
 while True:    
 
     user_cut_inp =  input("\n\nPlease enter a specific cut (type 'exit' to end and 'help' to relist run type cuts)...")
 
+    # Returns previous prompt if up arrow is pressed
+    if user_cut_inp == "\033[A":
+        user_cut_inp = last_user_cut_input
+        print(user_cut_inp)
+    else:
+        last_user_cut_input = user_cut_inp
+    
     if user_cut_inp[0:3] == "bye" or user_cut_inp[0:4] == "exit":
         break
 
@@ -180,8 +194,23 @@ while True:
 
         user_check_inp =  input('\nWould you like to check cuts for specific run number? (yes or no)...')
 
+        # Returns previous prompt if up arrow is pressed
+        if user_check_inp == "\033[A":
+            user_check_inp = last_user_check_input
+            print(user_check_inp)
+        else:
+            last_user_check_input = user_check_inp        
+
         if "y" in user_check_inp:
             user_run_inp =  input('\nPlease enter run number (type exit to end)...')
+
+            # Returns previous prompt if up arrow is pressed
+            if user_run_inp == "\033[A":
+                user_run_inp = last_user_run_input
+                print(user_run_inp)
+            else:
+                last_user_run_input = user_run_inp
+                
             if user_run_inp[0:3] == "bye" or user_run_inp[0:4] == "exit":
                 break
             try:
