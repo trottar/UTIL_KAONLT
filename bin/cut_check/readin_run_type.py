@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-03-22 15:25:07 trottar"
+# Time-stamp: "2023-03-22 15:26:35 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -126,13 +126,13 @@ def runcut(cut, user_inp, runNum):
     
     cuts = grabcut(cut, user_cut_inp).split("=")
 
+    out_cuts = ""
+    
     if len(cuts) == 1:
-        return
+        return out_cuts
     
     cut_name = cuts[0].strip()
     cut_lst = cuts[1].split(",")
-
-    out_cuts = ""
     
     file_content = []
     for i, cut in enumerate(cut_lst):
@@ -178,7 +178,7 @@ while True:
     
     while True:
 
-        user_check_inp =  input('\nWould you like to check cuts for  specific run number? (yes or no)...')
+        user_check_inp =  input('\nWould you like to check cuts for specific run number? (yes or no)...')
 
         if "y" in user_check_inp:
             user_run_inp =  input('\nPlease enter run number (type exit to end)...')
