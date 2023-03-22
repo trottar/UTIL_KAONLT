@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-03-22 15:54:33 trottar"
+# Time-stamp: "2023-03-22 15:56:02 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -110,6 +110,7 @@ def general_cut(cuts, user_inp):
     file_content = []
     if user_inp in cut_name:
         for cut in cut_lst:
+            print(cut)
             for key, val in generalDict.items():
                 if key in cut:
                     cut_key = cut.strip().split(".")[0]
@@ -138,8 +139,8 @@ def param_cut(cut, user_inp, runNum):
     
     file_content = []
     for i, cut in enumerate(cut_lst):
+        print(cut)
         for key, val in paramDict.items():
-            print(cut)
             if key in cut:
                 # Splits string and checks for abs() so that it does not cut string around these curved brackets
                 if "." in cut and "abs" not in val:
