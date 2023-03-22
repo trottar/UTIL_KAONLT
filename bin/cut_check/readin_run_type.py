@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-03-22 14:23:51 trottar"
+# Time-stamp: "2023-03-22 14:25:05 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -123,7 +123,7 @@ def grabcut(cuts, user_inp):
     
     return out_cuts
 
-def runcut(runNum):
+#def runcut(runNum):
     
 
 user_run_type_inp =  input('\n\nPlease enter a run type cut...')
