@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-03-22 16:41:17 trottar"
+# Time-stamp: "2023-03-22 16:42:15 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -131,7 +131,7 @@ def general_cut(cuts, user_inp):
 def param_cut(cut, user_inp, runNum):
 
     cuts = general_cut(cut, user_cut_inp)
-    if "==" in line:
+    if "==" in cuts:
         cuts = general_cut(cut, user_cut_inp).replace("==","&&").split("=").replace("&&","==")
     else:
         cuts = general_cut(cut, user_cut_inp).split("=")
