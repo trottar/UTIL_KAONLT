@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-03-22 13:25:27 trottar"
+# Time-stamp: "2023-03-22 13:27:38 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -66,10 +66,11 @@ def readcuts(cut):
 
     file_content = []
     with open(runTypeDict[cut], "r") as f:
-        if "#" not in f.readlines():
-            file_content.append(f.readlines())
+        for line in f:
+            if "#" not in line:
+                file_content.append(line)
         
-    print(file_content)
+    print(" ".join(file_content))
         
 while True:
     
