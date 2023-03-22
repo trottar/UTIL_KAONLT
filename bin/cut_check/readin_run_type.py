@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-03-22 16:19:14 trottar"
+# Time-stamp: "2023-03-22 16:20:49 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -110,7 +110,6 @@ def general_cut(cuts, user_inp):
     file_content = []
     if user_inp in cut_name:
         for cut in cut_lst:
-            print(cut)
             for key, val in generalDict.items():
                 if key in cut:
                     cut_key = cut.strip().split(".")[0]
@@ -119,7 +118,6 @@ def general_cut(cuts, user_inp):
                         for line in f:
                             if "#" not in line:
                                 if cut_val in line:
-                                    print("!!!!",cut_val,line)
                                     if "==" in line:
                                         file_content.append(line.replace("==","&&").split("=")[1].replace("&&","=="))
                                     else:
