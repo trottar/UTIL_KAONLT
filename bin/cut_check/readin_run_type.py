@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-03-22 14:40:56 trottar"
+# Time-stamp: "2023-03-22 14:42:05 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -126,6 +126,7 @@ def grabcut(cuts, user_inp):
 def runcut(cut, user_inp, runNum):
     
     cuts = grabcut(cut, user_cut_inp).split("=")
+    print(cuts)
     cut_name = cuts[0].strip()
     cut_lst = cuts[1].split(",")
 
