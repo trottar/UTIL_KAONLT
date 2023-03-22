@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-03-22 16:23:34 trottar"
+# Time-stamp: "2023-03-22 16:26:42 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -165,8 +165,8 @@ def param_cut(cut, user_inp, runNum):
                                 else:
                                     # print("!!!!ERROR!!!!: Run %s not found in range %s-%s" % (np.int64(runNum),data['Run_Start'][i],data['Run_End'][i])) # Error 10
                                     continue
-            else:
-                file_content.append(cut)
+                else:
+                    file_content.append(cut)
         
     out_cuts = "\033[36m"+str(runNum)+"\n\n"+cut_name+"\033[0m = \033[32m"+",".join(file_content).replace("\n","")+"\033[0m"
     
