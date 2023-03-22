@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-03-22 15:44:49 trottar"
+# Time-stamp: "2023-03-22 15:47:45 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -87,19 +87,19 @@ paramDict = {
 for key, val in runTypeDict.items():
     print("{} -> {}".format(key,val))
 
-def readcutname(cut):
+def run_type_cut(cut):
 
     file_content = []
     with open(runTypeDict[cut], "r") as f:
         for line in f:
             if "#" not in line:
-                file_content.append(line)
+                file_content.append(line+"\n"+"-"*50)
         
     print(" ".join(file_content))
 
     return file_content
 
-def grabcut(cuts, user_inp):
+def general_cut(cuts, user_inp):
 
     cuts = cuts.split("=")
     cut_name = cuts[0].strip()
@@ -124,9 +124,9 @@ def grabcut(cuts, user_inp):
     
     return out_cuts
 
-def runcut(cut, user_inp, runNum):
+def param_cut(cut, user_inp, runNum):
     
-    cuts = grabcut(cut, user_cut_inp).split("=")
+    cuts = general_cut(cut, user_cut_inp).split("=")
 
     out_cuts = ""
     
@@ -170,7 +170,7 @@ def runcut(cut, user_inp, runNum):
     return out_cuts
 
 user_run_type_inp =  input('\n\nPlease enter a run type cut...')
-cut_lst = readcutname(user_run_type_inp)
+cut_lst = run_type_cut(user_run_type_inp)
 
 # Keep track of the last user input
 last_user_cut_input = ""
@@ -192,7 +192,7 @@ while True:
         break
 
     if user_cut_inp[0:4] == "help":
-        cut_lst = readcutname(user_run_type_inp)
+        cut_lst = run_type_cut(user_run_type_inp)
     
     while True:
 
@@ -223,12 +223,12 @@ while True:
                 print("Need a proper run number...")
                 continue
             for cut in cut_lst:
-                output = runcut(cut, user_cut_inp, runNum)
+                output = param_cut(cut, user_cut_inp, runNum)
                 if output != "":
                     print("\n\n",output,"\n\n")
         elif "n" in user_check_inp:
             for cut in cut_lst:
-                output = grabcut(cut, user_cut_inp)
+                output = general_cut(cut, user_cut_inp)
                 if output != "":
                     print("\n\n",output,"\n\n")
             break
