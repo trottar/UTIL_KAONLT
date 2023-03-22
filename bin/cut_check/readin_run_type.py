@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-03-22 14:07:40 trottar"
+# Time-stamp: "2023-03-22 14:09:20 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -91,6 +91,8 @@ def grabcut(cuts, user_inp):
     cut_name = cuts[0]
     cut_lst = cuts[1].split("+")
 
+    out_cuts = ""
+    
     file_content = []
     if user_inp == cut_name:
         for cut in cut_lst:
@@ -104,9 +106,9 @@ def grabcut(cuts, user_inp):
                                 if cut_val in line:
                                     file_content.append(line.split("=")[1])
 
-    out_cuts = cut_name+" = "+",".join(file_content).replace("\n","")
+        out_cuts.append(cut_name+" = "+",".join(file_content).replace("\n",""))
 
-    print(out_cuts)
+        print(out_cuts)
     
     return out_cuts
         
