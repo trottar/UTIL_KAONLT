@@ -3,7 +3,7 @@
 # Description: This is where the variables for the yield calculations are formulated.
 # Variables calculated: tot_events, h_int_etottracknorm_evts, p_int_etottracknorm_evts, SHMSTRIG_cut, HMSTRIG_cut, HMS_track, HMS_track_uncern, SHMS_track, SHMS_track_uncern, accp_edtm
 # ================================================================
-# Time-stamp: "2022-10-28 17:23:55 trottar"
+# Time-stamp: "2023-03-21 14:53:02 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -632,7 +632,7 @@ def analysis():
                  if evt == 1 or evt == 3]
     EDTM_HMS = [x
                 for (x,evt) in zip(c.add_cut(T_coin_pEDTM_tdcTimeRaw,"c_edtm"),tree["EvtType"])
-                if evt == 2]
+                if evt == 2 or evt == 3]
 
     for ps in PS_names:
         if ps == "PS1" or ps == "PS2":
@@ -667,7 +667,7 @@ def analysis():
             # Applies trigger window cuts to trigger to get accepted trigger events
             HMSTRIG_cut = [ x
                             for (x, evt) in zip(c.add_cut(T_coin_pTRIG_HMS_ROC1_tdcTime,"c_ptrigHMS%s" % ps.replace("PS","")), tree["EvtType"])
-                            if evt == 2]
+                            if evt == 2 or evt == 3] # 3/21/2023, added evttype 3 as suggested by Carlos
             
         if ps == "PS5" or ps == "PS6":
             # Applies trigger window cuts to trigger to get accepted trigger events

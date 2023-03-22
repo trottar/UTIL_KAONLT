@@ -3,7 +3,7 @@
 # Description: This is where the scaler variables for the yield calculations are formulated.
 # Variables calculated: SHMS_PS, HMS_PS, time, charge, SHMSTRIG_scaler, HMSTRIG_scaler, CPULT_scaler, CPULT_scaler_uncern, HMS_eLT, HMS_eLT_uncern, SHMS_eLT, SHMS_eLT_uncern, sent_edtm
 # ================================================================
-# Time-stamp: "2022-10-28 13:09:07 trottar"
+# Time-stamp: "2023-03-21 13:37:59 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -189,7 +189,7 @@ def scaler(PS_names, HMS_PS, SHMS_PS, thres_curr, report_current, runNum, MaxEve
                 # Iterate over current value then subtracting previous so that there is no double counting. Subtracted values are uncut.
                 charge_sum[ibcm] += (bcm_value[ibcm][i] - previous_charge[ibcm])
                 time_sum[ibcm] += (time_value[i] - previous_time[ibcm])
-            # Current cuts and selection of BCM4A
+            # Current cuts and selection of BCM1
             if (ibcm == bcm_ix and abs( current[ibcm][i]-report_current) < thres_curr):
                 # EDTM scaler iteration.
                 # Iterate over current value then subtracting previous so that there is no double counting. Subtracted values are uncut.
