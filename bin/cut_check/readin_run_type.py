@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-03-22 16:45:01 trottar"
+# Time-stamp: "2023-03-22 16:48:43 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -207,6 +207,7 @@ while True:
 
     if user_cut_inp[0:4] == "help":
         cut_lst = run_type_cut(user_run_type_inp)
+        continue
     
     while True:
 
