@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-03-22 15:09:06 trottar"
+# Time-stamp: "2023-03-22 15:10:00 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -142,22 +142,23 @@ def runcut(cut, user_inp, runNum):
                     param_tmp = cut.split(")")
                     print(param_tmp)
                     for param in param_tmp:
-                        paramVal = param.split(".")[1]
-                        print("!!!!!",paramVal)
-                        # Search param dictionary for values based off key
-                        fout = paramDict[key]
-                        try:
-                            data = dict(pd.read_csv(fout))
-                        except IOError:
-                            print("ERROR 9: %s not found in %s" % (paramVal,fout))
-                        for j,evt in enumerate(data['Run_Start']):
-                            # Check if run number is defined in param file
-                            if data['Run_Start'][j] <= np.int64(runNum) <= data['Run_End'][j]:
-                                cut_lst[i]  = cut.replace(key+"."+paramVal,str(data[paramVal][j]))
-                                pass
-                            else:
-                                # print("!!!!ERROR!!!!: Run %s not found in range %s-%s" % (np.int64(runNum),data['Run_Start'][i],data['Run_End'][i])) # Error 10
-                                continue
+                        if "." in param:
+                            paramVal = param.split(".")[1]
+                            print("!!!!!",paramVal)
+                            # Search param dictionary for values based off key
+                            fout = paramDict[key]
+                            try:
+                                data = dict(pd.read_csv(fout))
+                            except IOError:
+                                print("ERROR 9: %s not found in %s" % (paramVal,fout))
+                            for j,evt in enumerate(data['Run_Start']):
+                                # Check if run number is defined in param file
+                                if data['Run_Start'][j] <= np.int64(runNum) <= data['Run_End'][j]:
+                                    cut_lst[i]  = cut.replace(key+"."+paramVal,str(data[paramVal][j]))
+                                    pass
+                                else:
+                                    # print("!!!!ERROR!!!!: Run %s not found in range %s-%s" % (np.int64(runNum),data['Run_Start'][i],data['Run_End'][i])) # Error 10
+                                    continue
     print(" ".join(cut_lst))
     return
 
