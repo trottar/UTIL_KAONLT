@@ -3,7 +3,7 @@
 # Description: This is where the scaler variables for the yield calculations are formulated.
 # Variables calculated: SHMS_PS, HMS_PS, time, charge, SHMSTRIG_scaler, HMSTRIG_scaler, CPULT_scaler, CPULT_scaler_uncern, HMS_eLT, HMS_eLT_uncern, SHMS_eLT, SHMS_eLT_uncern, sent_edtm
 # ================================================================
-# Time-stamp: "2023-03-21 13:37:59 trottar"
+# Time-stamp: "2023-03-22 13:09:51 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -15,63 +15,116 @@ import numpy as np
 
 ################################################################################################################################################
 
-def scaler(PS_names, HMS_PS, SHMS_PS, thres_curr, report_current, runNum, MaxEvent, s_tree):
+def scaler(PS_names, HMS_PS, SHMS_PS, COIN_PS, thres_curr, report_current, runNum, MaxEvent, s_tree):
 
     '''
     SCALER TREE, TSP
     '''
 
     # s_evts = len(s_tree)
-    s_evts = s_tree.array("P.BCM4A.scaler")
+    if SHMS_PS == None:
+        s_evts = s_tree.array("H.BCM4A.scaler")
 
-    P_BCM4A_scalerCharge = s_tree.array("P.BCM4A.scalerCharge")
-    P_BCM2_scalerCharge = s_tree.array("P.BCM2.scalerCharge")
-    P_BCM4B_scalerCharge = s_tree.array("P.BCM4B.scalerCharge")
-    P_BCM1_scalerCharge = s_tree.array("P.BCM1.scalerCharge")
-    P_BCM4C_scalerCharge = s_tree.array("P.BCM4C.scalerCharge")
-    
-    P_BCM4A_scalerCurrent = s_tree.array("P.BCM4A.scalerCurrent")
-    P_BCM2_scalerCurrent = s_tree.array("P.BCM2.scalerCurrent")
-    P_BCM4B_scalerCurrent = s_tree.array("P.BCM4B.scalerCurrent")
-    P_BCM1_scalerCurrent = s_tree.array("P.BCM1.scalerCurrent")
-    P_BCM4C_scalerCurrent = s_tree.array("P.BCM4C.scalerCurrent")
-    
-    P_1Mhz_scalerTime = s_tree.array("P.1MHz.scalerTime")
-    
-    P_pTRIG1_scaler = s_tree.array("P.pTRIG1.scaler")
-    P_pTRIG2_scaler = s_tree.array("P.pTRIG2.scaler")
-    P_pTRIG3_scaler = s_tree.array("P.pTRIG3.scaler")
-    P_pTRIG4_scaler = s_tree.array("P.pTRIG4.scaler")
-    P_pTRIG5_scaler = s_tree.array("P.pTRIG5.scaler")
-    P_pTRIG6_scaler = s_tree.array("P.pTRIG6.scaler")
-    
-    P_pL1ACCP_scaler = s_tree.array("P.pL1ACCP.scaler")
-    P_pPRE40_scaler = s_tree.array("P.pPRE40.scaler")
-    P_pPRE100_scaler = s_tree.array("P.pPRE100.scaler")
-    P_pPRE150_scaler = s_tree.array("P.pPRE150.scaler")
-    P_pPRE200_scaler = s_tree.array("P.pPRE200.scaler")
-    P_pPRE40_scaler = s_tree.array("P.pPRE40.scaler")
-    P_pPRE100_scaler = s_tree.array("P.pPRE100.scaler")
-    P_pPRE150_scaler = s_tree.array("P.pPRE150.scaler")
-    P_pPRE200_scaler = s_tree.array("P.pPRE200.scaler")
-    
-    P_pEL_LO_LO_scaler = s_tree.array("P.pEL_LO_LO.scaler")
-    P_pEL_LO_scaler = s_tree.array("P.pEL_LO.scaler")
-    P_pEL_HI_scaler = s_tree.array("P.pEL_HI.scaler")
-    P_pEL_REAL_scaler = s_tree.array("P.pEL_REAL.scaler")
-    P_pEL_CLEAN_scaler = s_tree.array("P.pEL_CLEAN.scaler")
-    P_pSTOF_scaler = s_tree.array("P.pSTOF.scaler")
-    
-    P_pEL_LO_LO_scaler = s_tree.array("P.pEL_LO_LO.scaler")
-    P_pEL_LO_scaler = s_tree.array("P.pEL_LO.scaler")
-    P_pEL_HI_scaler = s_tree.array("P.pEL_HI.scaler")
-    P_pEL_REAL_scaler = s_tree.array("P.pEL_REAL.scaler")
-    P_pEL_CLEAN_scaler = s_tree.array("P.pEL_CLEAN.scaler")
-    P_pSTOF_scaler = s_tree.array("P.pSTOF.scaler")
-    P_pPRHI_scaler = s_tree.array("P.PRHI.scaler")
-    P_pPRLO_scaler = s_tree.array("P.PRLO.scaler")
+        P_BCM4A_scalerCharge = s_tree.array("H.BCM4A.scalerCharge")
+        P_BCM2_scalerCharge = s_tree.array("H.BCM2.scalerCharge")
+        P_BCM4B_scalerCharge = s_tree.array("H.BCM4B.scalerCharge")
+        P_BCM1_scalerCharge = s_tree.array("H.BCM1.scalerCharge")
+        P_BCM4C_scalerCharge = s_tree.array("H.BCM4C.scalerCharge")
 
-    P_EDTM_scaler = s_tree.array("P.EDTM.scaler")
+        P_BCM4A_scalerCurrent = s_tree.array("H.BCM4A.scalerCurrent")
+        P_BCM2_scalerCurrent = s_tree.array("H.BCM2.scalerCurrent")
+        P_BCM4B_scalerCurrent = s_tree.array("H.BCM4B.scalerCurrent")
+        P_BCM1_scalerCurrent = s_tree.array("H.BCM1.scalerCurrent")
+        P_BCM4C_scalerCurrent = s_tree.array("H.BCM4C.scalerCurrent")
+
+        P_1Mhz_scalerTime = s_tree.array("H.1MHz.scalerTime")
+
+        P_pTRIG1_scaler = s_tree.array("H.hTRIG1.scaler")
+        P_pTRIG2_scaler = s_tree.array("H.hTRIG2.scaler")
+        P_pTRIG3_scaler = s_tree.array("H.hTRIG3.scaler")
+        P_pTRIG4_scaler = s_tree.array("H.hTRIG4.scaler")
+        P_pTRIG5_scaler = s_tree.array("H.hTRIG5.scaler")
+        P_pTRIG6_scaler = s_tree.array("H.hTRIG6.scaler")
+
+        P_pL1ACCP_scaler = s_tree.array("H.hL1ACCP.scaler")
+        P_pPRE40_scaler = s_tree.array("H.hPRE40.scaler")
+        P_pPRE100_scaler = s_tree.array("H.hPRE100.scaler")
+        P_pPRE150_scaler = s_tree.array("H.hPRE150.scaler")
+        P_pPRE200_scaler = s_tree.array("H.hPRE200.scaler")
+        P_pPRE40_scaler = s_tree.array("H.hPRE40.scaler")
+        P_pPRE100_scaler = s_tree.array("H.hPRE100.scaler")
+        P_pPRE150_scaler = s_tree.array("H.hPRE150.scaler")
+        P_pPRE200_scaler = s_tree.array("H.hPRE200.scaler")
+
+        P_pEL_LO_LO_scaler = s_tree.array("H.hEL_LO_LO.scaler")
+        P_pEL_LO_scaler = s_tree.array("H.hEL_LO.scaler")
+        P_pEL_HI_scaler = s_tree.array("H.hEL_HI.scaler")
+        P_pEL_REAL_scaler = s_tree.array("H.hEL_REAL.scaler")
+        P_pEL_CLEAN_scaler = s_tree.array("H.hEL_CLEAN.scaler")
+        P_pSTOF_scaler = s_tree.array("H.hSTOF.scaler")
+
+        P_pEL_LO_LO_scaler = s_tree.array("H.hEL_LO_LO.scaler")
+        P_pEL_LO_scaler = s_tree.array("H.hEL_LO.scaler")
+        P_pEL_HI_scaler = s_tree.array("H.hEL_HI.scaler")
+        P_pEL_REAL_scaler = s_tree.array("H.hEL_REAL.scaler")
+        P_pEL_CLEAN_scaler = s_tree.array("H.hEL_CLEAN.scaler")
+        P_pSTOF_scaler = s_tree.array("H.hSTOF.scaler")
+        P_pPRHI_scaler = s_tree.array("H.PRHI.scaler")
+        P_pPRLO_scaler = s_tree.array("H.PRLO.scaler")
+
+        P_EDTM_scaler = s_tree.array("H.EDTM.scaler")
+
+    else:
+        s_evts = s_tree.array("P.BCM4A.scaler")
+
+        P_BCM4A_scalerCharge = s_tree.array("P.BCM4A.scalerCharge")
+        P_BCM2_scalerCharge = s_tree.array("P.BCM2.scalerCharge")
+        P_BCM4B_scalerCharge = s_tree.array("P.BCM4B.scalerCharge")
+        P_BCM1_scalerCharge = s_tree.array("P.BCM1.scalerCharge")
+        P_BCM4C_scalerCharge = s_tree.array("P.BCM4C.scalerCharge")
+
+        P_BCM4A_scalerCurrent = s_tree.array("P.BCM4A.scalerCurrent")
+        P_BCM2_scalerCurrent = s_tree.array("P.BCM2.scalerCurrent")
+        P_BCM4B_scalerCurrent = s_tree.array("P.BCM4B.scalerCurrent")
+        P_BCM1_scalerCurrent = s_tree.array("P.BCM1.scalerCurrent")
+        P_BCM4C_scalerCurrent = s_tree.array("P.BCM4C.scalerCurrent")
+
+        P_1Mhz_scalerTime = s_tree.array("P.1MHz.scalerTime")
+
+        P_pTRIG1_scaler = s_tree.array("P.pTRIG1.scaler")
+        P_pTRIG2_scaler = s_tree.array("P.pTRIG2.scaler")
+        P_pTRIG3_scaler = s_tree.array("P.pTRIG3.scaler")
+        P_pTRIG4_scaler = s_tree.array("P.pTRIG4.scaler")
+        P_pTRIG5_scaler = s_tree.array("P.pTRIG5.scaler")
+        P_pTRIG6_scaler = s_tree.array("P.pTRIG6.scaler")
+
+        P_pL1ACCP_scaler = s_tree.array("P.pL1ACCP.scaler")
+        P_pPRE40_scaler = s_tree.array("P.pPRE40.scaler")
+        P_pPRE100_scaler = s_tree.array("P.pPRE100.scaler")
+        P_pPRE150_scaler = s_tree.array("P.pPRE150.scaler")
+        P_pPRE200_scaler = s_tree.array("P.pPRE200.scaler")
+        P_pPRE40_scaler = s_tree.array("P.pPRE40.scaler")
+        P_pPRE100_scaler = s_tree.array("P.pPRE100.scaler")
+        P_pPRE150_scaler = s_tree.array("P.pPRE150.scaler")
+        P_pPRE200_scaler = s_tree.array("P.pPRE200.scaler")
+
+        P_pEL_LO_LO_scaler = s_tree.array("P.pEL_LO_LO.scaler")
+        P_pEL_LO_scaler = s_tree.array("P.pEL_LO.scaler")
+        P_pEL_HI_scaler = s_tree.array("P.pEL_HI.scaler")
+        P_pEL_REAL_scaler = s_tree.array("P.pEL_REAL.scaler")
+        P_pEL_CLEAN_scaler = s_tree.array("P.pEL_CLEAN.scaler")
+        P_pSTOF_scaler = s_tree.array("P.pSTOF.scaler")
+
+        P_pEL_LO_LO_scaler = s_tree.array("P.pEL_LO_LO.scaler")
+        P_pEL_LO_scaler = s_tree.array("P.pEL_LO.scaler")
+        P_pEL_HI_scaler = s_tree.array("P.pEL_HI.scaler")
+        P_pEL_REAL_scaler = s_tree.array("P.pEL_REAL.scaler")
+        P_pEL_CLEAN_scaler = s_tree.array("P.pEL_CLEAN.scaler")
+        P_pSTOF_scaler = s_tree.array("P.pSTOF.scaler")
+        P_pPRHI_scaler = s_tree.array("P.PRHI.scaler")
+        P_pPRLO_scaler = s_tree.array("P.PRLO.scaler")
+
+        P_EDTM_scaler = s_tree.array("P.EDTM.scaler")
     
     NBCM = 5
     NTRIG = 6
@@ -98,7 +151,8 @@ def scaler(PS_names, HMS_PS, SHMS_PS, thres_curr, report_current, runNum, MaxEve
     current = [P_BCM1_scalerCurrent, P_BCM2_scalerCurrent,
                  P_BCM4A_scalerCurrent, P_BCM4B_scalerCurrent, P_BCM4C_scalerCurrent]
 
-    trig_value = [P_pTRIG1_scaler, P_pTRIG2_scaler, P_pTRIG3_scaler,
+    #trig_value = [P_pTRIG1_scaler, P_pTRIG2_scaler, P_pTRIG3_scaler,P_pTRIG4_scaler, P_pTRIG5_scaler, P_pTRIG6_scaler]
+    trig_value = [P_pTRIG1_scaler, P_pTRIG2_scaler, P_pEL_CLEAN_scaler,
                   P_pTRIG4_scaler, P_pTRIG5_scaler, P_pTRIG6_scaler]
 
     acctrig_value = P_pL1ACCP_scaler
@@ -204,7 +258,8 @@ def scaler(PS_names, HMS_PS, SHMS_PS, thres_curr, report_current, runNum, MaxEve
                     # Trigger scaler iteration.
                     # Iterate over current value then subtracting previous so that there is no double counting. Subtracted values are uncut.
                     trig_sum[itrig] += (trig_value[itrig][i] - previous_trig[itrig])
-                    # print("trig_value[%s] = " %(itrig),trig_value[itrig][i])
+                    #print("trig_value[%s] = " %(itrig),trig_value[itrig][i])
+                    #print("previous_trig[%s] = " %(itrig),previous_trig[itrig])
                 for iPRE in range(0, NPRE):
                     # Pre-trig scaler iteration. Used in electronic LT calculations.
                     # Iterate over current value then subtracting previous so that there is no double counting. Subtracted values are uncut.
@@ -244,21 +299,53 @@ def scaler(PS_names, HMS_PS, SHMS_PS, thres_curr, report_current, runNum, MaxEve
             coin_ps_ix = 4
         if ps is "PS6":
             coin_ps_ix = 5
+
+    try:
+        shms_ps_ix
+    except NameError:
+        shms_ps_ix = 0
+
+    try:
+        hms_ps_ix
+    except NameError:
+        hms_ps_ix = 2
+
+    try:
+        coin_ps_ix
+    except NameError:
+        coin_ps_ix = 4
         
     # Creates a dictionary for the calculated luminosity values 
     scalers = {
         "run number" : runNum,
         "time": time_sum[bcm_ix],
         "charge": charge_sum[bcm_ix],
+        "curr_corr" : (charge_sum[bcm_ix]/time_sum[bcm_ix]+0.05)/(charge_sum[bcm_ix]/time_sum[bcm_ix]), # 50 uA current offset
         # "CPULT_scaler": acctrig_sum/((trig_sum[shms_ps_ix]/SHMS_PS) + (trig_sum[hms_ps_ix]/HMS_PS)), # GOOD
         #"CPULT_scaler": acctrig_sum/((trig_sum[shms_ps_ix]) + (trig_sum[hms_ps_ix]) - EDTM_sum),
         #"CPULT_scaler_uncern": (acctrig_sum/((trig_sum[shms_ps_ix]/SHMS_PS) + (trig_sum[hms_ps_ix]/HMS_PS)))*np.sqrt((1/(trig_sum[shms_ps_ix]/SHMS_PS))+(1/(trig_sum[hms_ps_ix]/HMS_PS))+(1/acctrig_sum)), # GOOD
         #"CPULT_scaler_uncern": (1/((trig_sum[shms_ps_ix]) + (trig_sum[hms_ps_ix])))*np.sqrt(acctrig_sum+EDTM_sum*2+((trig_sum[shms_ps_ix]) + (trig_sum[hms_ps_ix]))(acctrig_sum/((trig_sum[shms_ps_ix]) + (trig_sum[hms_ps_ix])))**2),
         #"CPULT_scaler_uncern": np.sqrt(((trig_sum[shms_ps_ix]) + (trig_sum[hms_ps_ix]))*.95*.05),
-        "sent_edtm": EDTM_sum
+        "sent_edtm": EDTM_sum,
+        "HMS_PS" : HMS_PS,
+        "SHMS_PS" : SHMS_PS,
+        "COIN_PS" : COIN_PS
             
     }
+
+    if COIN_PS == None:
+        if SHMS_PS == None:
+            scalers.update({"sent_edtm_PS" : EDTM_sum/HMS_PS})
+        elif HMS_PS == None:
+            scalers.update({"sent_edtm_PS" : EDTM_sum/SHMS_PS})
+        else:
+            scalers.update({"sent_edtm_PS" : EDTM_sum/HMS_PS+EDTM_sum/SHMS_PS-EDTM_sum/(HMS_PS*SHMS_PS)})
+    else:
+        scalers.update({"sent_edtm_PS" : EDTM_sum/HMS_PS+EDTM_sum/SHMS_PS+EDTM_sum/COIN_PS+EDTM_sum/(SHMS_PS*HMS_PS*COIN_PS)-EDTM_sum/(HMS_PS*SHMS_PS)-EDTM_sum/(COIN_PS*SHMS_PS)-EDTM_sum/(HMS_PS*COIN_PS)})
+
     
+    print("\n\n\n",trig_sum,"\n\n\n")
+
     if ("PS1" in PS_names or "PS2" in PS_names) and ("PS3" in PS_names or "PS4" in PS_names):
         scalers.update({"CPULT_scaler": acctrig_sum/((trig_sum[shms_ps_ix]/SHMS_PS) + (trig_sum[hms_ps_ix]/HMS_PS))})
         scalers.update({"CPULT_scaler_uncern": (acctrig_sum/((trig_sum[shms_ps_ix]/SHMS_PS) + (trig_sum[hms_ps_ix]/HMS_PS)))*np.sqrt((1/(trig_sum[shms_ps_ix]/SHMS_PS))+(1/(trig_sum[hms_ps_ix]/HMS_PS))+(1/acctrig_sum))})
@@ -271,23 +358,14 @@ def scaler(PS_names, HMS_PS, SHMS_PS, thres_curr, report_current, runNum, MaxEve
         scalers.update({})
 
     print("\nPre-scale values...")
-    for ps in PS_names:
-        if ps == "PS1" or ps == "PS2":
-            scalers.update({"%s" % ps: SHMS_PS})
-            print("SHMS_PS : %s" % SHMS_PS )
-            scalers.update({"SHMSTRIG_scaler": trig_sum[shms_ps_ix]})
-            scalers.update({"SHMS_eLT_scaler": 1 - ((6/5)*(SHMS_PRE_sum[1]-SHMS_PRE_sum[2])/(SHMS_PRE_sum[1]))})
-            scalers.update({"SHMS_eLT_scaler_uncern": (SHMS_PRE_sum[1]-SHMS_PRE_sum[2])/(SHMS_PRE_sum[1])*np.sqrt((np.sqrt(SHMS_PRE_sum[1]) + np.sqrt(SHMS_PRE_sum[2]))/(SHMS_PRE_sum[1] - SHMS_PRE_sum[2]) + (np.sqrt(SHMS_PRE_sum[1])/SHMS_PRE_sum[1]))})
-        if ps == "PS3" or ps == "PS4":
-            scalers.update({"%s" % ps: HMS_PS})
-            print("HMS_PS : %s" % HMS_PS )
-            scalers.update({"HMSTRIG_scaler": trig_sum[hms_ps_ix]})
-            scalers.update({"HMS_eLT_scaler": 1 - ((6/5)*(PRE_sum[1]-PRE_sum[2])/(PRE_sum[1]))})
-            scalers.update({"HMS_eLT_scaler_uncern": (PRE_sum[1]-PRE_sum[2])/(PRE_sum[1])*np.sqrt((np.sqrt(PRE_sum[1]) + np.sqrt(PRE_sum[2]))/(PRE_sum[1] - PRE_sum[2]) + (np.sqrt(PRE_sum[1])/PRE_sum[1]))})
-        if ps == "PS5" or ps == "PS6":
-            scalers.update({"%s" % ps: COIN_PS})
-            print("COIN_PS : %s" % COIN_PS )
-            scalers.update({"COINTRIG_scaler": trig_sum[coin_ps_ix]})
+    print("SHMS_PS : %s" % SHMS_PS, " HMS_PS : %s" % HMS_PS," COIN_PS : %s" % COIN_PS )
+    scalers.update({"SHMSTRIG_scaler": trig_sum[shms_ps_ix]})
+    scalers.update({"SHMS_eLT_scaler": 1 - ((6/5)*(SHMS_PRE_sum[1]-SHMS_PRE_sum[2])/(SHMS_PRE_sum[1]))})
+    scalers.update({"SHMS_eLT_scaler_uncern": (SHMS_PRE_sum[1]-SHMS_PRE_sum[2])/(SHMS_PRE_sum[1])*np.sqrt((np.sqrt(SHMS_PRE_sum[1]) + np.sqrt(SHMS_PRE_sum[2]))/(SHMS_PRE_sum[1] - SHMS_PRE_sum[2]) + (np.sqrt(SHMS_PRE_sum[1])/SHMS_PRE_sum[1]))})
+    scalers.update({"HMSTRIG_scaler": trig_sum[hms_ps_ix]})
+    scalers.update({"HMS_eLT_scaler": 1 - ((6/5)*(PRE_sum[1]-PRE_sum[2])/(PRE_sum[1]))})
+    scalers.update({"HMS_eLT_scaler_uncern": (PRE_sum[1]-PRE_sum[2])/(PRE_sum[1])*np.sqrt((np.sqrt(PRE_sum[1]) + np.sqrt(PRE_sum[2]))/(PRE_sum[1] - PRE_sum[2]) + (np.sqrt(PRE_sum[1])/PRE_sum[1]))})
+    scalers.update({"COINTRIG_scaler": trig_sum[coin_ps_ix]})
 
     print("\n\nUsed current threshold value: %.2f uA" % thres_curr)
 

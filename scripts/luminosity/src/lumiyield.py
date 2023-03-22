@@ -3,7 +3,7 @@
 # Description: This is where the variables for the yield calculations are formulated.
 # Variables calculated: tot_events, h_int_etottracknorm_evts, p_int_etottracknorm_evts, SHMSTRIG_cut, HMSTRIG_cut, HMS_track, HMS_track_uncern, SHMS_track, SHMS_track_uncern, accp_edtm
 # ================================================================
-# Time-stamp: "2023-03-21 14:53:02 trottar"
+# Time-stamp: "2023-03-22 13:09:17 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -66,9 +66,10 @@ for line in f:
     data = line.split(':')
     track_data = line.split(':')
     if (5149 <= int(runNum) <= 5303):
-        if ('KLT_SHMS_Pion_ALL_TRACK_EFF' in track_data[0]):
+        if ('KLT_SHMS_Pion_SING_TRACK_EFF' in track_data[0]):
             SHMS_track_info = track_data[1].split("+-")
     else:
+        #if ('KLT_SHMS_Elec_SING_TRACK_EFF' in track_data[0]):
         if ('KLT_SHMS_Elec_ALL_TRACK_EFF' in track_data[0]):
             SHMS_track_info = track_data[1].split("+-")
     if ('KLT_HMS_Elec_SING_TRACK_EFF' in track_data[0]):
@@ -160,8 +161,10 @@ print("\nPre-scale values...\nPS1:{0}, PS2:{1}, PS3:{2}, PS4:{3}, PS5:{4}, PS6:{
 
 PS_list = [["PS1",PS1],["PS2",PS2],["PS3",PS3],["PS4",PS4],["PS5",PS5],["PS6",PS6]]
 PS_names = []
+PSDict = {}
 for val in PS_list:
-    if val[0] == "PS1" or val[0] == "PS2":        
+    PSDict.update({val[0] : val[1]})
+    if val[0] == "PS1" or val[0] == "PS2":
         if val[1] != 0:
             SHMS_PS = val[1]
             PS_names.append(val[0])    
@@ -245,7 +248,10 @@ import scaler
 SCALER TREE, TSP
 '''
 
-s_tree = up.open(rootName)["TSP"]
+if SHMS_PS == None:
+    s_tree = up.open(rootName)["TSH"]
+else:
+    s_tree = up.open(rootName)["TSP"]
 
 ################################################################################################################################################
 
@@ -652,7 +658,22 @@ def analysis():
             COINTRIG  = [x
                          for x in c.add_cut(T_coin_pTRIG_COIN_ROC1_tdcTime,"c_ptrigCOIN%s" % ps.replace("PS",""))
                          if x !=0.0]
-    
+
+    try:
+        SHMSTRIG
+    except NameError:
+        SHMSTRIG = []
+
+    try:
+        HMSTRIG
+    except NameError:
+        HMSTRIG = []
+
+    try:
+        COINTRIG
+    except NameError:
+        COINTRIG = []
+
     # Cuts event type with current cut, probably pointless?
     EventType = c.add_cut(tree["EvtType"],"c_curr")
 
@@ -674,6 +695,21 @@ def analysis():
             COINTRIG_cut = [ x
                              for (x, evt) in zip(c.add_cut(T_coin_pTRIG_COIN_ROC1_tdcTime,"c_ptrigCOIN%s" % ps.replace("PS","")), tree["EvtType"])
                              if (evt == 1 or evt == 2)]
+
+    try:
+        SHMSTRIG_cut
+    except NameError:
+        SHMSTRIG_cut = []
+
+    try:
+        HMSTRIG_cut
+    except NameError:
+        HMSTRIG_cut = []
+
+    try:
+        COINTRIG_cut
+    except NameError:
+        COINTRIG_cut = []
 
     h_et_should = len(c.add_cut(tree["H_cal_etotnorm"],"h_%strack_lumi_before" % HMS_PID))
     h_et_did = len(c.add_cut(tree["H_cal_etotnorm"],"h_%strack_lumi_after" % HMS_PID))
@@ -707,17 +743,14 @@ def analysis():
 
     }
 
-    for ps in PS_names:
-        if ps == "PS1" or ps == "PS2":
-            track_info.update({"SHMSTRIG_cut" : len(SHMSTRIG_cut)})
-            track_info.update({"SHMS_track" : SHMS_track_eff})
-            track_info.update({"SHMS_track_uncern" : SHMS_track_uncern})
-        if ps == "PS3" or ps == "PS4":
-            track_info.update({"HMSTRIG_cut" : len(HMSTRIG_cut)})
-            track_info.update({"HMS_track" : HMS_track_eff})
-            track_info.update({"HMS_track_uncern" : HMS_track_uncern})
-        if ps == "PS5" or ps == "PS6":
-            track_info.update({"COINTRIG_cut" : len(COINTRIG_cut)})
+    track_info.update(PSDict)
+    track_info.update({"SHMSTRIG_cut" : len(SHMSTRIG_cut)})
+    track_info.update({"SHMS_track" : SHMS_track_eff})
+    track_info.update({"SHMS_track_uncern" : SHMS_track_uncern})
+    track_info.update({"HMSTRIG_cut" : len(HMSTRIG_cut)})
+    track_info.update({"HMS_track" : HMS_track_eff})
+    track_info.update({"HMS_track_uncern" : HMS_track_uncern})
+    track_info.update({"COINTRIG_cut" : len(COINTRIG_cut)})
     
     print("\nTerminate","Selection rules have been applied, plotting results")
     print("Total number of events: %.0f" % (track_info['tot_events']))
@@ -751,7 +784,7 @@ def main():
     # lumi_data = {**scalers , **track_info} # only python 3.5+
 
     # Import dictionaries
-    scalers = scaler.scaler(PS_names, HMS_PS, SHMS_PS, thres_curr, report_current, runNum, MaxEvent, s_tree) 
+    scalers = scaler.scaler(PS_names, HMS_PS, SHMS_PS, COIN_PS, thres_curr, report_current, runNum, MaxEvent, s_tree) 
     track_info = analysis()
 
     # Merge and sort the two dictionaries of calculations
@@ -764,6 +797,11 @@ def main():
     table  = pd.DataFrame([lumi_data], columns=lumi_data.keys())
     table = table.reindex(sorted(table.columns), axis=1)
     
+    # Replace zeros with NaN
+    table.replace(0,np.nan,inplace=True)
+    # Replace None with NaN
+    table.replace([None],np.nan,inplace=True)
+
     file_exists = os.path.isfile(out_f)
 
     # Updates csv file with luminosity calculated values for later analysis (see plot_yield.py)
@@ -780,6 +818,8 @@ def main():
             print("Output luminosity values\n",out_data)
         out_data.to_csv(out_f, index = False, header=True, mode='w+',)
     else:
+        with pd.option_context('display.max_rows', None, 'display.max_columns', None):  # more options can be specified also
+            print("Output luminosity values\n",table)
         table.to_csv(out_f, index = False, header=True, mode='a',)
 
 if __name__ == '__main__':
