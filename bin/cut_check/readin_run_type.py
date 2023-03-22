@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-03-22 13:17:19 trottar"
+# Time-stamp: "2023-03-22 13:20:31 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -61,4 +61,14 @@ runTypeDict = {
 
 for key, val in runTypeDict.items():
     print("{} -> {}".format(key,val))
-user_inp =  input('Please enter a run type cut...')
+
+def readcuts(cut):
+
+    with open(runTypeDict[cut], "r") as f:
+        print(f)
+        
+while True:    
+    user_inp =  input('Please enter a run type cut (type exit to end)...')
+
+    if user_inp[0:3] == "exit":
+        break
