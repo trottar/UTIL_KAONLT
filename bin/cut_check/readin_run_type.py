@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-03-22 16:05:16 trottar"
+# Time-stamp: "2023-03-22 16:07:45 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -119,7 +119,7 @@ def general_cut(cuts, user_inp):
                         for line in f:
                             if "#" not in line:
                                 if cut_val in line:
-                                    print("!!!!",line)
+                                    print("!!!!",cut_val,line)
                                     file_content.append(line.split("=")[1])
 
         out_cuts = "\033[36m"+cut_name+"\033[0m = \033[32m"+",".join(file_content).replace("\n","")+"\033[0m"
