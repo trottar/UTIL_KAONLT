@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-03-22 14:04:49 trottar"
+# Time-stamp: "2023-03-22 14:06:06 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -85,7 +85,7 @@ def readcutname(cut):
 
     return file_content
 
-def grabcut(cuts):
+def grabcut(cuts, user_inp):
 
     cuts = cuts.split("=")
     cut_name = cuts[0]
@@ -93,15 +93,16 @@ def grabcut(cuts):
 
     file_content = []
     for cut in cut_lst:
-        for key, val in generalDict.items():
-            if key in cut:
-                cut_key = cut.strip().split(".")[0]
-                cut_val = cut.strip().split(".")[1]
-                with open(generalDict[cut_key], "r") as f:
-                    for line in f:
-                        if "#" not in line:
-                            if cut_val in line:
-                                file_content.append(line.split("=")[1])
+        if user_inp == cut:
+            for key, val in generalDict.items():
+                if key in cut:
+                    cut_key = cut.strip().split(".")[0]
+                    cut_val = cut.strip().split(".")[1]
+                    with open(generalDict[cut_key], "r") as f:
+                        for line in f:
+                            if "#" not in line:
+                                if cut_val in line:
+                                    file_content.append(line.split("=")[1])
 
     out_cuts = cut_name+" = "+",".join(file_content).replace("\n","")
 
@@ -120,5 +121,4 @@ while True:
         break
 
     for cut in cut_lst:
-        if user_cut_inp == cut:
-            grabcut(cut)
+        grabcut(cut, user_cut_inp)
