@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-03-22 14:52:19 trottar"
+# Time-stamp: "2023-03-22 14:55:25 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -141,6 +141,7 @@ def runcut(cut, user_inp, runNum):
                 if "." in val and "abs" not in val:
                     paramVal = val.split(")")[0]
                     paramVal = paramVal.split(".")[1]
+                    print("!!!!!",paramVal)
                     # Search param dictionary for values based off key
                     fout = paramDict[key]
                     try:
@@ -156,7 +157,6 @@ def runcut(cut, user_inp, runNum):
                         else:
                             # print("!!!!ERROR!!!!: Run %s not found in range %s-%s" % (np.int64(runNum),data['Run_Start'][i],data['Run_End'][i])) # Error 10
                             continue
-
     return
 
     
