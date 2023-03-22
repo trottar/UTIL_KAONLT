@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-03-22 13:27:38 trottar"
+# Time-stamp: "2023-03-22 13:44:29 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -41,6 +41,7 @@ ANATYPE=lt.ANATYPE
 ################################################################################################################################################
 
 run_type_dir = UTILPATH+"/DB/CUTS/run_type/"
+general_dir = UTILPATH+"/DB/CUTS/general/"
 
 runTypeDict = {
 
@@ -59,6 +60,16 @@ runTypeDict = {
 
 }
 
+# Matches run type cuts with the general cuts (e.g pid, track, etc.)
+gencutDict = {
+    "pid" : general_dir+"pid.cuts",
+    "track" : general_dir+"track.cuts",
+    "accept" : general_dir+"accept.cuts",
+    "coin_time" : general_dir+"coin_time.cuts",
+    "current" : general_dir+"current.cuts",
+    "misc" : general_dir+"misc.cuts",
+}
+
 for key, val in runTypeDict.items():
     print("{} -> {}".format(key,val))
 
@@ -71,7 +82,27 @@ def readcuts(cut):
                 file_content.append(line)
         
     print(" ".join(file_content))
+
+    return file_content
+
+def grabcut(cuts):
+
+    cuts = cuts.split("=")
+    cut_name = cuts[0]
+    cut_lst = cuts[1].split("+")
+
+    file_content = []
+    for cut in cut_lst:
+        for key, val in gencutDict.items():
+            if key in cut:
+                with open(generalDict[cut], "r") as f:
+                    for line in f:
+                        if "#" not in line:
+                            file_content.append(line)
+
+    print(" ".join(file_content))
         
+print("\n\n")
 while True:
     
     user_inp =  input('Please enter a run type cut (type exit to end)...')
@@ -79,4 +110,7 @@ while True:
     if user_inp[0:4] == "exit":
         break
 
-    readcuts(user_inp)    
+    cut_lst = readcuts(user_inp)
+
+    for cut in cut_lst:
+        grabcut(cut)
