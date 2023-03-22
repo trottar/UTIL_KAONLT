@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-03-22 15:10:00 trottar"
+# Time-stamp: "2023-03-22 15:12:07 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -154,11 +154,12 @@ def runcut(cut, user_inp, runNum):
                             for j,evt in enumerate(data['Run_Start']):
                                 # Check if run number is defined in param file
                                 if data['Run_Start'][j] <= np.int64(runNum) <= data['Run_End'][j]:
-                                    cut_lst[i]  = cut.replace(key+"."+paramVal,str(data[paramVal][j]))
+                                    cut  = cut.replace(key+"."+paramVal,str(data[paramVal][j]))
                                     pass
                                 else:
                                     # print("!!!!ERROR!!!!: Run %s not found in range %s-%s" % (np.int64(runNum),data['Run_Start'][i],data['Run_End'][i])) # Error 10
                                     continue
+        cut_lst[i] = cut
     print(" ".join(cut_lst))
     return
 
