@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-03-22 15:23:52 trottar"
+# Time-stamp: "2023-03-22 15:25:07 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -190,10 +190,14 @@ while True:
                 print("Need a proper run number...")
                 continue
             for cut in cut_lst:
-                runcut(cut, user_cut_inp, runNum)
+                output = runcut(cut, user_cut_inp, runNum)
+                if output != "":
+                    print(output)
         elif "n" in user_check_inp:
             for cut in cut_lst:
-                grabcut(cut, user_cut_inp)
+                output = grabcut(cut, user_cut_inp)
+                if output != "":
+                    print(output)
             break
         else:
             print("Please answer yes or no...")
