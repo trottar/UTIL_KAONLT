@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-03-22 13:12:08 trottar"
+# Time-stamp: "2023-03-22 13:12:57 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -44,18 +44,18 @@ run_type_dir = UTILPATH+"/DB/CUTS/run_type/"
 
 runTypeDict = {
 
-    "fADCdeadtime" : fADCdeadtime.cuts,
-    "coin_heep" : coin_heep.cuts,
-    "hSing_optics" : hSing_optics.cuts,
-    "hSing_prod" : hSing_prod.cuts,
-    "pSing_optics" : pSing_optics.cuts,
-    "pSing_prod" : pSing_prod.cuts,
-    "coinpeak" : coinpeak.cuts,
-    "coin_prod" : coin_prod.cuts,
-    "lumi" : lumi.cuts,
-    "pid_eff" : pid_eff.cuts,
-    "simc_coin_heep" : simc_coin_heep.cuts,
-    "simc_sing_heep" : simc_sing_heep.cuts,
+    "fADCdeadtime" : "fADCdeadtime.cuts",
+    "coin_heep" : "coin_heep.cuts",
+    "hSing_optics" : "hSing_optics.cuts",
+    "hSing_prod" : "hSing_prod.cuts",
+    "pSing_optics" : "pSing_optics.cuts",
+    "pSing_prod" : "pSing_prod.cuts",
+    "coinpeak" : "coinpeak.cuts",
+    "coin_prod" : "coin_prod.cuts",
+    "lumi" : "lumi.cuts",
+    "pid_eff" : "pid_eff.cuts",
+    "simc_coin_heep" : "simc_coin_heep.cuts",
+    "simc_sing_heep" : "simc_sing_heep.cuts",
 
 }
 
