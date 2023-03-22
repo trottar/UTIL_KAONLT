@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-03-22 14:00:53 trottar"
+# Time-stamp: "2023-03-22 14:02:31 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -109,15 +109,16 @@ def grabcut(cuts):
     
     return out_cuts
         
-user_inp =  input('\n\nPlease enter a run type cut (type exit to end)...')
+user_inp =  input('\n\nPlease enter a run type cut...')
 while True:    
 
     cut_lst = readcutname(user_inp)
 
-    user_inp =  input('\n\nPlease enter a run type cut (type exit to end)...')
+    user_inp =  input('\n\nPlease enter a specific cut (type exit to end)...')
 
     if user_inp[0:3] == "bye" or user_inp[0:4] == "exit":
         break
 
     for cut in cut_lst:
-        grabcut(cut)
+        if user_inp == cut:
+            grabcut(cut)
