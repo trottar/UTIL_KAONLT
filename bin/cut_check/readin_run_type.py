@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-03-22 15:52:31 trottar"
+# Time-stamp: "2023-03-22 15:53:49 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -85,7 +85,7 @@ paramDict = {
 }
 
 for key, val in runTypeDict.items():
-    print("{} -> {}".format(key,val),"-"*50)
+    print("{} -> {}\n".format(key,val),"-"*50)
 
 def run_type_cut(cut):
 
@@ -169,7 +169,11 @@ def param_cut(cut, user_inp, runNum):
     
     return out_cuts
 
-user_run_type_inp =  input('\n\nPlease enter a run type cut...')
+user_run_type_inp =  input("\n\nPlease enter a run type cut (type 'exit' to end)...")
+
+if user_run_type_inp[0:3] == "bye" or user_run_type_inp[0:4] == "exit":
+    break
+
 cut_lst = run_type_cut(user_run_type_inp)
 
 # Keep track of the last user input
