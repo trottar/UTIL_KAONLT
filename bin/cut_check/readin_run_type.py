@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-03-22 15:30:32 trottar"
+# Time-stamp: "2023-03-22 15:33:36 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -120,7 +120,7 @@ def grabcut(cuts, user_inp):
                                 if cut_val in line:
                                     file_content.append(line.split("=")[1])
 
-        out_cuts = cut_name+" = "+",".join(file_content).replace("\n","")
+            out_cuts = "\033[36m"+cut_name+"\033[0m = \033[32m"+",".join(file_content).replace("\n","")+"\033[0m"
     
     return out_cuts
 
@@ -161,7 +161,7 @@ def runcut(cut, user_inp, runNum):
                                     # print("!!!!ERROR!!!!: Run %s not found in range %s-%s" % (np.int64(runNum),data['Run_Start'][i],data['Run_End'][i])) # Error 10
                                     continue
         file_content.append(cut)
-    out_cuts = cut_name+" = "+",".join(file_content).replace("\n","")
+    out_cuts = "\033[36m"+cut_name+"\033[0m = \033[32m"+",".join(file_content).replace("\n","")+"\033[0m"
     
     return out_cuts
 
@@ -221,12 +221,12 @@ while True:
             for cut in cut_lst:
                 output = runcut(cut, user_cut_inp, runNum)
                 if output != "":
-                    print(output)
+                    print("\n\n",output,"\n\n")
         elif "n" in user_check_inp:
             for cut in cut_lst:
                 output = grabcut(cut, user_cut_inp)
                 if output != "":
-                    print(output)
+                    print("\n\n",output,"\n\n")
             break
         else:
             print("Please answer yes or no...")
