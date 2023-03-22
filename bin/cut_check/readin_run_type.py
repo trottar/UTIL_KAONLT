@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-03-22 13:48:29 trottar"
+# Time-stamp: "2023-03-22 13:50:29 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -95,10 +95,13 @@ def grabcut(cuts):
     for cut in cut_lst:
         for key, val in generalDict.items():
             if key in cut:
-                with open(generalDict[cut.strip().split(".")[0]], "r") as f:
+                cut_key = cut.strip().split(".")[0]
+                cut_val = cut.strip().split(".")[1]
+                with open(generalDict[cut_key], "r") as f:
                     for line in f:
                         if "#" not in line:
-                            file_content.append(line)
+                            if cut_val in line:
+                                file_content.append(line.split("=")[1])
 
     print(" ".join(file_content))
         
