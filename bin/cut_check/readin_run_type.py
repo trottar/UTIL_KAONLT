@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-03-22 14:14:39 trottar"
+# Time-stamp: "2023-03-22 14:23:51 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -42,6 +42,7 @@ ANATYPE=lt.ANATYPE
 
 run_type_dir = UTILPATH+"/DB/CUTS/run_type/"
 general_dir = UTILPATH+"/DB/CUTS/general/"
+param_dir = UTILPATH+"/DB/PARAM/"
 
 runTypeDict = {
 
@@ -68,6 +69,16 @@ generalDict = {
     "coin_time" : general_dir+"coin_time.cuts",
     "current" : general_dir+"current.cuts",
     "misc" : general_dir+"misc.cuts",
+}
+
+# Matches general cuts with run number specific cuts
+paramDict = {
+    "accept" : param_dir+"Acceptance_Parameters.csv",
+    "track" : param_dir+"Tracking_Parameters.csv",
+    "CT" : param_dir+"Timing_Parameters.csv",
+    "pid" : param_dir+"PID_Parameters.csv",
+    "misc" : param_dir+"Misc_Parameters.csv",
+    "current" : param_dir+"Current_Parameters.csv"
 }
 
 for key, val in runTypeDict.items():
@@ -111,7 +122,10 @@ def grabcut(cuts, user_inp):
         print(out_cuts)
     
     return out_cuts
-        
+
+def runcut(runNum):
+    
+
 user_run_type_inp =  input('\n\nPlease enter a run type cut...')
 cut_lst = readcutname(user_run_type_inp)
 
@@ -122,5 +136,18 @@ while True:
     if user_cut_inp[0:3] == "bye" or user_cut_inp[0:4] == "exit":
         break
 
-    for cut in cut_lst:
-        grabcut(cut, user_cut_inp)
+    while True:
+
+        user_check_inp =  input('\nWould you like to check cuts for  specific run number? (yes or no)...')
+
+        if "y" in user_check_inp:
+            user_run_inp =  input('\nPlease enter run number (type exit to end)...')
+            #runcut(user_run_inp)
+            if user_run_inp[0:3] == "bye" or user_run_inp[0:4] == "exit":
+                break
+        elif "n" in user_check_inp:
+            for cut in cut_lst:
+                grabcut(cut, user_cut_inp)
+            break
+        else:
+            print("Please answer yes or no...")
