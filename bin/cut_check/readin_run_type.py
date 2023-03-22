@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-03-22 14:48:15 trottar"
+# Time-stamp: "2023-03-22 14:49:17 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -141,7 +141,7 @@ def runcut(cut, user_inp, runNum):
                 if "." in val and "abs" not in val:
                     paramVal = val.split(")")[0]
                     paramVal = paramVal.split(".")[1]
-                    # Search param dictionary for values based off paramName key
+                    # Search param dictionary for values based off key
                     fout = paramDict[key]
                     try:
                         data = dict(pd.read_csv(fout))
@@ -150,7 +150,7 @@ def runcut(cut, user_inp, runNum):
                     for i,evt in enumerate(data['Run_Start']):
                         # Check if run number is defined in param file
                         if data['Run_Start'][i] <= np.int64(runNum) <= data['Run_End'][i]:
-                            cut  = cut.replace(paramName+"."+paramVal,str(data[paramVal][i]))
+                            cut  = cut.replace(key+"."+paramVal,str(data[paramVal][i]))
                             if (DEBUG):
                                 print("paramVal ",paramVal, "= ",data[paramVal][i])
                             pass
