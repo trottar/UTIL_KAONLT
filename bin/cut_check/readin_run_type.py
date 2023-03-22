@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-03-22 13:22:07 trottar"
+# Time-stamp: "2023-03-22 13:22:46 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -65,7 +65,9 @@ for key, val in runTypeDict.items():
 def readcuts(cut):
 
     with open(runTypeDict[cut], "r") as f:
-        f.read()
+        file_content = f.read()
+        
+    print(file_content)
         
 while True:
     
