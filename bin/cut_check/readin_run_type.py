@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-03-22 14:27:23 trottar"
+# Time-stamp: "2023-03-22 14:37:03 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -123,7 +123,36 @@ def grabcut(cuts, user_inp):
     
     return out_cuts
 
-#def runcut(runNum):
+def runcut(runNum):
+    
+    cuts = grabcut(cut, user_cut_inp).split("=")
+    cut_name = cuts[0].strip()
+    cut_lst = cuts[1].split(",")
+
+    for cut in cut_lst:
+        for key, val in paramDict.items():
+            if key in cut:
+                # Splits string and checks for abs() so that it does not cut string around these curved brackets
+                if "." in val and "abs" not in val:
+                    paramVal = val.split(")")[0]
+                    paramVal = paramVal.split(".")[1]
+                    # Search param dictionary for values based off paramName key
+                    fout = paramDict[key]
+                    try:
+                        data = dict(pd.read_csv(fout))
+                    except IOError:
+                        print("ERROR 9: %s not found in %s" % (paramVal,fout))
+                    for i,evt in enumerate(data['Run_Start']):
+                        # Check if run number is defined in param file
+                        if data['Run_Start'][i] <= np.int64(runNum) <= data['Run_End'][i]:
+                            cut  = cut.replace(paramName+"."+paramVal,str(data[paramVal][i]))
+                            if (DEBUG):
+                                print("paramVal ",paramVal, "= ",data[paramVal][i])
+                            pass
+                        else:
+                            # print("!!!!ERROR!!!!: Run %s not found in range %s-%s" % (np.int64(runNum),data['Run_Start'][i],data['Run_End'][i])) # Error 10
+                            continue
+
     
 
 user_run_type_inp =  input('\n\nPlease enter a run type cut...')
@@ -144,7 +173,8 @@ while True:
             user_run_inp =  input('\nPlease enter run number (type exit to end)...')
             try:
                 runNum = int(user_run_inp)
-                #runcut(runNum)
+                for cut in cut_lst:
+                    runcut(cut, user_cut_inp,runNum)
             except:
                 print("Need a proper run number...")
                 continue
