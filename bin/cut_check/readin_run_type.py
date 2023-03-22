@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-03-22 15:48:36 trottar"
+# Time-stamp: "2023-03-22 15:49:58 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -93,7 +93,7 @@ def run_type_cut(cut):
     with open(runTypeDict[cut], "r") as f:
         for line in f:
             if "#" not in line:
-                file_content.append("\n"+line+"\n"+"-"*50)
+                file_content.append("\n"+line+"-"*50)
         
     print(" ".join(file_content))
 
