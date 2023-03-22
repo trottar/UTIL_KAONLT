@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-03-22 14:45:19 trottar"
+# Time-stamp: "2023-03-22 14:47:34 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -126,7 +126,10 @@ def grabcut(cuts, user_inp):
 def runcut(cut, user_inp, runNum):
     
     cuts = grabcut(cut, user_cut_inp).split("=")
-    print(cuts)
+
+    if len(cuts) == 1:
+        return
+    
     cut_name = cuts[0].strip()
     cut_lst = cuts[1].split(",")
 
@@ -154,6 +157,8 @@ def runcut(cut, user_inp, runNum):
                             # print("!!!!ERROR!!!!: Run %s not found in range %s-%s" % (np.int64(runNum),data['Run_Start'][i],data['Run_End'][i])) # Error 10
                             continue
 
+    return
+
     
 
 user_run_type_inp =  input('\n\nPlease enter a run type cut...')
@@ -180,7 +185,6 @@ while True:
                 print("Need a proper run number...")
                 continue
             for cut in cut_lst:
-                print(cut)
                 runcut(cut, user_cut_inp, runNum)
         elif "n" in user_check_inp:
             for cut in cut_lst:
