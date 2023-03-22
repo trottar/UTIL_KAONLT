@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-03-22 15:13:27 trottar"
+# Time-stamp: "2023-03-22 15:17:05 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -119,8 +119,6 @@ def grabcut(cuts, user_inp):
                                     file_content.append(line.split("=")[1])
 
         out_cuts = cut_name+" = "+",".join(file_content).replace("\n","")
-
-        print(out_cuts)
     
     return out_cuts
 
@@ -134,6 +132,7 @@ def runcut(cut, user_inp, runNum):
     cut_name = cuts[0].strip()
     cut_lst = cuts[1].split(",")
 
+    file_content = []
     for i, cut in enumerate(cut_lst):
         for key, val in paramDict.items():
             if key in cut:
@@ -157,11 +156,10 @@ def runcut(cut, user_inp, runNum):
                                 else:
                                     # print("!!!!ERROR!!!!: Run %s not found in range %s-%s" % (np.int64(runNum),data['Run_Start'][i],data['Run_End'][i])) # Error 10
                                     continue
-        cut_lst[i] = cut
-    print(" ".join(cut_lst))
-    return
-
+        file_content.append(cut)
+    out_cuts = cut_name+" = "+",".join(file_content).replace("\n","")
     
+    return out_cuts
 
 user_run_type_inp =  input('\n\nPlease enter a run type cut...')
 
@@ -187,10 +185,10 @@ while True:
                 print("Need a proper run number...")
                 continue
             for cut in cut_lst:
-                runcut(cut, user_cut_inp, runNum)
+                print(runcut(cut, user_cut_inp, runNum))
         elif "n" in user_check_inp:
             for cut in cut_lst:
-                grabcut(cut, user_cut_inp)
+                print(grabcut(cut, user_cut_inp))
             break
         else:
             print("Please answer yes or no...")
