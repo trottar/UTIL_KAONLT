@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-03-22 13:55:02 trottar"
+# Time-stamp: "2023-03-22 14:00:53 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -73,7 +73,7 @@ generalDict = {
 for key, val in runTypeDict.items():
     print("{} -> {}".format(key,val))
 
-def readcuts(cut):
+def readcutname(cut):
 
     file_content = []
     with open(runTypeDict[cut], "r") as f:
@@ -109,15 +109,15 @@ def grabcut(cuts):
     
     return out_cuts
         
-print("\n\n")
-while True:
-    
-    user_inp =  input('Please enter a run type cut (type exit to end)...')
-    
-    if user_inp[0:4] == "exit":
-        break
+user_inp =  input('\n\nPlease enter a run type cut (type exit to end)...')
+while True:    
 
-    cut_lst = readcuts(user_inp)
+    cut_lst = readcutname(user_inp)
+
+    user_inp =  input('\n\nPlease enter a run type cut (type exit to end)...')
+
+    if user_inp[0:3] == "bye" or user_inp[0:4] == "exit":
+        break
 
     for cut in cut_lst:
         grabcut(cut)
