@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-03-22 13:24:09 trottar"
+# Time-stamp: "2023-03-22 13:24:56 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -69,7 +69,7 @@ def readcuts(cut):
         if "#" not in f.readlines():
             file_content.append(f.readlines())
         
-    print("".join(file_content))
+    print(" ".join(file_content))
         
 while True:
     
