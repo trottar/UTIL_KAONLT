@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-03-22 14:12:11 trottar"
+# Time-stamp: "2023-03-22 14:13:17 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -88,14 +88,14 @@ def readcutname(cut):
 def grabcut(cuts, user_inp):
 
     cuts = cuts.split("=")
-    cut_name = cuts[0]
+    cut_name = cuts[0].strip()
     cut_lst = cuts[1].split("+")
 
     out_cuts = ""
     
     file_content = []
     print(user_inp, "==", cut_name)
-    if user_inp == cut_name:
+    if user_inp in cut_name:
         for cut in cut_lst:
             for key, val in generalDict.items():
                 if key in cut:
