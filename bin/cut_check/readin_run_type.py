@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-03-22 13:15:45 trottar"
+# Time-stamp: "2023-03-22 13:17:19 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -60,5 +60,5 @@ runTypeDict = {
 }
 
 for key, val in runTypeDict.items():
-    print(f"{key} -> {val}")
+    print("{} -> {}".format(key,val))
 user_inp =  input('Please enter a run type cut...')
