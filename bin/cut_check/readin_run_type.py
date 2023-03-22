@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-03-22 15:18:00 trottar"
+# Time-stamp: "2023-03-22 15:23:52 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -119,8 +119,6 @@ def grabcut(cuts, user_inp):
                                     file_content.append(line.split("=")[1])
 
         out_cuts = cut_name+" = "+",".join(file_content).replace("\n","")
-
-        print(out_cuts)
     
     return out_cuts
 
@@ -134,6 +132,8 @@ def runcut(cut, user_inp, runNum):
     cut_name = cuts[0].strip()
     cut_lst = cuts[1].split(",")
 
+    out_cuts = ""
+    
     file_content = []
     for i, cut in enumerate(cut_lst):
         for key, val in paramDict.items():
@@ -160,21 +160,22 @@ def runcut(cut, user_inp, runNum):
                                     continue
         file_content.append(cut)
     out_cuts = cut_name+" = "+",".join(file_content).replace("\n","")
-
-    print(out_cuts)
     
     return out_cuts
 
 user_run_type_inp =  input('\n\nPlease enter a run type cut...')
+cut_lst = readcutname(user_run_type_inp)
 
 while True:    
 
-    cut_lst = readcutname(user_run_type_inp)
-    user_cut_inp =  input('\n\nPlease enter a specific cut (type exit to end)...')
+    user_cut_inp =  input("\n\nPlease enter a specific cut (type 'exit' to end and 'help' to relist run type cuts)...")
 
     if user_cut_inp[0:3] == "bye" or user_cut_inp[0:4] == "exit":
         break
 
+    if user_cut_inp[0:4] == "help":
+        cut_lst = readcutname(user_run_type_inp)
+    
     while True:
 
         user_check_inp =  input('\nWould you like to check cuts for  specific run number? (yes or no)...')
