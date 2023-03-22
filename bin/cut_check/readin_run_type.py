@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-03-22 15:12:07 trottar"
+# Time-stamp: "2023-03-22 15:13:27 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -140,11 +140,9 @@ def runcut(cut, user_inp, runNum):
                 # Splits string and checks for abs() so that it does not cut string around these curved brackets
                 if "." in cut and "abs" not in val:
                     param_tmp = cut.split(")")
-                    print(param_tmp)
                     for param in param_tmp:
                         if "." in param:
                             paramVal = param.split(".")[1]
-                            print("!!!!!",paramVal)
                             # Search param dictionary for values based off key
                             fout = paramDict[key]
                             try:
@@ -166,10 +164,10 @@ def runcut(cut, user_inp, runNum):
     
 
 user_run_type_inp =  input('\n\nPlease enter a run type cut...')
-cut_lst = readcutname(user_run_type_inp)
 
 while True:    
 
+    cut_lst = readcutname(user_run_type_inp)
     user_cut_inp =  input('\n\nPlease enter a specific cut (type exit to end)...')
 
     if user_cut_inp[0:3] == "bye" or user_cut_inp[0:4] == "exit":
