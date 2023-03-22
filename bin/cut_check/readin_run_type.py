@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-03-22 16:08:55 trottar"
+# Time-stamp: "2023-03-22 16:15:28 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -229,12 +229,12 @@ while True:
                 print("Need a proper run number...")
                 continue
             for cut in cut_lst:
-                output = param_cut(cut, user_cut_inp, runNum)
+                output = param_cut(cut.replace("-"*50,"").replace("\n",""), user_cut_inp, runNum)
                 if output != "":
                     print("\n\n",output,"\n\n")
         elif "n" in user_check_inp:
             for cut in cut_lst:
-                output = general_cut(cut, user_cut_inp)
+                output = general_cut(cut.replace("-"*50,"").replace("\n",""), user_cut_inp)
                 if output != "":
                     print("\n\n",output,"\n\n")
             break
