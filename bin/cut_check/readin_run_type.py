@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-03-22 15:36:26 trottar"
+# Time-stamp: "2023-03-22 15:39:09 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -120,7 +120,7 @@ def grabcut(cuts, user_inp):
                                 if cut_val in line:
                                     file_content.append(line.split("=")[1])
 
-            out_cuts = "\033[36m"+str(runNum)+"\n"+cut_name+"\033[0m = \033[32m"+",".join(file_content).replace("\n","")+"\033[0m"
+        out_cuts = "\033[36m"+cut_name+"\033[0m = \033[32m"+",".join(file_content).replace("\n","")+"\033[0m"
     
     return out_cuts
 
@@ -161,7 +161,8 @@ def runcut(cut, user_inp, runNum):
                                     # print("!!!!ERROR!!!!: Run %s not found in range %s-%s" % (np.int64(runNum),data['Run_Start'][i],data['Run_End'][i])) # Error 10
                                     continue
         file_content.append(cut)
-    out_cuts = "\033[36m"+cut_name+"\033[0m = \033[32m"+",".join(file_content).replace("\n","")+"\033[0m"
+        
+    out_cuts = "\033[36m"+str(runNum)+"\n\n"+cut_name+"\033[0m = \033[32m"+",".join(file_content).replace("\n","")+"\033[0m"
     
     return out_cuts
 
