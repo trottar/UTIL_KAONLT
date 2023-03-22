@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-03-22 14:37:03 trottar"
+# Time-stamp: "2023-03-22 14:39:21 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -171,15 +171,15 @@ while True:
 
         if "y" in user_check_inp:
             user_run_inp =  input('\nPlease enter run number (type exit to end)...')
+            if user_run_inp[0:3] == "bye" or user_run_inp[0:4] == "exit":
+                break
             try:
                 runNum = int(user_run_inp)
-                for cut in cut_lst:
-                    runcut(cut, user_cut_inp,runNum)
             except:
                 print("Need a proper run number...")
                 continue
-            if user_run_inp[0:3] == "bye" or user_run_inp[0:4] == "exit":
-                break
+            for cut in cut_lst:
+                runcut(cut, user_cut_inp,runNum)
         elif "n" in user_check_inp:
             for cut in cut_lst:
                 grabcut(cut, user_cut_inp)
