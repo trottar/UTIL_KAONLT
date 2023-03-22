@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-03-22 15:08:19 trottar"
+# Time-stamp: "2023-03-22 15:09:06 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -142,7 +142,7 @@ def runcut(cut, user_inp, runNum):
                     param_tmp = cut.split(")")
                     print(param_tmp)
                     for param in param_tmp:
-                        paramVal = param_tmp.split(".")[1]
+                        paramVal = param.split(".")[1]
                         print("!!!!!",paramVal)
                         # Search param dictionary for values based off key
                         fout = paramDict[key]
