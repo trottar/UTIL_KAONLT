@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-03-22 15:53:49 trottar"
+# Time-stamp: "2023-03-22 15:54:33 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -172,7 +172,7 @@ def param_cut(cut, user_inp, runNum):
 user_run_type_inp =  input("\n\nPlease enter a run type cut (type 'exit' to end)...")
 
 if user_run_type_inp[0:3] == "bye" or user_run_type_inp[0:4] == "exit":
-    break
+    sys.exit(0)
 
 cut_lst = run_type_cut(user_run_type_inp)
 
