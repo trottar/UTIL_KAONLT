@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-03-22 15:17:05 trottar"
+# Time-stamp: "2023-03-22 15:18:00 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -119,6 +119,8 @@ def grabcut(cuts, user_inp):
                                     file_content.append(line.split("=")[1])
 
         out_cuts = cut_name+" = "+",".join(file_content).replace("\n","")
+
+        print(out_cuts)
     
     return out_cuts
 
@@ -158,6 +160,8 @@ def runcut(cut, user_inp, runNum):
                                     continue
         file_content.append(cut)
     out_cuts = cut_name+" = "+",".join(file_content).replace("\n","")
+
+    print(out_cuts)
     
     return out_cuts
 
@@ -185,10 +189,10 @@ while True:
                 print("Need a proper run number...")
                 continue
             for cut in cut_lst:
-                print(runcut(cut, user_cut_inp, runNum))
+                runcut(cut, user_cut_inp, runNum)
         elif "n" in user_check_inp:
             for cut in cut_lst:
-                print(grabcut(cut, user_cut_inp))
+                grabcut(cut, user_cut_inp)
             break
         else:
             print("Please answer yes or no...")
