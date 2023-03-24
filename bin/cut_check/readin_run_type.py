@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-03-24 16:04:56 trottar"
+# Time-stamp: "2023-03-24 16:09:51 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -87,6 +87,12 @@ paramDict = {
 for key, val in runTypeDict.items():
     print("{} -> {}\n".format(key,val),"-"*50)
 
+def has_numbers(inputString):
+    '''
+    Check if string contains a number. Returns true if number is in string.
+    '''
+    return any(char.isdigit() for char in inputString)
+    
 def run_type_cut(cut):
 
     file_content = []
@@ -112,10 +118,9 @@ def general_cut(cuts, user_inp):
         for cut in cut_lst:
             for key, val in generalDict.items():
                 if key in cut:
-                    # Splits string and checks for abs() so that it does not cut string around these curved brackets
-                    if "." in cut and "abs" not in cut and "/" not in cut:
-                        cut_key = cut.strip().split(".")[0]
-                        cut_val = cut.strip().split(".")[1]
+                    cut_key = cut.strip().split(".")[0]
+                    cut_val = cut.strip().split(".")[1]
+                    if not has_numbers(cut_key):
                         with open(generalDict[cut_key], "r") as f:
                             for line in f:
                                 if "#" not in line:
