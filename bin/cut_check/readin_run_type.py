@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-03-24 16:02:59 trottar"
+# Time-stamp: "2023-03-24 16:04:56 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -112,16 +112,18 @@ def general_cut(cuts, user_inp):
         for cut in cut_lst:
             for key, val in generalDict.items():
                 if key in cut:
-                    cut_key = cut.strip().split(".")[0]
-                    cut_val = cut.strip().split(".")[1]
-                    with open(generalDict[cut_key], "r") as f:
-                        for line in f:
-                            if "#" not in line:
-                                if cut_val in line:
-                                    if "==" in line:
-                                        file_content.append(line.replace("==","&&").split("=")[1].replace("&&","=="))
-                                    else:
-                                        file_content.append(line.split("=")[1])
+                    # Splits string and checks for abs() so that it does not cut string around these curved brackets
+                    if "." in cut and "abs" not in cut and "/" not in cut:
+                        cut_key = cut.strip().split(".")[0]
+                        cut_val = cut.strip().split(".")[1]
+                        with open(generalDict[cut_key], "r") as f:
+                            for line in f:
+                                if "#" not in line:
+                                    if cut_val in line:
+                                        if "==" in line:
+                                            file_content.append(line.replace("==","&&").split("=")[1].replace("&&","=="))
+                                        else:
+                                            file_content.append(line.split("=")[1])
 
         out_cuts = "\033[36m"+cut_name+"\033[0m = \033[32m"+",".join(file_content).replace("\n","")+"\033[0m"
     
