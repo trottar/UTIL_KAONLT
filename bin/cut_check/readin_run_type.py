@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-03-24 15:58:34 trottar"
+# Time-stamp: "2023-03-24 16:01:00 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -151,10 +151,10 @@ def param_cut(cut, user_inp, runNum):
             if key in cut:
                 # Splits string and checks for abs() so that it does not cut string around these curved brackets
                 if "." in cut and "abs" not in cut:
-                    print("!!!!!",cut)
                     param_tmp = cut.split(")")
                     for param in param_tmp:
-                        if "." in param:
+                        if "." in param and not isinstance(param.strip("/"), float):
+                            print("!!!!!",param)
                             paramVal = param.split(".")[1]
                             # Search param dictionary for values based off key
                             fout = paramDict[key]
@@ -170,6 +170,8 @@ def param_cut(cut, user_inp, runNum):
                                 else:
                                     # print("!!!!ERROR!!!!: Run %s not found in range %s-%s" % (np.int64(runNum),data['Run_Start'][i],data['Run_End'][i])) # Error 10
                                     continue
+                        if isinstance(param.strip("/"), float):
+                            cut = cut
                 else:
                     cut = cut                
         file_content.append(cut)
