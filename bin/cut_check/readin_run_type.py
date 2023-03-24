@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-03-24 16:36:19 trottar"
+# Time-stamp: "2023-03-24 16:38:45 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -156,6 +156,8 @@ def param_cut(cut, user_inp, runNum):
     else:
         cuts = cuts.split("=")
 
+    print("!!!!",cuts)
+
     out_cuts = ""
     
     if len(cuts) == 1:
@@ -173,7 +175,7 @@ def param_cut(cut, user_inp, runNum):
                     param_tmp = cut.split(")")
                     for param in param_tmp:
                         if "." in param:
-                            print("!!!!!",param)
+                            print("~~~~",param)
                             paramVal = param.split(".")[1]
                             if has_numbers(paramVal):
                                 cut = cut
