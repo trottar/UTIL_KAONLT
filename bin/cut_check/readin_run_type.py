@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-03-24 16:34:25 trottar"
+# Time-stamp: "2023-03-24 16:36:19 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -145,6 +145,14 @@ def param_cut(cut, user_inp, runNum):
         cuts = cuts.replace("==","&&").split("=")
         for i, cut in enumerate(cuts):
             cuts[i] = cut.replace("&&","==")
+    elif ">=" in cuts:
+        cuts = cuts.replace(">=","&&").split("=")
+        for i, cut in enumerate(cuts):
+            cuts[i] = cut.replace("&&",">=")
+    elif "<=" in cuts:
+        cuts = cuts.replace("<=","&&").split("=")
+        for i, cut in enumerate(cuts):
+            cuts[i] = cut.replace("&&","<=")            
     else:
         cuts = cuts.split("=")
 
