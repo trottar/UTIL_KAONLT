@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-03-24 16:41:15 trottar"
+# Time-stamp: "2023-03-24 16:43:29 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -168,39 +168,36 @@ def param_cut(cut, user_inp, runNum):
     
     file_content = []
     for i, cut in enumerate(cut_lst):
-        for key, val in paramDict.items():
+        for key, val in paramDict.items():            
             if key in cut:
-                # Splits string and checks for abs() so that it does not cut string around these curved brackets
-                if "." in cut and "abs" not in cut and "/" not in cut:
-                    print("%%%%%",cut)
-                    param_tmp = cut.split(")")
-                    for param in param_tmp:
-                        if "." in param:
-                            print("~~~~",param)
-                            paramVal = param.split(".")[1]
-                            if has_numbers(paramVal):
-                                cut = cut
-                            else:
-                                # Search param dictionary for values based off key
-                                fout = paramDict[key]
-                                try:
-                                    data = dict(pd.read_csv(fout))
-                                    data[paramVal]
-                                except IOError:
-                                    print("ERROR 9: %s not found in %s" % (paramVal,fout))
-                                except KeyError:
+                param_tmp = cut.split(")")
+                for param in param_tmp:
+                    if "." in param:
+                        print("~~~~",param)
+                        paramVal = param.split(".")[1]
+                        if has_numbers(paramVal):
+                            cut = cut
+                        else:
+                            # Search param dictionary for values based off key
+                            fout = paramDict[key]
+                            try:
+                                data = dict(pd.read_csv(fout))
+                                data[paramVal]
+                            except IOError:
+                                print("ERROR 9: %s not found in %s" % (paramVal,fout))
+                            except KeyError:
+                                continue
+                            for j,evt in enumerate(data['Run_Start']):
+                                # Check if run number is defined in param file
+                                if data['Run_Start'][j] <= np.int64(runNum) <= data['Run_End'][j]:
+                                    cut = cut.replace(key+"."+paramVal,str(data[paramVal][j]))
+                                    pass
+                                else:
+                                    # print("!!!!ERROR!!!!: Run %s not found in range %s-%s" % (np.int64(runNum),data['Run_Start'][i],data['Run_End'][i])) # Error 10
                                     continue
-                                for j,evt in enumerate(data['Run_Start']):
-                                    # Check if run number is defined in param file
-                                    if data['Run_Start'][j] <= np.int64(runNum) <= data['Run_End'][j]:
-                                        cut = cut.replace(key+"."+paramVal,str(data[paramVal][j]))
-                                        pass
-                                    else:
-                                        # print("!!!!ERROR!!!!: Run %s not found in range %s-%s" % (np.int64(runNum),data['Run_Start'][i],data['Run_End'][i])) # Error 10
-                                        continue
                                     
-                else:
-                    cut = cut                
+            else:
+                cut = cut                
         file_content.append(cut)
         
     out_cuts = "\033[36m"+str(runNum)+"\n\n"+cut_name+"\033[0m = \033[32m"+",".join(file_content).replace("\n","")+"\033[0m"
