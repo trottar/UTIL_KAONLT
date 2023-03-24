@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-03-24 16:31:33 trottar"
+# Time-stamp: "2023-03-24 16:34:25 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -166,7 +166,7 @@ def param_cut(cut, user_inp, runNum):
                     for param in param_tmp:
                         if "." in param:
                             print("!!!!!",param)
-                            paramVal = param.split(".")[1].strip()
+                            paramVal = param.split(".")[1]
                             if has_numbers(paramVal):
                                 cut = cut
                             else:
@@ -174,9 +174,11 @@ def param_cut(cut, user_inp, runNum):
                                 fout = paramDict[key]
                                 try:
                                     data = dict(pd.read_csv(fout))
-                                    print(data.keys())
+                                    data[paramVal]
                                 except IOError:
                                     print("ERROR 9: %s not found in %s" % (paramVal,fout))
+                                except KeyError:
+                                    continue
                                 for j,evt in enumerate(data['Run_Start']):
                                     # Check if run number is defined in param file
                                     if data['Run_Start'][j] <= np.int64(runNum) <= data['Run_End'][j]:
