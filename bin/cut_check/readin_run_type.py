@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-03-24 16:28:31 trottar"
+# Time-stamp: "2023-03-24 16:30:15 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -166,7 +166,7 @@ def param_cut(cut, user_inp, runNum):
                     for param in param_tmp:
                         if "." in param:
                             print("!!!!!",param)
-                            paramVal = param.split(".")[1]
+                            paramVal = param.split(".")[1].strip()
                             # Search param dictionary for values based off key
                             fout = paramDict[key]
                             try:
