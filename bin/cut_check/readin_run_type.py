@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-03-24 16:13:02 trottar"
+# Time-stamp: "2023-03-24 16:15:34 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -118,6 +118,7 @@ def general_cut(cuts, user_inp):
         for cut in cut_lst:
             for key, val in generalDict.items():
                 if key in cut:
+                    print("!!!!!",cut)
                     cut_key = cut.strip().split(".")[0]
                     cut_val = cut.strip().split(".")[1]
                     if not has_numbers(cut_key):
