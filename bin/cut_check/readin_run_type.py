@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-03-24 16:43:29 trottar"
+# Time-stamp: "2023-03-24 16:46:54 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -116,7 +116,6 @@ def general_cut(cuts, user_inp):
     file_content = []
     if user_inp in cut_name:
         for cut in cut_lst:
-            print("!!!!!",cut)
             for key, val in generalDict.items():
                 if key in cut:
                     cut_key = cut.strip().split(".")[0]
@@ -146,6 +145,7 @@ def param_cut(cut, user_inp, runNum):
         for i, cut in enumerate(cuts):
             cuts[i] = cut.replace("&&","==")
     elif ">=" in cuts:
+        print("@@@@@@@@@@@@@@@@@@@@@@@@@")
         cuts = cuts.replace(">=","&&").split("=")
         for i, cut in enumerate(cuts):
             cuts[i] = cut.replace("&&",">=")
