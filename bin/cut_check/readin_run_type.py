@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-03-22 16:50:11 trottar"
+# Time-stamp: "2023-03-24 14:48:53 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -149,6 +149,7 @@ def param_cut(cut, user_inp, runNum):
     for i, cut in enumerate(cut_lst):
         for key, val in paramDict.items():
             if key in cut:
+                print("!!!!!",key)
                 # Splits string and checks for abs() so that it does not cut string around these curved brackets
                 if "." in cut and "abs" not in val:
                     param_tmp = cut.split(")")
