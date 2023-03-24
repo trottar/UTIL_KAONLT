@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-03-24 15:49:01 trottar"
+# Time-stamp: "2023-03-24 15:51:15 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -154,6 +154,7 @@ def param_cut(cut, user_inp, runNum):
                     param_tmp = cut.split(")")
                     for param in param_tmp:
                         if "." in param and not isinstance(param, float):
+                            print("!!!!!",param)
                             paramVal = param.split(".")[1]
                             # Search param dictionary for values based off key
                             fout = paramDict[key]
