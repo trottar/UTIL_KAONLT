@@ -3,7 +3,7 @@
 # Description: Grabs lumi data from corresponding csv depending on run setting. Then plots the yields and creates a comprehensive table.
 # Variables calculated: current, rate_HMS, rate_SHMS, sent_edtm_PS, uncern_HMS_evts_scaler, uncern_SHMS_evts_scaler, uncern_HMS_evts_notrack, uncern_SHMS_evts_notrack, uncern_HMS_evts_track, uncern_SHMS_evts_track
 # ================================================================
-# Time-stamp: "2023-05-11 12:47:37 trottar"
+# Time-stamp: "2023-05-11 12:49:23 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -424,10 +424,10 @@ def plot_yield():
     def linear_plot(x, y, xerr, yerr, xvalmax=100):
         # Remove NaN values from list
         c_arr = [[nx, ny, nxerr, nyerr] for nx, ny, nxerr, nyerr in zip(x, y, xerr, yerr) if str(ny) != 'nan']
-        x_c = [i[0] for i in c_arr]
-        y_c = [i[1] for i in c_arr]
-        xerr_c = [i[2] for i in c_arr]
-        yerr_c = [i[3] for i in c_arr]
+        x_c = np.array([i[0] for i in c_arr])
+        y_c = np.array([i[1] for i in c_arr])
+        xerr_c = np.array([i[2] for i in c_arr])
+        yerr_c = np.array([i[3] for i in c_arr])
 
         # Define weights
         weights = 1/np.sqrt(yerr_c**2 + (m/b * xerr_c)**2)
