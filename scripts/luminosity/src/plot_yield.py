@@ -3,7 +3,7 @@
 # Description: Grabs lumi data from corresponding csv depending on run setting. Then plots the yields and creates a comprehensive table.
 # Variables calculated: current, rate_HMS, rate_SHMS, sent_edtm_PS, uncern_HMS_evts_scaler, uncern_SHMS_evts_scaler, uncern_HMS_evts_notrack, uncern_SHMS_evts_notrack, uncern_HMS_evts_track, uncern_SHMS_evts_track
 # ================================================================
-# Time-stamp: "2023-05-11 13:05:26 trottar"
+# Time-stamp: "2023-05-11 13:08:17 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -422,7 +422,7 @@ def plot_yield():
     '''
 
     def fit_func(x, m, b):
-        return m*x + b
+        return (m/b)*x + 1.0
 
     def linear_plot(x,y, xerr=None, yerr=None, xvalmax=100):
         # Remove NaN values from list
@@ -436,12 +436,12 @@ def plot_yield():
         m_err, b_err = np.sqrt(np.diag(pcov))
 
         # Find chi-squared
-        res = y_c - fit_func(x_c, m, b)
+        res = y_c - fit_func(x_c, m/b, 1.0)
         chisq = np.sum((res/yerr)**2) if yerr is not None else np.sum(res**2)
 
         # Plot fit from axis
         x_fit = np.linspace(0,xvalmax)
-        y_fit = fit_func(x_fit, m, b)
+        y_fit = fit_func(x_fit, m/b, 1.0)
         plt.plot(x_fit, y_fit, color='green', label='{0}={1:0.2e}*{2}+1.00\n{3}={4:0.2e}\n{5}={6:0.2e}'.format(r'Y/$Y_0$',m/b,r'$I_b$',r'$\chi^2$',chisq,r'$m_0$',(m/b)), zorder=5)
 
         return m/b
