@@ -3,7 +3,7 @@
 # Description: Grabs lumi data from corresponding csv depending on run setting. Then plots the yields and creates a comprehensive table.
 # Variables calculated: current, rate_HMS, rate_SHMS, sent_edtm_PS, uncern_HMS_evts_scaler, uncern_SHMS_evts_scaler, uncern_HMS_evts_notrack, uncern_SHMS_evts_notrack, uncern_HMS_evts_track, uncern_SHMS_evts_track
 # ================================================================
-# Time-stamp: "2023-03-23 15:57:01 trottar"
+# Time-stamp: "2023-05-09 11:58:50 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -76,10 +76,31 @@ def removeRun(runNum):
     return lumi_data
 
 # Remove runs, removeRun(runNumber)
-#removeRun(5158)
-#removeRun(5298)
-removeRun(5299)
-removeRun(5354)
+# 10p6 c 
+#removeRun(5176)
+#removeRun(5300)
+#removeRun(5354)
+# 8p2 c
+#removeRun(7949)
+#removeRun(7952)
+# 10p6 lh2
+#removeRun(5153)
+#removeRun(5160)
+#removeRun(5165)
+#removeRun(5169)
+#removeRun(5366)
+# 8p2 lh2
+#removeRun(7958)
+# 6p2, where are all the runs? There are only 3???
+
+# testing
+# removeRun(5154) # bad TLT
+removeRun(5176) # bad TLT
+removeRun(5300) # bad yield
+removeRun(5301) # bad Beam on Time
+removeRun(5354) # bad TLT
+removeRun(7949) # bad SHMS yield, HMS fine
+removeRun(7952) # bad yield, 5 uA (better trend when removed)
 
 ################################################################################################################################################
 
@@ -386,13 +407,16 @@ def plot_yield():
         # Define slope and intercept
         m,b = np.polyfit(np.array(x_c),np.array(y_c),deg=1)
 
-        # Plot fit from axis
-        plt.plot(np.linspace(0,xvalmax),m*np.linspace(0,xvalmax)+b, color='green', label='y={0:0.3e}x+{1:0.3f}'.format(m,b), zorder=5)
-        # Plot fit of data only
-        #plt.plot(yield_data["current"],m*yield_data["current"]+b, color='green', label='y={0:0.2e}x+{1:0.2f}'.format(m,b), zorder=5)
-        # Plot with intercept at 1.000
-        plt.plot(np.linspace(0,xvalmax),m*np.linspace(0,xvalmax)+1.000, color='lightgreen', label='y={0:0.3e}x+1.000'.format(m,b), zorder=5)
+        # Find chi-squared
+        #res = y - (m*x+b)
+        res = y/b - (m/b*x+1.00)
+        chisq = np.sum((res/np.sqrt(y/b))**2)
 
+        # Plot fit from axis
+        #plt.plot(np.linspace(0,xvalmax),m*np.linspace(0,xvalmax)+b, color='green', label='y={0:0.3e}x+{1:0.3f}\n{2}={3:0.3e}\n{4}={5:0.3e}'.format(m,b,r'$\chi^2$',chisq,r'$m_0$',(m/b)), zorder=5)
+        plt.plot(np.linspace(0,xvalmax),(m/b)*np.linspace(0,xvalmax)+1.00, color='green', label='{0}={1:0.2e}*{2}+1.00\n{3}={4:0.2e}\n{5}={6:0.2e}'.format(r'Y/$Y_0$',m/b,r'$I_b$',r'$\chi^2$',chisq,r'$m_0$',(m/b)), zorder=5)
+
+        return m/b
     #########################################################################################################################################################
 
     relYieldPlot = plt.figure(figsize=(12,8))
@@ -401,11 +425,11 @@ def plot_yield():
     plt.subplot(2,3,1)    
     plt.grid(zorder=1)
     plt.xlim(0,70)
-    plt.ylim(0.94,1.15)
+    plt.ylim(0.925,1.075)
     plt.plot([0,70], [1,1], 'r-',zorder=2)
     plt.errorbar(yield_data["current"],yield_data["yieldRel_HMS_scaler"],yerr=yield_data["yieldRel_HMS_scaler"]*yield_data["uncern_yieldRel_HMS_scaler"],color='black',linestyle='None',zorder=3,label="_nolegend_")
     plt.scatter(yield_data["current"],yield_data["yieldRel_HMS_scaler"],color='blue',zorder=4,label="_nolegend_")
-    linear_plot(yield_data["current"],yield_data["yieldRel_HMS_scaler"])
+    yield_data["m0_curr_HMS_scaler"] = linear_plot(yield_data["current"],yield_data["yieldRel_HMS_scaler"])
 
     plt.ylabel('Rel. Yield Scaler', fontsize=16)
     plt.xlabel('Current [uA]', fontsize =16)
@@ -421,11 +445,11 @@ def plot_yield():
     plt.subplot(2,3,2)    
     plt.grid(zorder=1)
     plt.xlim(0,70)
-    plt.ylim(0.94,1.15)
+    plt.ylim(0.925,1.075)
     plt.plot([0,70], [1,1], 'r-',zorder=2)
     plt.errorbar(yield_data["current"],yield_data["yieldRel_HMS_notrack"],yerr=yield_data["yieldRel_HMS_notrack"]*yield_data["uncern_yieldRel_HMS_notrack"],color='black',linestyle='None',zorder=3,label="_nolegend_")
     plt.scatter(yield_data["current"],yield_data["yieldRel_HMS_notrack"],color='blue',zorder=4,label="_nolegend_")
-    linear_plot(yield_data["current"],yield_data["yieldRel_HMS_notrack"])
+    yield_data["m0_curr_HMS_notrack"] = linear_plot(yield_data["current"],yield_data["yieldRel_HMS_notrack"])
     #plt.errorbar(yield_data["current"],yield_data["yieldRel_HMS_CPULT_notrack"],yerr=yield_data["yieldRel_HMS_CPULT_notrack"]*yield_data["uncern_yieldRel_HMS_CPULT_notrack"],color='black',linestyle='None',zorder=5)
     #plt.scatter(yield_data["current"],yield_data["yieldRel_HMS_CPULT_notrack"],color='red',zorder=6)
     plt.ylabel('Rel. Yield no track', fontsize=16)
@@ -442,11 +466,11 @@ def plot_yield():
     plt.subplot(2,3,3)    
     plt.grid(zorder=1)
     plt.xlim(0,70)
-    plt.ylim(0.94,1.15)
+    plt.ylim(0.925,1.075)
     plt.plot([0,70], [1,1], 'r-',zorder=2)
     plt.errorbar(yield_data["current"],yield_data["yieldRel_HMS_track"],yerr=yield_data["yieldRel_HMS_track"]*yield_data["uncern_yieldRel_HMS_track"],color='black',linestyle='None',zorder=3,label="_nolegend_")
     plt.scatter(yield_data["current"],yield_data["yieldRel_HMS_track"],color='blue',zorder=4,label="_nolegend_")
-    linear_plot(yield_data["current"],yield_data["yieldRel_HMS_track"])
+    yield_data["m0_curr_HMS_track"] = linear_plot(yield_data["current"],yield_data["yieldRel_HMS_track"])
     #plt.errorbar(yield_data["current"],yield_data["yieldRel_HMS_CPULT_track"],yerr=yield_data["yieldRel_HMS_CPULT_track"]*yield_data["uncern_yieldRel_HMS_CPULT_track"],color='black',linestyle='None',zorder=5)
     #plt.scatter(yield_data["current"],yield_data["yieldRel_HMS_CPULT_track"],color='red',zorder=6)
     plt.ylabel('Rel. Yield track', fontsize=16)
@@ -464,11 +488,11 @@ def plot_yield():
     plt.subplot(2,3,4)    
     plt.grid(zorder=1)
     plt.xlim(0,70)
-    plt.ylim(0.94,1.15)
+    plt.ylim(0.925,1.075)
     plt.plot([0,70], [1,1], 'r-',zorder=2)
     plt.errorbar(yield_data["current"],yield_data["yieldRel_SHMS_scaler"],yerr=yield_data["yieldRel_SHMS_scaler"]*yield_data["uncern_yieldRel_SHMS_scaler"],color='black',linestyle='None',zorder=3,label="_nolegend_")
     plt.scatter(yield_data["current"],yield_data["yieldRel_SHMS_scaler"],color='blue',zorder=4,label="_nolegend_")
-    linear_plot(yield_data["current"],yield_data["yieldRel_SHMS_scaler"])
+    yield_data["m0_curr_SHMS_scaler"] = linear_plot(yield_data["current"],yield_data["yieldRel_SHMS_scaler"])
 
     plt.ylabel('Rel. Yield Scaler', fontsize=16)
     plt.xlabel('Current [uA]', fontsize =16)
@@ -484,11 +508,11 @@ def plot_yield():
     plt.subplot(2,3,5)    
     plt.grid(zorder=1)
     plt.xlim(0,70)
-    plt.ylim(0.94,1.15)
+    plt.ylim(0.925,1.075)
     plt.plot([0,70], [1,1], 'r-',zorder=2)
     plt.errorbar(yield_data["current"],yield_data["yieldRel_SHMS_notrack"],yerr=yield_data["yieldRel_SHMS_notrack"]*yield_data["uncern_yieldRel_SHMS_notrack"],color='black',linestyle='None',zorder=3,label="_nolegend_")
     plt.scatter(yield_data["current"],yield_data["yieldRel_SHMS_notrack"],color='blue',zorder=4,label="_nolegend_")
-    linear_plot(yield_data["current"],yield_data["yieldRel_SHMS_notrack"])
+    yield_data["m0_curr_SHMS_notrack"] = linear_plot(yield_data["current"],yield_data["yieldRel_SHMS_notrack"])
     #plt.errorbar(yield_data["current"],yield_data["yieldRel_SHMS_CPULT_notrack"],yerr=yield_data["yieldRel_SHMS_CPULT_notrack"]*yield_data["uncern_yieldRel_SHMS_CPULT_notrack"],color='black',linestyle='None',zorder=5)
     #plt.scatter(yield_data["current"],yield_data["yieldRel_SHMS_CPULT_notrack"],color='red',zorder=6)
     plt.ylabel('Rel. Yield no track', fontsize=16)
@@ -505,11 +529,11 @@ def plot_yield():
     plt.subplot(2,3,6)    
     plt.grid(zorder=1)
     plt.xlim(0,70)
-    plt.ylim(0.94,1.15)
+    plt.ylim(0.925,1.075)
     plt.plot([0,70], [1,1], 'r-',zorder=2)
     plt.errorbar(yield_data["current"],yield_data["yieldRel_SHMS_track"],yerr=yield_data["yieldRel_SHMS_track"]*yield_data["uncern_yieldRel_SHMS_track"],color='black',linestyle='None',zorder=3,label="_nolegend_")
     plt.scatter(yield_data["current"],yield_data["yieldRel_SHMS_track"],color='blue',zorder=4,label="_nolegend_")
-    linear_plot(yield_data["current"],yield_data["yieldRel_SHMS_track"])
+    yield_data["m0_curr_SHMS_track"] = linear_plot(yield_data["current"],yield_data["yieldRel_SHMS_track"])
     #plt.errorbar(yield_data["current"],yield_data["yieldRel_SHMS_CPULT_track"],yerr=yield_data["yieldRel_SHMS_CPULT_track"]*yield_data["uncern_yieldRel_SHMS_CPULT_track"],color='black',linestyle='None',zorder=5)
     #plt.scatter(yield_data["current"],yield_data["yieldRel_SHMS_CPULT_track"],color='red',zorder=6)
     plt.ylabel('Rel. Yield track', fontsize=16)
@@ -533,11 +557,11 @@ def plot_yield():
     plt.subplot(2,3,1)    
     plt.grid(zorder=1)
     plt.xlim(0,(max(yield_data["rate_HMS"])/1000)+5)
-    plt.ylim(0.94,1.15)
+    plt.ylim(0.925,1.075)
     plt.plot([0,(max(yield_data["rate_HMS"])/1000)+5], [1,1], 'r-',zorder=2)
     plt.errorbar(yield_data["rate_HMS"]/1000,yield_data["yieldRel_HMS_scaler"],yerr=yield_data["yieldRel_HMS_scaler"]*yield_data["uncern_yieldRel_HMS_scaler"],color='black',linestyle='None',zorder=3,label="_nolegend_")
     plt.scatter(yield_data["rate_HMS"]/1000,yield_data["yieldRel_HMS_scaler"],color='blue',zorder=4,label="_nolegend_")
-    linear_plot(yield_data["rate_HMS"]/1000,yield_data["yieldRel_HMS_scaler"],xvalmax=max((yield_data["rate_HMS"])/1000)+5)
+    yield_data["m0_rate_HMS_scaler"] = linear_plot(yield_data["rate_HMS"]/1000,yield_data["yieldRel_HMS_scaler"],xvalmax=max((yield_data["rate_HMS"])/1000)+5)
 
     plt.ylabel('Rel. Yield Scaler', fontsize=16)
     plt.xlabel('HMS Rate [kHz]', fontsize =16)
@@ -553,11 +577,11 @@ def plot_yield():
     plt.subplot(2,3,2)    
     plt.grid(zorder=1)
     plt.xlim(0,(max(yield_data["rate_HMS"])/1000)+5)
-    plt.ylim(0.94,1.15)
+    plt.ylim(0.925,1.075)
     plt.plot([0,(max(yield_data["rate_HMS"])/1000)+5], [1,1], 'r-',zorder=2)
     plt.errorbar(yield_data["rate_HMS"]/1000,yield_data["yieldRel_HMS_notrack"],yerr=yield_data["yieldRel_HMS_notrack"]*yield_data["uncern_yieldRel_HMS_notrack"],color='black',linestyle='None',zorder=3,label="_nolegend_")
     plt.scatter(yield_data["rate_HMS"]/1000,yield_data["yieldRel_HMS_notrack"],color='blue',zorder=4,label="_nolegend_")
-    linear_plot(yield_data["rate_HMS"]/1000,yield_data["yieldRel_HMS_notrack"],xvalmax=max((yield_data["rate_HMS"])/1000)+5)
+    yield_data["m0_rate_HMS_notrack"] = linear_plot(yield_data["rate_HMS"]/1000,yield_data["yieldRel_HMS_notrack"],xvalmax=max((yield_data["rate_HMS"])/1000)+5)
     #plt.errorbar(yield_data["rate_HMS"]/1000,yield_data["yieldRel_HMS_CPULT_notrack"],yerr=yield_data["yieldRel_HMS_CPULT_notrack"]*yield_data["uncern_yieldRel_HMS_CPULT_notrack"],color='black',linestyle='None',zorder=5)
     #plt.scatter(yield_data["rate_HMS"]/1000,yield_data["yieldRel_HMS_CPULT_notrack"],color='red',zorder=6)
     plt.ylabel('Rel. Yield no track', fontsize=16)
@@ -574,11 +598,11 @@ def plot_yield():
     plt.subplot(2,3,3)    
     plt.grid(zorder=1)
     plt.xlim(0,(max(yield_data["rate_HMS"])/1000)+5)
-    plt.ylim(0.94,1.15)
+    plt.ylim(0.925,1.075)
     plt.plot([0,(max(yield_data["rate_HMS"])/1000)+5], [1,1], 'r-',zorder=2)
     plt.errorbar(yield_data["rate_HMS"]/1000,yield_data["yieldRel_HMS_track"],yerr=yield_data["yieldRel_HMS_track"]*yield_data["uncern_yieldRel_HMS_track"],color='black',linestyle='None',zorder=3,label="_nolegend_")
     plt.scatter(yield_data["rate_HMS"]/1000,yield_data["yieldRel_HMS_track"],color='blue',zorder=4,label="_nolegend_")
-    linear_plot(yield_data["rate_HMS"]/1000,yield_data["yieldRel_HMS_track"],xvalmax=max((yield_data["rate_HMS"])/1000)+5)
+    yield_data["m0_rate_HMS_track"] = linear_plot(yield_data["rate_HMS"]/1000,yield_data["yieldRel_HMS_track"],xvalmax=max((yield_data["rate_HMS"])/1000)+5)
     #plt.errorbar(yield_data["rate_HMS"]/1000,yield_data["yieldRel_HMS_CPULT_track"],yerr=yield_data["yieldRel_HMS_CPULT_track"]*yield_data["uncern_yieldRel_HMS_CPULT_track"],color='black',linestyle='None',zorder=5)
     #plt.scatter(yield_data["rate_HMS"]/1000,yield_data["yieldRel_HMS_CPULT_track"],color='red',zorder=6)
     plt.ylabel('Rel. Yield track', fontsize=16)
@@ -595,11 +619,11 @@ def plot_yield():
     plt.subplot(2,3,4)    
     plt.grid(zorder=1)
     plt.xlim(0,(max(yield_data["rate_SHMS"])/1000)+5)
-    plt.ylim(0.94,1.15)
+    plt.ylim(0.925,1.075)
     plt.plot([0,(max(yield_data["rate_SHMS"])/1000)+5], [1,1], 'r-',zorder=2)
     plt.errorbar(yield_data["rate_SHMS"]/1000,yield_data["yieldRel_SHMS_scaler"],yerr=yield_data["yieldRel_SHMS_scaler"]*yield_data["uncern_yieldRel_SHMS_scaler"],color='black',linestyle='None',zorder=3,label="_nolegend_")
     plt.scatter(yield_data["rate_SHMS"]/1000,yield_data["yieldRel_SHMS_scaler"],color='blue',zorder=4,label="_nolegend_")
-    linear_plot(yield_data["rate_SHMS"]/1000,yield_data["yieldRel_SHMS_scaler"],xvalmax=max((yield_data["rate_SHMS"])/1000)+5)
+    yield_data["m0_rate_SHMS_scaler"] = linear_plot(yield_data["rate_SHMS"]/1000,yield_data["yieldRel_SHMS_scaler"],xvalmax=max((yield_data["rate_SHMS"])/1000)+5)
 
     plt.ylabel('Rel. Yield Scaler', fontsize=16)
     plt.xlabel('SHMS Rate [kHz]', fontsize =16)
@@ -615,11 +639,11 @@ def plot_yield():
     plt.subplot(2,3,5)    
     plt.grid(zorder=1)
     plt.xlim(0,(max(yield_data["rate_SHMS"])/1000)+5)
-    plt.ylim(0.94,1.15)
+    plt.ylim(0.925,1.075)
     plt.plot([0,(max(yield_data["rate_SHMS"])/1000)+5], [1,1], 'r-',zorder=2)
     plt.errorbar(yield_data["rate_SHMS"]/1000,yield_data["yieldRel_SHMS_notrack"],yerr=yield_data["yieldRel_SHMS_notrack"]*yield_data["uncern_yieldRel_SHMS_notrack"],color='black',linestyle='None',zorder=3,label="_nolegend_")
     plt.scatter(yield_data["rate_SHMS"]/1000,yield_data["yieldRel_SHMS_notrack"],color='blue',zorder=4,label="_nolegend_")
-    linear_plot(yield_data["rate_SHMS"]/1000,yield_data["yieldRel_SHMS_notrack"],xvalmax=max((yield_data["rate_SHMS"])/1000)+5)
+    yield_data["m0_rate_SHMS_notrack"] = linear_plot(yield_data["rate_SHMS"]/1000,yield_data["yieldRel_SHMS_notrack"],xvalmax=max((yield_data["rate_SHMS"])/1000)+5)
     #plt.errorbar(yield_data["rate_SHMS"]/1000,yield_data["yieldRel_SHMS_CPULT_notrack"],yerr=yield_data["yieldRel_SHMS_CPULT_notrack"]*yield_data["uncern_yieldRel_SHMS_CPULT_notrack"],color='black',linestyle='None',zorder=5)
     #plt.scatter(yield_data["rate_SHMS"]/1000,yield_data["yieldRel_SHMS_CPULT_notrack"],color='red',zorder=6)
     plt.ylabel('Rel. Yield no track', fontsize=16)
@@ -636,11 +660,11 @@ def plot_yield():
     plt.subplot(2,3,6)    
     plt.grid(zorder=1)
     plt.xlim(0,(max(yield_data["rate_SHMS"])/1000)+5)
-    plt.ylim(0.94,1.15)
+    plt.ylim(0.925,1.075)
     plt.plot([0,(max(yield_data["rate_SHMS"])/1000)+5], [1,1], 'r-',zorder=2)
     plt.errorbar(yield_data["rate_SHMS"]/1000,yield_data["yieldRel_SHMS_track"],yerr=yield_data["yieldRel_SHMS_track"]*yield_data["uncern_yieldRel_SHMS_track"],color='black',linestyle='None',zorder=3,label="_nolegend_")
     plt.scatter(yield_data["rate_SHMS"]/1000,yield_data["yieldRel_SHMS_track"],color='blue',zorder=4,label="_nolegend_")
-    linear_plot(yield_data["rate_SHMS"]/1000,yield_data["yieldRel_SHMS_track"],xvalmax=max((yield_data["rate_SHMS"])/1000)+5)
+    yield_data["m0_rate_SHMS_track"] = linear_plot(yield_data["rate_SHMS"]/1000,yield_data["yieldRel_SHMS_track"],xvalmax=max((yield_data["rate_SHMS"])/1000)+5)
     #plt.errorbar(yield_data["rate_SHMS"]/1000,yield_data["yieldRel_SHMS_CPULT_track"],yerr=yield_data["yieldRel_SHMS_CPULT_track"]*yield_data["uncern_yieldRel_SHMS_CPULT_track"],color='black',linestyle='None',zorder=5)
     #plt.scatter(yield_data["rate_SHMS"]/1000,yield_data["yieldRel_SHMS_CPULT_track"],color='red',zorder=6)
     plt.ylabel('Rel. Yield track', fontsize=16)
@@ -759,7 +783,7 @@ def plot_yield():
     plt.subplot(2,4,1)    
     plt.grid(zorder=1)
     plt.xlim(0,70)
-    plt.ylim(0.94,1.15)
+    plt.ylim(0.925,1.075)
     plt.plot([0,70], [1,1], 'r-',zorder=2)
     plt.errorbar(yield_data["current"],yield_data["yieldRel_HMS_scaler"],yerr=yield_data["yieldRel_HMS_scaler"]*yield_data["uncern_yieldRel_HMS_scaler"],color='black',linestyle='None',zorder=3,label="_nolegend_")
     plt.scatter(yield_data["current"],yield_data["yieldRel_HMS_scaler"],color='blue',zorder=4,label="_nolegend_")
@@ -776,7 +800,7 @@ def plot_yield():
     plt.subplot(2,4,2)    
     plt.grid(zorder=1)
     #plt.xlim(0,70)
-    plt.ylim(0.94,1.15)
+    plt.ylim(0.925,1.075)
     plt.plot([0,70], [1,1], 'r-',zorder=2)
     plt.errorbar(yield_data["current"],yield_data["yieldRel_HMS_track"],yerr=yield_data["yieldRel_HMS_track"]*yield_data["uncern_yieldRel_HMS_track"],color='black',linestyle='None',zorder=3,label="_nolegend_")
     plt.scatter(yield_data["current"],yield_data["yieldRel_HMS_track"],color='blue',zorder=4,label="_nolegend_")
@@ -838,7 +862,7 @@ def plot_yield():
     plt.subplot(2,4,5)    
     plt.grid(zorder=1)
     plt.xlim(0,70)
-    plt.ylim(0.94,1.15)
+    plt.ylim(0.925,1.075)
     plt.plot([0,70], [1,1], 'r-',zorder=2)
     plt.errorbar(yield_data["current"],yield_data["yieldRel_SHMS_scaler"],yerr=yield_data["yieldRel_SHMS_scaler"]*yield_data["uncern_yieldRel_SHMS_scaler"],color='black',linestyle='None',zorder=3,label="_nolegend_")
     plt.scatter(yield_data["current"],yield_data["yieldRel_SHMS_scaler"],color='blue',zorder=4,label="_nolegend_")
@@ -855,7 +879,7 @@ def plot_yield():
     plt.subplot(2,4,6)    
     plt.grid(zorder=1)
     #plt.xlim(0,70)
-    plt.ylim(0.94,1.15)
+    plt.ylim(0.925,1.075)
     plt.plot([0,70], [1,1], 'r-',zorder=2)
     plt.errorbar(yield_data["current"],yield_data["yieldRel_SHMS_track"],yerr=yield_data["yieldRel_SHMS_track"]*yield_data["uncern_yieldRel_SHMS_track"],color='black',linestyle='None',zorder=3,label="_nolegend_")
     plt.scatter(yield_data["current"],yield_data["yieldRel_SHMS_track"],color='blue',zorder=4,label="_nolegend_")
@@ -921,6 +945,10 @@ def debug():
     print("SHMS yield track uncern\n",data["uncern_yieldRel_SHMS_track"])
     ###
     print("=======================\n\n")
+
+    print("Average HMS",np.average(data["yieldRel_HMS_scaler"]))
+    print("Average SHMS",np.average(data["yieldRel_SHMS_scaler"]))
+    print("Average I",np.average(data["current"]))
 
 ################################################################################################################################################
 

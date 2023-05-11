@@ -7,6 +7,7 @@ while getopts 'ht' flag; do
 	    echo "The following flags can be called for the luminosity analysis..."
 	    echo "    -h, help"
 	    echo "    -t, reproduce trigger windows"
+	    echo "        RUNNUMBER=arg1, MAXEVENTS=arg2"
 	    exit 0 ;;
 	t) t_flag='true' ;;
 	*) print_usage

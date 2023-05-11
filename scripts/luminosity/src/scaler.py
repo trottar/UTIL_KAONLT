@@ -3,7 +3,7 @@
 # Description: This is where the scaler variables for the yield calculations are formulated.
 # Variables calculated: SHMS_PS, HMS_PS, time, charge, SHMSTRIG_scaler, HMSTRIG_scaler, CPULT_scaler, CPULT_scaler_uncern, HMS_eLT, HMS_eLT_uncern, SHMS_eLT, SHMS_eLT_uncern, sent_edtm
 # ================================================================
-# Time-stamp: "2023-03-22 13:09:51 trottar"
+# Time-stamp: "2023-05-05 11:15:32 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -151,9 +151,8 @@ def scaler(PS_names, HMS_PS, SHMS_PS, COIN_PS, thres_curr, report_current, runNu
     current = [P_BCM1_scalerCurrent, P_BCM2_scalerCurrent,
                  P_BCM4A_scalerCurrent, P_BCM4B_scalerCurrent, P_BCM4C_scalerCurrent]
 
-    #trig_value = [P_pTRIG1_scaler, P_pTRIG2_scaler, P_pTRIG3_scaler,P_pTRIG4_scaler, P_pTRIG5_scaler, P_pTRIG6_scaler]
-    trig_value = [P_pTRIG1_scaler, P_pTRIG2_scaler, P_pEL_CLEAN_scaler,
-                  P_pTRIG4_scaler, P_pTRIG5_scaler, P_pTRIG6_scaler]
+    trig_value = [P_pTRIG1_scaler, P_pTRIG2_scaler, P_pTRIG3_scaler,P_pTRIG4_scaler, P_pTRIG5_scaler, P_pTRIG6_scaler]
+    #trig_value = [P_pTRIG1_scaler, P_pTRIG2_scaler, P_pEL_CLEAN_scaler,P_pTRIG4_scaler, P_pTRIG5_scaler, P_pTRIG6_scaler]
 
     acctrig_value = P_pL1ACCP_scaler
 
