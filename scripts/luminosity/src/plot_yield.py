@@ -3,7 +3,7 @@
 # Description: Grabs lumi data from corresponding csv depending on run setting. Then plots the yields and creates a comprehensive table.
 # Variables calculated: current, rate_HMS, rate_SHMS, sent_edtm_PS, uncern_HMS_evts_scaler, uncern_SHMS_evts_scaler, uncern_HMS_evts_notrack, uncern_SHMS_evts_notrack, uncern_HMS_evts_track, uncern_SHMS_evts_track
 # ================================================================
-# Time-stamp: "2023-05-11 12:54:32 trottar"
+# Time-stamp: "2023-05-11 13:00:04 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -421,37 +421,29 @@ def plot_yield():
         return m/b
     '''
 
-    # Linear fitting
-    def linear_plot(x, y, xerr=None, yerr=None, xvalmax=100):
+    def fit_func(x, m, b):
+        return m*x + b
+
+    def linear_plot(x,y, xerr=None, yerr=None, xvalmax=100):
         # Remove NaN values from list
         c_arr = [[nx,ny] for nx,ny in zip(x,y) if str(ny) != 'nan']
-        x_c = [i[0] for i in c_arr]
-        y_c = [i[1] for i in c_arr]
+        x_c = np.array([i[0] for i in c_arr])
+        y_c = np.array([i[1] for i in c_arr])
 
-        # Define fit function
-        def fit_func(x, m, b):
-            return m*x + b
-
-        # Define initial guess for parameters
-        p0 = [1.0, 0.0]
-
-        # Perform curve fit with uncertainties
-        popt, pcov = curve_fit(fit_func, x_c, y_c, p0=p0, sigma=yerr, absolute_sigma=True)
-
-        # Extract slope and intercept with uncertainties
-        m = popt[0]
-        b = popt[1]
-        m_err = np.sqrt(pcov[0][0])
-        b_err = np.sqrt(pcov[1][1])
+        # Define slope and intercept
+        popt, pcov = np.polyfit(x_c, y_c, deg=1, cov=True)
+        m, b = popt
+        m_err, b_err = np.sqrt(np.diag(pcov))
 
         # Find chi-squared
         res = y_c - fit_func(x_c, m, b)
-        chisq = np.sum((res/yerr)**2)
+        chisq = np.sum((res/yerr)**2) if yerr is not None else np.sum(res**2)
 
         # Plot fit from axis
-        plt.plot(np.linspace(0, xvalmax), m*np.linspace(0, xvalmax)+b, color='green', label='y={0:0.3e}x+{1:0.3f}\n{2}={3:0.3e}\n{4}={5:0.3e}'.format(m, b, r'$\chi^2$', chisq, r'$m_0$', m), zorder=5)
+        x_fit = np.linspace(0,xvalmax)
+        y_fit = fit_func(x_fit, m, b)
+        plt.plot(x_fit, y_fit, color='green', label=f'y={m:.3e}x+{b:.3f}\n$\chi^2$={chisq:.3f}\nm={m:.3e} $\pm$ {m_err:.3e}\nb={b:.3f} $\pm$ {b_err:.3f}', zorder=5)
 
-        # Return slope, intercept, and uncertainties
         return m/b
     
 
