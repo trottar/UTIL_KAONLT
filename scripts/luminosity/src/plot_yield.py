@@ -3,7 +3,7 @@
 # Description: Grabs lumi data from corresponding csv depending on run setting. Then plots the yields and creates a comprehensive table.
 # Variables calculated: current, rate_HMS, rate_SHMS, sent_edtm_PS, uncern_HMS_evts_scaler, uncern_SHMS_evts_scaler, uncern_HMS_evts_notrack, uncern_SHMS_evts_notrack, uncern_HMS_evts_track, uncern_SHMS_evts_track
 # ================================================================
-# Time-stamp: "2023-05-11 12:27:11 trottar"
+# Time-stamp: "2023-05-11 12:30:48 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -421,34 +421,26 @@ def plot_yield():
         return m/b
     '''
 
-    # Linear fitting
-    def linear_plot(x,y,xvalmax=100):
+    def weighted_linear_plot(x, y, xerr, yerr, xvalmax=100):
         # Remove NaN values from list
-        c_arr = [[nx,ny] for nx,ny in zip(x,y) if str(ny) != 'nan']
+        c_arr = [[nx, ny, nxerr, nyerr] for nx, ny, nxerr, nyerr in zip(x, y, xerr, yerr) if str(ny) != 'nan']
         x_c = [i[0] for i in c_arr]
         y_c = [i[1] for i in c_arr]
-        
-        # Define linear function
-        def linear(x, m, b):
-            return m * x + b
+        xerr_c = [i[2] for i in c_arr]
+        yerr_c = [i[3] for i in c_arr]
 
-        # Define slope and intercept
-        m0,b0 = np.polyfit(np.array(x_c),np.array(y_c),deg=1)
-        
-        # Perform curve fit
-        popt, pcov = curve_fit(linear, x_c, y_c)
+        # Define weights
+        weights = 1/np.sqrt(yerr_c**2 + (m/b * xerr_c)**2)
 
-        # Extract slope and intercept and their uncertainties from covariance matrix
-        m, b = popt
-        dm, db = np.sqrt(np.diag(pcov))
+        # Define slope and intercept using weighted least squares
+        m, b = np.polyfit(x_c, y_c, deg=1, w=weights)
 
         # Find chi-squared
-        res = y/b - (m/b*x+1.00)
-        chisq = np.sum((res/np.sqrt(y/b))**2)
+        res = y_c - (m*x_c + b)
+        chisq = np.sum((res/np.sqrt(yerr_c**2 + (m/b * xerr_c)**2))**2)
 
         # Plot fit from axis
-        plt.plot(np.linspace(0,xvalmax),(m0/b0)*np.linspace(0,xvalmax)+1.00, color='orange', label='{0}={1:0.2e}*{2}+1.00\n{3}={4:0.2e}\n{5}={6:0.2e}'.format(r'Y/$Y_0$',m0/b0,r'$I_b$',r'$\chi^2$',chisq,r'$m_0$',(m0/b0)), zorder=5)
-        plt.plot(np.linspace(0, xvalmax), (m/b)*np.linspace(0, xvalmax)+1.00, color='green', label='{0}={1:0.2e}*{2}+1.00\n{3}={4:0.2e}\n{5}={6:0.2e}\n{7}={8:0.2e}\n{9}={10:0.2e}'.format(r'Y/$Y_0$', m/b, r'$I_b$', r'$\chi^2$', chisq, r'$m_0$', (m/b), r'$\Delta m_0$', dm, r'$b_0$', db), zorder=5)
+        plt.plot(np.linspace(0, xvalmax), m/b*np.linspace(0, xvalmax) + 1.00, color='green', label='{0}={1:0.2e}*{2}+1.00\n{3}={4:0.2e}\n{5}={6:0.2e}'.format(r'Y/$Y_0$',m/b,r'$I_b$',r'$\chi^2$',chisq,r'$m_0$',(m/b)), zorder=5)
 
         return m/b
     
