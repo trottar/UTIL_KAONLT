@@ -3,7 +3,7 @@
 # Description: Grabs lumi data from corresponding csv depending on run setting. Then plots the yields and creates a comprehensive table.
 # Variables calculated: current, rate_HMS, rate_SHMS, sent_edtm_PS, uncern_HMS_evts_scaler, uncern_SHMS_evts_scaler, uncern_HMS_evts_notrack, uncern_SHMS_evts_notrack, uncern_HMS_evts_track, uncern_SHMS_evts_track
 # ================================================================
-# Time-stamp: "2023-05-11 13:12:14 trottar"
+# Time-stamp: "2023-05-11 13:14:24 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -436,7 +436,7 @@ def plot_yield():
         m_err, b_err = np.sqrt(np.diag(pcov))
 
         # Find chi-squared
-        res = y_c - fit_func(x_c, m/b, 1.0)
+        res = y_c/b - fit_func(x_c, m/b, 1.0)
         chisq = np.sum((res/yerr)**2) if yerr is not None else np.sum(res**2)
 
         # Plot fit from axis
