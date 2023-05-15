@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-05-15 09:05:15 trottar"
+# Time-stamp: "2023-05-15 09:07:11 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -89,6 +89,8 @@ fmt_list = ['o', 's', '^', 'd']
 style_list = ['-', '--', ':', '-.']
 color_list = ['red', 'green', 'blue', 'orange']
 
+yield_fig = plt.figure(figsize=(12,8))
+
 # plot the data with error bars and the regression line
 for i, s in enumerate(settingList):
     plt.errorbar(dataDict[s]['x'][:,0], dataDict[s]['y'][:,0], yerr=dataDict[s]['yield_error'], fmt=fmt_list[i], label="{0}, {1}".format(s,dataDict[s]['momentum']), color=color_list[i])
@@ -101,6 +103,8 @@ plt.xlabel('Current')
 plt.ylabel('Yield')
 plt.title('Yield vs Current')
 plt.legend()
+
+momentum_fig = plt.figure(figsize=(12,8))
 
 # plot the data with error bars and the regression line
 for i, s in enumerate(settingList):
