@@ -3,7 +3,7 @@
 # Description: Grabs lumi data from corresponding csv depending on run setting. Then plots the yields and creates a comprehensive table.
 # Variables calculated: current, rate_HMS, rate_SHMS, sent_edtm_PS, uncern_HMS_evts_scaler, uncern_SHMS_evts_scaler, uncern_HMS_evts_notrack, uncern_SHMS_evts_notrack, uncern_HMS_evts_track, uncern_SHMS_evts_track
 # ================================================================
-# Time-stamp: "2023-05-15 11:32:17 trottar"
+# Time-stamp: "2023-05-15 11:35:23 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -96,12 +96,12 @@ def removeRun(runNum):
 
 # testing
 # removeRun(5154) # bad TLT
-removeRun(5176) # bad TLT
-removeRun(5300) # bad yield
-removeRun(5301) # bad Beam on Time
-removeRun(5354) # bad TLT
-removeRun(7949) # bad SHMS yield, HMS fine
-removeRun(7952) # bad yield, 5 uA (better trend when removed)
+#removeRun(5176) # bad TLT
+#removeRun(5300) # bad yield
+#removeRun(5301) # bad Beam on Time
+#removeRun(5354) # bad TLT
+#removeRun(7949) # bad SHMS yield, HMS fine
+#removeRun(7952) # bad yield, 5 uA (better trend when removed)
 
 ################################################################################################################################################
 
