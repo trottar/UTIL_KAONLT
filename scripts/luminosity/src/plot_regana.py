@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-05-15 14:15:37 trottar"
+# Time-stamp: "2023-05-15 14:20:24 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -101,7 +101,8 @@ all_current = all_current[:, np.newaxis]
 all_relyield = all_relyield[:, np.newaxis]
 all_uncern_relyield = all_uncern_relyield[:, np.newaxis]
 #all_reg = LinearRegression().fit(all_current, all_relyield)
-all_reg = sm.WLS(all_relyield, sm.add_constant(all_current), weights=1.0/all_uncern_relyield**2).fit()
+all_reg = sm.OLS(all_relyield, sm.add_constant(all_current)).fit()
+#all_reg = sm.WLS(all_relyield, sm.add_constant(all_current), weights=1.0/all_uncern_relyield**2).fit()
 all_expected_y = all_reg.predict(sm.add_constant(all_current))
 residuals = all_relyield - all_expected_y
 all_chi_sq = np.sum((residuals)**2 / np.array(all_uncern_relyield)**2)
@@ -130,12 +131,12 @@ relyield_fig = plt.figure(figsize=(12,8))
 # plot the data with error bars and the regression line
 plt.errorbar(all_current[:,0], corr_y[:,0], yerr=all_uncern_relyield[:,0], markersize=10.0, fmt='o', label="Corrected Data", color='black')    
 for i, s in enumerate(settingList):
-    plt.errorbar(dataDict[s]['current'], dataDict[s]['corr_y'], yerr=dataDict[s]['yield_error'], fmt=fmt_list[i], label="{0}, {1}".format(s,dataDict[s]['momentum']), color=color_list[i])
+    plt.errorbar(dataDict[s]['current'], dataDict[s]['corr_y'], yerr=dataDict[s]['yield_error'], fmt=fmt_list[i], label="{0}, P = {1}".format(s,dataDict[s]['momentum']), color=color_list[i])
 plt.plot(all_current, all_reg.predict(sm.add_constant(all_current)), linewidth=2.0, linestyle=':', color='purple')
 # calculate the upper and lower confidence intervals for the regression line
 conf_int = all_reg.conf_int() # 95% confidence level
-upper_bounds = conf_int[0][0] + conf_int[1][0]*all_current[:,0]
-lower_bounds = conf_int[0][1] + conf_int[1][1]*all_current[:,0]
+upper_bounds = conf_int[0][0] + conf_int[1][0]*all_current[:,0] # mx+b, upper
+lower_bounds = conf_int[0][1] + conf_int[1][1]*all_current[:,0] # mx+b, lower
 plt.fill_between(all_current[:,0], upper_bounds, lower_bounds, alpha=0.2)
 # print the slope, intercept, and chi-squared value
 print('\n\nSlope:', all_reg.params[1])
@@ -150,7 +151,7 @@ relyield_fig = plt.figure(figsize=(12,8))
 
 # plot the data with error bars and the regression line
 for i, s in enumerate(settingList):
-    plt.errorbar(dataDict[s]['x'][:,0], dataDict[s]['y'][:,0], yerr=dataDict[s]['yield_error'], fmt=fmt_list[i], label="{0}, {1}".format(s,dataDict[s]['momentum']), color=color_list[i])
+    plt.errorbar(dataDict[s]['x'][:,0], dataDict[s]['y'][:,0], yerr=dataDict[s]['yield_error'], fmt=fmt_list[i], label="{0}, P = {1}".format(s,dataDict[s]['momentum']), color=color_list[i])
     plt.plot(dataDict[s]['x'], dataDict[s]['reg'].predict(sm.add_constant(dataDict[s]['x'])), linewidth=2.0, linestyle=style_list[i], color=color_list[i])
     # print the slope, intercept, and chi-squared value
     print('Slope:', dataDict[s]['reg'].params[1])
@@ -165,7 +166,7 @@ yield_fig = plt.figure(figsize=(12,8))
 
 # plot the data with error bars and the regression line
 for i, s in enumerate(settingList):
-    plt.errorbar(dataDict[s]['x'][:,0], dataDict[s]['yield'], yerr=dataDict[s]['yield_error'], fmt=fmt_list[i], label="{0}, {1}".format(s,dataDict[s]['momentum']), color=color_list[i])
+    plt.errorbar(dataDict[s]['x'][:,0], dataDict[s]['yield'], yerr=dataDict[s]['yield_error'], fmt=fmt_list[i], label="{0}, P = {1}".format(s,dataDict[s]['momentum']), color=color_list[i])
 plt.xlabel('Current')
 plt.ylabel('Yield')
 plt.title('Yield vs Current')
