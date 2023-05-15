@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-05-15 10:45:42 trottar"
+# Time-stamp: "2023-05-15 10:47:26 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -105,6 +105,8 @@ for s in settingList:
         dataDict[s]['corr_y'] = corr_y[:,0][i]
         i+=1
 
+
+print("~~~~~~~~~~~~",dataDict[s]['current'], "---",dataDict[s]['corr_y'])
 ################################################################################################################################################
 
 # Define a list of error bar formats and plot styles to cycle through
