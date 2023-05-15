@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-05-15 08:59:19 trottar"
+# Time-stamp: "2023-05-15 09:00:04 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -110,8 +110,8 @@ for i, s in enumerate(settingList):
     print('Slope:', dataDict[s]['reg'].coef_[0][0])
     print('Intercept:', dataDict[s]['reg'].intercept_[0])
     #print('Chi-squared:', dataDict[s]['chi_squared'])
-plt.set_xlabel('Current')
-plt.set_ylabel('Momentum')
+plt.xlabel('Current')
+plt.ylabel('Momentum')
 #plt.title('Yield vs Current')
 plt.legend()
 
