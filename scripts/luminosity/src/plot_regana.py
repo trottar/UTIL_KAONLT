@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-05-15 09:08:02 trottar"
+# Time-stamp: "2023-05-15 09:10:51 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -62,7 +62,7 @@ for i,s in enumerate(settingList):
         print(data.keys())
         dataDict[s]['momentum'] = momentumList[i]
         dataDict[s]['current'] = data['current']
-        dataDict[s]['yield'] = data['yield_HMS_track']
+        dataDict[s]['yield'] = data['yieldRel_HMS_track']
         dataDict[s]['yield_error'] = data['uncern_yieldRel_HMS_track']
         # reshape the currents, yields, and yield errors into column vectors
         dataDict[s]['x'] = dataDict[s]["current"][:, np.newaxis]
