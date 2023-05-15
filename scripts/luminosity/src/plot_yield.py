@@ -3,7 +3,7 @@
 # Description: Grabs lumi data from corresponding csv depending on run setting. Then plots the yields and creates a comprehensive table.
 # Variables calculated: current, rate_HMS, rate_SHMS, sent_edtm_PS, uncern_HMS_evts_scaler, uncern_SHMS_evts_scaler, uncern_HMS_evts_notrack, uncern_SHMS_evts_notrack, uncern_HMS_evts_track, uncern_SHMS_evts_track
 # ================================================================
-# Time-stamp: "2023-05-15 12:51:29 trottar"
+# Time-stamp: "2023-05-15 12:52:46 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -438,7 +438,8 @@ def plot_yield():
         x_c = np.array([i[0] for i in c_arr])
         y_c = np.array([i[1] for i in c_arr])
 
-        results = sm.WLS(y_c, sm.add_constant(x_c), weights=1.0/yerr**2).fit()
+        # perform weighted least squares regression
+        results = sm.WLS(y_c[:, np.newaxis], sm.add_constant(x_c[:, np.newaxis]), weights=1.0/yerr[:, np.newaxis]**2).fit()
 
         m = results.params[1]
         b = results.params[0]
