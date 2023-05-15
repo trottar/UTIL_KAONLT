@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-05-15 07:54:40 trottar"
+# Time-stamp: "2023-05-15 07:55:24 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -67,7 +67,7 @@ for s in settingList:
         dataDict[s]['reg'] = LinearRegression().fit(dataDict[s]['x'], dataDict[s]['y'])
 
         # calculate the chi-squared value
-        dataDict[s]['expected_y'] = reg.predict(dataDict[s]['x'])
+        dataDict[s]['expected_y'] = dataDict[s]['reg'].predict(dataDict[s]['x'])
         dataDict[s]['chi_squared'] = np.sum((dataDict[s]['y'] - dataDict[s]['expected_y'])**2 / dataDict[s]["yield_error"]**2)
         
     except IOError:
