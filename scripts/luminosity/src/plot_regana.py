@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-05-15 09:31:25 trottar"
+# Time-stamp: "2023-05-15 09:42:10 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -47,6 +47,10 @@ momentumList = [-3.266, -4.204, -6.269, -5.745] # HMS
 
 dataDict = {}
 
+all_relyield = []
+all_uncern_relyield = []
+all_current = []
+
 for i,s in enumerate(settingList):
     dataDict[s] = {}
     data_val = data_path.get_file(s,SCRIPTPATH)
@@ -75,6 +79,10 @@ for i,s in enumerate(settingList):
         # calculate the chi-squared value
         dataDict[s]['expected_y'] = dataDict[s]['reg'].predict(dataDict[s]['x'])
         #dataDict[s]['chi_squared'] = np.sum((dataDict[s]['y'] - dataDict[s]['expected_y'])**2 / dataDict[s]['yield_error']**2)
+
+        all_relyield.append(data['yieldRel_HMS_track'])
+        all_uncern_relyield.append(data['uncern_yieldRel_HMS_track'])
+        all_current.append(data['current'])
         
     except IOError:
         print("Error: %s does not appear to exist." % inp_f)
@@ -82,7 +90,12 @@ for i,s in enumerate(settingList):
 
 print(dataDict.keys())
 print(dataDict.values())
-        
+
+################################################################################################################################################
+
+all_reg = LinearRegression().fit(all_current, all_relyield)
+
+
 ################################################################################################################################################
 
 # Define a list of error bar formats and plot styles to cycle through
@@ -96,6 +109,7 @@ relyield_fig = plt.figure(figsize=(12,8))
 for i, s in enumerate(settingList):
     plt.errorbar(dataDict[s]['x'][:,0], dataDict[s]['y'][:,0], yerr=dataDict[s]['yield_error'], fmt=fmt_list[i], label="{0}, {1}".format(s,dataDict[s]['momentum']), color=color_list[i])
     plt.plot(dataDict[s]['x'], dataDict[s]['reg'].predict(dataDict[s]['x']), linestyle=style_list[i], color=color_list[i])
+    plt.plot(all_relyield, all_reg.predict(all_relyield), linestyle=':', color='purple')
     # print the slope, intercept, and chi-squared value
     print('Slope:', dataDict[s]['reg'].coef_[0][0])
     print('Intercept:', dataDict[s]['reg'].intercept_[0])
@@ -110,7 +124,6 @@ yield_fig = plt.figure(figsize=(12,8))
 # plot the data with error bars and the regression line
 for i, s in enumerate(settingList):
     plt.errorbar(dataDict[s]['x'][:,0], dataDict[s]['yield'], yerr=dataDict[s]['yield_error'], fmt=fmt_list[i], label="{0}, {1}".format(s,dataDict[s]['momentum']), color=color_list[i])
-    plt.plot(dataDict[s]['x'], dataDict[s]['reg'].predict(dataDict[s]['x']), linestyle=style_list[i], color=color_list[i])
 plt.xlabel('Current')
 plt.ylabel('Yield')
 plt.title('Yield vs Current')
