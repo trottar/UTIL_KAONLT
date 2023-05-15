@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-05-15 07:53:12 trottar"
+# Time-stamp: "2023-05-15 07:53:43 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -67,7 +67,7 @@ for s in settingList:
 
         # calculate the chi-squared value
         dataDict[s]['expected_y'] = reg.predict(dataDict[s]['x'])
-        dataDict[s]['chi_squared'] = np.sum((dataDict[s]['y'] - dataDict[s]['expected_y'])**2 / dataDict[s]"yield_error"]**2)
+        dataDict[s]['chi_squared'] = np.sum((dataDict[s]['y'] - dataDict[s]['expected_y'])**2 / dataDict[s]["yield_error"]**2)
         
     except IOError:
         print("Error: %s does not appear to exist." % inp_f)
