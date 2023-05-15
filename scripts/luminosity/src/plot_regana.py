@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-05-15 11:54:34 trottar"
+# Time-stamp: "2023-05-15 12:05:13 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -82,7 +82,7 @@ for i,s in enumerate(settingList):
 
         all_current = np.concatenate([all_current, data['current']])
         all_relyield = np.concatenate([all_relyield, data['yieldRel_HMS_track']])
-        all_uncern_relyield = np.concatenate([all_uncern_relyield, data['uncern_yieldRel_HMS_track']])
+        all_uncern_relyield = np.concatenate([all_uncern_relyield, data['yieldRel_HMS_track']*data['uncern_yieldRel_HMS_track']])
         
     except IOError:
         print("Error: %s does not appear to exist." % inp_f)
