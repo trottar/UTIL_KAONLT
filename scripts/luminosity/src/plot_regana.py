@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-05-15 09:57:03 trottar"
+# Time-stamp: "2023-05-15 09:59:21 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -110,7 +110,7 @@ relyield_fig = plt.figure(figsize=(12,8))
 # plot the data with error bars and the regression line
 for i, s in enumerate(settingList):
     plt.errorbar(dataDict[s]['x'][:,0], dataDict[s]['y'][:,0], yerr=dataDict[s]['yield_error'], fmt=fmt_list[i], label="{0}, {1}".format(s,dataDict[s]['momentum']), color=color_list[i])
-    plt.plot(dataDict[s]['x'], dataDict[s]['reg'].predict(dataDict[s]['x']), linestyle=style_list[i], color=color_list[i])
+    #plt.plot(dataDict[s]['x'], dataDict[s]['reg'].predict(dataDict[s]['x']), linestyle=style_list[i], color=color_list[i])
     plt.plot(all_relyield, all_reg.predict(all_relyield), linestyle=':', color='purple')
     # print the slope, intercept, and chi-squared value
     print('Slope:', dataDict[s]['reg'].coef_[0][0])
