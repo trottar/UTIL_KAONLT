@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-05-15 08:25:48 trottar"
+# Time-stamp: "2023-05-15 08:46:05 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -42,10 +42,12 @@ sys.path.insert(0,"%s/luminosity/src/%sLT" % (SCRIPTPATH,ANATYPE))
 import data_path
 
 settingList = ["10p6cl1","10p6cl2","10p6cl3","8p2cl1"]
+momentumList = [-3.266, -4.204, -6.269, -5.745] # HMS
+#momentumList = [6.842, 6.053, -6.269, -5.745] # SHMS
 
 dataDict = {}
 
-for s in settingList:
+for i,s in enumerate(settingList):
     dataDict[s] = {}
     data_val = data_path.get_file(s,SCRIPTPATH)
     target = data_val[0]
@@ -58,6 +60,7 @@ for s in settingList:
         data = data.fillna(data.mean())
         print(inp_f)
         print(data.keys())
+        dataDict[s]['momentum'] = momentumList[i]
         dataDict[s]['current'] = data['current']
         dataDict[s]['yield'] = data['yield_HMS_track']
         dataDict[s]['yield_error'] = data['uncern_yieldRel_HMS_track']
@@ -86,16 +89,31 @@ fmt_list = ['o', 's', '^', 'd']
 style_list = ['-', '--', ':', '-.']
 color_list = ['red', 'green', 'blue', 'orange']
 
+# create a figure and axis objects
+fig, ax1 = plt.subplots()
+
+# create a second y-axis for momentum values
+ax2 = ax1.twinx()
+
 # plot the data with error bars and the regression line
 for i, s in enumerate(settingList):
-    plt.errorbar(dataDict[s]['x'][:,0], dataDict[s]['y'][:,0], yerr=dataDict[s]['yield_error'], fmt=fmt_list[i], label=s, color=color_list[i])
-    plt.plot(dataDict[s]['x'], dataDict[s]['reg'].predict(dataDict[s]['x']), linestyle=style_list[i], color=color_list[i])
+    ax1.errorbar(dataDict[s]['x'][:,0], dataDict[s]['y'][:,0], yerr=dataDict[s]['yield_error'], fmt=fmt_list[i], label="{0}, {1}".format(s,dataDict[s]['momentum']), color=color_list[i])
+    ax1.plot(dataDict[s]['x'], dataDict[s]['reg'].predict(dataDict[s]['x']), linestyle=style_list[i], color=color_list[i])
+    # add second y-axis for momentum
+    ax2 = ax1.twinx()
+    ax2.set_ylabel('Momentum')
+    ax2.tick_params(axis='y', labelcolor='tab:orange')
+    ax2.set_ylim(ax1.get_ylim())
+    ax2.set_yticks(ax1.get_yticks())
+    ax2.set_yticklabels(np.round(ax1.get_yticks(), decimals=1))
+    ax2.plot(dataDict[s]['x'], np.ones_like(dataDict[s]['x'])*dataDict[s]['momentum'], linestyle='--', color='tab:orange', alpha=0.7)
     # print the slope, intercept, and chi-squared value
     print('Slope:', dataDict[s]['reg'].coef_[0][0])
     print('Intercept:', dataDict[s]['reg'].intercept_[0])
     #print('Chi-squared:', dataDict[s]['chi_squared'])    
-plt.xlabel('Current')
-plt.ylabel('Yield')
-plt.title('Yield vs Current')
-plt.legend()
+ax1.xlabel('Current')
+ax1.ylabel('Yield')
+ax1.title('Yield vs Current')
+ax1.legend()
+
 plt.show()
