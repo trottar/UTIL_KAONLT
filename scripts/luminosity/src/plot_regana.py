@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-05-15 07:44:14 trottar"
+# Time-stamp: "2023-05-15 07:52:37 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -55,9 +55,20 @@ for s in settingList:
         data = pd.read_csv(inp_f)
         print(inp_f)
         print(data.keys())
-        dataDict['current'] = data['current']
-        dataDict['yield'] = data['yieldRel_HMS_track']
-        dataDict['yield_error'] = data['uncern_yieldRel_HMS_track']
+        dataDict[s]['current'] = data['current']
+        dataDict[s]['yield'] = data['yieldRel_HMS_track']
+        dataDict[s]['yield_error'] = data['uncern_yieldRel_HMS_track']
+        # reshape the currents, yields, and yield errors into column vectors
+        dataDict[s]['x'] = dataDict[s]"current"].reshape(-1, 1)
+        dataDict[s]['y'] = dataDict[s]"yield"].reshape(-1, 1)
+
+        # create a linear regression object and fit the data
+        dataDict[s]['reg'] = LinearRegression().fit(dataDict[s]['x'], dataDict[s]['y'])
+
+        # calculate the chi-squared value
+        dataDict[s]['expected_y'] = reg.predict(dataDict[s]['x'])
+        dataDict[s]['chi_squared'] = np.sum((dataDict[s]['y'] - dataDict[s]['expected_y'])**2 / dataDict[s]"yield_error"]**2)
+        
     except IOError:
         print("Error: %s does not appear to exist." % inp_f)
         sys.exit(0)
@@ -67,27 +78,16 @@ print(dataDict.values())
         
 ################################################################################################################################################
 
-# reshape the currents, yields, and yield errors into column vectors
-X = dataDict["current"].reshape(-1, 1)
-y = dataDict["yield"].reshape(-1, 1)
-
-# create a linear regression object and fit the data
-reg = LinearRegression().fit(X, y)
-
-# calculate the chi-squared value
-expected_y = reg.predict(X)
-chi_squared = np.sum((y - expected_y)**2 / dataDict["yield_error"]**2)
-
 # plot the data with error bars and the regression line
-plt.errorbar(X[:,0], y[:,0], yerr=dataDict["yield_error"], fmt='o', label='Data')
-plt.plot(X, reg.predict(X), label='Linear Regression')
+for s in settingList:
+    plt.errorbar(dataDict[s]['x'][:,0], dataDict[s]['y'][:,0], yerr=dataDict[s]["yield_error"], fmt='o', label='Data')
+    plt.plot(dataDict[s]['x'], dataDict[s]['reg'].predict(dataDict[s]['x']), label='Linear Regression')
+    # print the slope, intercept, and chi-squared value
+    print('Slope:', dataDict[s]['reg'].coef_[0][0])
+    print('Intercept:', dataDict[s]['reg'].intercept_[0])
+    print('Chi-squared:', dataDict[s]['chi_squared'])    
 plt.xlabel('Current')
 plt.ylabel('Yield')
 plt.title('Yield vs Current')
 plt.legend()
 plt.show()
-
-# print the slope, intercept, and chi-squared value
-print('Slope:', reg.coef_[0][0])
-print('Intercept:', reg.intercept_[0])
-print('Chi-squared:', chi_squared)
