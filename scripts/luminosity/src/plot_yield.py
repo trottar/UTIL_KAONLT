@@ -3,7 +3,7 @@
 # Description: Grabs lumi data from corresponding csv depending on run setting. Then plots the yields and creates a comprehensive table.
 # Variables calculated: current, rate_HMS, rate_SHMS, sent_edtm_PS, uncern_HMS_evts_scaler, uncern_SHMS_evts_scaler, uncern_HMS_evts_notrack, uncern_SHMS_evts_notrack, uncern_HMS_evts_track, uncern_SHMS_evts_track
 # ================================================================
-# Time-stamp: "2023-05-15 15:08:17 trottar"
+# Time-stamp: "2023-05-15 15:18:16 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -500,7 +500,6 @@ def plot_yield():
     else :
         plt.title('HMS Carbon %s-%s' % (int(min(yield_data["run number"])),int(max(yield_data["run number"]))), fontsize =16)
 
-
     def hms_regression(x):
         return (5.751e-05)*x+0.996
 
@@ -569,15 +568,21 @@ def plot_yield():
     else :
         plt.title('SHMS Carbon %s-%s' % (int(min(yield_data["run number"])),int(max(yield_data["run number"]))), fontsize =16)
 
+    def shms_regression(x):
+        return (5.751e-05)*x+0.996
+
+    # Residual calculation from linear regression
+    residuals = yield_data["yieldRel_SHMS_track"] - shms_regression(yield_data["yieldRel_SHMS_track"])
+        
     #SHMS plot track
     plt.subplot(2,3,6)    
     plt.grid(zorder=1)
     plt.xlim(0,70)
     plt.ylim(0.925,1.075)
     plt.plot([0,70], [1,1], 'r-',zorder=2)
-    plt.errorbar(yield_data["current"],yield_data["yieldRel_SHMS_track"],yerr=yield_data["yieldRel_SHMS_track"]*yield_data["uncern_yieldRel_SHMS_track"],color='black',linestyle='None',zorder=3,label="_nolegend_")
-    plt.scatter(yield_data["current"],yield_data["yieldRel_SHMS_track"],color='blue',zorder=4,label="_nolegend_")
-    #    yield_data["m0_curr_SHMS_track"] = linear_plot(yield_data["current"],yield_data["yieldRel_SHMS_track"],None,yield_data["uncern_yieldRel_SHMS_track"])
+    plt.errorbar(yield_data["current"],yield_data["yieldRel_SHMS_track"]-residuals,yerr=yield_data["yieldRel_SHMS_track"]*yield_data["uncern_yieldRel_SHMS_track"],color='black',linestyle='None',zorder=3,label="_nolegend_")
+    plt.scatter(yield_data["current"],yield_data["yieldRel_SHMS_track"]-residuals,color='blue',zorder=4,label="_nolegend_")
+    #    yield_data["m0_curr_SHMS_track"] = linear_plot(yield_data["current"],yield_data["yieldRel_SHMS_track"]-residuals,None,yield_data["uncern_yieldRel_SHMS_track"])
     #plt.errorbar(yield_data["current"],yield_data["yieldRel_SHMS_CPULT_track"],yerr=yield_data["yieldRel_SHMS_CPULT_track"]*yield_data["uncern_yieldRel_SHMS_CPULT_track"],color='black',linestyle='None',zorder=5)
     #plt.scatter(yield_data["current"],yield_data["yieldRel_SHMS_CPULT_track"],color='red',zorder=6)
     plt.ylabel('Rel. Yield track', fontsize=16)
