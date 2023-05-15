@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-05-15 09:43:17 trottar"
+# Time-stamp: "2023-05-15 09:44:52 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -80,9 +80,9 @@ for i,s in enumerate(settingList):
         dataDict[s]['expected_y'] = dataDict[s]['reg'].predict(dataDict[s]['x'])
         #dataDict[s]['chi_squared'] = np.sum((dataDict[s]['y'] - dataDict[s]['expected_y'])**2 / dataDict[s]['yield_error']**2)
 
-        all_relyield.append(data['yieldRel_HMS_track'])
-        all_uncern_relyield.append(data['uncern_yieldRel_HMS_track'])
-        all_current.append(data['current'])
+        all_relyield.append([val for val in data['yieldRel_HMS_track']])
+        all_uncern_relyield.append([val for val in data['uncern_yieldRel_HMS_track']])
+        all_current.append([val for val in data['current']])
         
     except IOError:
         print("Error: %s does not appear to exist." % inp_f)
@@ -93,8 +93,8 @@ print(dataDict.values())
 
 ################################################################################################################################################
 
-all_current = all_current[:, np.newaxis]
-all_relyield = all_relyield[:, np.newaxis]
+all_current = np.flatten(all_current)[:, np.newaxis]
+all_relyield = np.flatten(all_relyield)[:, np.newaxis]
 all_reg = LinearRegression().fit(all_current, all_relyield)
 
 
