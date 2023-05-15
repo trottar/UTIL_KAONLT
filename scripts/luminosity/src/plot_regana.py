@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-05-15 12:36:52 trottar"
+# Time-stamp: "2023-05-15 12:40:28 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -82,7 +82,8 @@ for i,s in enumerate(settingList):
 
         # calculate the chi-squared value
         dataDict[s]['expected_y'] = dataDict[s]['reg'].predict(sm.add_constant(dataDict[s]['x']))
-        dataDict[s]['chi_squared'] = np.sum((np.array(dataDict[s]['y']) - np.array(dataDict[s]['expected_y']))**2 / np.array(dataDict[s]['yerr'])**2)
+        dof = len(dataDict[s]['x'][:,0]) -2 # degrees of freedom
+        dataDict[s]['chi_sq'] = np.sum((np.array(dataDict[s]['y']) - np.array(dataDict[s]['expected_y'])/np.array(dataDict[s]['yerr']))**2)/dof
 
         all_current = np.concatenate([all_current, data['current']])
         all_relyield = np.concatenate([all_relyield, data['yieldRel_HMS_track']])
@@ -102,7 +103,7 @@ all_relyield = all_relyield[:, np.newaxis]
 all_reg = LinearRegression().fit(all_current, all_relyield)
 all_expected_y = all_reg.predict(all_current)
 residuals = all_relyield - all_expected_y
-all_chi_squared = np.sum((residuals)**2 / np.array(all_uncern_relyield)**2)
+all_chi_sq = np.sum((residuals)**2 / np.array(all_uncern_relyield)**2)
 corr_y = all_relyield - residuals
 
 i = 0
@@ -133,7 +134,7 @@ for i, s in enumerate(settingList):
 # print the slope, intercept, and chi-squared value
 print('\n\nSlope:', all_reg.coef_[0][0])
 print('Intercept:', all_reg.intercept_[0])
-print('Chi-squared:', all_chi_squared,"\n\n")
+print('Chi-squared:', all_chi_sq,"\n\n")
 plt.xlabel('Current')
 plt.ylabel('Rel. Yield')
 plt.title('Rel. Yield vs Current')
@@ -148,7 +149,7 @@ for i, s in enumerate(settingList):
     # print the slope, intercept, and chi-squared value
     print('Slope:', dataDict[s]['reg'].params[1])
     print('Intercept:', dataDict[s]['reg'].params[0])
-    print('Chi-squared:', dataDict[s]['chi_squared'])
+    print('Chi-squared:', dataDict[s]['chi_sq'])
 plt.xlabel('Current')
 plt.ylabel('Rel. Yield')
 plt.title('Rel. Yield vs Current')
