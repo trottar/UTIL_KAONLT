@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-05-15 09:02:19 trottar"
+# Time-stamp: "2023-05-15 09:04:26 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -99,12 +99,12 @@ for i, s in enumerate(settingList):
     #print('Chi-squared:', dataDict[s]['chi_squared'])
 plt.xlabel('Current')
 plt.ylabel('Yield')
-#plt.title('Yield vs Current')
+plt.title('Yield vs Current')
 plt.legend()
 
 # plot the data with error bars and the regression line
 for i, s in enumerate(settingList):
-    plt.errorbar(dataDict[s]['x'][:,0], np.ones_like(dataDict[s]['x'][:,0])*dataDict[s]['momentum'][:,0], yerr=dataDict[s]['yield_error'], fmt=fmt_list[i], label="{0}, {1}".format(s,dataDict[s]['current']), color=color_list[i])
+    plt.errorbar(dataDict[s]['x'][:,0], np.ones_like(dataDict[s]['x'][:,0])*dataDict[s]['momentum'][:,0], yerr=dataDict[s]['yield_error'], fmt=fmt_list[i], label="{0}".format(s), color=color_list[i])
     plt.plot(dataDict[s]['x'], dataDict[s]['reg'].predict(dataDict[s]['x']), linestyle=style_list[i], color=color_list[i])
     # print the slope, intercept, and chi-squared value
     print('Slope:', dataDict[s]['reg'].coef_[0][0])
@@ -112,7 +112,7 @@ for i, s in enumerate(settingList):
     #print('Chi-squared:', dataDict[s]['chi_squared'])
 plt.xlabel('Current')
 plt.ylabel('Momentum')
-plt.title('Yield vs Current')
+plt.title('Momentum vs Current')
 plt.legend()
 
 plt.show()
