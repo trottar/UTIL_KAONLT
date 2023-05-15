@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-05-15 08:06:57 trottar"
+# Time-stamp: "2023-05-15 08:09:31 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -84,8 +84,8 @@ print(dataDict.values())
 # plot the data with error bars and the regression line
 for s in settingList:
     # calculate the upper and lower error bounds
-    upper_bounds = dataDict[s]['y'] + dataDict[s]['yield_error']
-    lower_bounds = dataDict[s]['y'] - dataDict[s]['yield_error']
+    upper_bounds = np.array(dataDict[s]['y']) + np.array(dataDict[s]['yield_error'])
+    lower_bounds = np.array(dataDict[s]['y']) - np.array(dataDict[s]['yield_error'])
     plt.fill_between(X[:,0], upper_bounds[:,0], lower_bounds[:,0], alpha=0.2, label=s)
     #plt.errorbar(dataDict[s]['x'][:,0], dataDict[s]['y'][:,0], yerr=dataDict[s]['yield_error'], fmt='o', label=s)
     plt.plot(dataDict[s]['x'], dataDict[s]['reg'].predict(dataDict[s]['x']))
