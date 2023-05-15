@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-05-15 08:48:16 trottar"
+# Time-stamp: "2023-05-15 08:49:52 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -105,10 +105,8 @@ for i, s in enumerate(settingList):
     print('Intercept:', dataDict[s]['reg'].intercept_[0])
     #print('Chi-squared:', dataDict[s]['chi_squared'])
 ax2.set_ylabel('Momentum')
-ax2.tick_params(axis='y', labelcolor='tab:orange')
-ax2.set_ylim(ax1.get_ylim())
-ax2.set_yticks(ax1.get_yticks())
-ax2.set_yticklabels(np.round(ax1.get_yticks(), decimals=1))    
+#ax2.tick_params(axis='y', labelcolor='tab:orange')
+ax2.tick_params(axis='y')
 ax1.set_xlabel('Current')
 ax1.set_ylabel('Yield')
 #ax1.title('Yield vs Current')
