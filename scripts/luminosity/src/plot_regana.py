@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-05-15 12:40:28 trottar"
+# Time-stamp: "2023-05-15 12:41:46 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -82,8 +82,7 @@ for i,s in enumerate(settingList):
 
         # calculate the chi-squared value
         dataDict[s]['expected_y'] = dataDict[s]['reg'].predict(sm.add_constant(dataDict[s]['x']))
-        dof = len(dataDict[s]['x'][:,0]) -2 # degrees of freedom
-        dataDict[s]['chi_sq'] = np.sum((np.array(dataDict[s]['y']) - np.array(dataDict[s]['expected_y'])/np.array(dataDict[s]['yerr']))**2)/dof
+        dataDict[s]['chi_sq'] = np.sum(((np.array(dataDict[s]['y']) - np.array(dataDict[s]['expected_y']))/np.array(dataDict[s]['yerr']))**2)
 
         all_current = np.concatenate([all_current, data['current']])
         all_relyield = np.concatenate([all_relyield, data['yieldRel_HMS_track']])
