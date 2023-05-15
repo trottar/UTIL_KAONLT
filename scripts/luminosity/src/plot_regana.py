@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-05-15 07:40:35 trottar"
+# Time-stamp: "2023-05-15 07:42:32 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -62,6 +62,8 @@ for s in settingList:
         print("Error: %s does not appear to exist." % inp_f)
         sys.exit(0)
 
+print(dataDict.keys())
+        
 ################################################################################################################################################
 
 # reshape the currents, yields, and yield errors into column vectors
