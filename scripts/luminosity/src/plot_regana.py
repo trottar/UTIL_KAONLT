@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-05-15 15:45:11 trottar"
+# Time-stamp: "2023-05-15 16:02:51 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -131,6 +131,22 @@ color_list = ['red', 'green', 'blue', 'orange']
 # Create a PDF file
 with PdfPages(SCRIPTPATH+'/luminosity/OUTPUTS/plots/hms_regression_%s.pdf' % target) as pdf:
 
+
+    fig = plt.figure(figsize=(12,8))
+
+    # plot the data with error bars and the regression line
+    m0 = dataDict[s]['reg'].params[1]/dataDict[s]['reg'].params[0]
+    eff_boil = 1 - m0*dataDict[s]['current']
+    for i, s in enumerate(settingList):
+        plt.errorbar(dataDict[s]['current'], eff_boil, yerr=dataDict[s]['yield_error'], fmt=fmt_list[i], label="{0}, P = {1}".format(s,dataDict[s]['momentum']), color=color_list[i])
+    plt.xlabel('Current')
+    plt.ylabel('Boil Factor')
+    plt.title('HMS Boil Factor vs Current')
+    plt.legend()
+
+    pdf.savefig(fig)
+    plt.close(fig)
+    
     fig = plt.figure(figsize=(12,8))
 
     # plot the data with error bars and the regression line
@@ -292,6 +308,21 @@ color_list = ['red', 'green', 'blue', 'orange']
 # Create a PDF file
 with PdfPages(SCRIPTPATH+'/luminosity/OUTPUTS/plots/shms_regression_%s.pdf' % target) as pdf:
 
+    fig = plt.figure(figsize=(12,8))
+
+    # plot the data with error bars and the regression line
+    m0 = dataDict[s]['reg'].params[1]/dataDict[s]['reg'].params[0]
+    eff_boil = 1 - m0*dataDict[s]['current']
+    for i, s in enumerate(settingList):
+        plt.errorbar(dataDict[s]['current'], eff_boil, yerr=dataDict[s]['yield_error'], fmt=fmt_list[i], label="{0}, P = {1}".format(s,dataDict[s]['momentum']), color=color_list[i])
+    plt.xlabel('Current')
+    plt.ylabel('Boil Factor')
+    plt.title('SHMS Boil Factor vs Current')
+    plt.legend()
+
+    pdf.savefig(fig)
+    plt.close(fig)
+    
     fig = plt.figure(figsize=(12,8))
 
     # plot the data with error bars and the regression line
@@ -457,6 +488,21 @@ with PdfPages(SCRIPTPATH+'/luminosity/OUTPUTS/plots/hms_regression_%s.pdf' % tar
     fig = plt.figure(figsize=(12,8))
 
     # plot the data with error bars and the regression line
+    m0 = dataDict[s]['reg'].params[1]/dataDict[s]['reg'].params[0]
+    eff_boil = 1 - m0*dataDict[s]['current']
+    for i, s in enumerate(settingList):
+        plt.errorbar(dataDict[s]['current'], eff_boil, yerr=dataDict[s]['yield_error'], fmt=fmt_list[i], label="{0}, P = {1}".format(s,dataDict[s]['momentum']), color=color_list[i])
+    plt.xlabel('Current')
+    plt.ylabel('Boil Factor')
+    plt.title('HMS Boil Factor vs Current')
+    plt.legend()
+
+    pdf.savefig(fig)
+    plt.close(fig)
+    
+    fig = plt.figure(figsize=(12,8))
+
+    # plot the data with error bars and the regression line
     plt.errorbar(all_current[:,0], corr_y[:,0], yerr=all_uncern_relyield[:,0], markersize=10.0, fmt='o', label="Corrected Data", color='black')    
     for i, s in enumerate(settingList):
         plt.errorbar(dataDict[s]['current'], dataDict[s]['corr_y'], yerr=dataDict[s]['yield_error'], fmt=fmt_list[i], label="{0}, P = {1}".format(s,dataDict[s]['momentum']), color=color_list[i])
@@ -615,6 +661,21 @@ color_list = ['red', 'green', 'blue', 'orange']
 # Create a PDF file
 with PdfPages(SCRIPTPATH+'/luminosity/OUTPUTS/plots/shms_regression_%s.pdf' % target) as pdf:
 
+    fig = plt.figure(figsize=(12,8))
+
+    # plot the data with error bars and the regression line
+    m0 = dataDict[s]['reg'].params[1]/dataDict[s]['reg'].params[0]
+    eff_boil = 1 - m0*dataDict[s]['current']
+    for i, s in enumerate(settingList):
+        plt.errorbar(dataDict[s]['current'], eff_boil, yerr=dataDict[s]['yield_error'], fmt=fmt_list[i], label="{0}, P = {1}".format(s,dataDict[s]['momentum']), color=color_list[i])
+    plt.xlabel('Current')
+    plt.ylabel('Boil Factor')
+    plt.title('SHMS Boil Factor vs Current')
+    plt.legend()
+
+    pdf.savefig(fig)
+    plt.close(fig)
+    
     fig = plt.figure(figsize=(12,8))
 
     # plot the data with error bars and the regression line
