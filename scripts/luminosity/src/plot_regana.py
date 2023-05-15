@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-05-15 07:36:34 trottar"
+# Time-stamp: "2023-05-15 07:37:08 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -41,7 +41,7 @@ print("\nRunning as %s on %s, hallc_replay_lt path assumed as %s" % (USER, HOST,
 sys.path.insert(0,"%s/luminosity/src/%sLT" % (SCRIPTPATH,ANATYPE))
 import data_path
 
-settingsList = ["10p6cl1","10p6cl2","10p6cl3","8p2cl1"]
+settingList = ["10p6cl1","10p6cl2","10p6cl3","8p2cl1"]
 
 dataDict = {}
 
