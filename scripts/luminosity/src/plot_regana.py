@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-05-15 07:39:23 trottar"
+# Time-stamp: "2023-05-15 07:40:35 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -46,9 +46,9 @@ settingList = ["10p6cl1","10p6cl2","10p6cl3","8p2cl1"]
 dataDict = {}
 
 for s in settingList:
-    data_path = data_path.get_file(s,SCRIPTPATH)
-    target = data_path[0]
-    inp_f = data_path[2] # out_f is inp_f for global analysis
+    data_val = data_path.get_file(s,SCRIPTPATH)
+    target = data_val[0]
+    inp_f = data_val[2] # out_f is inp_f for global analysis
 
     # Converts csv data to dataframe
     try:
