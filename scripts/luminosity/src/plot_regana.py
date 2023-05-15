@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-05-15 14:00:25 trottar"
+# Time-stamp: "2023-05-15 14:03:39 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -130,15 +130,10 @@ relyield_fig = plt.figure(figsize=(12,8))
 # plot the data with error bars and the regression line
 for i, s in enumerate(settingList):
     plt.errorbar(dataDict[s]['current'], dataDict[s]['corr_y'], yerr=dataDict[s]['yield_error'], fmt=fmt_list[i], label="{0}, {1}".format(s,dataDict[s]['momentum']), color=color_list[i])
-    #plt.scatter(dataDict[s]['current'], dataDict[s]['corr_y'], label="{0}, {1}".format(s,dataDict[s]['momentum']), color=color_list[i])
+plt.errorbar(all_current[:,0], corr_y[:,0], yerr=all_uncern_relyield[:,0], label="Corrected Data", color='black')    
 plt.plot(all_current, all_reg.predict(sm.add_constant(all_current)), linewidth = 2.0, linestyle=':', color='purple')
-conf_int = all_reg.conf_int() # 95% confidence level
-print("!!!!!!!!!!!!!!!",conf_int)
-print("!!!!!!!!!!!!!!!",conf_int[:,0])
-print("!!!!!!!!!!!!!!!",conf_int[:,1])
-#upper_bounds = np.tile(conf_int[:, 1][0], len(all_current))
-#lower_bounds = np.tile(conf_int[:, 0][0], len(all_current))
 # calculate the upper and lower confidence intervals for the regression line
+conf_int = all_reg.conf_int() # 95% confidence level
 upper_bounds = conf_int[0][0] + conf_int[1][0]*all_current[:,0]
 lower_bounds = conf_int[0][1] + conf_int[1][1]*all_current[:,0]
 plt.fill_between(all_current[:,0], upper_bounds, lower_bounds, alpha=0.2)
