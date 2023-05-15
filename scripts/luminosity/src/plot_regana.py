@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-05-15 08:00:31 trottar"
+# Time-stamp: "2023-05-15 08:02:00 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -54,6 +54,8 @@ for s in settingList:
     # Converts csv data to dataframe
     try:
         data = pd.read_csv(inp_f)
+        # replace NaN values with the mean of the column
+        data = data.fillna(data.mean())
         print(inp_f)
         print(data.keys())
         dataDict[s]['current'] = data['current']
