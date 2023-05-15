@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-05-15 12:25:29 trottar"
+# Time-stamp: "2023-05-15 12:27:50 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -73,11 +73,12 @@ for i,s in enumerate(settingList):
         # reshape the currents, yields, and yield errors into column vectors
         dataDict[s]['x'] = dataDict[s]["current"][:, np.newaxis]
         dataDict[s]['y'] = dataDict[s]["rel_yield"][:, np.newaxis]
+        dataDict[s]['yerr'] = dataDict[s]["yield_error"][:, np.newaxis]
 
         # create a linear regression object and fit the data
         #dataDict[s]['reg'] = LinearRegression().fit(dataDict[s]['x'], dataDict[s]['y'])
         # perform weighted least squares regression
-        dataDict[s]['reg'] = sm.WLS(dataDict[s]['y'], sm.add_constant(dataDict[s]['x']), weights=1.0/dataDict[s]['yield_error']**2).fit()
+        dataDict[s]['reg'] = sm.WLS(dataDict[s]['y'], sm.add_constant(dataDict[s]['x']), weights=1.0/dataDict[s]['yerr']**2).fit()
 
         # calculate the chi-squared value
         dataDict[s]['expected_y'] = dataDict[s]['reg'].predict(dataDict[s]['x'])
