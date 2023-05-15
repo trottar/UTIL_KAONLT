@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-05-15 16:09:01 trottar"
+# Time-stamp: "2023-05-15 16:12:09 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -135,10 +135,9 @@ with PdfPages(SCRIPTPATH+'/luminosity/OUTPUTS/plots/hms_regression_%s.pdf' % tar
 
     fig = plt.figure(figsize=(12,8))
 
-    # plot the data with error bars and the regression line
-    m0 = dataDict[s]['reg'].params[1]/dataDict[s]['reg'].params[0]
-    eff_boil = 1 - m0*dataDict[s]['current']
     for i, s in enumerate(settingList):
+        m0 = dataDict[s]['reg'].params[1]/dataDict[s]['reg'].params[0]
+        eff_boil = 1 - m0*dataDict[s]['current']
         plt.errorbar(dataDict[s]['run number'], eff_boil, yerr=dataDict[s]['yield_error'], fmt=fmt_list[i], label="{0}, P = {1}".format(s,dataDict[s]['momentum']), color=color_list[i])
     plt.xlabel('Run Number')
     plt.ylabel('Boil Factor')
