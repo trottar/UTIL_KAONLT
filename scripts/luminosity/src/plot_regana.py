@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-05-15 10:48:47 trottar"
+# Time-stamp: "2023-05-15 10:50:50 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -101,9 +101,11 @@ corr_y = all_relyield - residuals
 
 i = 0
 for s in settingList:
+    tmp_lst = np.array([])
     for val in dataDict[s]['current']:
-        dataDict[s]['corr_y'] = corr_y[:,0][i]
+        tmp_lst = np.concatenate([tmp_lst, corr_y[:,0][i]])
         i+=1
+    dataDict[s]['corr_y'] = tmp_lst
 
 
 print("~~~~~~~~~~~~",dataDict[s]['current'], "---",dataDict[s]['corr_y'])
@@ -118,7 +120,7 @@ relyield_fig = plt.figure(figsize=(12,8))
 
 # plot the data with error bars and the regression line
 for i, s in enumerate(settingList):
-    plt.errorbar(dataDict[s]['current'][:,0], dataDict[s]['corr_y'][:,0], yerr=dataDict[s]['yield_error'], fmt=fmt_list[i], label="{0}, {1}".format(s,dataDict[s]['momentum']), color=color_list[i])
+    plt.errorbar(dataDict[s]['current'], dataDict[s]['corr_y'], yerr=dataDict[s]['yield_error'], fmt=fmt_list[i], label="{0}, {1}".format(s,dataDict[s]['momentum']), color=color_list[i])
     #plt.scatter(dataDict[s]['current'], dataDict[s]['corr_y'], label="{0}, {1}".format(s,dataDict[s]['momentum']), color=color_list[i])
     plt.plot(all_current, all_reg.predict(all_current), linestyle=':', color='purple')
 # print the slope, intercept, and chi-squared value
