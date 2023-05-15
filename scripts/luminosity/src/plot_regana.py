@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-05-15 08:22:47 trottar"
+# Time-stamp: "2023-05-15 08:24:34 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -59,8 +59,8 @@ for s in settingList:
         print(inp_f)
         print(data.keys())
         dataDict[s]['current'] = data['current']
-        dataDict[s]['yield'] = data['yieldRel_HMS_track']
-        dataDict[s]['yield_error'] = data['uncern_yieldRel_HMS_track']
+        dataDict[s]['yield'] = data['yield_HMS_track']
+        dataDict[s]['yield_error'] = data['uncern_yield_HMS_track']
         # reshape the currents, yields, and yield errors into column vectors
         dataDict[s]['x'] = dataDict[s]["current"][:, np.newaxis]
         dataDict[s]['y'] = dataDict[s]["yield"][:, np.newaxis]
