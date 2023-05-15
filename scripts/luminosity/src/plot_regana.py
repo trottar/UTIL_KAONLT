@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-05-15 10:50:50 trottar"
+# Time-stamp: "2023-05-15 10:52:07 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -101,9 +101,9 @@ corr_y = all_relyield - residuals
 
 i = 0
 for s in settingList:
-    tmp_lst = np.array([])
+    tmp_lst = []
     for val in dataDict[s]['current']:
-        tmp_lst = np.concatenate([tmp_lst, corr_y[:,0][i]])
+        tmp_lst.append(corr_y[:,0][i])
         i+=1
     dataDict[s]['corr_y'] = tmp_lst
 
