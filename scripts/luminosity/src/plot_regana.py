@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-05-15 10:11:36 trottar"
+# Time-stamp: "2023-05-15 10:12:33 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -116,7 +116,7 @@ for i, s in enumerate(settingList):
     print('Slope:', dataDict[s]['reg'].coef_[0][0])
     print('Intercept:', dataDict[s]['reg'].intercept_[0])
     print('Chi-squared:', dataDict[s]['chi_squared'])
-    print('Rel. Yield Predicted at 0.0 uA:', all_reg.predict([0.0]))    
+print('Rel. Yield Predicted at 0.0 uA:', all_reg.predict([[0.0]]))    
 plt.xlabel('Current')
 plt.ylabel('Rel. Yield')
 plt.title('Rel. Yield vs Current')
