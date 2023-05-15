@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-05-15 13:23:20 trottar"
+# Time-stamp: "2023-05-15 13:25:28 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -133,8 +133,8 @@ for i, s in enumerate(settingList):
     #plt.scatter(dataDict[s]['current'], dataDict[s]['corr_y'], label="{0}, {1}".format(s,dataDict[s]['momentum']), color=color_list[i])
 plt.plot(all_current, all_reg.predict(sm.add_constant(all_current)), linewidth = 2.0, linestyle=':', color='purple')
 conf_int = all_reg.conf_int()
-upper_bounds = np.repeat(conf_int[:, 1], len(all_current))
-lower_bounds = np.repeat(conf_int[:, 0], len(all_current))
+upper_bounds = conf_int[:, 1]
+lower_bounds = conf_int[:, 0]
 plt.fill_between(all_current[:,0], upper_bounds, lower_bounds, alpha=0.2)
 # print the slope, intercept, and chi-squared value
 print('\n\nSlope:', all_reg.params[1])
@@ -152,8 +152,8 @@ for i, s in enumerate(settingList):
     plt.errorbar(dataDict[s]['x'][:,0], dataDict[s]['y'][:,0], yerr=dataDict[s]['yield_error'], fmt=fmt_list[i], label="{0}, {1}".format(s,dataDict[s]['momentum']), color=color_list[i])
     plt.plot(dataDict[s]['x'], dataDict[s]['reg'].predict(sm.add_constant(dataDict[s]['x'])), linewidth = 2.0, linestyle=style_list[i], color=color_list[i])
     conf_int = dataDict[s]['reg'].conf_int()
-    upper_bounds = np.repeat(conf_int[:, 1], len(dataDict[s]['x']))
-    lower_bounds = np.repeat(conf_int[:, 0], len(dataDict[s]['x']))
+    upper_bounds = conf_int[:, 1]
+    lower_bounds = conf_int[:, 0]
     plt.fill_between(dataDict[s]['x'][:,0], upper_bounds, lower_bounds, alpha=0.2)
     # print the slope, intercept, and chi-squared value
     print('Slope:', dataDict[s]['reg'].params[1])
