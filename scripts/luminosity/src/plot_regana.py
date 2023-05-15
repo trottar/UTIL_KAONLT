@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-05-15 07:37:08 trottar"
+# Time-stamp: "2023-05-15 07:37:42 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -46,7 +46,7 @@ settingList = ["10p6cl1","10p6cl2","10p6cl3","8p2cl1"]
 dataDict = {}
 
 for s in settingList:
-    data_path = data_path.get_file(inp_name,SCRIPTPATH)
+    data_path = data_path.get_file(s,SCRIPTPATH)
     target = data_path[0]
     inp_f = data_path[1]
     out_f = data_path[2]
