@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-05-15 09:07:11 trottar"
+# Time-stamp: "2023-05-15 09:08:02 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -109,7 +109,6 @@ momentum_fig = plt.figure(figsize=(12,8))
 # plot the data with error bars and the regression line
 for i, s in enumerate(settingList):
     plt.errorbar(dataDict[s]['x'][:,0], np.ones_like(dataDict[s]['x'][:,0])*dataDict[s]['momentum'], yerr=dataDict[s]['yield_error'], fmt=fmt_list[i], label="{0}".format(s), color=color_list[i])
-    plt.plot(dataDict[s]['x'], dataDict[s]['reg'].predict(dataDict[s]['x']), linestyle=style_list[i], color=color_list[i])
     # print the slope, intercept, and chi-squared value
     print('Slope:', dataDict[s]['reg'].coef_[0][0])
     print('Intercept:', dataDict[s]['reg'].intercept_[0])
