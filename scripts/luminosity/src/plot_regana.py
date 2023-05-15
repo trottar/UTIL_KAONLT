@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-05-15 11:00:18 trottar"
+# Time-stamp: "2023-05-15 11:03:27 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -103,15 +103,17 @@ corr_y = all_relyield - residuals
 
 i = 0
 for s in settingList:
-    tmp_lst = []
+    tmp1 = []
     for val in dataDict[s]['current']:
-        tmp_lst.append(corr_y[:,0][i])
+        tmp1.append(corr_y[:,0][i])
+        tmp2.append(residuals[:,0][i])
         i+=1
-    dataDict[s]['corr_y'] = tmp_lst
+    dataDict[s]['corr_y'] = tmp1
+    dataDict[s]['residuals'] = tmp2
 
 
-print("~~~~~~~~~~~~",dataDict[s]['current'], "---",dataDict[s]['corr_y'])
-print("@@@",residuals[:,0])
+    print("~~~~~~~~~~~~",dataDict[s]['current'], "---",dataDict[s]['corr_y'])
+    print(s, "@@@",dataDict[s]['residuals'])
 ################################################################################################################################################
 
 # Define a list of error bar formats and plot styles to cycle through
