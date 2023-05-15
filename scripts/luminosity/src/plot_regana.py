@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-05-15 14:22:25 trottar"
+# Time-stamp: "2023-05-15 14:22:54 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -103,7 +103,7 @@ all_uncern_relyield = all_uncern_relyield[:, np.newaxis]
 # Linear regression (unweighted)
 #all_reg = sm.OLS(all_relyield, sm.add_constant(all_current)).fit()
 # Linear regression (weighted)
-#all_reg = sm.WLS(all_relyield, sm.add_constant(all_current), weights=1.0/all_uncern_relyield**2).fit()
+all_reg = sm.WLS(all_relyield, sm.add_constant(all_current), weights=1.0/all_uncern_relyield**2).fit()
 all_expected_y = all_reg.predict(sm.add_constant(all_current))
 residuals = all_relyield - all_expected_y
 all_chi_sq = np.sum((residuals)**2 / np.array(all_uncern_relyield)**2)
