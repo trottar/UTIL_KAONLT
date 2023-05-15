@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-05-15 16:02:51 trottar"
+# Time-stamp: "2023-05-15 16:07:08 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -68,6 +68,7 @@ for i,s in enumerate(settingList):
         print(data.keys())
         dataDict[s]['momentum'] = momentumList[i]
         dataDict[s]['current'] = data['current']
+        dataDict[s]['run number'] = data['run number']
         dataDict[s]['rel_yield'] = data['yieldRel_HMS_track']
         dataDict[s]['yield'] = data['yield_HMS_track']
         dataDict[s]['yield_error'] = data['yieldRel_HMS_track']*data['uncern_yieldRel_HMS_track']
@@ -138,10 +139,10 @@ with PdfPages(SCRIPTPATH+'/luminosity/OUTPUTS/plots/hms_regression_%s.pdf' % tar
     m0 = dataDict[s]['reg'].params[1]/dataDict[s]['reg'].params[0]
     eff_boil = 1 - m0*dataDict[s]['current']
     for i, s in enumerate(settingList):
-        plt.errorbar(dataDict[s]['current'], eff_boil, yerr=dataDict[s]['yield_error'], fmt=fmt_list[i], label="{0}, P = {1}".format(s,dataDict[s]['momentum']), color=color_list[i])
-    plt.xlabel('Current')
+        plt.errorbar(dataDict[s]['run number'], eff_boil, yerr=dataDict[s]['yield_error'], fmt=fmt_list[i], label="{0}, P = {1}".format(s,dataDict[s]['momentum']), color=color_list[i])
+    plt.xlabel('Run Number')
     plt.ylabel('Boil Factor')
-    plt.title('HMS Boil Factor vs Current')
+    plt.title('HMS Boil Factor vs Run Number')
     plt.legend()
 
     pdf.savefig(fig)
@@ -245,6 +246,7 @@ for i,s in enumerate(settingList):
         print(data.keys())
         dataDict[s]['momentum'] = momentumList[i]
         dataDict[s]['current'] = data['current']
+        dataDict[s]['run number'] = data['run number']
         dataDict[s]['rel_yield'] = data['yieldRel_SHMS_track']
         dataDict[s]['yield'] = data['yield_SHMS_track']
         dataDict[s]['yield_error'] = data['yieldRel_SHMS_track']*data['uncern_yieldRel_SHMS_track']
@@ -314,10 +316,10 @@ with PdfPages(SCRIPTPATH+'/luminosity/OUTPUTS/plots/shms_regression_%s.pdf' % ta
     m0 = dataDict[s]['reg'].params[1]/dataDict[s]['reg'].params[0]
     eff_boil = 1 - m0*dataDict[s]['current']
     for i, s in enumerate(settingList):
-        plt.errorbar(dataDict[s]['current'], eff_boil, yerr=dataDict[s]['yield_error'], fmt=fmt_list[i], label="{0}, P = {1}".format(s,dataDict[s]['momentum']), color=color_list[i])
-    plt.xlabel('Current')
+        plt.errorbar(dataDict[s]['run number'], eff_boil, yerr=dataDict[s]['yield_error'], fmt=fmt_list[i], label="{0}, P = {1}".format(s,dataDict[s]['momentum']), color=color_list[i])
+    plt.xlabel('Run Number')
     plt.ylabel('Boil Factor')
-    plt.title('SHMS Boil Factor vs Current')
+    plt.title('SHMS Boil Factor vs Run Number')
     plt.legend()
 
     pdf.savefig(fig)
@@ -422,6 +424,7 @@ for i,s in enumerate(settingList):
         print(data.keys())
         dataDict[s]['momentum'] = momentumList[i]
         dataDict[s]['current'] = data['current']
+        dataDict[s]['run number'] = data['run number']
         dataDict[s]['rel_yield'] = data['yieldRel_HMS_track']
         dataDict[s]['yield'] = data['yield_HMS_track']
         dataDict[s]['yield_error'] = data['yieldRel_HMS_track']*data['uncern_yieldRel_HMS_track']
@@ -491,10 +494,10 @@ with PdfPages(SCRIPTPATH+'/luminosity/OUTPUTS/plots/hms_regression_%s.pdf' % tar
     m0 = dataDict[s]['reg'].params[1]/dataDict[s]['reg'].params[0]
     eff_boil = 1 - m0*dataDict[s]['current']
     for i, s in enumerate(settingList):
-        plt.errorbar(dataDict[s]['current'], eff_boil, yerr=dataDict[s]['yield_error'], fmt=fmt_list[i], label="{0}, P = {1}".format(s,dataDict[s]['momentum']), color=color_list[i])
-    plt.xlabel('Current')
+        plt.errorbar(dataDict[s]['run number'], eff_boil, yerr=dataDict[s]['yield_error'], fmt=fmt_list[i], label="{0}, P = {1}".format(s,dataDict[s]['momentum']), color=color_list[i])
+    plt.xlabel('Run Number')
     plt.ylabel('Boil Factor')
-    plt.title('HMS Boil Factor vs Current')
+    plt.title('HMS Boil Factor vs Run Number')
     plt.legend()
 
     pdf.savefig(fig)
@@ -598,6 +601,7 @@ for i,s in enumerate(settingList):
         print(data.keys())
         dataDict[s]['momentum'] = momentumList[i]
         dataDict[s]['current'] = data['current']
+        dataDict[s]['run number'] = data['run number']
         dataDict[s]['rel_yield'] = data['yieldRel_SHMS_track']
         dataDict[s]['yield'] = data['yield_SHMS_track']
         dataDict[s]['yield_error'] = data['yieldRel_SHMS_track']*data['uncern_yieldRel_SHMS_track']
@@ -667,10 +671,10 @@ with PdfPages(SCRIPTPATH+'/luminosity/OUTPUTS/plots/shms_regression_%s.pdf' % ta
     m0 = dataDict[s]['reg'].params[1]/dataDict[s]['reg'].params[0]
     eff_boil = 1 - m0*dataDict[s]['current']
     for i, s in enumerate(settingList):
-        plt.errorbar(dataDict[s]['current'], eff_boil, yerr=dataDict[s]['yield_error'], fmt=fmt_list[i], label="{0}, P = {1}".format(s,dataDict[s]['momentum']), color=color_list[i])
-    plt.xlabel('Current')
+        plt.errorbar(dataDict[s]['run number'], eff_boil, yerr=dataDict[s]['yield_error'], fmt=fmt_list[i], label="{0}, P = {1}".format(s,dataDict[s]['momentum']), color=color_list[i])
+    plt.xlabel('Run Number')
     plt.ylabel('Boil Factor')
-    plt.title('SHMS Boil Factor vs Current')
+    plt.title('SHMS Boil Factor vs Run Number')
     plt.legend()
 
     pdf.savefig(fig)
