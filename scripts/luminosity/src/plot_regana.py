@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-05-15 10:41:57 trottar"
+# Time-stamp: "2023-05-15 10:43:35 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -102,10 +102,8 @@ corr_y = all_relyield - residuals
 i = 0
 for s in settingList:
     for val in dataDict[s]['current']:
-        dataDict[s]['corr_y'] = corr_y[i]
+        dataDict[s]['corr_y'] = corr_y[:,0][i]
         i+=1
-
-print("!!!!!!!!!!!!",residuals,"---",corr_y)
 
 ################################################################################################################################################
 
