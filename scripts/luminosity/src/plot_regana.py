@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-05-15 14:10:27 trottar"
+# Time-stamp: "2023-05-15 14:13:26 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -128,10 +128,10 @@ color_list = ['red', 'green', 'blue', 'orange']
 relyield_fig = plt.figure(figsize=(12,8))
 
 # plot the data with error bars and the regression line
-plt.errorbar(all_current[:,0], corr_y[:,0], yerr=all_uncern_relyield[:,0], linewidth = 2.0, fmt='o', label="Corrected Data", color='black')    
+plt.errorbar(all_current[:,0], corr_y[:,0], yerr=all_uncern_relyield[:,0], markersize=2.0, fmt='o', label="Corrected Data", color='black')    
 for i, s in enumerate(settingList):
     plt.errorbar(dataDict[s]['current'], dataDict[s]['corr_y'], yerr=dataDict[s]['yield_error'], fmt=fmt_list[i], label="{0}, {1}".format(s,dataDict[s]['momentum']), color=color_list[i])
-plt.plot(all_current, all_reg.predict(sm.add_constant(all_current)), linewidth = 2.0, linestyle=':', color='purple')
+plt.plot(all_current, all_reg.predict(sm.add_constant(all_current)), linewidth=2.0, linestyle=':', color='purple')
 # calculate the upper and lower confidence intervals for the regression line
 conf_int = all_reg.conf_int() # 95% confidence level
 upper_bounds = conf_int[0][0] + conf_int[1][0]*all_current[:,0]
@@ -151,7 +151,7 @@ relyield_fig = plt.figure(figsize=(12,8))
 # plot the data with error bars and the regression line
 for i, s in enumerate(settingList):
     plt.errorbar(dataDict[s]['x'][:,0], dataDict[s]['y'][:,0], yerr=dataDict[s]['yield_error'], fmt=fmt_list[i], label="{0}, {1}".format(s,dataDict[s]['momentum']), color=color_list[i])
-    plt.plot(dataDict[s]['x'], dataDict[s]['reg'].predict(sm.add_constant(dataDict[s]['x'])), linewidth = 2.0, linestyle=style_list[i], color=color_list[i])
+    plt.plot(dataDict[s]['x'], dataDict[s]['reg'].predict(sm.add_constant(dataDict[s]['x'])), linewidth=2.0, linestyle=style_list[i], color=color_list[i])
     # print the slope, intercept, and chi-squared value
     print('Slope:', dataDict[s]['reg'].params[1])
     print('Intercept:', dataDict[s]['reg'].params[0])
