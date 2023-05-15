@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-05-15 08:53:39 trottar"
+# Time-stamp: "2023-05-15 08:55:37 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -42,8 +42,8 @@ sys.path.insert(0,"%s/luminosity/src/%sLT" % (SCRIPTPATH,ANATYPE))
 import data_path
 
 settingList = ["10p6cl1","10p6cl2","10p6cl3","8p2cl1"]
-momentumList = [-3.266, -4.204, -6.269, -5.745] # HMS
-#momentumList = [6.842, 6.053, -6.269, -5.745] # SHMS
+momentumList = [3.266, 4.204, 6.269, 5.745] # HMS e-
+#momentumList = [6.842, 6.053, 6.269, 5.745] # SHMS e-
 
 dataDict = {}
 
@@ -104,7 +104,7 @@ for i, s in enumerate(settingList):
     print('Slope:', dataDict[s]['reg'].coef_[0][0])
     print('Intercept:', dataDict[s]['reg'].intercept_[0])
     #print('Chi-squared:', dataDict[s]['chi_squared'])
-ax2.set_ylabel('Momentum')
+ax2.set_ylabel('|Momentum|')
 #ax2.tick_params(axis='y', labelcolor='tab:orange')
 ax2.tick_params(axis='y')
 ax1.set_xlabel('Current')
