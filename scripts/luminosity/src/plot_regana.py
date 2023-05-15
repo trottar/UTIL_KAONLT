@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-05-15 13:25:28 trottar"
+# Time-stamp: "2023-05-15 13:27:05 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -99,7 +99,7 @@ print(dataDict.values())
 
 all_current = all_current[:, np.newaxis]
 all_relyield = all_relyield[:, np.newaxis]
-all_uncern_relyield = all_uncern_relyield[:, np.newaxis]
+#all_uncern_relyield = all_uncern_relyield[:, np.newaxis]
 #all_reg = LinearRegression().fit(all_current, all_relyield)
 all_reg = sm.WLS(all_relyield, sm.add_constant(all_current), weights=1.0/all_uncern_relyield**2).fit()
 all_expected_y = all_reg.predict(sm.add_constant(all_current))
