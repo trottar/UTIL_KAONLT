@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-05-15 07:37:42 trottar"
+# Time-stamp: "2023-05-15 07:39:23 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -48,8 +48,7 @@ dataDict = {}
 for s in settingList:
     data_path = data_path.get_file(s,SCRIPTPATH)
     target = data_path[0]
-    inp_f = data_path[1]
-    out_f = data_path[2]
+    inp_f = data_path[2] # out_f is inp_f for global analysis
 
     # Converts csv data to dataframe
     try:
