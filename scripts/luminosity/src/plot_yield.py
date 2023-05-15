@@ -3,7 +3,7 @@
 # Description: Grabs lumi data from corresponding csv depending on run setting. Then plots the yields and creates a comprehensive table.
 # Variables calculated: current, rate_HMS, rate_SHMS, sent_edtm_PS, uncern_HMS_evts_scaler, uncern_SHMS_evts_scaler, uncern_HMS_evts_notrack, uncern_SHMS_evts_notrack, uncern_HMS_evts_track, uncern_SHMS_evts_track
 # ================================================================
-# Time-stamp: "2023-05-15 12:12:02 trottar"
+# Time-stamp: "2023-05-15 12:20:14 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -14,6 +14,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 from scipy.optimize import curve_fit
+from sklearn.linear_model import LinearRegression
 from csv import DictReader
 import sys, os, subprocess, math
 
@@ -399,28 +400,6 @@ def plot_yield():
         print("Run numbers:",yield_data["run number"][i],"Current Values:",yield_data["current"][i])
 
     '''
-    # Linear fitting
-    def linear_plot(x,y,xvalmax=100):
-        # Remove NaN values from list
-        c_arr = [[nx,ny] for nx,ny in zip(x,y) if str(ny) != 'nan']
-        x_c = [i[0] for i in c_arr]
-        y_c = [i[1] for i in c_arr]
-
-        # Define slope and intercept
-        m,b = np.polyfit(np.array(x_c),np.array(y_c),deg=1)
-
-        # Find chi-squared
-        #res = y - (m*x+b)
-        res = y/b - (m/b*x+1.00)
-        chisq = np.sum((res/np.sqrt(y/b))**2)
-
-        # Plot fit from axis
-        #plt.plot(np.linspace(0,xvalmax),m*np.linspace(0,xvalmax)+b, color='green', label='y={0:0.3e}x+{1:0.3f}\n{2}={3:0.3e}\n{4}={5:0.3e}'.format(m,b,r'$\chi^2$',chisq,r'$m_0$',(m/b)), zorder=5)
-        plt.plot(np.linspace(0,xvalmax),(m/b)*np.linspace(0,xvalmax)+1.00, color='green', label='{0}={1:0.2e}*{2}+1.00\n{3}={4:0.2e}\n{5}={6:0.2e}'.format(r'Y/$Y_0$',m/b,r'$I_b$',r'$\chi^2$',chisq,r'$m_0$',(m/b)), zorder=5)
-
-        return m/b
-    '''
-
     def fit_func(x, m, b):
         return (m/b)*x + 1.0
 
@@ -451,7 +430,7 @@ def plot_yield():
         plt.plot(x_fit, y_fit, color='green', label='{0}={1:0.2e}*{2}+1.00\n{3}={4:0.2e}\n{5}={6:0.2e}\n{7}={8:0.2e}'.format(r'Y/$Y_0$',m/b,r'$I_b$',r'$\chi^2$',chisq,r'$m_0$',(m/b),r'$\delta m_0$',(m_err/b_err)), zorder=5)
 
         return m/b
-
+    '''
 
     #########################################################################################################################################################
 
