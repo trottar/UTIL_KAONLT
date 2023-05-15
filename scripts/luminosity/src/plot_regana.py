@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-05-15 14:43:58 trottar"
+# Time-stamp: "2023-05-15 14:47:26 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -130,7 +130,7 @@ style_list = ['-', '--', ':', '-.']
 color_list = ['red', 'green', 'blue', 'orange']
 
 # Create a PDF file
-with PdfPages(SCRIPTPATH+'/luminosity/OUTPUTS/plots/hms_regression.pdf') as pdf:
+with PdfPages(SCRIPTPATH+'/luminosity/OUTPUTS/plots/hms_regression_%s.pdf' % target) as pdf:
 
     fig = plt.figure(figsize=(12,8))
 
@@ -291,7 +291,7 @@ style_list = ['-', '--', ':', '-.']
 color_list = ['red', 'green', 'blue', 'orange']
 
 # Create a PDF file
-with PdfPages(SCRIPTPATH+'/luminosity/OUTPUTS/plots/shms_regression.pdf') as pdf:
+with PdfPages(SCRIPTPATH+'/luminosity/OUTPUTS/plots/shms_regression_%s.pdf' % target) as pdf:
 
     fig = plt.figure(figsize=(12,8))
 
