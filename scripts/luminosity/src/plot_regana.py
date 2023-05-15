@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-05-15 10:37:33 trottar"
+# Time-stamp: "2023-05-15 10:41:57 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -99,6 +99,12 @@ all_reg = LinearRegression().fit(all_current, all_relyield)
 residuals = all_current - all_reg.predict(all_current)
 corr_y = all_relyield - residuals
 
+i = 0
+for s in settingList:
+    for val in dataDict[s]['current']:
+        dataDict[s]['corr_y'] = corr_y[i]
+        i+=1
+
 print("!!!!!!!!!!!!",residuals,"---",corr_y)
 
 ################################################################################################################################################
@@ -112,7 +118,7 @@ relyield_fig = plt.figure(figsize=(12,8))
 
 # plot the data with error bars and the regression line
 for i, s in enumerate(settingList):
-    plt.errorbar(all_current[:,0], corr_y[:,0], yerr=all_uncern_relyield, fmt=fmt_list[i], label="{0}, {1}".format(s,dataDict[s]['momentum']), color=color_list[i])
+    plt.errorbar(dataDict[s]['current'], dataDict[s]['corr_y'], yerr=dataDict[s]['yield_error'], fmt=fmt_list[i], label="{0}, {1}".format(s,dataDict[s]['momentum']), color=color_list[i])
     plt.plot(all_current, all_reg.predict(all_current), linestyle=':', color='purple')
 # print the slope, intercept, and chi-squared value
 print('\n\nSlope:', all_reg.coef_[0][0])
