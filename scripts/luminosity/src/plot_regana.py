@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-05-15 14:07:48 trottar"
+# Time-stamp: "2023-05-15 14:09:09 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -128,9 +128,9 @@ color_list = ['red', 'green', 'blue', 'orange']
 relyield_fig = plt.figure(figsize=(12,8))
 
 # plot the data with error bars and the regression line
+plt.errorbar(all_current[:,0], corr_y[:,0], yerr=all_uncern_relyield[:,0], fmt='o', label="Corrected Data", color='black')    
 for i, s in enumerate(settingList):
     plt.errorbar(dataDict[s]['current'], dataDict[s]['corr_y'], yerr=dataDict[s]['yield_error'], fmt=fmt_list[i], label="{0}, {1}".format(s,dataDict[s]['momentum']), color=color_list[i])
-plt.errorbar(all_current[:,0], corr_y[:,0], yerr=all_uncern_relyield[:,0], fmt='o', label="Corrected Data", color='black')    
 plt.plot(all_current, all_reg.predict(sm.add_constant(all_current)), linewidth = 2.0, linestyle=':', color='purple')
 # calculate the upper and lower confidence intervals for the regression line
 conf_int = all_reg.conf_int() # 95% confidence level
