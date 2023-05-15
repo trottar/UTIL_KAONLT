@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-05-15 08:49:52 trottar"
+# Time-stamp: "2023-05-15 08:51:49 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -99,7 +99,7 @@ ax2 = ax1.twinx()
 for i, s in enumerate(settingList):
     ax1.errorbar(dataDict[s]['x'][:,0], dataDict[s]['y'][:,0], yerr=dataDict[s]['yield_error'], fmt=fmt_list[i], label="{0}, {1}".format(s,dataDict[s]['momentum']), color=color_list[i])
     ax1.plot(dataDict[s]['x'], dataDict[s]['reg'].predict(dataDict[s]['x']), linestyle=style_list[i], color=color_list[i])
-    ax2.plot(dataDict[s]['x'], np.ones_like(dataDict[s]['x'])*dataDict[s]['momentum'], linestyle='--', color='tab:orange', alpha=0.7)
+    ax2.plot(dataDict[s]['x'], np.ones_like(dataDict[s]['x'])*dataDict[s]['momentum'], alpha=0.7)
     # print the slope, intercept, and chi-squared value
     print('Slope:', dataDict[s]['reg'].coef_[0][0])
     print('Intercept:', dataDict[s]['reg'].intercept_[0])
