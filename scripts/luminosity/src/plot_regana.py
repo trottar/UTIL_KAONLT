@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-05-15 09:52:16 trottar"
+# Time-stamp: "2023-05-15 09:57:03 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -80,9 +80,9 @@ for i,s in enumerate(settingList):
         dataDict[s]['expected_y'] = dataDict[s]['reg'].predict(dataDict[s]['x'])
         #dataDict[s]['chi_squared'] = np.sum((dataDict[s]['y'] - dataDict[s]['expected_y'])**2 / dataDict[s]['yield_error']**2)
 
-        np.append(all_relyield,data['yieldRel_HMS_track'][:, np.newaxis])
-        np.append(all_uncern_relyield,data['uncern_yieldRel_HMS_track'][:, np.newaxis])
-        np.append(all_current,data['current'][:, np.newaxis])
+        all_current = np.concatenate([all_current, data['current']])
+        all_relyield = np.concatenate([all_relyield, data['yieldRel_HMS_track']])
+        all_uncern_relyield = np.concatenate([all_uncern_relyield, data['uncern_yieldRel_HMS_track']])
         
     except IOError:
         print("Error: %s does not appear to exist." % inp_f)
