@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-05-15 12:05:13 trottar"
+# Time-stamp: "2023-05-15 12:12:59 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -97,8 +97,8 @@ all_current = all_current[:, np.newaxis]
 all_relyield = all_relyield[:, np.newaxis]
 all_reg = LinearRegression().fit(all_current, all_relyield)
 all_expected_y = all_reg.predict(all_current)
-all_chi_squared = np.sum((np.array(all_relyield) - np.array(all_expected_y))**2 / np.array(all_uncern_relyield)**2)
 residuals = all_relyield - all_expected_y
+all_chi_squared = np.sum((residuals)**2 / np.array(all_uncern_relyield)**2)
 corr_y = all_relyield - residuals
 
 i = 0
@@ -112,8 +112,6 @@ for s in settingList:
     dataDict[s]['corr_y'] = tmp1
     dataDict[s]['residuals'] = tmp2
 
-    print("~~~~~~~~~~~~",dataDict[s]['current'], "---",dataDict[s]['corr_y'])
-    print(s, "@@@",dataDict[s]['residuals'])
 ################################################################################################################################################
 
 # Define a list of error bar formats and plot styles to cycle through

@@ -3,7 +3,7 @@
 # Description: Grabs lumi data from corresponding csv depending on run setting. Then plots the yields and creates a comprehensive table.
 # Variables calculated: current, rate_HMS, rate_SHMS, sent_edtm_PS, uncern_HMS_evts_scaler, uncern_SHMS_evts_scaler, uncern_HMS_evts_notrack, uncern_SHMS_evts_notrack, uncern_HMS_evts_track, uncern_SHMS_evts_track
 # ================================================================
-# Time-stamp: "2023-05-15 11:59:24 trottar"
+# Time-stamp: "2023-05-15 12:12:02 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -500,7 +500,7 @@ def plot_yield():
 
 
     def hms_regression(x):
-        return (5.750807798377479e-05)*x+0.996135491172637
+        return (5.751e-05)*x+0.996
 
     # Residual calculation from linear regression
     residuals = yield_data["yieldRel_HMS_track"] - hms_regression(yield_data["yieldRel_HMS_track"])
