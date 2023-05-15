@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-05-15 07:52:37 trottar"
+# Time-stamp: "2023-05-15 07:53:12 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -59,8 +59,8 @@ for s in settingList:
         dataDict[s]['yield'] = data['yieldRel_HMS_track']
         dataDict[s]['yield_error'] = data['uncern_yieldRel_HMS_track']
         # reshape the currents, yields, and yield errors into column vectors
-        dataDict[s]['x'] = dataDict[s]"current"].reshape(-1, 1)
-        dataDict[s]['y'] = dataDict[s]"yield"].reshape(-1, 1)
+        dataDict[s]['x'] = dataDict[s]["current"].reshape(-1, 1)
+        dataDict[s]['y'] = dataDict[s]["yield"].reshape(-1, 1)
 
         # create a linear regression object and fit the data
         dataDict[s]['reg'] = LinearRegression().fit(dataDict[s]['x'], dataDict[s]['y'])
