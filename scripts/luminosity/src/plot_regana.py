@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-05-15 12:59:58 trottar"
+# Time-stamp: "2023-05-15 13:03:44 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -132,7 +132,8 @@ for i, s in enumerate(settingList):
     plt.errorbar(dataDict[s]['current'], dataDict[s]['corr_y'], yerr=dataDict[s]['yield_error'], fmt=fmt_list[i], label="{0}, {1}".format(s,dataDict[s]['momentum']), color=color_list[i])
     #plt.scatter(dataDict[s]['current'], dataDict[s]['corr_y'], label="{0}, {1}".format(s,dataDict[s]['momentum']), color=color_list[i])
 plt.plot(all_current, all_reg.predict(sm.add_constant(all_current)), linewidth = 2.0, linestyle=':', color='purple')
-plt.fill_between(all_current[:, 0], all_reg.conf_int()[:, 0], all_reg.conf_int()[:, 1], alpha=0.2)
+upper_bounds, lower_bounds = np.tile(result.conf_int(), (len(all_current[:,0]), 1)).T
+plt.fill_between(all_current[:,0], upper_bounds, lower_bounds, alpha=0.2)
 # print the slope, intercept, and chi-squared value
 print('\n\nSlope:', all_reg.params[1])
 print('Intercept:', all_reg.params[0])
@@ -148,7 +149,8 @@ relyield_fig = plt.figure(figsize=(12,8))
 for i, s in enumerate(settingList):
     plt.errorbar(dataDict[s]['x'][:,0], dataDict[s]['y'][:,0], yerr=dataDict[s]['yield_error'], fmt=fmt_list[i], label="{0}, {1}".format(s,dataDict[s]['momentum']), color=color_list[i])
     plt.plot(dataDict[s]['x'], dataDict[s]['reg'].predict(sm.add_constant(dataDict[s]['x'])), linewidth = 2.0, linestyle=style_list[i], color=color_list[i])
-    plt.fill_between(dataDict[s]['x'][:,0], dataDict[s]['reg'].conf_int()[:, 0], dataDict[s]['reg'].conf_int()[:, 1], alpha=0.2)
+    upper_bounds, lower_bounds = np.tile(result.conf_int(), (len(dataDict[s]['x'][:,0]), 1)).T
+    plt.fill_between(dataDict[s]['x'][:,0], upper_bounds, lower_bounds, alpha=0.2)
     # print the slope, intercept, and chi-squared value
     print('Slope:', dataDict[s]['reg'].params[1])
     print('Intercept:', dataDict[s]['reg'].params[0])
