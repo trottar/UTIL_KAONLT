@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-05-15 08:18:00 trottar"
+# Time-stamp: "2023-05-15 08:18:41 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -87,8 +87,8 @@ style_list = ['-', '--', ':', '-.']
 
 # plot the data with error bars and the regression line
 for i, s in enumerate(settingList):
-    plt.errorbar(dataDict[s]['x'][:,0], dataDict[s]['y'][:,0], yerr=dataDict[s]['yield_error'], fmt=fmt_list[i], label=s)
-    plt.plot(dataDict[s]['x'], dataDict[s]['reg'].predict(dataDict[s]['x']), style=style_list[i])
+    plt.errorbar(dataDict[s]['x'][:,0], dataDict[s]['y'][:,0], yerr=dataDict[s]['yield_error'], fmt=fmt_list[i], label=s, linestyle=style_list[i])
+    plt.plot(dataDict[s]['x'], dataDict[s]['reg'].predict(dataDict[s]['x']))
     # print the slope, intercept, and chi-squared value
     print('Slope:', dataDict[s]['reg'].coef_[0][0])
     print('Intercept:', dataDict[s]['reg'].intercept_[0])
