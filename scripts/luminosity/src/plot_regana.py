@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-05-15 09:48:39 trottar"
+# Time-stamp: "2023-05-15 09:49:20 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -93,8 +93,8 @@ print(dataDict.values())
 
 ################################################################################################################################################
 
-all_current = all_current.flatten()[:, np.newaxis]
-all_relyield = all_relyield.flatten()[:, np.newaxis]
+all_current = all_current.flatten()
+all_relyield = all_relyield.flatten()
 all_reg = LinearRegression().fit(all_current, all_relyield)
 
 
