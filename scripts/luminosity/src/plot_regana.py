@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-05-15 12:24:44 trottar"
+# Time-stamp: "2023-05-15 12:25:29 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -76,7 +76,8 @@ for i,s in enumerate(settingList):
 
         # create a linear regression object and fit the data
         #dataDict[s]['reg'] = LinearRegression().fit(dataDict[s]['x'], dataDict[s]['y'])
-        dataDict[s]['reg'] = sm.WSL(dataDict[s]['y'], sm.add_constant(dataDict[s]['x']), weights=1.0/dataDict[s]['yield_error']**2).fit()
+        # perform weighted least squares regression
+        dataDict[s]['reg'] = sm.WLS(dataDict[s]['y'], sm.add_constant(dataDict[s]['x']), weights=1.0/dataDict[s]['yield_error']**2).fit()
 
         # calculate the chi-squared value
         dataDict[s]['expected_y'] = dataDict[s]['reg'].predict(dataDict[s]['x'])
