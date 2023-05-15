@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-05-15 13:31:55 trottar"
+# Time-stamp: "2023-05-15 13:32:58 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -135,7 +135,7 @@ plt.plot(all_current, all_reg.predict(sm.add_constant(all_current)), linewidth =
 conf_int = all_reg.conf_int(alpha=0.05)
 upper_bounds = conf_int[:, 0]
 lower_bounds = conf_int[:, 1]
-plt.fill_between(all_current, upper_bounds, lower_bounds, alpha=0.2)
+plt.fill_between(all_current[:,0], upper_bounds, lower_bounds, alpha=0.2)
 # print the slope, intercept, and chi-squared value
 print('\n\nSlope:', all_reg.params[1])
 print('Intercept:', all_reg.params[0])
@@ -154,7 +154,7 @@ for i, s in enumerate(settingList):
     conf_int = dataDict[s]['reg'].conf_int(alpha=0.05)
     upper_bounds = conf_int[:, 0]
     lower_bounds = conf_int[:, 1]
-    plt.fill_between(dataDict[s]['x'], upper_bounds, lower_bounds, alpha=0.2)
+    plt.fill_between(dataDict[s]['x'][:,0], upper_bounds, lower_bounds, alpha=0.2)
     # print the slope, intercept, and chi-squared value
     print('Slope:', dataDict[s]['reg'].params[1])
     print('Intercept:', dataDict[s]['reg'].params[0])
