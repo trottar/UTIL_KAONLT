@@ -3,7 +3,7 @@
 # Description: Grabs lumi data from corresponding csv depending on run setting. Then plots the yields and creates a comprehensive table.
 # Variables calculated: current, rate_HMS, rate_SHMS, sent_edtm_PS, uncern_HMS_evts_scaler, uncern_SHMS_evts_scaler, uncern_HMS_evts_notrack, uncern_SHMS_evts_notrack, uncern_HMS_evts_track, uncern_SHMS_evts_track
 # ================================================================
-# Time-stamp: "2023-05-15 11:39:03 trottar"
+# Time-stamp: "2023-05-15 11:44:55 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -498,26 +498,11 @@ def plot_yield():
     else :
         plt.title('HMS Carbon %s-%s' % (int(min(yield_data["run number"])),int(max(yield_data["run number"]))), fontsize =16)
 
-    # Residuals from linear regression
-    if "10p6" in inp_name:
-        if "l1" in inp_name:
-            if "C" in inp_name.upper():
-                residuals = [0.0035852100783795304, -0.003717572456706786, 0.017494091168286263, 0.004362036519797274, 0.006238979788306787, -0.0021022067746221396, 0.016879369384263043] # 10p6 l1
-        elif "l2" in inp_name:
-            if "C" in inp_name.upper():
-                residuals = [-0.0003870925997062624, 0.0035847491759778416, 0.0010331859647961794] # 10p6 l2
-        elif "l1" in inp_name:
-            if "C" in inp_name.upper():                
-                residuals = [-0.0069092847838750915, -0.008649260003467107, -0.0077727171995015665, -0.00899912902773714, -0.016533486339119108, -0.009533846343186436, -0.010063027361340793, 0.00272755434516303] # 10p6 l3
-    elif "8p2" in inp_name:
-        if "C" in inp_name.upper():
-            residuals = [0.002991973142504878, 0.0019613349287566084, 0.013809138393029996] # 8p2 l1
-    else:
-        print('''
-        Error: Invalid input...
-               -> "{0}"
-        '''.format(inp_name))
-        sys.exit(0)
+
+    def hms_regression(x):
+        return (5.750807798377479e-05)*x+0.996135491172637
+
+    residuals = yield_data["yieldRel_HMS_track"] - hms_regression(yield_data["yieldRel_HMS_track"])
         
     #HMS plot track
     plt.subplot(2,3,3)    

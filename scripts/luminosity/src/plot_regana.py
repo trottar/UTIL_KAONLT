@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-05-15 11:04:52 trottar"
+# Time-stamp: "2023-05-15 11:41:33 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -111,7 +111,6 @@ for s in settingList:
         i+=1
     dataDict[s]['corr_y'] = tmp1
     dataDict[s]['residuals'] = tmp2
-
 
     print("~~~~~~~~~~~~",dataDict[s]['current'], "---",dataDict[s]['corr_y'])
     print(s, "@@@",dataDict[s]['residuals'])
