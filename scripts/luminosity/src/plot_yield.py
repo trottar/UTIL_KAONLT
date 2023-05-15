@@ -3,7 +3,7 @@
 # Description: Grabs lumi data from corresponding csv depending on run setting. Then plots the yields and creates a comprehensive table.
 # Variables calculated: current, rate_HMS, rate_SHMS, sent_edtm_PS, uncern_HMS_evts_scaler, uncern_SHMS_evts_scaler, uncern_HMS_evts_notrack, uncern_SHMS_evts_notrack, uncern_HMS_evts_track, uncern_SHMS_evts_track
 # ================================================================
-# Time-stamp: "2023-05-15 11:35:23 trottar"
+# Time-stamp: "2023-05-15 11:37:08 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -430,7 +430,6 @@ def plot_yield():
         x_c = np.array([i[0] for i in c_arr])
         y_c = np.array([i[1] for i in c_arr])
 
-        '''
         # Define slope and intercept
         if len(x_c) < 4:
             popt, _ = curve_fit(fit_func, x_c, y_c)
@@ -441,12 +440,6 @@ def plot_yield():
             popt, pcov = np.polyfit(x_c, y_c, deg=1, cov=True)
             m, b = popt
             m_err, b_err = np.sqrt(np.diag(pcov))
-        '''
-
-        popt, _ = curve_fit(fit_func, x_c, y_c)
-        m, b = popt
-        m_err = np.std(y_c - fit_func(x_c, m, b)) / np.sqrt(len(x_c))
-        b_err = np.std(y_c - fit_func(x_c, m, b)) / np.sqrt(len(x_c))
 
         # Find chi-squared
         res = y_c - fit_func(x_c, m, b)
