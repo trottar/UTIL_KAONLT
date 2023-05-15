@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-05-15 08:10:14 trottar"
+# Time-stamp: "2023-05-15 08:11:25 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -88,6 +88,7 @@ for s in settingList:
     lower_bounds = np.array(dataDict[s]['y']) - np.array(dataDict[s]['yield_error'])
     plt.fill_between(dataDict[s]['x'][:,0], upper_bounds[:,0], lower_bounds[:,0], alpha=0.2, label=s)
     #plt.errorbar(dataDict[s]['x'][:,0], dataDict[s]['y'][:,0], yerr=dataDict[s]['yield_error'], fmt='o', label=s)
+    plt.scatter(dataDict[s]['x'][:,0], dataDict[s]['y'][:,0], fmt='o')
     plt.plot(dataDict[s]['x'], dataDict[s]['reg'].predict(dataDict[s]['x']))
     # print the slope, intercept, and chi-squared value
     print('Slope:', dataDict[s]['reg'].coef_[0][0])
