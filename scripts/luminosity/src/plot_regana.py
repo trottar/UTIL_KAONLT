@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-05-15 14:34:42 trottar"
+# Time-stamp: "2023-05-15 14:43:21 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -13,8 +13,8 @@
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-from sklearn.linear_model import LinearRegression
 import statsmodels.api as sm
+from matplotlib.backends.backend_pdf import PdfPages
 import sys, os
 
 ################################################################################################################################################
@@ -129,64 +129,77 @@ fmt_list = ['o', 's', '^', 'd']
 style_list = ['-', '--', ':', '-.']
 color_list = ['red', 'green', 'blue', 'orange']
 
-relyield_fig = plt.figure(figsize=(12,8))
+# Create a PDF file
+with PdfPages(SCRIPTPATH+'/luminosity/OUTPUTS/plots/hms_regression.pdf' as pdf:
 
-# plot the data with error bars and the regression line
-plt.errorbar(all_current[:,0], corr_y[:,0], yerr=all_uncern_relyield[:,0], markersize=10.0, fmt='o', label="Corrected Data", color='black')    
-for i, s in enumerate(settingList):
-    plt.errorbar(dataDict[s]['current'], dataDict[s]['corr_y'], yerr=dataDict[s]['yield_error'], fmt=fmt_list[i], label="{0}, P = {1}".format(s,dataDict[s]['momentum']), color=color_list[i])
-plt.plot(all_current, all_reg.predict(sm.add_constant(all_current)), linewidth=2.0, linestyle=':', color='purple', label='Weighted linear regression')
-plt.plot(all_current, all_reg_uw.predict(sm.add_constant(all_current)), linewidth=2.0, linestyle=':', color='violet', label='Unweighted linear regression')
-# calculate the upper and lower confidence intervals for the regression line
-conf_int = all_reg.conf_int() # 95% confidence level
-upper_bounds = conf_int[0][0] + conf_int[1][0]*all_current[:,0] # mx+b, upper
-lower_bounds = conf_int[0][1] + conf_int[1][1]*all_current[:,0] # mx+b, lower
-plt.fill_between(all_current[:,0], upper_bounds, lower_bounds, alpha=0.2)
-# print the slope, intercept, and chi-squared value
-print('\n\nSlope:', all_reg.params[1])
-print('Intercept:', all_reg.params[0])
-print('Chi-squared:', all_chi_sq,"\n\n")
-plt.xlabel('Current')
-plt.ylabel('Rel. Yield')
-plt.title('HMS Rel. Yield vs Current')
-plt.legend()
+    fig = plt.figure(figsize=(12,8))
 
-relyield_fig = plt.figure(figsize=(12,8))
-
-# plot the data with error bars and the regression line
-for i, s in enumerate(settingList):
-    plt.errorbar(dataDict[s]['x'][:,0], dataDict[s]['y'][:,0], yerr=dataDict[s]['yield_error'], fmt=fmt_list[i], label="{0}, P = {1}".format(s,dataDict[s]['momentum']), color=color_list[i])
-    plt.plot(dataDict[s]['x'], dataDict[s]['reg'].predict(sm.add_constant(dataDict[s]['x'])), linewidth=2.0, linestyle=style_list[i], color=color_list[i])
+    # plot the data with error bars and the regression line
+    plt.errorbar(all_current[:,0], corr_y[:,0], yerr=all_uncern_relyield[:,0], markersize=10.0, fmt='o', label="Corrected Data", color='black')    
+    for i, s in enumerate(settingList):
+        plt.errorbar(dataDict[s]['current'], dataDict[s]['corr_y'], yerr=dataDict[s]['yield_error'], fmt=fmt_list[i], label="{0}, P = {1}".format(s,dataDict[s]['momentum']), color=color_list[i])
+    plt.plot(all_current, all_reg.predict(sm.add_constant(all_current)), linewidth=2.0, linestyle=':', color='purple', label='Weighted linear regression')
+    plt.plot(all_current, all_reg_uw.predict(sm.add_constant(all_current)), linewidth=2.0, linestyle=':', color='violet', label='Unweighted linear regression')
+    # calculate the upper and lower confidence intervals for the regression line
+    conf_int = all_reg.conf_int() # 95% confidence level
+    upper_bounds = conf_int[0][0] + conf_int[1][0]*all_current[:,0] # mx+b, upper
+    lower_bounds = conf_int[0][1] + conf_int[1][1]*all_current[:,0] # mx+b, lower
+    plt.fill_between(all_current[:,0], upper_bounds, lower_bounds, alpha=0.2)
     # print the slope, intercept, and chi-squared value
-    print('Slope:', dataDict[s]['reg'].params[1])
-    print('Intercept:', dataDict[s]['reg'].params[0])
-    print('Chi-squared:', dataDict[s]['chi_sq'])
-plt.xlabel('Current')
-plt.ylabel('Rel. Yield')
-plt.title('HMS Rel. Yield vs Current')
-plt.legend()
+    print('\n\nSlope:', all_reg.params[1])
+    print('Intercept:', all_reg.params[0])
+    print('Chi-squared:', all_chi_sq,"\n\n")
+    plt.xlabel('Current')
+    plt.ylabel('Rel. Yield')
+    plt.title('HMS Rel. Yield vs Current')
+    plt.legend()
 
-yield_fig = plt.figure(figsize=(12,8))
+    pdf.savefig(fig)
+    plt.close(fig)
 
-# plot the data with error bars and the regression line
-for i, s in enumerate(settingList):
-    plt.errorbar(dataDict[s]['x'][:,0], dataDict[s]['yield'], yerr=dataDict[s]['yield_error'], fmt=fmt_list[i], label="{0}, P = {1}".format(s,dataDict[s]['momentum']), color=color_list[i])
-plt.xlabel('Current')
-plt.ylabel('Yield')
-plt.title('HMS Yield vs Current')
-plt.legend()
+    fig = plt.figure(figsize=(12,8))
 
-momentum_fig = plt.figure(figsize=(12,8))
+    # plot the data with error bars and the regression line
+    for i, s in enumerate(settingList):
+        plt.errorbar(dataDict[s]['x'][:,0], dataDict[s]['y'][:,0], yerr=dataDict[s]['yield_error'], fmt=fmt_list[i], label="{0}, P = {1}".format(s,dataDict[s]['momentum']), color=color_list[i])
+        plt.plot(dataDict[s]['x'], dataDict[s]['reg'].predict(sm.add_constant(dataDict[s]['x'])), linewidth=2.0, linestyle=style_list[i], color=color_list[i])
+        # print the slope, intercept, and chi-squared value
+        print('Slope:', dataDict[s]['reg'].params[1])
+        print('Intercept:', dataDict[s]['reg'].params[0])
+        print('Chi-squared:', dataDict[s]['chi_sq'])
+    plt.xlabel('Current')
+    plt.ylabel('Rel. Yield')
+    plt.title('HMS Rel. Yield vs Current')
+    plt.legend()
 
-# plot the data with error bars and the regression line
-for i, s in enumerate(settingList):
-    plt.errorbar(dataDict[s]['x'][:,0], np.ones_like(dataDict[s]['x'][:,0])*dataDict[s]['momentum'], yerr=dataDict[s]['yield_error'], fmt=fmt_list[i], label="{0}".format(s), color=color_list[i])
-plt.xlabel('Current')
-plt.ylabel('Momentum')
-plt.title('HMS Momentum vs Current')
-plt.legend()
+    pdf.savefig(fig)
+    plt.close(fig)
 
-plt.show()
+    fig = plt.figure(figsize=(12,8))
+
+    # plot the data with error bars and the regression line
+    for i, s in enumerate(settingList):
+        plt.errorbar(dataDict[s]['x'][:,0], dataDict[s]['yield'], yerr=dataDict[s]['yield_error'], fmt=fmt_list[i], label="{0}, P = {1}".format(s,dataDict[s]['momentum']), color=color_list[i])
+    plt.xlabel('Current')
+    plt.ylabel('Yield')
+    plt.title('HMS Yield vs Current')
+    plt.legend()
+
+    pdf.savefig(fig)
+    plt.close(fig)
+
+    fig = plt.figure(figsize=(12,8))
+
+    # plot the data with error bars and the regression line
+    for i, s in enumerate(settingList):
+        plt.errorbar(dataDict[s]['x'][:,0], np.ones_like(dataDict[s]['x'][:,0])*dataDict[s]['momentum'], yerr=dataDict[s]['yield_error'], fmt=fmt_list[i], label="{0}".format(s), color=color_list[i])
+    plt.xlabel('Current')
+    plt.ylabel('Momentum')
+    plt.title('HMS Momentum vs Current')
+    plt.legend()
+
+    pdf.savefig(fig)
+    plt.close(fig)
 
 ################################################################################################################################################
 ################################################################################################################################################
@@ -277,61 +290,74 @@ fmt_list = ['o', 's', '^', 'd']
 style_list = ['-', '--', ':', '-.']
 color_list = ['red', 'green', 'blue', 'orange']
 
-relyield_fig = plt.figure(figsize=(12,8))
+# Create a PDF file
+with PdfPages(SCRIPTPATH+'/luminosity/OUTPUTS/plots/shms_regression.pdf' as pdf:
 
-# plot the data with error bars and the regression line
-plt.errorbar(all_current[:,0], corr_y[:,0], yerr=all_uncern_relyield[:,0], markersize=10.0, fmt='o', label="Corrected Data", color='black')    
-for i, s in enumerate(settingList):
-    plt.errorbar(dataDict[s]['current'], dataDict[s]['corr_y'], yerr=dataDict[s]['yield_error'], fmt=fmt_list[i], label="{0}, P = {1}".format(s,dataDict[s]['momentum']), color=color_list[i])
-plt.plot(all_current, all_reg.predict(sm.add_constant(all_current)), linewidth=2.0, linestyle=':', color='purple', label='Weighted linear regression')
-plt.plot(all_current, all_reg_uw.predict(sm.add_constant(all_current)), linewidth=2.0, linestyle=':', color='violet', label='Unweighted linear regression')
-# calculate the upper and lower confidence intervals for the regression line
-conf_int = all_reg.conf_int() # 95% confidence level
-upper_bounds = conf_int[0][0] + conf_int[1][0]*all_current[:,0] # mx+b, upper
-lower_bounds = conf_int[0][1] + conf_int[1][1]*all_current[:,0] # mx+b, lower
-plt.fill_between(all_current[:,0], upper_bounds, lower_bounds, alpha=0.2)
-# print the slope, intercept, and chi-squared value
-print('\n\nSlope:', all_reg.params[1])
-print('Intercept:', all_reg.params[0])
-print('Chi-squared:', all_chi_sq,"\n\n")
-plt.xlabel('Current')
-plt.ylabel('Rel. Yield')
-plt.title('SHMS Rel. Yield vs Current')
-plt.legend()
+    fig = plt.figure(figsize=(12,8))
 
-relyield_fig = plt.figure(figsize=(12,8))
-
-# plot the data with error bars and the regression line
-for i, s in enumerate(settingList):
-    plt.errorbar(dataDict[s]['x'][:,0], dataDict[s]['y'][:,0], yerr=dataDict[s]['yield_error'], fmt=fmt_list[i], label="{0}, P = {1}".format(s,dataDict[s]['momentum']), color=color_list[i])
-    plt.plot(dataDict[s]['x'], dataDict[s]['reg'].predict(sm.add_constant(dataDict[s]['x'])), linewidth=2.0, linestyle=style_list[i], color=color_list[i])
+    # plot the data with error bars and the regression line
+    plt.errorbar(all_current[:,0], corr_y[:,0], yerr=all_uncern_relyield[:,0], markersize=10.0, fmt='o', label="Corrected Data", color='black')    
+    for i, s in enumerate(settingList):
+        plt.errorbar(dataDict[s]['current'], dataDict[s]['corr_y'], yerr=dataDict[s]['yield_error'], fmt=fmt_list[i], label="{0}, P = {1}".format(s,dataDict[s]['momentum']), color=color_list[i])
+    plt.plot(all_current, all_reg.predict(sm.add_constant(all_current)), linewidth=2.0, linestyle=':', color='purple', label='Weighted linear regression')
+    plt.plot(all_current, all_reg_uw.predict(sm.add_constant(all_current)), linewidth=2.0, linestyle=':', color='violet', label='Unweighted linear regression')
+    # calculate the upper and lower confidence intervals for the regression line
+    conf_int = all_reg.conf_int() # 95% confidence level
+    upper_bounds = conf_int[0][0] + conf_int[1][0]*all_current[:,0] # mx+b, upper
+    lower_bounds = conf_int[0][1] + conf_int[1][1]*all_current[:,0] # mx+b, lower
+    plt.fill_between(all_current[:,0], upper_bounds, lower_bounds, alpha=0.2)
     # print the slope, intercept, and chi-squared value
-    print('Slope:', dataDict[s]['reg'].params[1])
-    print('Intercept:', dataDict[s]['reg'].params[0])
-    print('Chi-squared:', dataDict[s]['chi_sq'])
-plt.xlabel('Current')
-plt.ylabel('Rel. Yield')
-plt.title('SHMS Rel. Yield vs Current')
-plt.legend()
+    print('\n\nSlope:', all_reg.params[1])
+    print('Intercept:', all_reg.params[0])
+    print('Chi-squared:', all_chi_sq,"\n\n")
+    plt.xlabel('Current')
+    plt.ylabel('Rel. Yield')
+    plt.title('SHMS Rel. Yield vs Current')
+    plt.legend()
 
-yield_fig = plt.figure(figsize=(12,8))
+    pdf.savefig(fig)
+    plt.close(fig)
 
-# plot the data with error bars and the regression line
-for i, s in enumerate(settingList):
-    plt.errorbar(dataDict[s]['x'][:,0], dataDict[s]['yield'], yerr=dataDict[s]['yield_error'], fmt=fmt_list[i], label="{0}, P = {1}".format(s,dataDict[s]['momentum']), color=color_list[i])
-plt.xlabel('Current')
-plt.ylabel('Yield')
-plt.title('SHMS Yield vs Current')
-plt.legend()
+    fig = plt.figure(figsize=(12,8))
 
-momentum_fig = plt.figure(figsize=(12,8))
+    # plot the data with error bars and the regression line
+    for i, s in enumerate(settingList):
+        plt.errorbar(dataDict[s]['x'][:,0], dataDict[s]['y'][:,0], yerr=dataDict[s]['yield_error'], fmt=fmt_list[i], label="{0}, P = {1}".format(s,dataDict[s]['momentum']), color=color_list[i])
+        plt.plot(dataDict[s]['x'], dataDict[s]['reg'].predict(sm.add_constant(dataDict[s]['x'])), linewidth=2.0, linestyle=style_list[i], color=color_list[i])
+        # print the slope, intercept, and chi-squared value
+        print('Slope:', dataDict[s]['reg'].params[1])
+        print('Intercept:', dataDict[s]['reg'].params[0])
+        print('Chi-squared:', dataDict[s]['chi_sq'])
+    plt.xlabel('Current')
+    plt.ylabel('Rel. Yield')
+    plt.title('SHMS Rel. Yield vs Current')
+    plt.legend()
 
-# plot the data with error bars and the regression line
-for i, s in enumerate(settingList):
-    plt.errorbar(dataDict[s]['x'][:,0], np.ones_like(dataDict[s]['x'][:,0])*dataDict[s]['momentum'], yerr=dataDict[s]['yield_error'], fmt=fmt_list[i], label="{0}".format(s), color=color_list[i])
-plt.xlabel('Current')
-plt.ylabel('Momentum')
-plt.title('SHMS Momentum vs Current')
-plt.legend()
+    pdf.savefig(fig)
+    plt.close(fig)
 
-plt.show()
+    fig = plt.figure(figsize=(12,8))
+
+    # plot the data with error bars and the regression line
+    for i, s in enumerate(settingList):
+        plt.errorbar(dataDict[s]['x'][:,0], dataDict[s]['yield'], yerr=dataDict[s]['yield_error'], fmt=fmt_list[i], label="{0}, P = {1}".format(s,dataDict[s]['momentum']), color=color_list[i])
+    plt.xlabel('Current')
+    plt.ylabel('Yield')
+    plt.title('SHMS Yield vs Current')
+    plt.legend()
+
+    pdf.savefig(fig)
+    plt.close(fig)
+
+    fig = plt.figure(figsize=(12,8))
+
+    # plot the data with error bars and the regression line
+    for i, s in enumerate(settingList):
+        plt.errorbar(dataDict[s]['x'][:,0], np.ones_like(dataDict[s]['x'][:,0])*dataDict[s]['momentum'], yerr=dataDict[s]['yield_error'], fmt=fmt_list[i], label="{0}".format(s), color=color_list[i])
+    plt.xlabel('Current')
+    plt.ylabel('Momentum')
+    plt.title('SHMS Momentum vs Current')
+    plt.legend()
+
+    pdf.savefig(fig)
+    plt.close(fig)
