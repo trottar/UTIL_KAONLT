@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-05-15 10:53:54 trottar"
+# Time-stamp: "2023-05-15 10:54:51 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -81,7 +81,7 @@ for i,s in enumerate(settingList):
         dataDict[s]['chi_squared'] = np.sum((np.array(dataDict[s]['y']) - np.array(dataDict[s]['expected_y']))**2 / np.array(dataDict[s]['yield_error'])**2)
 
         all_current = np.concatenate([all_current, data['current']])
-        all_relyield = np.concatenate([all_relyield, data['yield_HMS_track']])
+        all_relyield = np.concatenate([all_relyield, data['yieldRel_HMS_track']])
         all_uncern_relyield = np.concatenate([all_uncern_relyield, data['uncern_yieldRel_HMS_track']])
         
     except IOError:
@@ -96,7 +96,7 @@ print(dataDict.values())
 all_current = all_current[:, np.newaxis]
 all_relyield = all_relyield[:, np.newaxis]
 all_reg = LinearRegression().fit(all_current, all_relyield)
-residuals = all_current - all_reg.predict(all_current)
+residuals = all_relyield - all_reg.predict(all_current)
 corr_y = all_relyield - residuals
 
 i = 0
