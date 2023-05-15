@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-05-15 13:39:46 trottar"
+# Time-stamp: "2023-05-15 13:43:25 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -136,8 +136,8 @@ conf_int = all_reg.conf_int()
 print("!!!!!!!!!!!!!!!",conf_int)
 print("!!!!!!!!!!!!!!!",conf_int[:,0])
 print("!!!!!!!!!!!!!!!",conf_int[:,1])
-upper_bounds = conf_int[:, 0]
-lower_bounds = conf_int[:, 1]
+upper_bounds = corr_y + conf_int[:, 0][0]
+lower_bounds = corr_y - conf_int[:, 1][0]
 plt.fill_between(all_current[:,0], upper_bounds, lower_bounds, alpha=0.2)
 # print the slope, intercept, and chi-squared value
 print('\n\nSlope:', all_reg.params[1])
@@ -155,8 +155,8 @@ for i, s in enumerate(settingList):
     plt.errorbar(dataDict[s]['x'][:,0], dataDict[s]['y'][:,0], yerr=dataDict[s]['yield_error'], fmt=fmt_list[i], label="{0}, {1}".format(s,dataDict[s]['momentum']), color=color_list[i])
     plt.plot(dataDict[s]['x'], dataDict[s]['reg'].predict(sm.add_constant(dataDict[s]['x'])), linewidth = 2.0, linestyle=style_list[i], color=color_list[i])
     conf_int = dataDict[s]['reg'].conf_int()
-    upper_bounds = conf_int[:, 0]
-    lower_bounds = conf_int[:, 1]
+    upper_bounds = dataDict[s]['y'][:,0] + conf_int[:, 0][0]
+    lower_bounds = dataDict[s]['y'][:,0] - conf_int[:, 1][0]
     plt.fill_between(dataDict[s]['x'][:,0], upper_bounds, lower_bounds, alpha=0.2)
     # print the slope, intercept, and chi-squared value
     print('Slope:', dataDict[s]['reg'].params[1])
