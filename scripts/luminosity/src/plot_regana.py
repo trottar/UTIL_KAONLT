@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-05-15 07:55:24 trottar"
+# Time-stamp: "2023-05-15 07:58:56 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -68,7 +68,7 @@ for s in settingList:
 
         # calculate the chi-squared value
         dataDict[s]['expected_y'] = dataDict[s]['reg'].predict(dataDict[s]['x'])
-        dataDict[s]['chi_squared'] = np.sum((dataDict[s]['y'] - dataDict[s]['expected_y'])**2 / dataDict[s]["yield_error"]**2)
+        #dataDict[s]['chi_squared'] = np.sum((dataDict[s]['y'] - dataDict[s]['expected_y'])**2 / dataDict[s]['yield_error']**2)
         
     except IOError:
         print("Error: %s does not appear to exist." % inp_f)
@@ -81,12 +81,12 @@ print(dataDict.values())
 
 # plot the data with error bars and the regression line
 for s in settingList:
-    plt.errorbar(dataDict[s]['x'][:,0], dataDict[s]['y'][:,0], yerr=dataDict[s]["yield_error"], fmt='o', label='Data')
+    plt.errorbar(dataDict[s]['x'][:,0], dataDict[s]['y'][:,0], yerr=dataDict[s]['yield_error'], fmt='o', label='Data')
     plt.plot(dataDict[s]['x'], dataDict[s]['reg'].predict(dataDict[s]['x']), label='Linear Regression')
     # print the slope, intercept, and chi-squared value
     print('Slope:', dataDict[s]['reg'].coef_[0][0])
     print('Intercept:', dataDict[s]['reg'].intercept_[0])
-    print('Chi-squared:', dataDict[s]['chi_squared'])    
+    #print('Chi-squared:', dataDict[s]['chi_squared'])    
 plt.xlabel('Current')
 plt.ylabel('Yield')
 plt.title('Yield vs Current')
