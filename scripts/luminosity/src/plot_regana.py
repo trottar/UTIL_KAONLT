@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-05-15 10:15:01 trottar"
+# Time-stamp: "2023-05-15 10:16:35 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -112,9 +112,9 @@ for i, s in enumerate(settingList):
     plt.errorbar(dataDict[s]['x'][:,0], dataDict[s]['y'][:,0], yerr=dataDict[s]['yield_error'], fmt=fmt_list[i], label="{0}, {1}".format(s,dataDict[s]['momentum']), color=color_list[i])
     plt.plot(all_current, all_reg.predict(all_current), linestyle=':', color='purple')
 # print the slope, intercept, and chi-squared value
-print('Slope:', all_reg.coef_[0][0])
+print('\n\nSlope:', all_reg.coef_[0][0])
 print('Intercept:', all_reg.intercept_[0])
-print('Chi-squared:', dataDict[s]['chi_squared'])
+print('Chi-squared:', dataDict[s]['chi_squared'],"\n\n")
 plt.xlabel('Current')
 plt.ylabel('Rel. Yield')
 plt.title('Rel. Yield vs Current')
