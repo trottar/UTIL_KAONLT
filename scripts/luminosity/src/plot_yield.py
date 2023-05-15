@@ -3,7 +3,7 @@
 # Description: Grabs lumi data from corresponding csv depending on run setting. Then plots the yields and creates a comprehensive table.
 # Variables calculated: current, rate_HMS, rate_SHMS, sent_edtm_PS, uncern_HMS_evts_scaler, uncern_SHMS_evts_scaler, uncern_HMS_evts_notrack, uncern_SHMS_evts_notrack, uncern_HMS_evts_track, uncern_SHMS_evts_track
 # ================================================================
-# Time-stamp: "2023-05-15 12:20:14 trottar"
+# Time-stamp: "2023-05-15 12:49:57 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -14,7 +14,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 from scipy.optimize import curve_fit
-from sklearn.linear_model import LinearRegression
+import statsmodels.api as sm
 from csv import DictReader
 import sys, os, subprocess, math
 
@@ -431,6 +431,28 @@ def plot_yield():
 
         return m/b
     '''
+
+    def linear_plot(x, y, xerr=None, yerr=None, xvalmax=100):
+        # Remove NaN values from list
+        c_arr = [[nx,ny] for nx,ny in zip(x,y) if str(ny) != 'nan']
+        x_c = np.array([i[0] for i in c_arr])
+        y_c = np.array([i[1] for i in c_arr])
+
+        results = sm.WLS(y_c, sm.add_constant(x_c), weights=1.0/yerr**2).fit()
+
+        m = results.params[1]
+        b = results.params[0]
+        
+        # Find chi-squared
+        res = y_c - results.predict(sm.add_constant(x_c))
+        chisq = np.sum((res/(y_c*yerr))**2) if yerr is not None else np.sum(res**2)
+
+        # Plot fit from axis
+        x_fit = np.linspace(0,xvalmax)
+        y_fit = fit_func(x_fit, m/b, 1.0)
+        plt.plot(x_fit, y_fit, color='green', label='{0}={1:0.2e}*{2}+1.00\n{3}={4:0.2e}\n{5}={6:0.2e}'.format(r'Y/$Y_0$',m/b,r'$I_b$',r'$\chi^2$',chisq,r'$m_0$',(m/b)), zorder=5)
+
+        return m/b    
 
     #########################################################################################################################################################
 
