@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-05-15 09:10:51 trottar"
+# Time-stamp: "2023-05-15 09:24:56 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -62,11 +62,12 @@ for i,s in enumerate(settingList):
         print(data.keys())
         dataDict[s]['momentum'] = momentumList[i]
         dataDict[s]['current'] = data['current']
-        dataDict[s]['yield'] = data['yieldRel_HMS_track']
+        dataDict[s]['rel_yield'] = data['yieldRel_HMS_track']
+        dataDict[s]['yield'] = data['yield_HMS_track']
         dataDict[s]['yield_error'] = data['uncern_yieldRel_HMS_track']
         # reshape the currents, yields, and yield errors into column vectors
         dataDict[s]['x'] = dataDict[s]["current"][:, np.newaxis]
-        dataDict[s]['y'] = dataDict[s]["yield"][:, np.newaxis]
+        dataDict[s]['y'] = dataDict[s]["rel_yield"][:, np.newaxis]
 
         # create a linear regression object and fit the data
         dataDict[s]['reg'] = LinearRegression().fit(dataDict[s]['x'], dataDict[s]['y'])
@@ -89,7 +90,7 @@ fmt_list = ['o', 's', '^', 'd']
 style_list = ['-', '--', ':', '-.']
 color_list = ['red', 'green', 'blue', 'orange']
 
-yield_fig = plt.figure(figsize=(12,8))
+relyield_fig = plt.figure(figsize=(12,8))
 
 # plot the data with error bars and the regression line
 for i, s in enumerate(settingList):
@@ -100,6 +101,16 @@ for i, s in enumerate(settingList):
     print('Intercept:', dataDict[s]['reg'].intercept_[0])
     #print('Chi-squared:', dataDict[s]['chi_squared'])
 plt.xlabel('Current')
+plt.ylabel('Rel. Yield')
+plt.title('Rel. Yield vs Current')
+plt.legend()
+
+yield_fig = plt.figure(figsize=(12,8))
+
+# plot the data with error bars and the regression line
+for i, s in enumerate(settingList):
+    plt.errorbar(dataDict[s]['x'][:,0], dataDict[s]['yield'], yerr=dataDict[s]['yield_error'], fmt=fmt_list[i], label="{0}, {1}".format(s,dataDict[s]['momentum']), color=color_list[i])
+plt.xlabel('Current')
 plt.ylabel('Yield')
 plt.title('Yield vs Current')
 plt.legend()
@@ -109,10 +120,6 @@ momentum_fig = plt.figure(figsize=(12,8))
 # plot the data with error bars and the regression line
 for i, s in enumerate(settingList):
     plt.errorbar(dataDict[s]['x'][:,0], np.ones_like(dataDict[s]['x'][:,0])*dataDict[s]['momentum'], yerr=dataDict[s]['yield_error'], fmt=fmt_list[i], label="{0}".format(s), color=color_list[i])
-    # print the slope, intercept, and chi-squared value
-    print('Slope:', dataDict[s]['reg'].coef_[0][0])
-    print('Intercept:', dataDict[s]['reg'].intercept_[0])
-    #print('Chi-squared:', dataDict[s]['chi_squared'])
 plt.xlabel('Current')
 plt.ylabel('Momentum')
 plt.title('Momentum vs Current')
