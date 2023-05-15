@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-05-15 14:20:24 trottar"
+# Time-stamp: "2023-05-15 14:22:25 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -86,7 +86,7 @@ for i,s in enumerate(settingList):
 
         all_current = np.concatenate([all_current, data['current']])
         all_relyield = np.concatenate([all_relyield, data['yieldRel_HMS_track']])
-        all_uncern_relyield = np.concatenate([all_uncern_relyield, data['yieldRel_HMS_track']*data['uncern_yieldRel_HMS_track']])
+        all_uncern_relyield = np.concatenate([all_uncern_relyield, data['uncern_yieldRel_HMS_track']])
         
     except IOError:
         print("Error: %s does not appear to exist." % inp_f)
@@ -100,8 +100,9 @@ print(dataDict.values())
 all_current = all_current[:, np.newaxis]
 all_relyield = all_relyield[:, np.newaxis]
 all_uncern_relyield = all_uncern_relyield[:, np.newaxis]
-#all_reg = LinearRegression().fit(all_current, all_relyield)
-all_reg = sm.OLS(all_relyield, sm.add_constant(all_current)).fit()
+# Linear regression (unweighted)
+#all_reg = sm.OLS(all_relyield, sm.add_constant(all_current)).fit()
+# Linear regression (weighted)
 #all_reg = sm.WLS(all_relyield, sm.add_constant(all_current), weights=1.0/all_uncern_relyield**2).fit()
 all_expected_y = all_reg.predict(sm.add_constant(all_current))
 residuals = all_relyield - all_expected_y
