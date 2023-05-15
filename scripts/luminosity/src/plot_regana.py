@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-05-15 10:54:51 trottar"
+# Time-stamp: "2023-05-15 10:57:34 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -96,7 +96,9 @@ print(dataDict.values())
 all_current = all_current[:, np.newaxis]
 all_relyield = all_relyield[:, np.newaxis]
 all_reg = LinearRegression().fit(all_current, all_relyield)
-residuals = all_relyield - all_reg.predict(all_current)
+all_expected_y = all_reg.predict(all_current)
+all_chi_squared = np.sum((np.array(all_relyield) - np.array(all_expected_y))**2 / np.array(all_uncern_relyield)**2)
+residuals = all_relyield - all_expected_y
 corr_y = all_relyield - residuals
 
 i = 0
@@ -126,7 +128,7 @@ for i, s in enumerate(settingList):
 # print the slope, intercept, and chi-squared value
 print('\n\nSlope:', all_reg.coef_[0][0])
 print('Intercept:', all_reg.intercept_[0])
-print('Chi-squared:', dataDict[s]['chi_squared'],"\n\n")
+print('Chi-squared:', all_chi_squared,"\n\n")
 plt.xlabel('Current')
 plt.ylabel('Rel. Yield')
 plt.title('Rel. Yield vs Current')
