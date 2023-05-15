@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-05-15 08:46:05 trottar"
+# Time-stamp: "2023-05-15 08:48:16 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -99,21 +99,19 @@ ax2 = ax1.twinx()
 for i, s in enumerate(settingList):
     ax1.errorbar(dataDict[s]['x'][:,0], dataDict[s]['y'][:,0], yerr=dataDict[s]['yield_error'], fmt=fmt_list[i], label="{0}, {1}".format(s,dataDict[s]['momentum']), color=color_list[i])
     ax1.plot(dataDict[s]['x'], dataDict[s]['reg'].predict(dataDict[s]['x']), linestyle=style_list[i], color=color_list[i])
-    # add second y-axis for momentum
-    ax2 = ax1.twinx()
-    ax2.set_ylabel('Momentum')
-    ax2.tick_params(axis='y', labelcolor='tab:orange')
-    ax2.set_ylim(ax1.get_ylim())
-    ax2.set_yticks(ax1.get_yticks())
-    ax2.set_yticklabels(np.round(ax1.get_yticks(), decimals=1))
     ax2.plot(dataDict[s]['x'], np.ones_like(dataDict[s]['x'])*dataDict[s]['momentum'], linestyle='--', color='tab:orange', alpha=0.7)
     # print the slope, intercept, and chi-squared value
     print('Slope:', dataDict[s]['reg'].coef_[0][0])
     print('Intercept:', dataDict[s]['reg'].intercept_[0])
-    #print('Chi-squared:', dataDict[s]['chi_squared'])    
-ax1.xlabel('Current')
-ax1.ylabel('Yield')
-ax1.title('Yield vs Current')
+    #print('Chi-squared:', dataDict[s]['chi_squared'])
+ax2.set_ylabel('Momentum')
+ax2.tick_params(axis='y', labelcolor='tab:orange')
+ax2.set_ylim(ax1.get_ylim())
+ax2.set_yticks(ax1.get_yticks())
+ax2.set_yticklabels(np.round(ax1.get_yticks(), decimals=1))    
+ax1.set_xlabel('Current')
+ax1.set_ylabel('Yield')
+#ax1.title('Yield vs Current')
 ax1.legend()
 
 plt.show()
