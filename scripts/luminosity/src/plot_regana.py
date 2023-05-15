@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-05-15 08:55:37 trottar"
+# Time-stamp: "2023-05-15 08:59:19 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -42,8 +42,8 @@ sys.path.insert(0,"%s/luminosity/src/%sLT" % (SCRIPTPATH,ANATYPE))
 import data_path
 
 settingList = ["10p6cl1","10p6cl2","10p6cl3","8p2cl1"]
-momentumList = [3.266, 4.204, 6.269, 5.745] # HMS e-
-#momentumList = [6.842, 6.053, 6.269, 5.745] # SHMS e-
+momentumList = [-3.266, -4.204, -6.269, -5.745] # HMS
+#momentumList = [6.842, 6.053, -6.269, -5.745] # SHMS
 
 dataDict = {}
 
@@ -89,27 +89,30 @@ fmt_list = ['o', 's', '^', 'd']
 style_list = ['-', '--', ':', '-.']
 color_list = ['red', 'green', 'blue', 'orange']
 
-# create a figure and axis objects
-fig, ax1 = plt.subplots()
-
-# create a second y-axis for momentum values
-ax2 = ax1.twinx()
-
 # plot the data with error bars and the regression line
 for i, s in enumerate(settingList):
-    ax1.errorbar(dataDict[s]['x'][:,0], dataDict[s]['y'][:,0], yerr=dataDict[s]['yield_error'], fmt=fmt_list[i], label="{0}".format(s), color=color_list[i])
-    ax1.plot(dataDict[s]['x'], dataDict[s]['reg'].predict(dataDict[s]['x']), linestyle=style_list[i], color=color_list[i])
-    ax2.plot(dataDict[s]['x'], np.ones_like(dataDict[s]['x'])*dataDict[s]['momentum'], alpha=0.0)
+    plt.errorbar(dataDict[s]['x'][:,0], dataDict[s]['y'][:,0], yerr=dataDict[s]['yield_error'], fmt=fmt_list[i], label="{0}".format(s,dataDict[s]['momentum']), color=color_list[i])
+    plt.plot(dataDict[s]['x'], dataDict[s]['reg'].predict(dataDict[s]['x']), linestyle=style_list[i], color=color_list[i])
     # print the slope, intercept, and chi-squared value
     print('Slope:', dataDict[s]['reg'].coef_[0][0])
     print('Intercept:', dataDict[s]['reg'].intercept_[0])
     #print('Chi-squared:', dataDict[s]['chi_squared'])
-ax2.set_ylabel('|Momentum|')
-#ax2.tick_params(axis='y', labelcolor='tab:orange')
-ax2.tick_params(axis='y')
-ax1.set_xlabel('Current')
-ax1.set_ylabel('Yield')
-#ax1.title('Yield vs Current')
-ax1.legend()
+plt.set_xlabel('Current')
+plt.set_ylabel('Yield')
+#plt.title('Yield vs Current')
+plt.legend()
+
+# plot the data with error bars and the regression line
+for i, s in enumerate(settingList):
+    plt.errorbar(dataDict[s]['x'][:,0], dataDict[s]['momentum'][:,0], yerr=dataDict[s]['yield_error'], fmt=fmt_list[i], label="{0}".format(s,dataDict[s]['current']), color=color_list[i])
+    plt.plot(dataDict[s]['x'], dataDict[s]['reg'].predict(dataDict[s]['x']), linestyle=style_list[i], color=color_list[i])
+    # print the slope, intercept, and chi-squared value
+    print('Slope:', dataDict[s]['reg'].coef_[0][0])
+    print('Intercept:', dataDict[s]['reg'].intercept_[0])
+    #print('Chi-squared:', dataDict[s]['chi_squared'])
+plt.set_xlabel('Current')
+plt.set_ylabel('Momentum')
+#plt.title('Yield vs Current')
+plt.legend()
 
 plt.show()
