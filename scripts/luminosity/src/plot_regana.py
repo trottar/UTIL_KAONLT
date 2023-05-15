@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-05-15 10:34:24 trottar"
+# Time-stamp: "2023-05-15 10:35:12 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -97,7 +97,7 @@ all_current = all_current[:, np.newaxis]
 all_relyield = all_relyield[:, np.newaxis]
 all_reg = LinearRegression().fit(all_current, all_relyield)
 residuals = all_current - all_reg.predict(all_current)
-corr_y = all_relyield - residuals
+corr_y = all_relyield[:,0] - residuals[:,0]
 
 print("!!!!!!!!!!!!",residuals,"---",corr_y)
 
