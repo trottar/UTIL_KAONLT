@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-05-15 12:41:46 trottar"
+# Time-stamp: "2023-05-15 12:44:46 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -99,8 +99,10 @@ print(dataDict.values())
 
 all_current = all_current[:, np.newaxis]
 all_relyield = all_relyield[:, np.newaxis]
-all_reg = LinearRegression().fit(all_current, all_relyield)
-all_expected_y = all_reg.predict(all_current)
+all_uncern_relyield = all_uncern_relyield[:, np.newaxis]
+#all_reg = LinearRegression().fit(all_current, all_relyield)
+all_reg = sm.WLS(all_relyield, sm.add_constant(all_current), weights=1.0/all_uncern_relyield**2).fit()
+all_expected_y = all_reg.predict(sm.add_constant(all_current))
 residuals = all_relyield - all_expected_y
 all_chi_sq = np.sum((residuals)**2 / np.array(all_uncern_relyield)**2)
 corr_y = all_relyield - residuals
@@ -131,8 +133,8 @@ for i, s in enumerate(settingList):
     #plt.scatter(dataDict[s]['current'], dataDict[s]['corr_y'], label="{0}, {1}".format(s,dataDict[s]['momentum']), color=color_list[i])
     plt.plot(all_current, all_reg.predict(all_current), linewidth = 2.0, linestyle=':', color='purple')
 # print the slope, intercept, and chi-squared value
-print('\n\nSlope:', all_reg.coef_[0][0])
-print('Intercept:', all_reg.intercept_[0])
+print('\n\nSlope:', all_reg.params[1])
+print('Intercept:', all_reg.params[0])
 print('Chi-squared:', all_chi_sq,"\n\n")
 plt.xlabel('Current')
 plt.ylabel('Rel. Yield')
