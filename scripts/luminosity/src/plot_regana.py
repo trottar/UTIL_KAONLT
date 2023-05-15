@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-05-15 13:59:27 trottar"
+# Time-stamp: "2023-05-15 14:00:25 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -139,8 +139,8 @@ print("!!!!!!!!!!!!!!!",conf_int[:,1])
 #upper_bounds = np.tile(conf_int[:, 1][0], len(all_current))
 #lower_bounds = np.tile(conf_int[:, 0][0], len(all_current))
 # calculate the upper and lower confidence intervals for the regression line
-upper_bounds = conf_int[0][0] + conf_int[1][0]*all_current
-lower_bounds = conf_int[0][1] + conf_int[1][1]*all_current
+upper_bounds = conf_int[0][0] + conf_int[1][0]*all_current[:,0]
+lower_bounds = conf_int[0][1] + conf_int[1][1]*all_current[:,0]
 plt.fill_between(all_current[:,0], upper_bounds, lower_bounds, alpha=0.2)
 # print the slope, intercept, and chi-squared value
 print('\n\nSlope:', all_reg.params[1])
