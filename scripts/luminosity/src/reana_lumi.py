@@ -2,7 +2,7 @@
 #
 # Description: Script is used to reanalyze all lumi data or to organize lumi data values into subdirectories
 # ================================================================
-# Time-stamp: "2022-10-25 13:48:05 trottar"
+# Time-stamp: "2023-05-31 11:32:18 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -205,3 +205,6 @@ else:
     c_l1_8p2 = dict(lumi_data.loc[((lumi_data["run number"] >= 7948) & (lumi_data["run number"] <= 7952))])
     convertDFtoCSV(c_l1_8p2,SCRIPTPATH+"/luminosity/OUTPUTS/8p2/Lumi_1/Carbon0p5/lumi_data_c_l1_8p2.csv")
     print("\n\nLumi #1 Carbon0p5 runs {0} are now in {1}".format(list(c_l1_8p2["run number"]),SCRIPTPATH+"/luminosity/OUTPUTS/8p2/Lumi_1/Carbon0p5/lumi_data_c_l1_8p2.csv"))
+    lh2_l2_8p2 = dict(lumi_data.loc[((lumi_data["run number"] >= 8038) & (lumi_data["run number"] <= 8085))])
+    convertDFtoCSV(lh2_l2_8p2,SCRIPTPATH+"/luminosity/OUTPUTS/8p2/Lumi_1/LH2/lumi_data_lh2_l2_8p2.csv")
+    print("\n\nLumi #1 LH2 runs {0} are now in {1}".format(list(lh2_l2_8p2["run number"]),SCRIPTPATH+"/luminosity/OUTPUTS/8p2/Lumi_1/LH2/lumi_data_lh2_l2_8p2.csv"))
