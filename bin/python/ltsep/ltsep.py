@@ -2,7 +2,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-01-14 12:59:38 trottar"
+# Time-stamp: "2023-06-14 15:44:44 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -932,22 +932,38 @@ class Root():
                     inputDict = {}
                 # Redefines the dictionary to be reimplemented below
                 cutDict = SetCuts(self.CURRENT_ENV,importDict).readDict(cut,inputDict)
-                try:
-                    for j,val in enumerate(x):
+                for j,val in enumerate(x):
+                    try:
                         # Evaluates the list of strings which converts them to a list of boolean values
                         # corresponding to the cuts applied
                         cutDict = SetCuts(self.CURRENT_ENV,importDict).evalDict(cut,eval(x[j]),cutDict)
                         # This is the cython defined version, slightly faster but 
                         # requires it to be compiled fist
                         #cutDict = evalDict(cut,eval(x[j]),cutDict)
-                except NameError:
-                    raise InvalidEntry('''
-                    ======================================================================
-                      ERROR: %s invalid.
-                      Check that run number %s is properly defined in...
-                      %s/DB/PARAM
-                    ======================================================================
-                    ''' % (cut,self.runNum,self.UTILPATH))
+                    except NameError:
+                        if "pid" in x[j]:
+                            err_dir = self.UTILPATH+"/DB/PARAM/PID_Parameters.csv"
+                        if "track" in x[j]:
+                            err_dir = self.UTILPATH+"/DB/PARAM/Tracking_Parameters.csv"
+                        if "accept" in x[j]:
+                            err_dir = self.UTILPATH+"/DB/PARAM/Acceptance_Parameters.csv"
+                        if "coin_time" in x[j]:
+                            err_dir = self.UTILPATH+"/DB/PARAM/Timing_Parameters.csv"
+                        if "current" in x[j]:
+                            err_dir = self.UTILPATH+"/DB/PARAM/Current_Parameters.csv"
+                        if "misc" in x[j]:
+                            err_dir = self.UTILPATH+"/DB/PARAM/Misc_Parameters.csv"
+                        raise InvalidEntry('''
+                        ======================================================================
+                          ERROR: %s invalid.
+
+                          Improperly defined cut at... 
+                          %s
+                        ----------------------------------------------------------------------
+                          Check that run number %s is properly defined in...
+                          %s
+                        ======================================================================
+                        ''' % (cut,x[j],self.runNum,err_dir))
             strDict = dict(zip(cutNames,cutVals))
 
             return [SetCuts(self.CURRENT_ENV,cutDict),treeDict,strDict]
