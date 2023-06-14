@@ -3,7 +3,7 @@
 # Description: This is where the variables for the yield calculations are formulated.
 # Variables calculated: tot_events, h_int_etottracknorm_evts, p_int_etottracknorm_evts, SHMSTRIG_cut, HMSTRIG_cut, HMS_track, HMS_track_uncern, SHMS_track, SHMS_track_uncern, accp_edtm
 # ================================================================
-# Time-stamp: "2023-06-01 11:21:31 trottar"
+# Time-stamp: "2023-06-01 11:24:41 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -93,38 +93,26 @@ try:
     ps1=int(ps1_tmp)
 except NameError:
     ps1=-1
-except ValueError:
-    ps1=-1    
 try:
     ps2=int(ps2_tmp)
 except NameError:
     ps2=-1
-except ValueError:
-    ps2=-1    
 try:
     ps3=int(ps3_tmp)
 except NameError:
     ps3=-1
-except ValueError:
-    ps3=-1    
 try:
     ps4=int(ps4_tmp)
 except NameError:
     ps4=-1
-except ValueError:
-    ps4=-1    
 try:
     ps5=int(ps5_tmp)
 except NameError:
     ps5=-1
-except ValueError:
-    ps5=-1    
 try:
     ps6=int(ps6_tmp)
 except NameError:
     ps6=-1
-except ValueError:
-    ps6=-1    
 SHMS_track_eff = float(SHMS_track_info[0]) # Also define below, I'll probably use the report for consistency's sake
 SHMS_track_uncern = float(SHMS_track_info[1])
 HMS_track_eff = float(HMS_track_info[0]) # Also define below, I'll probably use the report for consistency's sake
