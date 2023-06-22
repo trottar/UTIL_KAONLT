@@ -3,7 +3,7 @@
 # Description: This is where the scaler variables for the yield calculations are formulated.
 # Variables calculated: SHMS_PS, HMS_PS, time, charge, SHMSTRIG_scaler, HMSTRIG_scaler, CPULT_scaler, CPULT_scaler_uncern, HMS_eLT, HMS_eLT_uncern, SHMS_eLT, SHMS_eLT_uncern, sent_edtm
 # ================================================================
-# Time-stamp: "2023-05-05 11:15:32 trottar"
+# Time-stamp: "2023-06-22 12:45:38 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -12,6 +12,7 @@
 #
 import uproot as up
 import numpy as np
+import math
 
 ################################################################################################################################################
 
@@ -242,6 +243,12 @@ def scaler(PS_names, HMS_PS, SHMS_PS, COIN_PS, thres_curr, report_current, runNu
                 # Iterate over current value then subtracting previous so that there is no double counting. Subtracted values are uncut.
                 charge_sum[ibcm] += (bcm_value[ibcm][i] - previous_charge[ibcm])
                 time_sum[ibcm] += (time_value[i] - previous_time[ibcm])
+            # Correction to bcm1 from Peter Bosted
+            if (current[ibcm][i] < 60):
+                bcmcorr = 1.00+0.045*(math.log(60)-math.log(current[ibcm][i])/(math.log(60)-math.log(2)))
+            else:
+                bcmcorr = 1.00+0.010*(current[ibcm][i]-60)/25
+            current[ibcm][i] = current[ibcm][i] + bcmcorr
             # Current cuts and selection of BCM1
             if (ibcm == bcm_ix and abs( current[ibcm][i]-report_current) < thres_curr):
                 # EDTM scaler iteration.
