@@ -3,7 +3,7 @@
 # Description: This is where the scaler variables for the yield calculations are formulated.
 # Variables calculated: SHMS_PS, HMS_PS, time, charge, SHMSTRIG_scaler, HMSTRIG_scaler, CPULT_scaler, CPULT_scaler_uncern, HMS_eLT, HMS_eLT_uncern, SHMS_eLT, SHMS_eLT_uncern, sent_edtm
 # ================================================================
-# Time-stamp: "2023-06-22 12:45:38 trottar"
+# Time-stamp: "2023-06-22 14:43:12 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -245,7 +245,7 @@ def scaler(PS_names, HMS_PS, SHMS_PS, COIN_PS, thres_curr, report_current, runNu
                 time_sum[ibcm] += (time_value[i] - previous_time[ibcm])
             # Correction to bcm1 from Peter Bosted
             if (current[ibcm][i] < 60):
-                bcmcorr = 1.00+0.045*(math.log(60)-math.log(current[ibcm][i])/(math.log(60)-math.log(2)))
+                bcmcorr = 1.00+0.045*(math.log(60)-math.log(abs(current[ibcm][i]))/(math.log(60)-math.log(2)))
             else:
                 bcmcorr = 1.00+0.010*(current[ibcm][i]-60)/25
             current[ibcm][i] = current[ibcm][i] + bcmcorr
