@@ -3,7 +3,7 @@
 # Description: This is where the scaler variables for the yield calculations are formulated.
 # Variables calculated: SHMS_PS, HMS_PS, time, charge, SHMSTRIG_scaler, HMSTRIG_scaler, CPULT_scaler, CPULT_scaler_uncern, HMS_eLT, HMS_eLT_uncern, SHMS_eLT, SHMS_eLT_uncern, sent_edtm
 # ================================================================
-# Time-stamp: "2023-06-22 16:05:28 trottar"
+# Time-stamp: "2023-06-23 13:18:19 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -234,6 +234,12 @@ def scaler(PS_names, HMS_PS, SHMS_PS, COIN_PS, thres_curr, report_current, runNu
         previous_charge[ibcm] = bcm_value[ibcm][0]
         # Iterate over all scaler events to get various scaler values
         for i, evt in enumerate(s_evts):
+            # Correction to bcm1 from Peter Bosted
+            if (current[ibcm][i] < 60):
+                bcmcorr = 1.00+0.045*(math.log(60)-math.log(abs(current[ibcm][i]))/(math.log(60)-math.log(2)))
+            else:
+                bcmcorr = 1.00+0.010*(current[ibcm][i]-60)/25
+            current[ibcm][i] = current[ibcm][i] * bcmcorr            
             if (time_value[i] != previous_time[ibcm]):
                 # Current calculation using iterative charge and time values.
                 # Iterate over current value then subtracting previous so that there is no double counting. Subtracted values are uncut.
@@ -243,12 +249,6 @@ def scaler(PS_names, HMS_PS, SHMS_PS, COIN_PS, thres_curr, report_current, runNu
                 # Iterate over current value then subtracting previous so that there is no double counting. Subtracted values are uncut.
                 charge_sum[ibcm] += (bcm_value[ibcm][i] - previous_charge[ibcm])
                 time_sum[ibcm] += (time_value[i] - previous_time[ibcm])
-            # Correction to bcm1 from Peter Bosted
-            if (current[ibcm][i] < 60):
-                bcmcorr = 1.00+0.045*(math.log(60)-math.log(abs(current[ibcm][i]))/(math.log(60)-math.log(2)))
-            else:
-                bcmcorr = 1.00+0.010*(current[ibcm][i]-60)/25
-            current[ibcm][i] = current[ibcm][i] * bcmcorr
             # Current cuts and selection of BCM1
             if (ibcm == bcm_ix and abs( current[ibcm][i]-report_current) < thres_curr):
                 # EDTM scaler iteration.
