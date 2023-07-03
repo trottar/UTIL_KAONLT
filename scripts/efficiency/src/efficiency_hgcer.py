@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2022-07-27 10:47:20 trottar"
+# Time-stamp: "2023-07-03 10:09:53 trottar"
 # ================================================================
 # 
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -58,7 +58,7 @@ def dictionary(UTILPATH,runNum,MaxEvent):
     foutpdf = OUTPATH+"/" + TOutFilename + ".pdf"
 
     #Events_no_cal_hgc_aero_cuts  = InFile.Get("SHMS_cut_no_Cal_HGC_Aero")  
-    Events_no_cal_hgc_aero_cuts  = InFile.Get("SHMS_Pions_Without_HGC_Cuts")
+    Events_no_cal_hgc_aero_cuts  = InFile.Get("SHMS_Kaons_Without_HGC_Cuts")
     nEntries_Events_no_cal_hgc_aero_cuts  = Events_no_cal_hgc_aero_cuts.GetEntries()
 
     # Particles information no cuts
@@ -103,26 +103,26 @@ def dictionary(UTILPATH,runNum,MaxEvent):
     #################################################################################################################################################
 
     h_hgcer_xAtCer_v_yAtCer  = ROOT.TH2D("hgcer_xAtCer_v_yAtCer","HGC; X; Y;" ,300, -50 ,50, 300, -50, 50)
-    h3_Pions_hgcer_XyAtCer_NPE = ROOT.TH3D("h3_Pions_hgcer_XyAtCer_NPE","HGC; NPE Sum; X; Y", 300, -40, 40, 300, -40, 40, 300, 0.0, 40)
+    h3_Kaons_hgcer_XyAtCer_NPE = ROOT.TH3D("h3_Kaons_hgcer_XyAtCer_NPE","HGC; NPE Sum; X; Y", 300, -40, 40, 300, -40, 40, 300, 0.0, 40)
 
     h_aero_xAtCer_v_yAtCer  = ROOT.TH2D("aero_xAtCer_v_yAtCer","AERO; X; Y;" ,300, -60 ,60, 300, -60, 60)
-    h3_Pions_aero_XyAtCer_NPE = ROOT.TH3D("h3_Pions_aero_XyAtCer_NPE","AERO; NPE Sum; X; Y", 300, -60, 60, 300, -60, 60, 300, 0.0, 40)
+    h3_Kaons_aero_XyAtCer_NPE = ROOT.TH3D("h3_Kaons_aero_XyAtCer_NPE","AERO; NPE Sum; X; Y", 300, -60, 60, 300, -60, 60, 300, 0.0, 40)
 
     h_hgcer_npeSum_v_aero_npeSum  = ROOT.TH2D("hgcer_npeSum_v_aero_npeSum","HGC vs AERO; hgcer; aero;" ,300,0,30, 300, 0, 40)
 
     for evt in Events_no_cal_hgc_aero_cuts:
         h_hgcer_xAtCer_v_yAtCer.Fill(evt.P_hgcer_xAtCer,evt.P_hgcer_yAtCer)
-        h3_Pions_hgcer_XyAtCer_NPE.Fill(evt.P_hgcer_xAtCer, evt.P_hgcer_yAtCer, evt.P_hgcer_npeSum)
+        h3_Kaons_hgcer_XyAtCer_NPE.Fill(evt.P_hgcer_xAtCer, evt.P_hgcer_yAtCer, evt.P_hgcer_npeSum)
         h_aero_xAtCer_v_yAtCer.Fill(evt.P_aero_xAtCer,evt.P_aero_yAtCer)
-        h3_Pions_aero_XyAtCer_NPE.Fill(evt.P_aero_xAtCer, evt.P_aero_yAtCer, evt.P_aero_npeSum)
+        h3_Kaons_aero_XyAtCer_NPE.Fill(evt.P_aero_xAtCer, evt.P_aero_yAtCer, evt.P_aero_npeSum)
         h_hgcer_npeSum_v_aero_npeSum.Fill(evt.P_hgcer_npeSum,evt.P_aero_npeSum)
 
 
-    h3_Pions_hgcer_XyAtCer_NPE_pxy = ROOT.TProfile2D("h3_Pions_hgcer_XyAtCer_NPE_pxy","HGC (vs NPE) NPE Sum; X; Y",300,-40,40, 300,-40,40,0.0,40)
-    h3_Pions_hgcer_XyAtCer_NPE.Project3DProfile("xy")
+    h3_Kaons_hgcer_XyAtCer_NPE_pxy = ROOT.TProfile2D("h3_Kaons_hgcer_XyAtCer_NPE_pxy","HGC (vs NPE) NPE Sum; X; Y",300,-40,40, 300,-40,40,0.0,40)
+    h3_Kaons_hgcer_XyAtCer_NPE.Project3DProfile("xy")
 
-    h3_Pions_aero_XyAtCer_NPE_pxy = ROOT.TProfile2D("h3_Pions_aero_XyAtCer_NPE_pxy","AERO (vs NPE) NPE Sum; X; Y",300,-60,60, 300,-60,60,0.0,40)
-    h3_Pions_aero_XyAtCer_NPE.Project3DProfile("xy")
+    h3_Kaons_aero_XyAtCer_NPE_pxy = ROOT.TProfile2D("h3_Kaons_aero_XyAtCer_NPE_pxy","AERO (vs NPE) NPE Sum; X; Y",300,-60,60, 300,-60,60,0.0,40)
+    h3_Kaons_aero_XyAtCer_NPE.Project3DProfile("xy")
 
     c_hgcer_XY = TCanvas("c_hgcer_XY", "HGC XY")  
     c_hgcer_XY.Divide(2,2)   
@@ -130,22 +130,22 @@ def dictionary(UTILPATH,runNum,MaxEvent):
     h_hgcer_xAtCer_v_yAtCer.Draw("colz")
     cutg.Draw("same")
     c_hgcer_XY.cd(2)
-    h3_Pions_hgcer_XyAtCer_NPE_pxy.Draw("colz")
+    h3_Kaons_hgcer_XyAtCer_NPE_pxy.Draw("colz")
     cutg.Draw("same")
     c_hgcer_XY.cd(3)
     h_hgcer_xAtCer_v_yAtCer.Draw("[cutg],colz")
     c_hgcer_XY.cd(4)
-    h3_Pions_hgcer_XyAtCer_NPE_pxy.Draw("[cutg],colz")
+    h3_Kaons_hgcer_XyAtCer_NPE_pxy.Draw("[cutg],colz")
     c_hgcer_XY.Print(foutpdf+'(')
 
     c_aero_XY = TCanvas("c_aero_XY", "AERO XY")  
     c_aero_XY.Divide(2,2)   
     c_aero_XY.cd(1)
-    h3_Pions_aero_XyAtCer_NPE_pxy.Draw("colz")
+    h3_Kaons_aero_XyAtCer_NPE_pxy.Draw("colz")
     c_aero_XY.cd(2)
     Events_no_cal_hgc_aero_cuts.Draw("P_aero_npeSum>>h(300,0.3,40)", "!cutg",  "colz")
     c_aero_XY.cd(3)
-    h3_Pions_aero_XyAtCer_NPE_pxy.Draw("[cutg],colz")
+    h3_Kaons_aero_XyAtCer_NPE_pxy.Draw("[cutg],colz")
     c_aero_XY.cd(4)
     Events_no_cal_hgc_aero_cuts.Draw("P_aero_npeSum>>h2(300,0.3,40)", "cutg",  "colz")
     c_aero_XY.Print(foutpdf)
@@ -164,8 +164,8 @@ def dictionary(UTILPATH,runNum,MaxEvent):
 
     #hgcer_did = cutg.IntegralHist(h_hgcer_npeSum_v_aero_npeSum)
     #hgcer_should = h_hgcer_npeSum_v_aero_npeSum.Integral(0,30,0,30)
-    hgcer_did = cutg.IntegralHist(h3_Pions_hgcer_XyAtCer_NPE_pxy)
-    hgcer_should = h3_Pions_hgcer_XyAtCer_NPE_pxy.Integral()
+    hgcer_did = cutg.IntegralHist(h3_Kaons_hgcer_XyAtCer_NPE_pxy)
+    hgcer_should = h3_Kaons_hgcer_XyAtCer_NPE_pxy.Integral()
 
     hgcer_eff = hgcer_did/hgcer_should
     hgcer_error = np.sqrt(((hgcer_did*hgcer_should)+(hgcer_did*hgcer_did))/(hgcer_should*hgcer_should*hgcer_should))
@@ -174,8 +174,8 @@ def dictionary(UTILPATH,runNum,MaxEvent):
     print("HGCer efficiency : ",hgcer_eff,"+-",hgcer_error)
 
     effDict = {
-        "SHMS_HGC_Pion_Eff" : hgcer_eff,
-        "SHMS_HGC_Pion_Eff_ERROR" : hgcer_error,
+        "SHMS_HGC_Kaon_Eff" : hgcer_eff,
+        "SHMS_HGC_Kaon_Eff_ERROR" : hgcer_error,
     }
 
     return effDict
