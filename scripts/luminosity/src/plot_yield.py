@@ -3,7 +3,7 @@
 # Description: Grabs lumi data from corresponding csv depending on run setting. Then plots the yields and creates a comprehensive table.
 # Variables calculated: current, rate_HMS, rate_SHMS, sent_edtm_PS, uncern_HMS_evts_scaler, uncern_SHMS_evts_scaler, uncern_HMS_evts_notrack, uncern_SHMS_evts_notrack, uncern_HMS_evts_track, uncern_SHMS_evts_track
 # ================================================================
-# Time-stamp: "2023-08-30 12:15:09 trottar"
+# Time-stamp: "2023-08-30 12:27:44 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -105,8 +105,10 @@ removeRun(5354) # bad TLT
 removeRun(7949) # bad SHMS yield, HMS fine
 removeRun(7952) # bad yield, 5 uA (better trend when removed)
 # LH2
-#removeRun(5303)
-
+removeRun(5165) # 10p6 l1, really bad scalers
+removeRun(5303) # 10p6 l2, not sure but off by a bit, only ~4 minutes of good beam on time
+# Remove all of 10p6 l3 (besides 5342?), all runs have terrible TLT (probably because singles?) and low beam on time
+removeRun(7960) # 8p2 l1, 5 uA, not sure but messes up normalization (maybe singles?)
 
 ################################################################################################################################################
 
