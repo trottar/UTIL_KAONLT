@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-06-01 15:09:12 trottar"
+# Time-stamp: "2023-08-30 12:39:44 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -90,7 +90,7 @@ for i,s in enumerate(settingList):
 
         all_current = np.concatenate([all_current, data['current']])
         all_relyield = np.concatenate([all_relyield, data['yieldRel_HMS_track']])
-        all_uncern_relyield = np.concatenate([all_uncern_relyield, data['uncern_yieldRel_HMS_track']])
+        all_uncern_relyield = np.concatenate([all_uncern_relyield, data['yieldRel_HMS_track']*data['uncern_yieldRel_HMS_track']])
         
     except IOError:
         print("Error: %s does not appear to exist." % inp_f)
@@ -175,7 +175,7 @@ with PdfPages(SCRIPTPATH+'/luminosity/OUTPUTS/plots/hms_regression_current_%s.pd
     plt.ylim(0.9,1.1)
     plt.title('HMS Rel. Yield vs Current')
     plt.legend()
-    plt.show()
+    #plt.show()
 
     pdf.savefig(fig)
     plt.close(fig)
@@ -309,7 +309,7 @@ for i,s in enumerate(settingList):
 
         all_current = np.concatenate([all_current, data['current']])
         all_relyield = np.concatenate([all_relyield, data['yieldRel_SHMS_track']])
-        all_uncern_relyield = np.concatenate([all_uncern_relyield, data['uncern_yieldRel_SHMS_track']])
+        all_uncern_relyield = np.concatenate([all_uncern_relyield, data['yieldRel_SHMS_track']*data['uncern_yieldRel_SHMS_track']])
         
     except IOError:
         print("Error: %s does not appear to exist." % inp_f)
@@ -480,8 +480,11 @@ with PdfPages(SCRIPTPATH+'/luminosity/OUTPUTS/plots/shms_regression_current_%s.p
 ################################################################################################################################################
 ################################################################################################################################################
 
-settingList = ["10p6lh2l1","10p6lh2l2","10p6lh2l3","8p2lh2l1"]
-momentumList = [-3.266, -4.204, -6.269, -5.745] # HMS
+#settingList = ["10p6lh2l1","10p6lh2l2","10p6lh2l3","8p2lh2l1"]
+#momentumList = [-3.266, -4.204, -6.269, -5.745] # HMS
+# Removing 10p6 l3 because of terrible TLT for almost all runs
+settingList = ["10p6lh2l1","10p6lh2l2","8p2lh2l1"]
+momentumList = [-3.266, -4.204, -5.745] # HMS
 
 dataDict = {}
 
@@ -526,7 +529,7 @@ for i,s in enumerate(settingList):
 
         all_current = np.concatenate([all_current, data['current']])
         all_relyield = np.concatenate([all_relyield, data['yieldRel_HMS_track']])
-        all_uncern_relyield = np.concatenate([all_uncern_relyield, data['uncern_yieldRel_HMS_track']])
+        all_uncern_relyield = np.concatenate([all_uncern_relyield, data['yieldRel_HMS_track']*data['uncern_yieldRel_HMS_track']])
         
     except IOError:
         print("Error: %s does not appear to exist." % inp_f)
@@ -744,7 +747,7 @@ for i,s in enumerate(settingList):
 
         all_current = np.concatenate([all_current, data['current']])
         all_relyield = np.concatenate([all_relyield, data['yieldRel_SHMS_track']])
-        all_uncern_relyield = np.concatenate([all_uncern_relyield, data['uncern_yieldRel_SHMS_track']])
+        all_uncern_relyield = np.concatenate([all_uncern_relyield, data['yieldRel_SHMS_track']*data['uncern_yieldRel_SHMS_track']])
         
     except IOError:
         print("Error: %s does not appear to exist." % inp_f)
