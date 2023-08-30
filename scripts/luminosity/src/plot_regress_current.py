@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-08-30 12:39:44 trottar"
+# Time-stamp: "2023-08-30 12:56:02 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -144,6 +144,7 @@ with PdfPages(SCRIPTPATH+'/luminosity/OUTPUTS/plots/hms_regression_current_%s.pd
         plt.errorbar(dataDict[s]['run number'], eff_boil, yerr=dataDict[s]['yield_error'], fmt=fmt_list[i], label="{0}, P = {1}".format(s,dataDict[s]['momentum']), color=color_list[i])
     plt.xlabel('Run Number')
     plt.ylabel('Boil Factor')
+    plt.ylim(0.9,1.1)    
     plt.title('HMS Boil Factor vs Run Number')
     plt.legend()
 
@@ -362,6 +363,7 @@ with PdfPages(SCRIPTPATH+'/luminosity/OUTPUTS/plots/shms_regression_current_%s.p
         plt.errorbar(dataDict[s]['run number'], eff_boil, yerr=dataDict[s]['yield_error'], fmt=fmt_list[i], label="{0}, P = {1}".format(s,dataDict[s]['momentum']), color=color_list[i])
     plt.xlabel('Run Number')
     plt.ylabel('Boil Factor')
+    plt.ylim(0.9,1.1)    
     plt.title('SHMS Boil Factor vs Run Number')
     plt.legend()
 
@@ -582,6 +584,7 @@ with PdfPages(SCRIPTPATH+'/luminosity/OUTPUTS/plots/hms_regression_current_%s.pd
         plt.errorbar(dataDict[s]['run number'], eff_boil, yerr=dataDict[s]['yield_error'], fmt=fmt_list[i], label="{0}, P = {1}".format(s,dataDict[s]['momentum']), color=color_list[i])
     plt.xlabel('Run Number')
     plt.ylabel('Boil Factor')
+    plt.ylim(0.9,1.1)    
     plt.title('HMS Boil Factor vs Run Number')
     plt.legend()
 
@@ -800,6 +803,7 @@ with PdfPages(SCRIPTPATH+'/luminosity/OUTPUTS/plots/shms_regression_current_%s.p
         plt.errorbar(dataDict[s]['run number'], eff_boil, yerr=dataDict[s]['yield_error'], fmt=fmt_list[i], label="{0}, P = {1}".format(s,dataDict[s]['momentum']), color=color_list[i])
     plt.xlabel('Run Number')
     plt.ylabel('Boil Factor')
+    plt.ylim(0.9,1.1)    
     plt.title('SHMS Boil Factor vs Run Number')
     plt.legend()
 
