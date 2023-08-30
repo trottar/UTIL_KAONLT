@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-08-30 13:20:31 trottar"
+# Time-stamp: "2023-08-30 13:27:37 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -142,7 +142,7 @@ def plot_regress(settingList, momentumList, spec):
         plt.xlabel('Run Number')
         plt.ylabel('Boil Factor')
         plt.ylim(0.9,1.1)    
-        plt.title('{} Boil Factor vs Run Number'.format(spec))
+        plt.title('{} {} Boil Factor vs Run Number'.format(target, spec))
         plt.legend()
 
         pdf.savefig(fig)
@@ -171,7 +171,7 @@ def plot_regress(settingList, momentumList, spec):
         plt.xlabel('Current')
         plt.ylabel('Rel. Yield')
         plt.ylim(0.9,1.1)
-        plt.title('{} Rel. Yield vs Current'.format(spec))
+        plt.title('{} {} Rel. Yield vs Current'.format(target, spec))
         plt.legend()
         plt.show()
 
@@ -185,13 +185,14 @@ def plot_regress(settingList, momentumList, spec):
             plt.errorbar(dataDict[s]['x'][:,0], dataDict[s]['y'][:,0], yerr=dataDict[s]['yield_error'], fmt=fmt_list[i], label="{0}, P = {1}\n{2}={3:0.2e}".format(s,dataDict[s]['momentum'],r'$\chi^2$',dataDict[s]['chi_sq']), color=color_list[i])
             plt.plot(dataDict[s]['x'], dataDict[s]['reg'].predict(sm.add_constant(dataDict[s]['x'])), linewidth=2.0, linestyle=style_list[i], color=color_list[i])
             # print the slope, intercept, and chi-squared value
+            print('Momentum:', dataDict[s]['momentum'])
             print('Slope:', dataDict[s]['reg'].params[1])
             print('Intercept:', dataDict[s]['reg'].params[0])
-            print('Chi-squared:', dataDict[s]['chi_sq'])
+            print('Chi-squared:', dataDict[s]['chi_sq'],'\n')
         plt.xlabel('Current')
         plt.ylabel('Rel. Yield')
         plt.ylim(0.9,1.1)
-        plt.title('{} Rel. Yield vs Current'.format(spec))
+        plt.title('{} {} Rel. Yield vs Current'.format(target, spec))
         plt.legend()
 
         pdf.savefig(fig)
@@ -237,7 +238,7 @@ def plot_regress(settingList, momentumList, spec):
             plt.errorbar(dataDict[s]['x'][:,0], dataDict[s]['yield'], yerr=dataDict[s]['yield_error'], fmt=fmt_list[i], label="{0}, P = {1}".format(s,dataDict[s]['momentum']), color=color_list[i])
         plt.xlabel('Current')
         plt.ylabel('Yield')
-        plt.title('{} Yield vs Current'.format(spec))
+        plt.title('{} {} Yield vs Current'.format(target, spec))
         plt.legend()
 
         pdf.savefig(fig)
@@ -250,7 +251,7 @@ def plot_regress(settingList, momentumList, spec):
             plt.errorbar(dataDict[s]['x'][:,0], np.ones_like(dataDict[s]['x'][:,0])*dataDict[s]['momentum'], yerr=dataDict[s]['yield_error'], fmt=fmt_list[i], label="{0}".format(s), color=color_list[i])
         plt.xlabel('Current')
         plt.ylabel('Momentum')
-        plt.title('{} Momentum vs Current'.format(spec))
+        plt.title('{} {} Momentum vs Current'.format(target, spec))
         plt.legend()
 
         pdf.savefig(fig)
