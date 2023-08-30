@@ -3,7 +3,7 @@
 # Description: Grabs lumi data from corresponding csv depending on run setting. Then plots the yields and creates a comprehensive table.
 # Variables calculated: current, rate_HMS, rate_SHMS, sent_edtm_PS, uncern_HMS_evts_scaler, uncern_SHMS_evts_scaler, uncern_HMS_evts_notrack, uncern_SHMS_evts_notrack, uncern_HMS_evts_track, uncern_SHMS_evts_track
 # ================================================================
-# Time-stamp: "2023-08-30 16:31:52 trottar"
+# Time-stamp: "2023-08-30 16:36:30 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -74,7 +74,10 @@ def removeRun(runNum):
     Removes runs from DF and subsequently will not be plotted or included in yield csv output
     '''
     global lumi_data
+    print("Before",lumi_data["run number"])
+    print("Removing run {} from lumi_data...".format(lumi_data["run number"]))
     lumi_data = lumi_data[lumi_data["run number"] != runNum].reset_index(drop=True)
+    print("After",lumi_data["run number"])
     return lumi_data
 
 # Remove runs, removeRun(runNumber)
@@ -348,11 +351,11 @@ def mergeDicts():
     yield_data = calc_yield()
     # data = {**lumi_data, **yield_data} # only python 3.5+
     
-    for key, val in yield_data.items():
-        yield_data[key] = val
+    for key, val in lumi_data.items():
+        lumi_data[key] = val
 
     datadict = {}
-    for d in (yield_data, yield_data): 
+    for d in (lumi_data, yield_data): 
         datadict.update(d)
     data = {i : datadict[i] for i in sorted(datadict.keys())}
 
