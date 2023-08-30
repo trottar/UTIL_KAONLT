@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-08-30 13:18:00 trottar"
+# Time-stamp: "2023-08-30 13:20:31 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -71,7 +71,7 @@ def plot_regress(settingList, momentumList, spec):
             dataDict[s]['run number'] = data['run number']
             dataDict[s]['rel_yield'] = data['yieldRel_{}_track'.format(spec)]
             dataDict[s]['yield'] = data['yield_{}_track'.format(spec)]
-            dataDict[s]['yield_error'] = data['yield_{}_track'.format(spec)]*data['uncern_yieldRel_{}_track'.format(spec)]
+            dataDict[s]['yield_error'] = data['yieldRel_{}_track'.format(spec)]*data['uncern_yieldRel_{}_track'.format(spec)]
             # reshape the currents, yields, and yield errors into column vectors
             dataDict[s]['x'] = dataDict[s]["current"][:, np.newaxis]
             dataDict[s]['y'] = dataDict[s]["rel_yield"][:, np.newaxis]
@@ -173,7 +173,7 @@ def plot_regress(settingList, momentumList, spec):
         plt.ylim(0.9,1.1)
         plt.title('{} Rel. Yield vs Current'.format(spec))
         plt.legend()
-        #plt.show()
+        plt.show()
 
         pdf.savefig(fig)
         plt.close(fig)
