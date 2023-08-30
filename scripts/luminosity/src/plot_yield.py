@@ -3,7 +3,7 @@
 # Description: Grabs lumi data from corresponding csv depending on run setting. Then plots the yields and creates a comprehensive table.
 # Variables calculated: current, rate_HMS, rate_SHMS, sent_edtm_PS, uncern_HMS_evts_scaler, uncern_SHMS_evts_scaler, uncern_HMS_evts_notrack, uncern_SHMS_evts_notrack, uncern_HMS_evts_track, uncern_SHMS_evts_track
 # ================================================================
-# Time-stamp: "2023-08-30 16:56:15 trottar"
+# Time-stamp: "2023-08-30 16:59:42 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -402,7 +402,8 @@ def plot_yield():
 
     # Remove runs with bad TLT or short on beam time
     #yield_data = yield_data[ (yield_data['TLT'] >= 0.75) & (yield_data['CPULT_phys'] >= 0.75) ].reset_index(drop=True)
-    #yield_data = yield_data[ (yield_data['TLT'] < 1.02) & (yield_data['CPULT_phys'] < 1.02)].reset_index(drop=True)
+    #yield_data = yield_data[ (yield_data['TLT'] < 1.02) & (yield_data['CPULT_phys] < 1.02)].reset_index(drop=True)
+    lumi_data = lumi_data[ (lumi_data['time'] >= 60.0) ].reset_index(drop=True)
     yield_data = yield_data[ (yield_data['time'] >= 60.0) ].reset_index(drop=True)
 
     for i, val in enumerate(yield_data["run number"]):
