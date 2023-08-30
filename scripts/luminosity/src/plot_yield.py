@@ -3,7 +3,7 @@
 # Description: Grabs lumi data from corresponding csv depending on run setting. Then plots the yields and creates a comprehensive table.
 # Variables calculated: current, rate_HMS, rate_SHMS, sent_edtm_PS, uncern_HMS_evts_scaler, uncern_SHMS_evts_scaler, uncern_HMS_evts_notrack, uncern_SHMS_evts_notrack, uncern_HMS_evts_track, uncern_SHMS_evts_track
 # ================================================================
-# Time-stamp: "2023-08-30 16:54:17 trottar"
+# Time-stamp: "2023-08-30 16:55:49 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -74,7 +74,7 @@ def removeRun(runNum):
     Removes runs from DF and subsequently will not be plotted or included in yield csv output
     '''
     global lumi_data
-    if lumi_data['run number'].isin([runNum]):
+    if ()lumi_data['run number'] == runNum).any():
         print("Before",lumi_data["run number"].values)
         print("Removing run {} from lumi_data...".format(runNum))
         lumi_data = lumi_data[lumi_data['run number'] != runNum].reset_index(drop=True)
