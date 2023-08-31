@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-08-31 17:20:51 trottar"
+# Time-stamp: "2023-08-31 17:22:02 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -155,7 +155,7 @@ def plot_regress(settingList, momentumList, spec):
                 # Calculate the uncertainty using alternative method
                 x_values = dataDict[s]['reg'].model.exog[:, 1]
                 y_values = dataDict[s]['reg'].model.endog
-                delta_m0 = np.std(y_values - slope * x_values) / np.sqrt(len(y_values)
+                delta_m0 = np.std(y_values - slope * x_values) / np.sqrt(len(y_values))
             eff_boil = 1 - abs(m0 * dataDict[s]['current'].values)
             # delta_eff_boil = sqrt(I^2*delta_m0^2+m0^2*delta_I^2)
             delta_eff_boil =  np.sqrt((dataDict[s]['current'].values**2)*(delta_m0**2)) # Need the rate uncern
@@ -207,7 +207,7 @@ def plot_regress(settingList, momentumList, spec):
                 # Calculate the uncertainty using alternative method
                 x_values = dataDict[s]['reg'].model.exog[:, 1]
                 y_values = dataDict[s]['reg'].model.endog
-                delta_m0 = np.std(y_values - slope * x_values) / np.sqrt(len(y_values)
+                delta_m0 = np.std(y_values - slope * x_values) / np.sqrt(len(y_values))
             eff_boil = 1 - abs(m0 * dataDict[s]['current'].values)
             # delta_eff_boil = sqrt(I^2*delta_m0^2+m0^2*delta_I^2)
             delta_eff_boil =  np.sqrt((dataDict[s]['current'].values**2)*(delta_m0**2)) # Need the rate uncern
