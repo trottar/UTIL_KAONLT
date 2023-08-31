@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-08-31 13:42:43 trottar"
+# Time-stamp: "2023-08-31 13:47:15 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -171,8 +171,8 @@ def plot_regress(settingList, momentumList, spec):
         fig = plt.figure(figsize=(12,8))
 
         # Initialize arrays to hold all data points for linear regression
-        all_current = np.array([])
-        all_eff_boil = np.array([])
+        current_list = np.array([])
+        eff_boil_list = np.array([])
         # Iterate through settings and collect data for linear regression
         for i, s in enumerate(settingList):
             m = dataDict[s]['reg'].params[1]
@@ -183,18 +183,17 @@ def plot_regress(settingList, momentumList, spec):
             plt.errorbar(dataDict[s]['current'], eff_boil, yerr=dataDict[s]['yield_error'], fmt=fmt_list[i], label="{0}, P = {1}".format(s, dataDict[s]['momentum']), color=color_list[i])
 
             # Collect data for linear regression
-            all_current = np.concatenate((all_current, dataDict[s]['current']))
-            all_eff_boil = np.concatenate((all_eff_boil, eff_boil))
+            current_list = np.concatenate((current_list, dataDict[s]['current']))
+            eff_boil_list = np.concatenate((eff_boil_list, eff_boil))
 
         # Perform linear regression on all data points
-        slope, intercept, r_value, p_value, std_err = linregress(all_current, all_eff_boil)
+        slope, intercept, r_value, p_value, std_err = linregress(current_list, eff_boil_list)
         # Calculate the linear fit values
-        x_fit = np.linspace(min(all_current), max(all_current), 100)
+        x_fit = np.linspace(min(current_list), max(current_list), 100)
         y_fit = slope * x_fit + intercept
         
         # Plot the linear fit line
         plt.plot(x_fit, y_fit, linestyle='dashed', color='black', label='y={:.3e}x+{:.3e}'.format(slope,intercept))
-
 
         plt.xlabel('Current')
         plt.ylabel('Boil Factor')
