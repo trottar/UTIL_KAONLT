@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-08-30 22:01:14 trottar"
+# Time-stamp: "2023-08-30 22:03:50 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -146,7 +146,7 @@ def plot_regress(settingList, momentumList, spec):
             plt.errorbar(dataDict[s]['run number'], eff_boil, yerr=dataDict[s]['yield_error'], fmt=fmt_list[i], label="{0}, P = {1}".format(s, dataDict[s]['momentum']), color=color_list[i])
 
         aver_eff_boil = sum(eff_boil_list) / len(eff_boil_list)  # Calculate average eff_boil
-        plt.axhline(y=aver_eff_boil, color='r', linestyle='dotted', label='Average Eff Boil: {}'.format(aver_eff_boil))  # Add dotted line for aver eff_boil
+        plt.plot(y=aver_eff_boil, color='r', linestyle='dotted', label='Average Eff Boil: {}'.format(aver_eff_boil))  # Add dotted line for aver eff_boil
 
         plt.xlabel('Run Number')
         plt.ylabel('Boil Factor')
