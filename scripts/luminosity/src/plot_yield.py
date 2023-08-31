@@ -3,7 +3,7 @@
 # Description: Grabs lumi data from corresponding csv depending on run setting. Then plots the yields and creates a comprehensive table.
 # Variables calculated: current, rate_HMS, rate_SHMS, sent_edtm_PS, uncern_HMS_evts_scaler, uncern_SHMS_evts_scaler, uncern_HMS_evts_notrack, uncern_SHMS_evts_notrack, uncern_HMS_evts_track, uncern_SHMS_evts_track
 # ================================================================
-# Time-stamp: "2023-08-30 21:36:44 trottar"
+# Time-stamp: "2023-08-31 16:43:47 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -83,24 +83,6 @@ def removeRun(runNum):
         print("After",lumi_data["run number"].values)
     
 # Remove runs, removeRun(runNumber)
-# 10p6 c 
-#removeRun(5176)
-#removeRun(5300)
-#removeRun(5354)
-# 8p2 c
-#removeRun(7949)
-#removeRun(7952)
-# 10p6 lh2
-#removeRun(5153)
-#removeRun(5160)
-#removeRun(5165)
-#removeRun(5169)
-#removeRun(5366)
-# 8p2 lh2
-#removeRun(7958)
-# 6p2, where are all the runs? There are only 3???
-
-# testing
 # Carbon
 removeRun(5301) # 10p6 l2, bad TLT (<20%)
 # LH2
