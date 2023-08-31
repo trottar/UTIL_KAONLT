@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-08-31 17:44:56 trottar"
+# Time-stamp: "2023-08-31 17:48:44 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -50,7 +50,6 @@ def plot_regress(settingList, momentumList, spec):
 
     all_relyield = np.array([])
     all_uncern_relyield = np.array([])
-    all_rate = np.array([])
     all_current = np.array([])
 
     for i,s in enumerate(settingList):
@@ -75,8 +74,8 @@ def plot_regress(settingList, momentumList, spec):
             dataDict[s]['rel_yield'] = data['yieldRel_{}_track'.format(spec)]
             dataDict[s]['yield'] = data['yield_{}_track'.format(spec)]
             dataDict[s]['yield_error'] = data['uncern_yieldRel_{}_track'.format(spec)]
-            # reshape the rates, yields, and yield errors into column vectors
-            dataDict[s]['x'] = data['rate_{}'.format(spec)][:, np.newaxis]
+            # reshape the currents, yields, and yield errors into column vectors
+            dataDict[s]['x'] = dataDict[s]["current"][:, np.newaxis]
             dataDict[s]['y'] = dataDict[s]["rel_yield"][:, np.newaxis]
             dataDict[s]['yerr'] = dataDict[s]["yield_error"][:, np.newaxis]
 
@@ -89,7 +88,6 @@ def plot_regress(settingList, momentumList, spec):
             dataDict[s]['expected_y'] = dataDict[s]['reg'].predict(sm.add_constant(dataDict[s]['x']))
             dataDict[s]['chi_sq'] = np.sum(((np.array(dataDict[s]['y']) - np.array(dataDict[s]['expected_y']))/np.array(dataDict[s]['yerr']))**2)
 
-            all_rate = np.concatenate([all_rate, data['rate_{}'.format(spec)]])
             all_current = np.concatenate([all_current, data['current']])
             all_relyield = np.concatenate([all_relyield, data['yieldRel_{}_track'.format(spec)]])
             all_uncern_relyield = np.concatenate([all_uncern_relyield, data['uncern_yieldRel_{}_track'.format(spec)]])
@@ -103,7 +101,6 @@ def plot_regress(settingList, momentumList, spec):
 
     ################################################################################################################################################
 
-    all_rate = all_rate[:, np.newaxis]
     all_current = all_current[:, np.newaxis]
     all_relyield = all_relyield[:, np.newaxis]
     all_uncern_relyield = all_uncern_relyield[:, np.newaxis]
@@ -121,7 +118,7 @@ def plot_regress(settingList, momentumList, spec):
     for s in settingList:
         tmp1 = []
         tmp2 = []
-        for val in data['rate_{}'.format(spec)]:
+        for val in dataDict[s]['current']:
             tmp1.append(corr_y[:,0][i])
             tmp2.append(residuals[:,0][i])
             i+=1
@@ -136,7 +133,7 @@ def plot_regress(settingList, momentumList, spec):
     color_list = ['red', 'green', 'blue', 'orange']
 
     # Create a PDF file
-    with PdfPages(SCRIPTPATH+'/luminosity/OUTPUTS/plots/{}_regression_rate_{}.pdf'.format(spec.lower(), target)) as pdf:
+    with PdfPages(SCRIPTPATH+'/luminosity/OUTPUTS/plots/{}_regression_current_{}.pdf'.format(spec.lower(), target)) as pdf:
 
         fig = plt.figure(figsize=(12,8))
 
@@ -152,14 +149,10 @@ def plot_regress(settingList, momentumList, spec):
             delta_m0 = dataDict[s]['reg'].bse[1] # Standard error of the slope
             # Check if the slope value is infinity
             if np.isinf(delta_m0):
-                # Calculate the uncertainty using alternative method
-                x_values = dataDict[s]['reg'].model.exog[:, 1]
-                y_values = dataDict[s]['reg'].model.endog
-                slope = dataDict[s]['reg'].params[1]  # Calculating the slope
-                delta_m0 = np.std(y_values - slope * x_values) / np.sqrt(len(y_values))
+                delta_m0 = 0.0
             eff_boil = 1 - abs(m0 * dataDict[s]['current'].values)
             # delta_eff_boil = sqrt(I^2*delta_m0^2+m0^2*delta_I^2)
-            delta_eff_boil =  np.sqrt((dataDict[s]['current'].values**2)*(delta_m0**2)) # Need the rate uncern
+            delta_eff_boil =  np.sqrt((dataDict[s]['current'].values**2)*(delta_m0**2)) # Need the current uncern
             print('''
             P = {}, 
                    m0 = {:.3e} +/- {:.3e}, 
@@ -194,7 +187,7 @@ def plot_regress(settingList, momentumList, spec):
         fig = plt.figure(figsize=(12,8))
 
         # Initialize arrays to hold all data points for linear regression
-        rate_list = np.array([])
+        current_list = np.array([])
         eff_boil_list = np.array([])
         uncern_eff_boil_list = np.array([])
         # Iterate through settings and collect data for linear regression
@@ -205,45 +198,41 @@ def plot_regress(settingList, momentumList, spec):
             delta_m0 = dataDict[s]['reg'].bse[1] # Standard error of the slope
             # Check if the slope value is infinity
             if np.isinf(delta_m0):
-                # Calculate the uncertainty using alternative method
-                x_values = dataDict[s]['reg'].model.exog[:, 1]
-                y_values = dataDict[s]['reg'].model.endog
-                slope = dataDict[s]['reg'].params[1]  # Calculating the slope
-                delta_m0 = np.std(y_values - slope * x_values) / np.sqrt(len(y_values))
+                delta_m0 = 0.0
             eff_boil = 1 - abs(m0 * dataDict[s]['current'].values)
             # delta_eff_boil = sqrt(I^2*delta_m0^2+m0^2*delta_I^2)
-            delta_eff_boil =  np.sqrt((dataDict[s]['current'].values**2)*(delta_m0**2)) # Need the rate uncern
+            delta_eff_boil =  np.sqrt((dataDict[s]['current'].values**2)*(delta_m0**2)) # Need the current uncern
             plt.errorbar(dataDict[s]['rate_{}'.format(spec)], eff_boil, yerr=delta_eff_boil, fmt=fmt_list[i], label="{0}, P = {1}".format(s, dataDict[s]['momentum']), color=color_list[i])
 
             # Collect data for linear regression
-            rate_list = np.concatenate((rate_list, dataDict[s]['rate_{}'.format(spec)]))
+            current_list = np.concatenate((current_list, dataDict[s]['current']))
             eff_boil_list = np.concatenate((eff_boil_list, eff_boil))
             uncern_eff_boil_list = np.concatenate((uncern_eff_boil_list, delta_eff_boil))
 
         # Unweighted
         # Perform linear regression on all data points
-        slope, intercept, r_value, p_value, std_err = linregress(rate_list, eff_boil_list)
+        slope, intercept, r_value, p_value, std_err = linregress(current_list, eff_boil_list)
         # Calculate the linear fit values
-        x_fit = np.linspace(min(rate_list), max(rate_list), 100)
+        x_fit = np.linspace(min(current_list), max(current_list), 100)
         y_fit = slope * x_fit + intercept    
         # Plot the linear fit line
         plt.plot(x_fit, y_fit, linestyle='dashed', color='violet', label='Unweighted, y={:.3e}x+{:.3e}'.format(slope,intercept))
 
         # Weighted
         # Perform weighted linear regression using polyfit
-        coefficients = np.polyfit(rate_list, eff_boil_list, 1, w=1/uncern_eff_boil_list)
+        coefficients = np.polyfit(current_list, eff_boil_list, 1, w=1/uncern_eff_boil_list)
         slope = coefficients[0]
         intercept = coefficients[1]
         # Calculate the linear fit values
-        x_fit = np.linspace(min(rate_list), max(rate_list), 100)
+        x_fit = np.linspace(min(current_list), max(current_list), 100)
         y_fit = np.polyval(coefficients, x_fit)
         # Plot the linear fit line
         plt.plot(x_fit, y_fit, linestyle='dashed', color='purple', label='Weighted, y={:.3e}x+{:.3e}'.format(slope,intercept))
-        
-        plt.xlabel('Rate')
+
+        plt.xlabel('Current')
         plt.ylabel('Boil Factor')
         plt.ylim(0.9, 1.1)
-        plt.title('{} {} Boil Factor vs Rate'.format(target.capitalize(), spec))
+        plt.title('{} {} Boil Factor vs Current'.format(target.capitalize(), spec))
         plt.legend()
         plt.show()
 
@@ -253,27 +242,27 @@ def plot_regress(settingList, momentumList, spec):
         fig = plt.figure(figsize=(12,8))
 
         # plot the data with error bars and the regression line
-        #plt.errorbar(all_rate[:,0], corr_y[:,0], yerr=all_uncern_relyield[:,0], markersize=10.0, fmt='o', label="Corrected Data", color='teal')  
+        #plt.errorbar(all_current[:,0], corr_y[:,0], yerr=all_uncern_relyield[:,0], markersize=10.0, fmt='o', label="Corrected Data", color='teal')  
         for i, s in enumerate(settingList):
             m0 = dataDict[s]['reg'].params[1]/dataDict[s]['reg'].params[0]
             eff_boil = 1 - m0*dataDict[s]['current']
             plt.errorbar(dataDict[s]['rate_{}'.format(spec)], dataDict[s]['corr_y'], yerr=dataDict[s]['yield_error'], fmt=fmt_list[i], label="{0}, P = {1}\n{2} = {3:0.2e}".format(s,dataDict[s]['momentum'],r'$\overline{\epsilon_{boil}}$',np.average(eff_boil)), color=color_list[i])
-        plt.plot(all_rate, all_reg.predict(sm.add_constant(all_rate)), linewidth=2.0, linestyle=':', color='purple', label='Weighted linear regression\n{0}={1:0.2e}\nm={2:0.2e}, b={3:0.2e}'.format(r'$\chi^2$',all_chi_sq,all_reg.params[1],all_reg.params[0]))
-        plt.plot(all_rate, all_reg_uw.predict(sm.add_constant(all_rate)), linewidth=2.0, linestyle=':', color='violet', label='Unweighted linear regression')
+        plt.plot(all_current, all_reg.predict(sm.add_constant(all_current)), linewidth=2.0, linestyle=':', color='purple', label='Weighted linear regression\n{0}={1:0.2e}\nm={2:0.2e}, b={3:0.2e}'.format(r'$\chi^2$',all_chi_sq,all_reg.params[1],all_reg.params[0]))
+        plt.plot(all_current, all_reg_uw.predict(sm.add_constant(all_current)), linewidth=2.0, linestyle=':', color='violet', label='Unweighted linear regression')
         # calculate the upper and lower confidence intervals for the regression line
         conf_int = all_reg.conf_int() # 95% confidence level
-        upper_bounds = conf_int[0][0] + conf_int[1][0]*np.sort(all_rate[:,0]) # mx+b, upper
-        lower_bounds = conf_int[0][1] + conf_int[1][1]*np.sort(all_rate[:,0]) # mx+b, lower
-        plt.fill_between(np.sort(all_rate[:,0]), upper_bounds, lower_bounds, alpha=0.2)
+        upper_bounds = conf_int[0][0] + conf_int[1][0]*np.sort(all_current[:,0]) # mx+b, upper
+        lower_bounds = conf_int[0][1] + conf_int[1][1]*np.sort(all_current[:,0]) # mx+b, lower
+        plt.fill_between(np.sort(all_current[:,0]), upper_bounds, lower_bounds, alpha=0.2)
 
         # print the slope, intercept, and chi-squared value
         print('\n\nSlope:', all_reg.params[1])
         print('Intercept:', all_reg.params[0])
         print('Chi-squared:', all_chi_sq,"\n\n")
-        plt.xlabel('Rate')
+        plt.xlabel('Current')
         plt.ylabel('Rel. Yield')
         plt.ylim(0.9,1.1)
-        plt.title('{} {} Rel. Yield vs Rate'.format(target.capitalize(), spec))
+        plt.title('{} {} Rel. Yield vs Current'.format(target.capitalize(), spec))
         plt.legend()
         plt.show()
 
@@ -291,10 +280,10 @@ def plot_regress(settingList, momentumList, spec):
             print('Slope:', dataDict[s]['reg'].params[1])
             print('Intercept:', dataDict[s]['reg'].params[0])
             print('Chi-squared:', dataDict[s]['chi_sq'],'\n')
-        plt.xlabel('Rate')
+        plt.xlabel('Current')
         plt.ylabel('Rel. Yield')
         plt.ylim(0.9,1.1)
-        plt.title('{} {} Rel. Yield vs Rate'.format(target.capitalize(), spec))
+        plt.title('{} {} Rel. Yield vs Current'.format(target.capitalize(), spec))
         plt.legend()
 
         pdf.savefig(fig)
@@ -338,9 +327,9 @@ def plot_regress(settingList, momentumList, spec):
         # plot the data with error bars and the regression line
         for i, s in enumerate(settingList):
             plt.errorbar(dataDict[s]['x'][:,0], dataDict[s]['yield'], yerr=dataDict[s]['yield_error'], fmt=fmt_list[i], label="{0}, P = {1}".format(s,dataDict[s]['momentum']), color=color_list[i])
-        plt.xlabel('Rate')
+        plt.xlabel('Current')
         plt.ylabel('Yield')
-        plt.title('{} {} Yield vs Rate'.format(target.capitalize(), spec))
+        plt.title('{} {} Yield vs Current'.format(target.capitalize(), spec))
         plt.legend()
 
         pdf.savefig(fig)
@@ -351,9 +340,9 @@ def plot_regress(settingList, momentumList, spec):
         # plot the data with error bars and the regression line
         for i, s in enumerate(settingList):
             plt.errorbar(dataDict[s]['x'][:,0], np.ones_like(dataDict[s]['x'][:,0])*dataDict[s]['momentum'], yerr=dataDict[s]['yield_error'], fmt=fmt_list[i], label="{0}".format(s), color=color_list[i])
-        plt.xlabel('Rate')
+        plt.xlabel('Current')
         plt.ylabel('Momentum')
-        plt.title('{} {} Momentum vs Rate'.format(target.capitalize(), spec))
+        plt.title('{} {} Momentum vs Current'.format(target.capitalize(), spec))
         plt.legend()
 
         pdf.savefig(fig)
