@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-08-31 17:35:35 trottar"
+# Time-stamp: "2023-08-31 17:42:05 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -76,8 +76,7 @@ def plot_regress(settingList, momentumList, spec):
             dataDict[s]['yield'] = data['yield_{}_track'.format(spec)]
             dataDict[s]['yield_error'] = data['uncern_yieldRel_{}_track'.format(spec)]
             # reshape the rates, yields, and yield errors into column vectors
-            dataDict[s]['rate'] = data['rate_{}'.format(spec)][:, np.newaxis]
-            dataDict[s]['x'] = data['current'][:, np.newaxis]
+            dataDict[s]['x'] = data['rate_{}'.format(spec)][:, np.newaxis]
             dataDict[s]['y'] = dataDict[s]["rel_yield"][:, np.newaxis]
             dataDict[s]['yerr'] = dataDict[s]["yield_error"][:, np.newaxis]
 
@@ -285,8 +284,8 @@ def plot_regress(settingList, momentumList, spec):
 
         # plot the data with error bars and the regression line
         for i, s in enumerate(settingList):
-            plt.errorbar(dataDict[s]['rate'][:,0], dataDict[s]['y'][:,0], yerr=dataDict[s]['yield_error'], fmt=fmt_list[i], label="{0}, P = {1}\n{2}={3:0.2e}".format(s,dataDict[s]['momentum'],r'$\chi^2$',dataDict[s]['chi_sq']), color=color_list[i])
-            plt.plot(dataDict[s]['rate'], dataDict[s]['reg'].predict(sm.add_constant(dataDict[s]['rate'])), linewidth=2.0, linestyle=style_list[i], color=color_list[i])
+            plt.errorbar(dataDict[s]['x'][:,0], dataDict[s]['y'][:,0], yerr=dataDict[s]['yield_error'], fmt=fmt_list[i], label="{0}, P = {1}\n{2}={3:0.2e}".format(s,dataDict[s]['momentum'],r'$\chi^2$',dataDict[s]['chi_sq']), color=color_list[i])
+            plt.plot(dataDict[s]['x'], dataDict[s]['reg'].predict(sm.add_constant(dataDict[s]['x'])), linewidth=2.0, linestyle=style_list[i], color=color_list[i])
             # print the slope, intercept, and chi-squared value
             print('Momentum:', dataDict[s]['momentum'])
             print('Slope:', dataDict[s]['reg'].params[1])
@@ -338,7 +337,7 @@ def plot_regress(settingList, momentumList, spec):
 
         # plot the data with error bars and the regression line
         for i, s in enumerate(settingList):
-            plt.errorbar(dataDict[s]['rate'][:,0], dataDict[s]['yield'], yerr=dataDict[s]['yield_error'], fmt=fmt_list[i], label="{0}, P = {1}".format(s,dataDict[s]['momentum']), color=color_list[i])
+            plt.errorbar(dataDict[s]['x'][:,0], dataDict[s]['yield'], yerr=dataDict[s]['yield_error'], fmt=fmt_list[i], label="{0}, P = {1}".format(s,dataDict[s]['momentum']), color=color_list[i])
         plt.xlabel('Rate')
         plt.ylabel('Yield')
         plt.title('{} {} Yield vs Rate'.format(target.capitalize(), spec))
@@ -351,7 +350,7 @@ def plot_regress(settingList, momentumList, spec):
 
         # plot the data with error bars and the regression line
         for i, s in enumerate(settingList):
-            plt.errorbar(dataDict[s]['rate'][:,0], np.ones_like(dataDict[s]['rate'][:,0])*dataDict[s]['momentum'], yerr=dataDict[s]['yield_error'], fmt=fmt_list[i], label="{0}".format(s), color=color_list[i])
+            plt.errorbar(dataDict[s]['x'][:,0], np.ones_like(dataDict[s]['x'][:,0])*dataDict[s]['momentum'], yerr=dataDict[s]['yield_error'], fmt=fmt_list[i], label="{0}".format(s), color=color_list[i])
         plt.xlabel('Rate')
         plt.ylabel('Momentum')
         plt.title('{} {} Momentum vs Rate'.format(target.capitalize(), spec))

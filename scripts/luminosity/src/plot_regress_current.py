@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-08-31 17:31:58 trottar"
+# Time-stamp: "2023-08-31 17:40:14 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -188,6 +188,7 @@ def plot_regress(settingList, momentumList, spec):
         # Initialize arrays to hold all data points for linear regression
         current_list = np.array([])
         eff_boil_list = np.array([])
+        uncern_eff_boil_list = np.array([])
         # Iterate through settings and collect data for linear regression
         for i, s in enumerate(settingList):
             m = dataDict[s]['reg'].params[1] # Slope
@@ -205,6 +206,7 @@ def plot_regress(settingList, momentumList, spec):
             # Collect data for linear regression
             current_list = np.concatenate((current_list, dataDict[s]['current']))
             eff_boil_list = np.concatenate((eff_boil_list, eff_boil))
+            uncern_eff_boil_list = np.concatenate((uncern_eff_boil_list, delta_eff_boil))
 
         # Unweighted
         # Perform linear regression on all data points
