@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-08-30 21:27:26 trottar"
+# Time-stamp: "2023-08-30 21:32:49 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -94,8 +94,8 @@ def plot_regress(settingList, momentumList, spec):
             print("Error: %s does not appear to exist." % inp_f)
             sys.exit(0)
 
-    print(dataDict.keys())
-    print(dataDict.values())
+    #print(dataDict.keys())
+    #print(dataDict.values())
 
     ################################################################################################################################################
 
