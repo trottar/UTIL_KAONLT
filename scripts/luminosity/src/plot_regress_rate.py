@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-08-31 17:29:04 trottar"
+# Time-stamp: "2023-08-31 17:32:27 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -76,7 +76,7 @@ def plot_regress(settingList, momentumList, spec):
             dataDict[s]['yield'] = data['yield_{}_track'.format(spec)]
             dataDict[s]['yield_error'] = data['uncern_yieldRel_{}_track'.format(spec)]
             # reshape the rates, yields, and yield errors into column vectors
-            dataDict[s]['rate'] = data['yieldRel_{}_track'.format(spec)][:, np.newaxis]
+            dataDict[s]['rate'] = data['rate_{}'.format(spec)][:, np.newaxis]
             dataDict[s]['x'] = data['current'][:, np.newaxis]
             dataDict[s]['y'] = dataDict[s]["rel_yield"][:, np.newaxis]
             dataDict[s]['yerr'] = dataDict[s]["yield_error"][:, np.newaxis]
@@ -226,8 +226,7 @@ def plot_regress(settingList, momentumList, spec):
         slope, intercept, r_value, p_value, std_err = linregress(rate_list, eff_boil_list)
         # Calculate the linear fit values
         x_fit = np.linspace(min(rate_list), max(rate_list), 100)
-        y_fit = slope * x_fit + intercept
-        
+        y_fit = slope * x_fit + intercept    
         # Plot the linear fit line
         plt.plot(x_fit, y_fit, linestyle='dashed', color='violet', label='Unweighted, y={:.3e}x+{:.3e}'.format(slope,intercept))
 

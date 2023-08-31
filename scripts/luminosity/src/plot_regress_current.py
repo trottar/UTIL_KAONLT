@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-08-31 14:35:04 trottar"
+# Time-stamp: "2023-08-31 17:31:58 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -206,14 +206,25 @@ def plot_regress(settingList, momentumList, spec):
             current_list = np.concatenate((current_list, dataDict[s]['current']))
             eff_boil_list = np.concatenate((eff_boil_list, eff_boil))
 
+        # Unweighted
         # Perform linear regression on all data points
         slope, intercept, r_value, p_value, std_err = linregress(current_list, eff_boil_list)
         # Calculate the linear fit values
         x_fit = np.linspace(min(current_list), max(current_list), 100)
-        y_fit = slope * x_fit + intercept
-        
+        y_fit = slope * x_fit + intercept    
         # Plot the linear fit line
-        plt.plot(x_fit, y_fit, linestyle='dashed', color='black', label='y={:.3e}x+{:.3e}'.format(slope,intercept))
+        plt.plot(x_fit, y_fit, linestyle='dashed', color='violet', label='Unweighted, y={:.3e}x+{:.3e}'.format(slope,intercept))
+
+        # Weighted
+        # Perform weighted linear regression using polyfit
+        coefficients = np.polyfit(current_list, eff_boil_list, 1, w=1/uncern_eff_boil_list)
+        slope = coefficients[0]
+        intercept = coefficients[1]
+        # Calculate the linear fit values
+        x_fit = np.linspace(min(current_list), max(current_list), 100)
+        y_fit = np.polyval(coefficients, x_fit)
+        # Plot the linear fit line
+        plt.plot(x_fit, y_fit, linestyle='dashed', color='purple', label='Weighted, y={:.3e}x+{:.3e}'.format(slope,intercept))
 
         plt.xlabel('Current')
         plt.ylabel('Boil Factor')
