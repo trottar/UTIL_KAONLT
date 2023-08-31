@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-08-31 17:48:44 trottar"
+# Time-stamp: "2023-08-31 18:21:04 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -149,7 +149,13 @@ def plot_regress(settingList, momentumList, spec):
             delta_m0 = dataDict[s]['reg'].bse[1] # Standard error of the slope
             # Check if the slope value is infinity
             if np.isinf(delta_m0):
-                delta_m0 = 0.0
+                # Calculate standard errors manually
+                X = sm.add_constant(dataDict[s]['x'])
+                weights = 1.0 / dataDict[s]['yerr']**2
+                # Calculate variance-covariance matrix
+                var_cov_matrix = np.linalg.inv(np.dot(X.T * weights, X))
+                # Standard error for the coefficient at index 1
+                delta_m0 = np.sqrt(var_cov_matrix[1, 1])
             eff_boil = 1 - abs(m0 * dataDict[s]['current'].values)
             # delta_eff_boil = sqrt(I^2*delta_m0^2+m0^2*delta_I^2)
             delta_eff_boil =  np.sqrt((dataDict[s]['current'].values**2)*(delta_m0**2)) # Need the current uncern
@@ -198,7 +204,13 @@ def plot_regress(settingList, momentumList, spec):
             delta_m0 = dataDict[s]['reg'].bse[1] # Standard error of the slope
             # Check if the slope value is infinity
             if np.isinf(delta_m0):
-                delta_m0 = 0.0
+                # Calculate standard errors manually
+                X = sm.add_constant(dataDict[s]['x'])
+                weights = 1.0 / dataDict[s]['yerr']**2
+                # Calculate variance-covariance matrix
+                var_cov_matrix = np.linalg.inv(np.dot(X.T * weights, X))
+                # Standard error for the coefficient at index 1
+                delta_m0 = np.sqrt(var_cov_matrix[1, 1])
             eff_boil = 1 - abs(m0 * dataDict[s]['current'].values)
             # delta_eff_boil = sqrt(I^2*delta_m0^2+m0^2*delta_I^2)
             delta_eff_boil =  np.sqrt((dataDict[s]['current'].values**2)*(delta_m0**2)) # Need the current uncern
