@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-08-31 15:53:41 trottar"
+# Time-stamp: "2023-08-31 15:54:37 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -74,7 +74,7 @@ def plot_regress(settingList, momentumList, spec):
             dataDict[s]['yield'] = data['yield_{}_track'.format(spec)]
             dataDict[s]['yield_error'] = data['uncern_yieldRel_{}_track'.format(spec)]
             # reshape the rates, yields, and yield errors into column vectors
-            dataDict[s]['x'] = dataDict[s]["rate"][:, np.newaxis]
+            dataDict[s]['x'] = dataDict[s]["rate_{}".format(spec)][:, np.newaxis]
             dataDict[s]['y'] = dataDict[s]["rel_yield"][:, np.newaxis]
             dataDict[s]['yerr'] = dataDict[s]["yield_error"][:, np.newaxis]
 
