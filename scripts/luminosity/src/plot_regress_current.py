@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-08-30 23:38:20 trottar"
+# Time-stamp: "2023-08-30 23:40:58 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -155,7 +155,7 @@ def plot_regress(settingList, momentumList, spec):
         run_num_list = np.hstack(run_num_list).flatten()
 
         plt.plot([min(run_num_list), max(run_num_list)], [aver_eff_boil, aver_eff_boil], color='r', linestyle='dotted', label='Average Eff Boil: {:.3f}'.format(aver_eff_boil))
-        plt.fill_between(run_num_list, aver_eff_boil - uncern_aver_eff_boil, aver_eff_boil + uncern_aver_eff_boil, color='r', alpha=0.3)        
+        plt.fill_between(run_num_list, aver_eff_boil - aver_eff_boil*uncern_aver_eff_boil, aver_eff_boil + aver_eff_boil*uncern_aver_eff_boil, color='r', alpha=0.3)        
 
         plt.xlabel('Run Number')
         plt.ylabel('Boil Factor')
