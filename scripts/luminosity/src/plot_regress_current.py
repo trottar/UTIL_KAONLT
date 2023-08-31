@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-08-31 13:40:07 trottar"
+# Time-stamp: "2023-08-31 13:40:37 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -180,7 +180,7 @@ def plot_regress(settingList, momentumList, spec):
             m0 = m / b
             delta_m0 = np.sqrt((dataDict[s]['current'] ** 2) * (dataDict[s]['yield_error'] ** 2))
             eff_boil = 1 - abs(m0 * dataDict[s]['current'].values)
-plt.errorbar(dataDict[s]['current'], eff_boil, yerr=dataDict[s]['yield_error'], fmt=fmt_list[i], label="{0}, P = {1}".format(s, dataDict[s]['momentum']), color=color_list[i])
+            plt.errorbar(dataDict[s]['current'], eff_boil, yerr=dataDict[s]['yield_error'], fmt=fmt_list[i], label="{0}, P = {1}".format(s, dataDict[s]['momentum']), color=color_list[i])
 
             # Collect data for linear regression
             all_current = np.concatenate((all_current, dataDict[s]['current']))
