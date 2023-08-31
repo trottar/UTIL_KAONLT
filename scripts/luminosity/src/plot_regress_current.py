@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-08-30 21:50:22 trottar"
+# Time-stamp: "2023-08-30 22:01:14 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -135,20 +135,26 @@ def plot_regress(settingList, momentumList, spec):
 
         fig = plt.figure(figsize=(12,8))
 
+        eff_boil_list = []  # List to store eff_boil values
         for i, s in enumerate(settingList):
             m = dataDict[s]['reg'].params[1]
             b = dataDict[s]['reg'].params[0]
-            m0 = m/b
-            # delta_m0 = sqrt(I^2*delta_m0^2+m0^2*delta_I^2)
-            delta_m0 = np.sqrt((dataDict[s]['current']**2)*(dataDict[s]['yield_error']**2))
-            eff_boil = 1 - abs(m0*dataDict[s]['current'])
-            plt.errorbar(dataDict[s]['run number'], eff_boil, yerr=dataDict[s]['yield_error'], fmt=fmt_list[i], label="{0}, P = {1}".format(s,dataDict[s]['momentum']), color=color_list[i])
+            m0 = m / b
+            delta_m0 = np.sqrt((dataDict[s]['current'] ** 2) * (dataDict[s]['yield_error'] ** 2))
+            eff_boil = 1 - abs(m0 * dataDict[s]['current'])
+            eff_boil_list.append(eff_boil)  # Append eff_boil value to the list
+            plt.errorbar(dataDict[s]['run number'], eff_boil, yerr=dataDict[s]['yield_error'], fmt=fmt_list[i], label="{0}, P = {1}".format(s, dataDict[s]['momentum']), color=color_list[i])
+
+        aver_eff_boil = sum(eff_boil_list) / len(eff_boil_list)  # Calculate average eff_boil
+        plt.axhline(y=aver_eff_boil, color='r', linestyle='dotted', label='Average Eff Boil: {}'.format(aver_eff_boil))  # Add dotted line for aver eff_boil
+
         plt.xlabel('Run Number')
         plt.ylabel('Boil Factor')
-        plt.ylim(0.9,1.1)
+        plt.ylim(0.9, 1.1)
         plt.title('{} {} Boil Factor vs Run Number'.format(target.capitalize(), spec))
         plt.legend()
         plt.show()
+
 
         pdf.savefig(fig)
         plt.close(fig)
