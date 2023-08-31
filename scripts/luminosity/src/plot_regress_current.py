@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-08-31 14:01:19 trottar"
+# Time-stamp: "2023-08-31 14:07:59 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -140,23 +140,26 @@ def plot_regress(settingList, momentumList, spec):
         uncern_aver_eff_boil_list = []
         run_num_list = []
         m0_list = []
+        uncern_m0_list = []
         for i, s in enumerate(settingList):
             m = dataDict[s]['reg'].params[1]
             b = dataDict[s]['reg'].params[0]
             m0 = m / b
-            m0_list.append(m0)
-            print("P = {}, m0 = {:.3e}".format(dataDict[s]['momentum'], m0))
             delta_m0 = np.sqrt((dataDict[s]['current'] ** 2) * (dataDict[s]['yield_error'] ** 2))
             eff_boil = 1 - abs(m0 * dataDict[s]['current'].values)
+            delta_eff_boil = dataDict[s]['yield_error']
+            print("P = {}, m0 = {:.3e}$\pm${:.3e}, {} = {:.3f}$\pm${:.3f}".format(dataDict[s]['momentum'], m0, delta_m0, r"$\epsilon^{avg}_{boil}$", eff_boil.mean(), uncern_eff_boil.mean()))
+            m0_list.append(m0)
+            uncern_m0_list.append(delta_m0)
             aver_eff_boil_list.append(eff_boil.mean())  # Append eff_boil value to the list
-            uncern_aver_eff_boil_list.append(dataDict[s]['yield_error'].mean())
+            uncern_aver_eff_boil_list.append(delta_eff_boil.mean())
             run_num_list.append(np.array(dataDict[s]['run number'].values).flatten())
             plt.errorbar(dataDict[s]['run number'], eff_boil, yerr=dataDict[s]['yield_error'], fmt=fmt_list[i], label="{0}, P = {1}".format(s, dataDict[s]['momentum']), color=color_list[i])
 
         aver_eff_boil = np.mean(aver_eff_boil_list)
         uncern_aver_eff_boil = np.mean(uncern_aver_eff_boil_list)
         print("Mean eff_boil:",aver_eff_boil, "+/-",uncern_aver_eff_boil)
-        print("Mean m0:",np.average(m0_list))
+        print("Mean m0: {:.3e}$\pm${:.3e}".format(np.average(m0_list), np.average(uncern_m0_list)))
         run_num_list = np.hstack(run_num_list).flatten()
 
         plt.plot([min(run_num_list), max(run_num_list)], [aver_eff_boil, aver_eff_boil], color='r', linestyle='dotted', label='{}: {:.3f}$\pm${:.3f}'.format(r"$\epsilon^{avg}_{boil}$",aver_eff_boil,uncern_aver_eff_boil))
