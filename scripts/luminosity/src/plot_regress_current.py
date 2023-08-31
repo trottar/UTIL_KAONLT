@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-08-30 23:09:16 trottar"
+# Time-stamp: "2023-08-30 23:11:43 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -150,6 +150,8 @@ def plot_regress(settingList, momentumList, spec):
         aver_eff_boil = np.mean(aver_eff_boil_list)
         print("Mean:",aver_eff_boil)
         run_num_list = np.array(run_num_list).flatten()
+        print("~~~~~~~~~~~~~~~",run_num_list)
+        print("~~~~~~~~~~~~~~~",min(run_num_list),max(run_num_list))
 
         plt.plot([min(run_num_list), max(run_num_list)], [aver_eff_boil, aver_eff_boil], color='r', linestyle='dotted', label='Average Eff Boil: {:.2f}'.format(aver_eff_boil))
 
