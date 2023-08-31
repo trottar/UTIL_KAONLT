@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-08-30 23:43:11 trottar"
+# Time-stamp: "2023-08-31 13:29:04 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -151,7 +151,7 @@ def plot_regress(settingList, momentumList, spec):
 
         aver_eff_boil = np.mean(aver_eff_boil_list)
         uncern_aver_eff_boil = np.mean(uncern_aver_eff_boil_list)
-        print("Mean:",aver_eff_boil, "+/-",uncern_aver_eff_boil)
+        print("Mean m0:",aver_eff_boil, "+/-",uncern_aver_eff_boil)
         run_num_list = np.hstack(run_num_list).flatten()
 
         plt.plot([min(run_num_list), max(run_num_list)], [aver_eff_boil, aver_eff_boil], color='r', linestyle='dotted', label='Average Eff Boil: {:.3f}'.format(aver_eff_boil))
@@ -167,6 +167,40 @@ def plot_regress(settingList, momentumList, spec):
         pdf.savefig(fig)
         plt.close(fig)
 
+        fig = plt.figure(figsize=(12,8))
+
+        aver_eff_boil_list = []  # List to store eff_boil values
+        uncern_aver_eff_boil_list = []
+        run_num_list = []
+        for i, s in enumerate(settingList):
+            m = dataDict[s]['reg'].params[1]
+            b = dataDict[s]['reg'].params[0]
+            m0 = m / b
+            delta_m0 = np.sqrt((dataDict[s]['current'] ** 2) * (dataDict[s]['yield_error'] ** 2))
+            eff_boil = 1 - abs(m0 * dataDict[s]['current'].values)
+            aver_eff_boil_list.append(eff_boil.mean())  # Append eff_boil value to the list
+            uncern_aver_eff_boil_list.append(dataDict[s]['yield_error'].mean())
+            run_num_list.append(np.array(dataDict[s]['current'].values).flatten())
+            plt.errorbar(dataDict[s]['current'], eff_boil, yerr=dataDict[s]['yield_error'], fmt=fmt_list[i], label="{0}, P = {1}".format(s, dataDict[s]['momentum']), color=color_list[i])
+
+        aver_eff_boil = np.mean(aver_eff_boil_list)
+        uncern_aver_eff_boil = np.mean(uncern_aver_eff_boil_list)
+        print("Mean m0:",aver_eff_boil, "+/-",uncern_aver_eff_boil)
+        run_num_list = np.hstack(run_num_list).flatten()
+
+        plt.plot([min(run_num_list), max(run_num_list)], [aver_eff_boil, aver_eff_boil], color='r', linestyle='dotted', label='Average Eff Boil: {:.3f}'.format(aver_eff_boil))
+        plt.fill_between(run_num_list, aver_eff_boil - uncern_aver_eff_boil, aver_eff_boil + uncern_aver_eff_boil, color='r', alpha=0.3)        
+
+        plt.xlabel('Current')
+        plt.ylabel('Boil Factor')
+        plt.ylim(0.9, 1.1)
+        plt.title('{} {} Boil Factor vs Current'.format(target.capitalize(), spec))
+        plt.legend()
+        plt.show()
+
+        pdf.savefig(fig)
+        plt.close(fig)
+        
         fig = plt.figure(figsize=(12,8))
 
         # plot the data with error bars and the regression line
