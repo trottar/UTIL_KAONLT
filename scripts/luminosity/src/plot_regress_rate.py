@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-08-31 17:22:02 trottar"
+# Time-stamp: "2023-08-31 17:24:12 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -155,6 +155,7 @@ def plot_regress(settingList, momentumList, spec):
                 # Calculate the uncertainty using alternative method
                 x_values = dataDict[s]['reg'].model.exog[:, 1]
                 y_values = dataDict[s]['reg'].model.endog
+                slope = dataDict[s]['reg'].params[1]  # Calculating the slope
                 delta_m0 = np.std(y_values - slope * x_values) / np.sqrt(len(y_values))
             eff_boil = 1 - abs(m0 * dataDict[s]['current'].values)
             # delta_eff_boil = sqrt(I^2*delta_m0^2+m0^2*delta_I^2)
@@ -207,6 +208,7 @@ def plot_regress(settingList, momentumList, spec):
                 # Calculate the uncertainty using alternative method
                 x_values = dataDict[s]['reg'].model.exog[:, 1]
                 y_values = dataDict[s]['reg'].model.endog
+                slope = dataDict[s]['reg'].params[1]  # Calculating the slope
                 delta_m0 = np.std(y_values - slope * x_values) / np.sqrt(len(y_values))
             eff_boil = 1 - abs(m0 * dataDict[s]['current'].values)
             # delta_eff_boil = sqrt(I^2*delta_m0^2+m0^2*delta_I^2)
