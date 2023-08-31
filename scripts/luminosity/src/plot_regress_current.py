@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-08-31 14:11:55 trottar"
+# Time-stamp: "2023-08-31 14:15:31 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -136,11 +136,11 @@ def plot_regress(settingList, momentumList, spec):
 
         fig = plt.figure(figsize=(12,8))
 
-        aver_eff_boil_list = []  # List to store eff_boil values
-        uncern_aver_eff_boil_list = []
-        run_num_list = []
         m0_list = []
         uncern_m0_list = []
+        aver_eff_boil_list = []
+        uncern_aver_eff_boil_list = []
+        run_num_list = []
         for i, s in enumerate(settingList):
             m = dataDict[s]['reg'].params[1]
             b = dataDict[s]['reg'].params[0]
@@ -148,14 +148,14 @@ def plot_regress(settingList, momentumList, spec):
             delta_m0 = np.sqrt((dataDict[s]['current'] ** 2) * (dataDict[s]['yield_error'] ** 2))
             eff_boil = 1 - abs(m0 * dataDict[s]['current'].values)
             # delta_eff_boil = sqrt(I^2*delta_m0^2+m0^2*delta_I^2)
-            delta_eff_boil = np.sqrt((dataDict[s]['yield_error']**2)*(dataDict[s]['yield_error']**2))
-            print("P = {}, m0 = {:.3e}$\pm${:.3e}, {} = {:.3f}$\pm${:.3f}".format(dataDict[s]['momentum'], m0, delta_m0, r"$\epsilon^{avg}_{boil}$", eff_boil.mean(), delta_eff_boil.mean()))
+            delta_eff_boil = np.sqrt((dataDict[s]['current']**2)*(dataDict[s]['yield_error']**2))
+            #print("P = {}, m0 = {:.3e}$\pm${:.3e}, {} = {:.3f}$\pm${:.3f}".format(dataDict[s]['momentum'], m0, delta_m0, r"$\epsilon^{avg}_{boil}$", eff_boil.mean(), delta_eff_boil.mean()))
             m0_list.append(m0)
             uncern_m0_list.append(delta_m0)
-            aver_eff_boil_list.append(eff_boil.mean())  # Append eff_boil value to the list
+            aver_eff_boil_list.append(eff_boil.mean())
             uncern_aver_eff_boil_list.append(delta_eff_boil.mean())
             run_num_list.append(np.array(dataDict[s]['run number'].values).flatten())
-            plt.errorbar(dataDict[s]['run number'], eff_boil, yerr=dataDict[s]['yield_error'], fmt=fmt_list[i], label="{0}, P = {1}".format(s, dataDict[s]['momentum']), color=color_list[i])
+            plt.errorbar(dataDict[s]['run number'], eff_boil, yerr=delta_eff_boil, fmt=fmt_list[i], label="{0}, P = {1}".format(s, dataDict[s]['momentum']), color=color_list[i])
 
         aver_eff_boil = np.mean(aver_eff_boil_list)
         uncern_aver_eff_boil = np.mean(uncern_aver_eff_boil_list)
