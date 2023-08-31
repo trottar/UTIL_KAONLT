@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-08-31 18:28:58 trottar"
+# Time-stamp: "2023-08-31 18:32:27 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -51,6 +51,7 @@ def plot_regress(settingList, momentumList, spec):
     all_relyield = np.array([])
     all_uncern_relyield = np.array([])
     all_current = np.array([])
+    all_rate = np.array([])
 
     for i,s in enumerate(settingList):
         dataDict[s] = {}
@@ -89,6 +90,7 @@ def plot_regress(settingList, momentumList, spec):
             dataDict[s]['chi_sq'] = np.sum(((np.array(dataDict[s]['y']) - np.array(dataDict[s]['expected_y']))/np.array(dataDict[s]['yerr']))**2)
 
             all_current = np.concatenate([all_current, data['current']])
+            all_rate = np.concatenate([all_rate, dataDict[s]['rate_{}'.format(spec)]])
             all_relyield = np.concatenate([all_relyield, data['yieldRel_{}_track'.format(spec)]])
             all_uncern_relyield = np.concatenate([all_uncern_relyield, data['uncern_yieldRel_{}_track'.format(spec)]])
 
@@ -102,6 +104,7 @@ def plot_regress(settingList, momentumList, spec):
     ################################################################################################################################################
 
     all_current = all_current[:, np.newaxis]
+    all_rate = all_rate[:, np.newaxis]
     all_relyield = all_relyield[:, np.newaxis]
     all_uncern_relyield = all_uncern_relyield[:, np.newaxis]
     # Linear regression (unweighted)
