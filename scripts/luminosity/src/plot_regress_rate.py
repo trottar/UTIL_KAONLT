@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-08-31 18:32:27 trottar"
+# Time-stamp: "2023-08-31 18:36:38 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -262,12 +262,12 @@ def plot_regress(settingList, momentumList, spec):
             m0 = dataDict[s]['reg'].params[1]/dataDict[s]['reg'].params[0]
             eff_boil = 1 - m0*dataDict[s]['current']
             plt.errorbar(dataDict[s]['rate_{}'.format(spec)], dataDict[s]['corr_y'], yerr=dataDict[s]['yield_error'], fmt=fmt_list[i], label="{0}, P = {1}\n{2} = {3:0.2e}".format(s,dataDict[s]['momentum'],r'$\overline{\epsilon_{boil}}$',np.average(eff_boil)), color=color_list[i])
-        plt.plot(all_rate, all_reg.predict(sm.add_constant(all_rate)), linewidth=2.0, linestyle=':', color='purple', label='Weighted linear regression\n{0}={1:0.2e}\nm={2:0.2e}, b={3:0.2e}'.format(r'$\chi^2$',all_chi_sq,all_reg.params[1],all_reg.params[0]))
-        plt.plot(all_rate, all_reg_uw.predict(sm.add_constant(all_rate)), linewidth=2.0, linestyle=':', color='violet', label='Unweighted linear regression')
+        plt.plot(all_rate, all_reg.predict(sm.add_constant(all_current)), linewidth=2.0, linestyle=':', color='purple', label='Weighted linear regression\n{0}={1:0.2e}\nm={2:0.2e}, b={3:0.2e}'.format(r'$\chi^2$',all_chi_sq,all_reg.params[1],all_reg.params[0]))
+        plt.plot(all_rate, all_reg_uw.predict(sm.add_constant(all_current)), linewidth=2.0, linestyle=':', color='violet', label='Unweighted linear regression')
         # calculate the upper and lower confidence intervals for the regression line
         conf_int = all_reg.conf_int() # 95% confidence level
-        upper_bounds = conf_int[0][0] + conf_int[1][0]*np.sort(all_rate[:,0]) # mx+b, upper
-        lower_bounds = conf_int[0][1] + conf_int[1][1]*np.sort(all_rate[:,0]) # mx+b, lower
+        upper_bounds = conf_int[0][0] + conf_int[1][0]*np.sort(all_current[:,0]) # mx+b, upper
+        lower_bounds = conf_int[0][1] + conf_int[1][1]*np.sort(all_current[:,0]) # mx+b, lower
         plt.fill_between(np.sort(all_rate[:,0]), upper_bounds, lower_bounds, alpha=0.2)
 
         # print the slope, intercept, and chi-squared value
