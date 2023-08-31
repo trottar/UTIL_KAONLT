@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-08-30 21:17:52 trottar"
+# Time-stamp: "2023-08-30 21:25:25 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -71,7 +71,7 @@ def plot_regress(settingList, momentumList, spec):
             dataDict[s]['run number'] = data['run number']
             dataDict[s]['rel_yield'] = data['yieldRel_{}_track'.format(spec)]
             dataDict[s]['yield'] = data['yield_{}_track'.format(spec)]
-            dataDict[s]['yield_error'] = data['uncern_yieldRel_{}_track'.format(spec)]
+            dataDict[s]['yield_error'] = data['yieldRel_{}_track'.format(spec)]*data['uncern_yieldRel_{}_track'.format(spec)]
             # reshape the currents, yields, and yield errors into column vectors
             dataDict[s]['x'] = dataDict[s]["current"][:, np.newaxis]
             dataDict[s]['y'] = dataDict[s]["rel_yield"][:, np.newaxis]
@@ -88,7 +88,7 @@ def plot_regress(settingList, momentumList, spec):
 
             all_current = np.concatenate([all_current, data['current']])
             all_relyield = np.concatenate([all_relyield, data['yieldRel_{}_track'.format(spec)]])
-            all_uncern_relyield = np.concatenate([all_uncern_relyield, data['uncern_yieldRel_{}_track'.format(spec)]])
+            all_uncern_relyield = np.concatenate([all_uncern_relyield, data['yieldRel_{}_track'.format(spec)]*data['uncern_yieldRel_{}_track'.format(spec)]])
 
         except IOError:
             print("Error: %s does not appear to exist." % inp_f)
@@ -139,13 +139,14 @@ def plot_regress(settingList, momentumList, spec):
             m = dataDict[s]['reg'].params[1]
             b = dataDict[s]['reg'].params[0]
             m0 = m/b
+            # delta_m0 = sqrt(I^2*delta_m0^2+m0^2*delta_I^2)
             delta_m0 = np.sqrt((dataDict[s]['current']**2)*(dataDict[s]['yield_error']**2))
             eff_boil = 1 - m0*dataDict[s]['current']
             plt.errorbar(dataDict[s]['run number'], eff_boil, yerr=dataDict[s]['yield_error'], fmt=fmt_list[i], label="{0}, P = {1}".format(s,dataDict[s]['momentum']), color=color_list[i])
         plt.xlabel('Run Number')
         plt.ylabel('Boil Factor')
-        plt.ylim(0.9,1.1)    
-        plt.title('{} {} Boil Factor vs Run Number'.format(target, spec))
+        plt.ylim(0.9,1.1)
+        plt.title('{} {} Boil Factor vs Run Number'.format(target.capitalize(), spec))
         plt.legend()
         plt.show()
 
@@ -175,7 +176,7 @@ def plot_regress(settingList, momentumList, spec):
         plt.xlabel('Current')
         plt.ylabel('Rel. Yield')
         plt.ylim(0.9,1.1)
-        plt.title('{} {} Rel. Yield vs Current'.format(target, spec))
+        plt.title('{} {} Rel. Yield vs Current'.format(target.capitalize(), spec))
         plt.legend()
         plt.show()
 
@@ -196,7 +197,7 @@ def plot_regress(settingList, momentumList, spec):
         plt.xlabel('Current')
         plt.ylabel('Rel. Yield')
         plt.ylim(0.9,1.1)
-        plt.title('{} {} Rel. Yield vs Current'.format(target, spec))
+        plt.title('{} {} Rel. Yield vs Current'.format(target.capitalize(), spec))
         plt.legend()
 
         pdf.savefig(fig)
@@ -242,7 +243,7 @@ def plot_regress(settingList, momentumList, spec):
             plt.errorbar(dataDict[s]['x'][:,0], dataDict[s]['yield'], yerr=dataDict[s]['yield_error'], fmt=fmt_list[i], label="{0}, P = {1}".format(s,dataDict[s]['momentum']), color=color_list[i])
         plt.xlabel('Current')
         plt.ylabel('Yield')
-        plt.title('{} {} Yield vs Current'.format(target, spec))
+        plt.title('{} {} Yield vs Current'.format(target.capitalize(), spec))
         plt.legend()
 
         pdf.savefig(fig)
@@ -255,7 +256,7 @@ def plot_regress(settingList, momentumList, spec):
             plt.errorbar(dataDict[s]['x'][:,0], np.ones_like(dataDict[s]['x'][:,0])*dataDict[s]['momentum'], yerr=dataDict[s]['yield_error'], fmt=fmt_list[i], label="{0}".format(s), color=color_list[i])
         plt.xlabel('Current')
         plt.ylabel('Momentum')
-        plt.title('{} {} Momentum vs Current'.format(target, spec))
+        plt.title('{} {} Momentum vs Current'.format(target.capitalize(), spec))
         plt.legend()
 
         pdf.savefig(fig)
