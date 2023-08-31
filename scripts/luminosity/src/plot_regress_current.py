@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-08-30 22:32:08 trottar"
+# Time-stamp: "2023-08-30 22:34:26 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -135,7 +135,7 @@ def plot_regress(settingList, momentumList, spec):
 
         fig = plt.figure(figsize=(12,8))
 
-        eff_boil_list = []  # List to store eff_boil values
+        aver_eff_boil = []  # List to store eff_boil values
         for i, s in enumerate(settingList):
             m = dataDict[s]['reg'].params[1]
             b = dataDict[s]['reg'].params[0]
@@ -143,11 +143,10 @@ def plot_regress(settingList, momentumList, spec):
             delta_m0 = np.sqrt((dataDict[s]['current'] ** 2) * (dataDict[s]['yield_error'] ** 2))
             eff_boil = 1 - abs(m0 * dataDict[s]['current'].values)
             print("~~~~~~~~~~~~~~~~~~~~",eff_boil)
-            eff_boil_list.append(eff_boil)  # Append eff_boil value to the list
+            aver_eff_boil.append(np.mean(eff_boil))  # Append eff_boil value to the list
             plt.errorbar(dataDict[s]['run number'], eff_boil, yerr=dataDict[s]['yield_error'], fmt=fmt_list[i], label="{0}, P = {1}".format(s, dataDict[s]['momentum']), color=color_list[i])
 
-        aver_eff_boil = np.mean(eff_boil_list)
-        plt.plot([min(dataDict[s]['run number']), max(dataDict[s]['run number'])], [aver_eff_boil,aver_eff_boil], color='r', linestyle='dotted', label='Average Eff Boil: {}'.format(aver_eff_boil))
+        plt.plot(dataDict[s]['run number'], aver_eff_boil, color='r', linestyle='dotted', label='Average Eff Boil: {}'.format(aver_eff_boil))
 
         plt.xlabel('Run Number')
         plt.ylabel('Boil Factor')
