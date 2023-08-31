@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-08-31 17:15:37 trottar"
+# Time-stamp: "2023-08-31 17:16:50 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -156,7 +156,7 @@ def plot_regress(settingList, momentumList, spec):
                 residuals = dataDict[s]['reg'].resid
                 x_mean = np.mean(dataDict[s]['x'])
                 sum_residuals_squared = np.sum(residuals ** 2)
-                denominator = len(x_values) - 2 if len(x_values) > 1 else 1
+                denominator = len(dataDict[s]['x']) - 2 if len(dataDict[s]['x']) > 1 else 1
                 standard_error_two_points = np.sqrt(sum_residuals_squared / denominator) / np.abs(x_mean)
                 delta_m0 = standard_error_two_points
             eff_boil = 1 - abs(m0 * dataDict[s]['current'].values)
@@ -211,7 +211,7 @@ def plot_regress(settingList, momentumList, spec):
                 residuals = dataDict[s]['reg'].resid
                 x_mean = np.mean(dataDict[s]['x'])
                 sum_residuals_squared = np.sum(residuals ** 2)
-                denominator = len(x_values) - 2 if len(x_values) > 1 else 1
+                denominator = len(dataDict[s]['x']) - 2 if len(dataDict[s]['x']) > 1 else 1
                 standard_error_two_points = np.sqrt(sum_residuals_squared / denominator) / np.abs(x_mean)
                 delta_m0 = standard_error_two_points
             eff_boil = 1 - abs(m0 * dataDict[s]['current'].values)
