@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-08-31 14:16:38 trottar"
+# Time-stamp: "2023-08-31 14:18:17 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -145,11 +145,11 @@ def plot_regress(settingList, momentumList, spec):
             m = dataDict[s]['reg'].params[1]
             b = dataDict[s]['reg'].params[0]
             m0 = m / b
-            delta_m0 = dataDict[s]['yield_error']
+            delta_m0 = dataDict[s]['yield_error'].values
             eff_boil = 1 - abs(m0 * dataDict[s]['current'].values)
             # delta_eff_boil = sqrt(I^2*delta_m0^2+m0^2*delta_I^2)
-            delta_eff_boil = np.sqrt((dataDict[s]['current']**2)*(dataDict[s]['yield_error']**2))
-            #print("P = {}, m0 = {:.3e}$\pm${:.3e}, {} = {:.3f}$\pm${:.3f}".format(dataDict[s]['momentum'], m0, delta_m0, r"$\epsilon^{avg}_{boil}$", eff_boil.mean(), delta_eff_boil.mean()))
+            delta_eff_boil = np.sqrt((dataDict[s]['current'].values**2)*(dataDict[s]['yield_error'].values**2))
+            print("P = {}, m0 = {:.3e}$\pm${:.3e}, {} = {:.3f}$\pm${:.3f}".format(dataDict[s]['momentum'], m0, delta_m0, r"$\epsilon^{avg}_{boil}$", eff_boil.mean(), delta_eff_boil.mean()))
             m0_list.append(m0)
             uncern_m0_list.append(delta_m0)
             aver_eff_boil_list.append(eff_boil.mean())
