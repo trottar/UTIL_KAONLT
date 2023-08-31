@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-08-30 23:24:38 trottar"
+# Time-stamp: "2023-08-30 23:35:06 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -144,14 +144,20 @@ def plot_regress(settingList, momentumList, spec):
             delta_m0 = np.sqrt((dataDict[s]['current'] ** 2) * (dataDict[s]['yield_error'] ** 2))
             eff_boil = 1 - abs(m0 * dataDict[s]['current'].values)
             aver_eff_boil_list.append(eff_boil.mean())  # Append eff_boil value to the list
+            uncern_aver_eff_boil_list.append(delta_m0.mean())
             run_num_list.append(np.array(dataDict[s]['run number'].values).flatten())
             plt.errorbar(dataDict[s]['run number'], eff_boil, yerr=dataDict[s]['yield_error'], fmt=fmt_list[i], label="{0}, P = {1}".format(s, dataDict[s]['momentum']), color=color_list[i])
 
         aver_eff_boil = np.mean(aver_eff_boil_list)
-        print("Mean:",aver_eff_boil)
+        uncern_aver_eff_boil = np.mean(uncern_aver_eff_boil_list)
+        print("Mean:",aver_eff_boil, "+/-",uncern_aver_eff_boil)
         run_num_list = np.hstack(run_num_list).flatten()
 
         plt.plot([min(run_num_list), max(run_num_list)], [aver_eff_boil, aver_eff_boil], color='r', linestyle='dotted', label='Average Eff Boil: {:.3f}'.format(aver_eff_boil))
+        conf_int = uncern_aver_eff_boil.conf_int() # 95% confidence level
+        upper_bounds = conf_int[0][0] + conf_int[1][0]*np.sort(all_current[:,0]) # mx+b, upper
+        lower_bounds = conf_int[0][1] + conf_int[1][1]*np.sort(all_current[:,0]) # mx+b, lower
+        plt.fill_between(np.sort(all_current[:,0]), upper_bounds, lower_bounds, alpha=0.2)        
 
         plt.xlabel('Run Number')
         plt.ylabel('Boil Factor')
@@ -159,7 +165,6 @@ def plot_regress(settingList, momentumList, spec):
         plt.title('{} {} Boil Factor vs Run Number'.format(target.capitalize(), spec))
         plt.legend()
         plt.show()
-
 
         pdf.savefig(fig)
         plt.close(fig)
