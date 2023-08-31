@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-08-31 13:37:27 trottar"
+# Time-stamp: "2023-08-31 13:40:07 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -180,7 +180,7 @@ def plot_regress(settingList, momentumList, spec):
             m0 = m / b
             delta_m0 = np.sqrt((dataDict[s]['current'] ** 2) * (dataDict[s]['yield_error'] ** 2))
             eff_boil = 1 - abs(m0 * dataDict[s]['current'].values)
-            plt.errorbar(dataDict[s]['current'], eff_boil, yerr=dataDict[s]['yield_error'], fmt=fmt_list[i], label="{0}, P = {1}".format(s, dataDict[s]['momentum']), color=color_list[i])
+plt.errorbar(dataDict[s]['current'], eff_boil, yerr=dataDict[s]['yield_error'], fmt=fmt_list[i], label="{0}, P = {1}".format(s, dataDict[s]['momentum']), color=color_list[i])
 
             # Collect data for linear regression
             all_current = np.concatenate((all_current, dataDict[s]['current']))
@@ -193,7 +193,7 @@ def plot_regress(settingList, momentumList, spec):
         y_fit = slope * x_fit + intercept
         
         # Plot the linear fit line
-        plt.plot(x_fit, y_fit, linestyle='dashed', color='black', label='Linear Fit (All Data)')
+        plt.plot(x_fit, y_fit, linestyle='dashed', color='black', label='y={:.3f}x+{:.3f}'.format(slope,intercept))
 
 
         plt.xlabel('Current')
