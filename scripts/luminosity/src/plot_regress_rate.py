@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-08-31 16:58:07 trottar"
+# Time-stamp: "2023-08-31 17:03:06 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -220,17 +220,18 @@ def plot_regress(settingList, momentumList, spec):
         y_fit = slope * x_fit + intercept
         
         # Plot the linear fit line
-        plt.plot(x_fit, y_fit, linestyle='dashed', color='black', label='Unweighted, y={:.3e}x+{:.3e}'.format(slope,intercept))
+        plt.plot(x_fit, y_fit, linestyle='dashed', color='violet', label='Unweighted, y={:.3e}x+{:.3e}'.format(slope,intercept))
 
         # Weighted
-        # Perform linear regression on all data points
-        slope, intercept, r_value, p_value, std_err = linregress(rate_list, eff_boil_list, weights=1/uncern_eff_boil_list)
+        # Perform weighted linear regression using polyfit
+        coefficients = np.polyfit(rate_list, eff_boil_list, 1, w=1/uncern_eff_boil_list)
+        slope = coefficients[0]
+        intercept = coefficients[1]
         # Calculate the linear fit values
         x_fit = np.linspace(min(rate_list), max(rate_list), 100)
-        y_fit = slope * x_fit + intercept
-        
+        y_fit = np.polyval(coefficients, x_fit)
         # Plot the linear fit line
-        plt.plot(x_fit, y_fit, linestyle='dashed', color='black', label='Weighted, y={:.3e}x+{:.3e}'.format(slope,intercept))
+        plt.plot(x_fit, y_fit, linestyle='dashed', color='purple', label='Weighted, y={:.3e}x+{:.3e}'.format(slope,intercept))
         
         plt.xlabel('Rate')
         plt.ylabel('Boil Factor')
