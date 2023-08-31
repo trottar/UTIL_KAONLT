@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-08-31 13:35:51 trottar"
+# Time-stamp: "2023-08-31 13:37:27 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -14,6 +14,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import statsmodels.api as sm
+from scipy.stats import linregress
 from matplotlib.backends.backend_pdf import PdfPages
 import sys, os
 
