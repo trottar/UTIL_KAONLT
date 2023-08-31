@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-08-31 17:42:05 trottar"
+# Time-stamp: "2023-08-31 17:44:56 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -121,7 +121,7 @@ def plot_regress(settingList, momentumList, spec):
     for s in settingList:
         tmp1 = []
         tmp2 = []
-        for val in data['current']:
+        for val in data['rate_{}'.format(spec)]:
             tmp1.append(corr_y[:,0][i])
             tmp2.append(residuals[:,0][i])
             i+=1
