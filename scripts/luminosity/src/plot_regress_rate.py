@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-08-31 18:49:14 trottar"
+# Time-stamp: "2023-08-31 18:50:54 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -248,12 +248,12 @@ def plot_regress(settingList, momentumList, spec):
         conf_int = all_reg.conf_int() # 95% confidence level
         upper_bounds = conf_int[0][0] + conf_int[1][0]*np.sort(y_fit) # mx+b, upper
         lower_bounds = conf_int[0][1] + conf_int[1][1]*np.sort(y_fit) # mx+b, lower
-        plt.fill_between(np.sort(y_fit), upper_bounds, lower_bounds, alpha=0.2)
+        plt.fill_between(np.sort(x_fit), upper_bounds, lower_bounds, alpha=0.2)
 
         plt.xlabel('Rate [kHz]')
         plt.ylabel('Boil Factor')
         plt.ylim(0.9, 1.1)
-        plt.title('{} {} Boil Factor vs Current'.format(target.capitalize(), spec))
+        plt.title('{} {} Boil Factor vs Rate [kHz]'.format(target.capitalize(), spec))
         plt.legend()
         plt.show()
 
@@ -283,7 +283,7 @@ def plot_regress(settingList, momentumList, spec):
         plt.xlabel('Rate [kHz]')
         plt.ylabel('Rel. Yield')
         plt.ylim(0.9,1.1)
-        plt.title('{} {} Rel. Yield vs Current'.format(target.capitalize(), spec))
+        plt.title('{} {} Rel. Yield vs Rate [kHz]'.format(target.capitalize(), spec))
         plt.legend()
         plt.show()
 
@@ -304,7 +304,7 @@ def plot_regress(settingList, momentumList, spec):
         plt.xlabel('Rate [kHz]')
         plt.ylabel('Rel. Yield')
         plt.ylim(0.9,1.1)
-        plt.title('{} {} Rel. Yield vs Current'.format(target.capitalize(), spec))
+        plt.title('{} {} Rel. Yield vs Rate [kHz]'.format(target.capitalize(), spec))
         plt.legend()
 
         pdf.savefig(fig)
@@ -350,7 +350,7 @@ def plot_regress(settingList, momentumList, spec):
             plt.errorbar(dataDict[s]['x'][:,0], dataDict[s]['yield'], yerr=dataDict[s]['yield_error'], fmt=fmt_list[i], label="{0}, P = {1}".format(s,dataDict[s]['momentum']), color=color_list[i])
         plt.xlabel('Rate [kHz]')
         plt.ylabel('Yield')
-        plt.title('{} {} Yield vs Current'.format(target.capitalize(), spec))
+        plt.title('{} {} Yield vs Rate [kHz]'.format(target.capitalize(), spec))
         plt.legend()
 
         pdf.savefig(fig)
@@ -363,7 +363,7 @@ def plot_regress(settingList, momentumList, spec):
             plt.errorbar(dataDict[s]['x'][:,0], np.ones_like(dataDict[s]['x'][:,0])*dataDict[s]['momentum'], yerr=dataDict[s]['yield_error'], fmt=fmt_list[i], label="{0}".format(s), color=color_list[i])
         plt.xlabel('Rate [kHz]')
         plt.ylabel('Momentum')
-        plt.title('{} {} Momentum vs Current'.format(target.capitalize(), spec))
+        plt.title('{} {} Momentum vs Rate [kHz]'.format(target.capitalize(), spec))
         plt.legend()
 
         pdf.savefig(fig)
