@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-08-31 13:40:37 trottar"
+# Time-stamp: "2023-08-31 13:42:43 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -174,7 +174,7 @@ def plot_regress(settingList, momentumList, spec):
         all_current = np.array([])
         all_eff_boil = np.array([])
         # Iterate through settings and collect data for linear regression
-        for s in settingList:
+        for i, s in enumerate(settingList):
             m = dataDict[s]['reg'].params[1]
             b = dataDict[s]['reg'].params[0]
             m0 = m / b
@@ -193,7 +193,7 @@ def plot_regress(settingList, momentumList, spec):
         y_fit = slope * x_fit + intercept
         
         # Plot the linear fit line
-        plt.plot(x_fit, y_fit, linestyle='dashed', color='black', label='y={:.3f}x+{:.3f}'.format(slope,intercept))
+        plt.plot(x_fit, y_fit, linestyle='dashed', color='black', label='y={:.3e}x+{:.3e}'.format(slope,intercept))
 
 
         plt.xlabel('Current')
