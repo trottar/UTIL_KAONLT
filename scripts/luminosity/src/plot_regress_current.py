@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-08-30 22:15:02 trottar"
+# Time-stamp: "2023-08-30 22:17:00 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -147,8 +147,6 @@ def plot_regress(settingList, momentumList, spec):
 
         aver_eff_boil = sum(eff_boil_list) / len(eff_boil_list)  # Calculate average eff_boil
         plt.plot([min(dataDict[s]['run number']), max(dataDict[s]['run number'])], aver_eff_boil, color='r', linestyle='dotted', label='Average Eff Boil: {:.3f}'.format(aver_eff_boil))
-
-
 
         plt.xlabel('Run Number')
         plt.ylabel('Boil Factor')
