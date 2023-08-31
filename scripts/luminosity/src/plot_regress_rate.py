@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-08-31 18:56:05 trottar"
+# Time-stamp: "2023-08-31 19:13:17 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -157,7 +157,8 @@ def plot_regress(settingList, momentumList, spec):
                 delta_m0 = np.sqrt(var_cov_matrix[1, 1])
             eff_boil = 1 - abs(m0 * dataDict[s]['rate_{}'.format(spec)].values)
             # delta_eff_boil = sqrt(I^2*delta_m0^2+m0^2*delta_I^2)
-            delta_eff_boil =  np.sqrt((dataDict[s]['rate_{}'.format(spec)].values**2)*(delta_m0**2)) # Need the rate uncern
+            delta_current = 0.2
+            delta_eff_boil =  np.sqrt((dataDict[s]['rate_{}'.format(spec)].values**2)*(delta_m0**2)+(m0**2)*(delta_current**2))
             print('''
             P = {}, 
                    m0 = {:.3e} +/- {:.3e}, 
@@ -212,7 +213,8 @@ def plot_regress(settingList, momentumList, spec):
                 delta_m0 = np.sqrt(var_cov_matrix[1, 1])
             eff_boil = 1 - abs(m0 * dataDict[s]['rate_{}'.format(spec)].values)
             # delta_eff_boil = sqrt(I^2*delta_m0^2+m0^2*delta_I^2)
-            delta_eff_boil =  np.sqrt((dataDict[s]['rate_{}'.format(spec)].values**2)*(delta_m0**2)) # Need the rate uncern
+            delta_current = 0.2
+            delta_eff_boil =  np.sqrt((dataDict[s]['rate_{}'.format(spec)].values**2)*(delta_m0**2)+(m0**2)*(delta_current**2))
             plt.errorbar(dataDict[s]['rate_{}'.format(spec)], eff_boil, yerr=delta_eff_boil, fmt=fmt_list[i], label="{0}, P = {1}".format(s, dataDict[s]['momentum']), color=color_list[i])
 
             # Collect data for linear regression
