@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-08-31 17:16:50 trottar"
+# Time-stamp: "2023-08-31 17:20:51 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -152,13 +152,10 @@ def plot_regress(settingList, momentumList, spec):
             delta_m0 = dataDict[s]['reg'].bse[1] # Standard error of the slope
             # Check if the slope value is infinity
             if np.isinf(delta_m0):
-                # Calculate the standard error for two data points manually
-                residuals = dataDict[s]['reg'].resid
-                x_mean = np.mean(dataDict[s]['x'])
-                sum_residuals_squared = np.sum(residuals ** 2)
-                denominator = len(dataDict[s]['x']) - 2 if len(dataDict[s]['x']) > 1 else 1
-                standard_error_two_points = np.sqrt(sum_residuals_squared / denominator) / np.abs(x_mean)
-                delta_m0 = standard_error_two_points
+                # Calculate the uncertainty using alternative method
+                x_values = dataDict[s]['reg'].model.exog[:, 1]
+                y_values = dataDict[s]['reg'].model.endog
+                delta_m0 = np.std(y_values - slope * x_values) / np.sqrt(len(y_values)
             eff_boil = 1 - abs(m0 * dataDict[s]['current'].values)
             # delta_eff_boil = sqrt(I^2*delta_m0^2+m0^2*delta_I^2)
             delta_eff_boil =  np.sqrt((dataDict[s]['current'].values**2)*(delta_m0**2)) # Need the rate uncern
@@ -207,13 +204,10 @@ def plot_regress(settingList, momentumList, spec):
             delta_m0 = dataDict[s]['reg'].bse[1] # Standard error of the slope
             # Check if the slope value is infinity
             if np.isinf(delta_m0):
-                # Calculate the standard error for two data points manually
-                residuals = dataDict[s]['reg'].resid
-                x_mean = np.mean(dataDict[s]['x'])
-                sum_residuals_squared = np.sum(residuals ** 2)
-                denominator = len(dataDict[s]['x']) - 2 if len(dataDict[s]['x']) > 1 else 1
-                standard_error_two_points = np.sqrt(sum_residuals_squared / denominator) / np.abs(x_mean)
-                delta_m0 = standard_error_two_points
+                # Calculate the uncertainty using alternative method
+                x_values = dataDict[s]['reg'].model.exog[:, 1]
+                y_values = dataDict[s]['reg'].model.endog
+                delta_m0 = np.std(y_values - slope * x_values) / np.sqrt(len(y_values)
             eff_boil = 1 - abs(m0 * dataDict[s]['current'].values)
             # delta_eff_boil = sqrt(I^2*delta_m0^2+m0^2*delta_I^2)
             delta_eff_boil =  np.sqrt((dataDict[s]['current'].values**2)*(delta_m0**2)) # Need the rate uncern
