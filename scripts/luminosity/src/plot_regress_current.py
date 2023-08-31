@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-08-31 14:22:49 trottar"
+# Time-stamp: "2023-08-31 14:29:42 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -142,16 +142,20 @@ def plot_regress(settingList, momentumList, spec):
         uncern_aver_eff_boil_list = []
         run_num_list = []
         for i, s in enumerate(settingList):
-            m = dataDict[s]['reg'].params[1]
-            b = dataDict[s]['reg'].params[0]
+            m = dataDict[s]['reg'].params[1] # Slope
+            b = dataDict[s]['reg'].params[0] # Intercept
             m0 = m / b
-            delta_m0 = dataDict[s]['yield_error'].values # Temp, not correct! Remove mean() once corrected
+            delta_m0 = dataDict[s]['reg'].bse[1] # Standard error of the slope
             eff_boil = 1 - abs(m0 * dataDict[s]['current'].values)
             # delta_eff_boil = sqrt(I^2*delta_m0^2+m0^2*delta_I^2)
-            delta_eff_boil = dataDict[s]['yield_error'].values # Temp, not correct! Remove mean() once corrected
-            print("P = {}, m0 = {:.3e}+/-{:.3e}, aver_eff_boil = {:.3f}+/-{:.3f}".format(dataDict[s]['momentum'], m0, delta_m0.mean(), eff_boil.mean(), delta_eff_boil.mean()))
+            delta_eff_boil =  np.sqrt((dataDict[s]['current'].values**2)*(delta_m0**2)) # Need the current uncern
+            print('''
+            P = {}, 
+                   m0 = {:.3e}+/-{:.3e}, 
+                   aver_eff_boil = {:.3f}+/-{:.3f}
+            '''.format(dataDict[s]['momentum'], m0, delta_m0, eff_boil.mean(), delta_eff_boil.mean()))
             m0_list.append(m0)
-            uncern_m0_list.append(delta_m0.mean())
+            uncern_m0_list.append(delta_m0)
             aver_eff_boil_list.append(eff_boil.mean())
             uncern_aver_eff_boil_list.append(delta_eff_boil.mean())
             run_num_list.append(np.array(dataDict[s]['run number'].values).flatten())
@@ -159,8 +163,8 @@ def plot_regress(settingList, momentumList, spec):
 
         aver_eff_boil = np.mean(aver_eff_boil_list)
         uncern_aver_eff_boil = np.mean(uncern_aver_eff_boil_list)
-        print("Mean eff_boil:",aver_eff_boil, "+/-",uncern_aver_eff_boil)
-        print("Mean m0: {:.3e}$\pm${:.3e}".format(np.average(m0_list), np.average(uncern_m0_list)))
+        print("Mean eff_boil: {:.3f}+/-{:.3f}".format(aver_eff_boil, uncern_aver_eff_boil))
+        print("Mean m0: {:.3e}+/-{:.3e}".format(np.average(m0_list), np.average(uncern_m0_list)))
         run_num_list = np.hstack(run_num_list).flatten()
 
         plt.plot([min(run_num_list), max(run_num_list)], [aver_eff_boil, aver_eff_boil], color='r', linestyle='dotted', label='{}: {:.3f}$\pm${:.3f}'.format(r"$\epsilon^{avg}_{boil}$",aver_eff_boil,uncern_aver_eff_boil))
