@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-08-30 21:25:25 trottar"
+# Time-stamp: "2023-08-30 21:27:26 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -71,7 +71,7 @@ def plot_regress(settingList, momentumList, spec):
             dataDict[s]['run number'] = data['run number']
             dataDict[s]['rel_yield'] = data['yieldRel_{}_track'.format(spec)]
             dataDict[s]['yield'] = data['yield_{}_track'.format(spec)]
-            dataDict[s]['yield_error'] = data['yieldRel_{}_track'.format(spec)]*data['uncern_yieldRel_{}_track'.format(spec)]
+            dataDict[s]['yield_error'] = data['uncern_yieldRel_{}_track'.format(spec)]
             # reshape the currents, yields, and yield errors into column vectors
             dataDict[s]['x'] = dataDict[s]["current"][:, np.newaxis]
             dataDict[s]['y'] = dataDict[s]["rel_yield"][:, np.newaxis]
@@ -88,7 +88,7 @@ def plot_regress(settingList, momentumList, spec):
 
             all_current = np.concatenate([all_current, data['current']])
             all_relyield = np.concatenate([all_relyield, data['yieldRel_{}_track'.format(spec)]])
-            all_uncern_relyield = np.concatenate([all_uncern_relyield, data['yieldRel_{}_track'.format(spec)]*data['uncern_yieldRel_{}_track'.format(spec)]])
+            all_uncern_relyield = np.concatenate([all_uncern_relyield, data['uncern_yieldRel_{}_track'.format(spec)]])
 
         except IOError:
             print("Error: %s does not appear to exist." % inp_f)
