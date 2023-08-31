@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-08-31 19:14:17 trottar"
+# Time-stamp: "2023-08-31 19:15:56 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -45,7 +45,7 @@ import data_path
 
 ################################################################################################################################################
 
-def plot_regress(settingList, momentumList, spec):
+def plot_regress(settingList, momentumList, spec, DEBUG=False):
     dataDict = {}
 
     all_relyield = np.array([])
@@ -185,7 +185,8 @@ def plot_regress(settingList, momentumList, spec):
         plt.ylim(0.9, 1.1)
         plt.title('{} {} Boil Factor vs Run Number'.format(target.capitalize(), spec))
         plt.legend()
-        plt.show()
+        if DEBUG:
+            plt.show()
 
         pdf.savefig(fig)
         plt.close(fig)
@@ -247,7 +248,8 @@ def plot_regress(settingList, momentumList, spec):
         plt.ylim(0.9, 1.1)
         plt.title('{} {} Boil Factor vs Current'.format(target.capitalize(), spec))
         plt.legend()
-        plt.show()
+        if DEBUG:
+            plt.show()
 
         pdf.savefig(fig)
         plt.close(fig)
@@ -277,7 +279,8 @@ def plot_regress(settingList, momentumList, spec):
         plt.ylim(0.9,1.1)
         plt.title('{} {} Rel. Yield vs Current'.format(target.capitalize(), spec))
         plt.legend()
-        plt.show()
+        if DEBUG:
+            plt.show()
 
         pdf.savefig(fig)
         plt.close(fig)
