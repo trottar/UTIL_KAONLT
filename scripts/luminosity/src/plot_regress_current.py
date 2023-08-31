@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-08-30 23:35:06 trottar"
+# Time-stamp: "2023-08-30 23:36:05 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -136,6 +136,7 @@ def plot_regress(settingList, momentumList, spec):
         fig = plt.figure(figsize=(12,8))
 
         aver_eff_boil_list = []  # List to store eff_boil values
+        uncern_aver_eff_boil_list = []
         run_num_list = []
         for i, s in enumerate(settingList):
             m = dataDict[s]['reg'].params[1]
