@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-08-31 18:45:36 trottar"
+# Time-stamp: "2023-08-31 18:47:14 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -246,9 +246,9 @@ def plot_regress(settingList, momentumList, spec):
 
         # calculate the upper and lower confidence intervals for the regression line
         conf_int = all_reg.conf_int() # 95% confidence level
-        upper_bounds = conf_int[0][0] + conf_int[1][0]*np.sort(x_fit[:,0]) # mx+b, upper
-        lower_bounds = conf_int[0][1] + conf_int[1][1]*np.sort(x_fit[:,0]) # mx+b, lower
-        plt.fill_between(np.sort(x_fit[:,0]), upper_bounds, lower_bounds, alpha=0.2)
+        upper_bounds = conf_int[0][0] + conf_int[1][0]*np.sort(x_fit) # mx+b, upper
+        lower_bounds = conf_int[0][1] + conf_int[1][1]*np.sort(x_fit) # mx+b, lower
+        plt.fill_between(np.sort(x_fit), upper_bounds, lower_bounds, alpha=0.2)
 
         plt.xlabel('Rate [kHz]')
         plt.ylabel('Boil Factor')
