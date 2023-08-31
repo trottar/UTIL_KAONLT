@@ -3,7 +3,7 @@
 # Description: Grabs lumi data from corresponding csv depending on run setting. Then plots the yields and creates a comprehensive table.
 # Variables calculated: current, rate_HMS, rate_SHMS, sent_edtm_PS, uncern_HMS_evts_scaler, uncern_SHMS_evts_scaler, uncern_HMS_evts_notrack, uncern_SHMS_evts_notrack, uncern_HMS_evts_track, uncern_SHMS_evts_track
 # ================================================================
-# Time-stamp: "2023-08-30 20:40:38 trottar"
+# Time-stamp: "2023-08-30 20:43:30 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -102,7 +102,7 @@ def removeRun(runNum):
 
 # testing
 # Carbon
-#removeRun()
+removeRun(5301) # 10p6 l2, bad TLT (<20%)
 # LH2
 removeRun(5165) # 10p6 l1, really bad scalers
 removeRun(5303) # 10p6 l2, not sure but off by a bit, only ~4 minutes of good beam on time
