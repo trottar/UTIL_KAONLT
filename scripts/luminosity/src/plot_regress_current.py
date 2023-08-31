@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-08-31 14:29:42 trottar"
+# Time-stamp: "2023-08-31 14:32:11 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -146,6 +146,9 @@ def plot_regress(settingList, momentumList, spec):
             b = dataDict[s]['reg'].params[0] # Intercept
             m0 = m / b
             delta_m0 = dataDict[s]['reg'].bse[1] # Standard error of the slope
+            # Check if the slope value is infinity
+            if np.isinf(delta_m0):
+                delta_m0 = 0.0
             eff_boil = 1 - abs(m0 * dataDict[s]['current'].values)
             # delta_eff_boil = sqrt(I^2*delta_m0^2+m0^2*delta_I^2)
             delta_eff_boil =  np.sqrt((dataDict[s]['current'].values**2)*(delta_m0**2)) # Need the current uncern
