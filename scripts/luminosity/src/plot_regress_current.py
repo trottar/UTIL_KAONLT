@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-08-31 13:32:59 trottar"
+# Time-stamp: "2023-08-31 13:35:51 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -154,7 +154,7 @@ def plot_regress(settingList, momentumList, spec):
         print("Mean m0:",aver_eff_boil, "+/-",uncern_aver_eff_boil)
         run_num_list = np.hstack(run_num_list).flatten()
 
-        plt.plot([min(run_num_list), max(run_num_list)], [aver_eff_boil, aver_eff_boil], color='r', linestyle='dotted', label='Average Eff Boil: {:.3f}'.format(aver_eff_boil))
+        plt.plot([min(run_num_list), max(run_num_list)], [aver_eff_boil, aver_eff_boil], color='r', linestyle='dotted', label='Average Eff Boil: {:.3f}$\pm${:.3f}'.format(aver_eff_boil,uncern_aver_eff_boil))
         plt.fill_between(run_num_list, aver_eff_boil - uncern_aver_eff_boil, aver_eff_boil + uncern_aver_eff_boil, color='r', alpha=0.3)        
 
         plt.xlabel('Run Number')
@@ -169,19 +169,30 @@ def plot_regress(settingList, momentumList, spec):
 
         fig = plt.figure(figsize=(12,8))
 
-        for i, s in enumerate(settingList):
+        # Initialize arrays to hold all data points for linear regression
+        all_current = np.array([])
+        all_eff_boil = np.array([])
+        # Iterate through settings and collect data for linear regression
+        for s in settingList:
             m = dataDict[s]['reg'].params[1]
             b = dataDict[s]['reg'].params[0]
             m0 = m / b
             delta_m0 = np.sqrt((dataDict[s]['current'] ** 2) * (dataDict[s]['yield_error'] ** 2))
             eff_boil = 1 - abs(m0 * dataDict[s]['current'].values)
             plt.errorbar(dataDict[s]['current'], eff_boil, yerr=dataDict[s]['yield_error'], fmt=fmt_list[i], label="{0}, P = {1}".format(s, dataDict[s]['momentum']), color=color_list[i])
-            
-            # Calculate linear fit values
-            x_fit = np.linspace(min(dataDict[s]['current']), max(dataDict[s]['current']), 100)
-            y_fit = m * x_fit + b
-            # Add linear fit line to the plot
-            plt.plot(x_fit, y_fit, linestyle='dashed', color=color_list[i], label='Linear Fit')
+
+            # Collect data for linear regression
+            all_current = np.concatenate((all_current, dataDict[s]['current']))
+            all_eff_boil = np.concatenate((all_eff_boil, eff_boil))
+
+        # Perform linear regression on all data points
+        slope, intercept, r_value, p_value, std_err = linregress(all_current, all_eff_boil)
+        # Calculate the linear fit values
+        x_fit = np.linspace(min(all_current), max(all_current), 100)
+        y_fit = slope * x_fit + intercept
+        
+        # Plot the linear fit line
+        plt.plot(x_fit, y_fit, linestyle='dashed', color='black', label='Linear Fit (All Data)')
 
 
         plt.xlabel('Current')
