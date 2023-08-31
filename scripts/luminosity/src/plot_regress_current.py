@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-08-30 22:29:41 trottar"
+# Time-stamp: "2023-08-30 22:30:51 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -141,8 +141,8 @@ def plot_regress(settingList, momentumList, spec):
             b = dataDict[s]['reg'].params[0]
             m0 = m / b
             delta_m0 = np.sqrt((dataDict[s]['current'] ** 2) * (dataDict[s]['yield_error'] ** 2))
-            eff_boil = 1 - abs(m0 * dataDict[s]['current'])
-            eff_boil_list.append(eff_boil.values)  # Append eff_boil value to the list
+            eff_boil = 1 - abs(m0 * dataDict[s]['current'].values)
+            eff_boil_list.append(eff_boil)  # Append eff_boil value to the list
             plt.errorbar(dataDict[s]['run number'], eff_boil, yerr=dataDict[s]['yield_error'], fmt=fmt_list[i], label="{0}, P = {1}".format(s, dataDict[s]['momentum']), color=color_list[i])
 
         aver_eff_boil = np.mean(eff_boil_list)
