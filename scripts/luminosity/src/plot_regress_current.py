@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-08-31 19:15:56 trottar"
+# Time-stamp: "2023-08-31 20:08:52 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -369,7 +369,7 @@ def plot_regress(settingList, momentumList, spec, DEBUG=False):
 
 settingList = ["10p6cl1","10p6cl2","10p6cl3","8p2cl1"]
 momentumList = [-3.266, -4.204, -6.269, -5.745] # HMS
-plot_regress(settingList, momentumList, "HMS")
+plot_regress(settingList, momentumList, "HMS", DEBUG=True)
 
 ################################################################################################################################################
 
@@ -384,7 +384,7 @@ momentumList = [-3.266, -4.204, -6.269, -5.745] # HMS
 # Removing 10p6 l3 because of terrible TLT for almost all runs
 #settingList = ["10p6lh2l1","10p6lh2l2","8p2lh2l1"]
 #momentumList = [-3.266, -4.204, -5.745] # HMS
-plot_regress(settingList, momentumList, "HMS")
+plot_regress(settingList, momentumList, "HMS", DEBUG=True)
 
 ################################################################################################################################################
 
