@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-08-31 20:14:39 trottar"
+# Time-stamp: "2023-08-31 20:17:14 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -230,7 +230,7 @@ def plot_regress(settingList, momentumList, spec, DEBUG=False):
         x_fit = np.linspace(min(current_list), max(current_list), 100)
         y_fit = slope * x_fit + intercept    
         # Plot the linear fit line
-        plt.plot(x_fit, y_fit, linestyle='dashed', color='violet', label='Unweighted, {}=1-{:.3e}I'.format(r"\epsilon^{avg}_{boil}",slope/intercept))
+        plt.plot(x_fit, y_fit, linestyle='dashed', color='violet', label='Unweighted, {}=1 - {:.3e} I'.format(r"$\epsilon^{avg}_{boil}$",slope/intercept))
 
         # Weighted
         # Perform weighted linear regression using polyfit
@@ -241,7 +241,7 @@ def plot_regress(settingList, momentumList, spec, DEBUG=False):
         x_fit = np.linspace(min(current_list), max(current_list), 100)
         y_fit = np.polyval(coefficients, x_fit)
         # Plot the linear fit line
-        plt.plot(x_fit, y_fit, linestyle='dashed', color='purple', label='Weighted, {}=1-{:.3e}I'.format(r"\epsilon^{avg}_{boil}",slope,intercept))
+        plt.plot(x_fit, y_fit, linestyle='dashed', color='purple', label='Weighted, {}=1 - {:.3e} I'.format(r"$\epsilon^{avg}_{boil}$",slope,intercept))
 
         plt.xlabel('Current')
         plt.ylabel('Boil Factor')
