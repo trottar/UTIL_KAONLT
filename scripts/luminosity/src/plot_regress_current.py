@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-09-03 17:14:13 trottar"
+# Time-stamp: "2023-09-03 17:16:59 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -239,7 +239,7 @@ def plot_regress(settingList, momentumList, spec, DEBUG=False):
         slope = coefficients[0]
         intercept = coefficients[1]
         # Calculate the residuals
-        residuals = eff_boil_list - ((slope/intercept) * current_list + 1.0)
+        residuals = eff_boil_list - ((slope/intercept) * current_list - 1.0)
         # Calculate the variance of the residuals
         residual_variance = np.var(residuals, ddof=2)
         # Calculate the uncertainty in the slope
