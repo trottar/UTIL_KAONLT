@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-09-03 17:16:59 trottar"
+# Time-stamp: "2023-09-03 17:18:48 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -239,7 +239,7 @@ def plot_regress(settingList, momentumList, spec, DEBUG=False):
         slope = coefficients[0]
         intercept = coefficients[1]
         # Calculate the residuals
-        residuals = eff_boil_list - ((slope/intercept) * current_list - 1.0)
+        residuals = eff_boil_list - ((slope) * current_list + intercept)
         # Calculate the variance of the residuals
         residual_variance = np.var(residuals, ddof=2)
         # Calculate the uncertainty in the slope
@@ -249,11 +249,11 @@ def plot_regress(settingList, momentumList, spec, DEBUG=False):
         y_fit = np.polyval(coefficients, x_fit)
         
         # Calculate upper and lower bounds for error bands
-        slope_upper = slope/intercept + slope_uncertainty
-        slope_lower = slope/intercept - slope_uncertainty
+        slope_upper = slope + slope_uncertainty
+        slope_lower = slope - slope_uncertainty
         # Plot the linear fit line with error bands
         plt.plot(x_fit, y_fit, linestyle='dashed', color='purple', label='Weighted, {}=1-({:.3e})*I'.format(r"$\overline{\epsilon_{boil}}$", abs(slope/intercept)))
-        plt.fill_between(x_fit, slope_upper * x_fit + 1.0, slope_lower * x_fit + 1.0, alpha=0.2)
+        plt.fill_between(x_fit, slope_upper * x_fit + intercept, slope_lower * x_fit + intercept, alpha=0.2)
 
         print("Weighted comparison of m0: yield {:.3e} | eff_boil {:.3e}".format(np.average(m0_list),abs(slope/intercept)))
         
