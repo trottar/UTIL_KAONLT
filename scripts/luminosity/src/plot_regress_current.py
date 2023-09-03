@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-09-03 16:58:28 trottar"
+# Time-stamp: "2023-09-03 17:04:06 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -231,7 +231,7 @@ def plot_regress(settingList, momentumList, spec, DEBUG=False):
         y_fit = slope * x_fit + intercept    
         # Plot the linear fit line
         plt.plot(x_fit, y_fit, linestyle='dashed', color='violet', label='Unweighted, {}=1-({:.3e})*I'.format(r"$\overline{\epsilon_{boil}}$",abs(slope/intercept)))
-        print("Unweighted comparison of m0: yield {:.3e} - eff_boil {:.3e}".format(np.average(m0_list),abs(slope/intercept)))
+        print("Unweighted comparison of m0: yield {:.3e} | eff_boil {:.3e}".format(np.average(m0_list),abs(slope/intercept)))
 
         # Weighted
         # Perform weighted linear regression using polyfit
@@ -239,11 +239,11 @@ def plot_regress(settingList, momentumList, spec, DEBUG=False):
         slope = coefficients[0]
         intercept = coefficients[1]
         # Calculate the linear fit values
-        x_fit = np.linspace(min(current_list), max(current_list), 100)
+        x_fit = np.linspace(min(current_list), max(current_list), 100
         y_fit = np.polyval(coefficients, x_fit)
         # Plot the linear fit line
         plt.plot(x_fit, y_fit, linestyle='dashed', color='purple', label='Weighted, {}=1-({:.3e})*I'.format(r"$\overline{\epsilon_{boil}}$",abs(slope/intercept)))
-        print("Weighted comparison of m0: yield {:.3e} - eff_boil {:.3e}".format(np.average(m0_list),abs(slope/intercept)))
+        print("Weighted comparison of m0: yield {:.3e} | eff_boil {:.3e}".format(np.average(m0_list),abs(slope/intercept)))
         
         plt.xlabel('Current')
         plt.ylabel('Boil Factor')
@@ -261,10 +261,13 @@ def plot_regress(settingList, momentumList, spec, DEBUG=False):
         # plot the data with error bars and the regression line
         #plt.errorbar(all_current[:,0], corr_y[:,0], yerr=all_uncern_relyield[:,0], markersize=10.0, fmt='o', label="Corrected Data", color='teal')  
         for i, s in enumerate(settingList):
-            m0 = dataDict[s]['reg'].params[1]/dataDict[s]['reg'].params[0]
+            m = dataDict[s]['reg'].params[1] # Slope
+            b = dataDict[s]['reg'].params[0] # Intercept
+            m0 = m / b
+            delta_m0 = dataDict[s]['reg'].bse[1] # Standard error of the slope
             eff_boil = 1 - abs(m0*dataDict[s]['current'])
             plt.errorbar(dataDict[s]['current'], dataDict[s]['corr_y'], yerr=dataDict[s]['yield_error'], fmt=fmt_list[i], label="{0}, P = {1}\n{2} = {3:0.2e}".format(s,dataDict[s]['momentum'],r'$\overline{\epsilon_{boil}}$',np.average(eff_boil)), color=color_list[i])
-        plt.plot(all_current, all_reg.predict(sm.add_constant(all_current)), linewidth=2.0, linestyle=':', color='purple', label='Weighted linear regression\n{0}={1:0.2e}\nm={2:0.2e}, b={3:0.2e}'.format(r'$\chi^2$',all_chi_sq,all_reg.params[1],all_reg.params[0]))
+        plt.plot(all_current, all_reg.predict(sm.add_constant(all_current)), linewidth=2.0, linestyle=':', color='purple', label='Weighted linear regression\n{0}={1:0.2e}\nm={2:0.2e}, b={3:0.2e}\nm0={4:0.3e}$\pm${5:0.3e}'.format(r'$\chi^2$',all_chi_sq,m,b,m0,delta_m0))
         plt.plot(all_current, all_reg_uw.predict(sm.add_constant(all_current)), linewidth=2.0, linestyle=':', color='violet', label='Unweighted linear regression')
         # calculate the upper and lower confidence intervals for the regression line
         conf_int = all_reg.conf_int() # 95% confidence level
