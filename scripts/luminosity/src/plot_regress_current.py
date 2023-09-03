@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-09-03 14:12:54 trottar"
+# Time-stamp: "2023-09-03 14:21:17 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -260,7 +260,7 @@ def plot_regress(settingList, momentumList, spec, DEBUG=False):
         #plt.errorbar(all_current[:,0], corr_y[:,0], yerr=all_uncern_relyield[:,0], markersize=10.0, fmt='o', label="Corrected Data", color='teal')  
         for i, s in enumerate(settingList):
             m0 = dataDict[s]['reg'].params[1]/dataDict[s]['reg'].params[0]
-            eff_boil = 1 - m0*dataDict[s]['current']
+            eff_boil = 1 - abs(m0*dataDict[s]['current'])
             plt.errorbar(dataDict[s]['current'], dataDict[s]['corr_y'], yerr=dataDict[s]['yield_error'], fmt=fmt_list[i], label="{0}, P = {1}\n{2} = {3:0.2e}".format(s,dataDict[s]['momentum'],r'$\overline{\epsilon_{boil}}$',np.average(eff_boil)), color=color_list[i])
         plt.plot(all_current, all_reg.predict(sm.add_constant(all_current)), linewidth=2.0, linestyle=':', color='purple', label='Weighted linear regression\n{0}={1:0.2e}\nm={2:0.2e}, b={3:0.2e}'.format(r'$\chi^2$',all_chi_sq,all_reg.params[1],all_reg.params[0]))
         plt.plot(all_current, all_reg_uw.predict(sm.add_constant(all_current)), linewidth=2.0, linestyle=':', color='violet', label='Unweighted linear regression')
