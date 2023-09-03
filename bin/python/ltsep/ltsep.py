@@ -2,7 +2,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-06-14 15:44:44 trottar"
+# Time-stamp: "2023-09-03 13:24:59 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -698,6 +698,14 @@ class Root():
             if branch == "raster_z":
                 raster_z = e_tree.array("P.rb.z")
                 treeDict.update({"raster_z" : raster_z})
+
+            # BPM
+            if branch == "bpm_tar_x":
+                bpm_tar_x = e_tree.array("P.rb.raster.fr_xbpm_tar")
+                treeDict.update({"bpm_tar_x" : bpm_tar_x})
+            if branch == "bpm_tar_y":
+                bpm_tar_y = e_tree.array("P.rb.raster.fr_ybpm_tar")
+                treeDict.update({"bpm_tar_y" : bpm_tar_y})                
                 
             # Kinematic quantitites
             if branch == "Q2":
