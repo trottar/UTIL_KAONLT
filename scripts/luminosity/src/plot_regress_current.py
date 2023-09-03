@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-09-03 17:04:06 trottar"
+# Time-stamp: "2023-09-03 17:04:46 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -239,7 +239,7 @@ def plot_regress(settingList, momentumList, spec, DEBUG=False):
         slope = coefficients[0]
         intercept = coefficients[1]
         # Calculate the linear fit values
-        x_fit = np.linspace(min(current_list), max(current_list), 100
+        x_fit = np.linspace(min(current_list), max(current_list), 100)
         y_fit = np.polyval(coefficients, x_fit)
         # Plot the linear fit line
         plt.plot(x_fit, y_fit, linestyle='dashed', color='purple', label='Weighted, {}=1-({:.3e})*I'.format(r"$\overline{\epsilon_{boil}}$",abs(slope/intercept)))
