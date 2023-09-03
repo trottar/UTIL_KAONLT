@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-09-03 17:52:51 trottar"
+# Time-stamp: "2023-09-03 17:54:26 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -230,7 +230,7 @@ def plot_regress(settingList, momentumList, spec, DEBUG=False):
         x_fit = np.linspace(min(current_list), max(current_list), 100)
         y_fit = slope * x_fit + intercept    
         # Plot the linear fit line
-        plt.plot(x_fit, y_fit, linestyle='dashed', color='violet', label='Unweighted, {}=1-({:.3e})*I'.format(r"$\overline{\epsilon_{boil}}$",abs(slope/intercept)))
+        plt.plot(x_fit, y_fit, linestyle='dashed', color='violet', label='Unweighted, {}=1-|{:.3e}|*I'.format(r"$\overline{\epsilon_{boil}}$",abs(slope/intercept)))
         print("Unweighted comparison of m0: yield {:.3e} | eff_boil {:.3e}".format(np.average(m0_list),slope/intercept))
 
         # Weighted
@@ -249,7 +249,7 @@ def plot_regress(settingList, momentumList, spec, DEBUG=False):
         y_fit = np.polyval(coefficients, x_fit)
         
         # Plot the linear fit line with error bands
-        plt.plot(x_fit, y_fit, linestyle='dashed', color='purple', label='Weighted, {}=1-({:.3e})*I'.format(r"$\overline{\epsilon_{boil}}$", abs(slope/intercept)))
+        plt.plot(x_fit, y_fit, linestyle='dashed', color='purple', label='Weighted, {}=1-|{:.3e}|*I'.format(r"$\overline{\epsilon_{boil}}$", abs(slope/intercept)))
         print("Weighted comparison of m0: yield {:.3e}+/-{:.3e} | eff_boil {:.3e}+/-{:.3e}".format(np.average(m0_list),np.average(uncern_m0_list),slope/intercept,slope_uncertainty))
         
         plt.xlabel('Current')
