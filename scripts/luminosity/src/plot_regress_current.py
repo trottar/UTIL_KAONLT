@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-09-03 17:48:55 trottar"
+# Time-stamp: "2023-09-03 17:52:51 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -272,11 +272,20 @@ def plot_regress(settingList, momentumList, spec, DEBUG=False):
             b = dataDict[s]['reg'].params[0] # Intercept
             m0 = m / b
             delta_m0 = dataDict[s]['reg'].bse[1] # Standard error of the slope
+            # Check if the slope value is infinity
+            if np.isinf(delta_m0):
+                # Calculate standard errors manually
+                X = sm.add_constant(dataDict[s]['x'])
+                weights = 1.0 / dataDict[s]['yerr']**2
+                # Calculate variance-covariance matrix
+                var_cov_matrix = np.linalg.inv(np.dot(X.T * weights, X))
+                # Standard error for the coefficient at index 1
+                delta_m0 = np.sqrt(var_cov_matrix[1, 1])            
             eff_boil = 1 - abs(m0*dataDict[s]['current'])
             # delta_eff_boil = sqrt(I^2*delta_m0^2+m0^2*delta_I^2)
             delta_current = 0.2 # 200 ns
             delta_eff_boil =  np.sqrt((dataDict[s]['current'].values**2)*(delta_m0**2)+(m0**2)*(delta_current**2))            
-            plt.errorbar(dataDict[s]['current'], dataDict[s]['corr_y'], yerr=dataDict[s]['yield_error'], fmt=fmt_list[i], label="{0}, P = {1}\n{2} = {3:0.2e}$\pm${4:0.2e}".format(s,dataDict[s]['momentum'],r'$\overline{\epsilon_{boil}}$',np.average(eff_boil),np.average(delta_eff_boil)), color=color_list[i])
+            plt.errorbar(dataDict[s]['current'], dataDict[s]['corr_y'], yerr=dataDict[s]['yield_error'], fmt=fmt_list[i], label="{0}, P = {1}\n{2} = {3:0.2f}$\pm${4:0.2f}".format(s,dataDict[s]['momentum'],r'$\overline{\epsilon_{boil}}$',np.average(eff_boil),np.average(delta_eff_boil)), color=color_list[i])
         plt.plot(all_current, all_reg.predict(sm.add_constant(all_current)), linewidth=2.0, linestyle=':', color='purple', label='Weighted linear regression\n{0}={1:0.2e}\nm={2:0.2e}, b={3:0.2e}\nm0={4:0.3e}$\pm${5:0.3e}'.format(r'$\chi^2$',all_chi_sq,m,b,m0,delta_m0))
         plt.plot(all_current, all_reg_uw.predict(sm.add_constant(all_current)), linewidth=2.0, linestyle=':', color='violet', label='Unweighted linear regression')
         # calculate the upper and lower confidence intervals for the regression line
