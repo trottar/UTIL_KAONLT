@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-09-03 17:54:26 trottar"
+# Time-stamp: "2023-09-03 18:15:20 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -110,8 +110,8 @@ def plot_regress(settingList, momentumList, spec, DEBUG=False):
     all_expected_y = all_reg.predict(sm.add_constant(all_current))
     residuals = all_relyield - all_expected_y
     all_chi_sq = np.sum((residuals)**2 / np.array(all_uncern_relyield)**2)
-    #corr_y = all_relyield - residuals
-    corr_y = all_relyield
+    corr_y = all_relyield - residuals
+    #corr_y = all_relyield
 
     i = 0
     for s in settingList:
@@ -239,9 +239,9 @@ def plot_regress(settingList, momentumList, spec, DEBUG=False):
         slope = coefficients[0]
         intercept = coefficients[1]
         # Calculate the residuals
-        residuals = eff_boil_list - ((slope) * current_list + intercept)
-        # Calculate the variance of the residuals
-        residual_variance = np.var(residuals, ddof=2)
+        res = eff_boil_list - ((slope) * current_list + intercept)
+        # Calculate the variance of the res
+        residual_variance = np.var(res, ddof=2)
         # Calculate the uncertainty in the slope
         slope_uncertainty = np.sqrt(1 / np.sum(1 / uncern_eff_boil_list**2) * residual_variance)
         # Calculate the linear fit values
@@ -387,6 +387,8 @@ def plot_regress(settingList, momentumList, spec, DEBUG=False):
 
         pdf.savefig(fig)
         plt.close(fig)
+
+        
 
     
 ################################################################################################################################################
