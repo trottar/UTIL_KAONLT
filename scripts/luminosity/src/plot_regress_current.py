@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-09-03 18:15:20 trottar"
+# Time-stamp: "2023-09-03 18:19:29 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -45,7 +45,7 @@ import data_path
 
 ################################################################################################################################################
 
-def plot_regress(settingList, momentumList, spec, DEBUG=False):
+def plot_regress(settingList, momentumList, spec, residuals='', DEBUG=False):
     dataDict = {}
 
     all_relyield = np.array([])
@@ -108,7 +108,8 @@ def plot_regress(settingList, momentumList, spec, DEBUG=False):
     # Linear regression (weighted)
     all_reg = sm.WLS(all_relyield, sm.add_constant(all_current), weights=1.0/all_uncern_relyield**2).fit()
     all_expected_y = all_reg.predict(sm.add_constant(all_current))
-    residuals = all_relyield - all_expected_y
+    if target == 'carbon':
+        residuals = all_relyield - all_expected_y
     all_chi_sq = np.sum((residuals)**2 / np.array(all_uncern_relyield)**2)
     corr_y = all_relyield - residuals
     #corr_y = all_relyield
@@ -388,14 +389,15 @@ def plot_regress(settingList, momentumList, spec, DEBUG=False):
         pdf.savefig(fig)
         plt.close(fig)
 
-        
+        if target == 'carbon':
+            return residuals
 
     
 ################################################################################################################################################
 
 settingList = ["10p6cl1","10p6cl2","10p6cl3","8p2cl1"]
 momentumList = [-3.266, -4.204, -6.269, -5.745] # HMS
-plot_regress(settingList, momentumList, "HMS", DEBUG=True)
+residuals = plot_regress(settingList, momentumList, "HMS", DEBUG=True)
 
 ################################################################################################################################################
 
@@ -410,7 +412,7 @@ momentumList = [-3.266, -4.204, -6.269, -5.745] # HMS
 # Removing 10p6 l3 because of terrible TLT for almost all runs
 #settingList = ["10p6lh2l1","10p6lh2l2","8p2lh2l1"]
 #momentumList = [-3.266, -4.204, -5.745] # HMS
-plot_regress(settingList, momentumList, "HMS", DEBUG=True)
+plot_regress(settingList, momentumList, "HMS", residuals=residuals,DEBUG=True)
 
 ################################################################################################################################################
 
