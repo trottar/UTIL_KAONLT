@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-09-03 17:18:48 trottar"
+# Time-stamp: "2023-09-03 17:40:09 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -235,7 +235,7 @@ def plot_regress(settingList, momentumList, spec, DEBUG=False):
 
         # Weighted
         # Perform weighted linear regression using polyfit
-        coefficients = np.polyfit(current_list, eff_boil_list, 1, w=1/uncern_eff_boil_list**2)
+        coefficients = np.polyfit(current_list, eff_boil_list, 1, w=1/uncern_eff_boil_list)
         slope = coefficients[0]
         intercept = coefficients[1]
         # Calculate the residuals
