@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-09-03 17:43:55 trottar"
+# Time-stamp: "2023-09-03 17:48:55 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -250,7 +250,7 @@ def plot_regress(settingList, momentumList, spec, DEBUG=False):
         
         # Plot the linear fit line with error bands
         plt.plot(x_fit, y_fit, linestyle='dashed', color='purple', label='Weighted, {}=1-({:.3e})*I'.format(r"$\overline{\epsilon_{boil}}$", abs(slope/intercept)))
-        print("Weighted comparison of m0: yield {:.3e}$\pm${:.3e} | eff_boil {:.3e}$\pm${:.3e}".format(np.average(m0_list),np.average(uncern_m0_list),slope/intercept,slope_uncertainty))
+        print("Weighted comparison of m0: yield {:.3e}+/-{:.3e} | eff_boil {:.3e}+/-{:.3e}".format(np.average(m0_list),np.average(uncern_m0_list),slope/intercept,slope_uncertainty))
         
         plt.xlabel('Current')
         plt.ylabel('Boil Factor')
@@ -273,7 +273,10 @@ def plot_regress(settingList, momentumList, spec, DEBUG=False):
             m0 = m / b
             delta_m0 = dataDict[s]['reg'].bse[1] # Standard error of the slope
             eff_boil = 1 - abs(m0*dataDict[s]['current'])
-            plt.errorbar(dataDict[s]['current'], dataDict[s]['corr_y'], yerr=dataDict[s]['yield_error'], fmt=fmt_list[i], label="{0}, P = {1}\n{2} = {3:0.2e}".format(s,dataDict[s]['momentum'],r'$\overline{\epsilon_{boil}}$',np.average(eff_boil)), color=color_list[i])
+            # delta_eff_boil = sqrt(I^2*delta_m0^2+m0^2*delta_I^2)
+            delta_current = 0.2 # 200 ns
+            delta_eff_boil =  np.sqrt((dataDict[s]['current'].values**2)*(delta_m0**2)+(m0**2)*(delta_current**2))            
+            plt.errorbar(dataDict[s]['current'], dataDict[s]['corr_y'], yerr=dataDict[s]['yield_error'], fmt=fmt_list[i], label="{0}, P = {1}\n{2} = {3:0.2e}$\pm${4:0.2e}".format(s,dataDict[s]['momentum'],r'$\overline{\epsilon_{boil}}$',np.average(eff_boil),np.average(delta_eff_boil)), color=color_list[i])
         plt.plot(all_current, all_reg.predict(sm.add_constant(all_current)), linewidth=2.0, linestyle=':', color='purple', label='Weighted linear regression\n{0}={1:0.2e}\nm={2:0.2e}, b={3:0.2e}\nm0={4:0.3e}$\pm${5:0.3e}'.format(r'$\chi^2$',all_chi_sq,m,b,m0,delta_m0))
         plt.plot(all_current, all_reg_uw.predict(sm.add_constant(all_current)), linewidth=2.0, linestyle=':', color='violet', label='Unweighted linear regression')
         # calculate the upper and lower confidence intervals for the regression line
