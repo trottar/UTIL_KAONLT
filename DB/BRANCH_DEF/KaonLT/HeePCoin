@@ -45,6 +45,9 @@ P_hgcer_yAtCer
 raster_x
 raster_y
 raster_z
+# BPM target
+bpm_tar_x
+bpm_tar_y
 # Kinematic quantitites
 Q2
 W

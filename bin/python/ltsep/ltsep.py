@@ -2,7 +2,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-09-03 13:24:59 trottar"
+# Time-stamp: "2023-09-03 13:31:05 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -699,7 +699,7 @@ class Root():
                 raster_z = e_tree.array("P.rb.z")
                 treeDict.update({"raster_z" : raster_z})
 
-            # BPM
+            # BPM target
             if branch == "bpm_tar_x":
                 bpm_tar_x = e_tree.array("P.rb.raster.fr_xbpm_tar")
                 treeDict.update({"bpm_tar_x" : bpm_tar_x})
