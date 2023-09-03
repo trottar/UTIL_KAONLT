@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-09-03 15:07:43 trottar"
+# Time-stamp: "2023-09-03 16:58:28 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -231,7 +231,7 @@ def plot_regress(settingList, momentumList, spec, DEBUG=False):
         y_fit = slope * x_fit + intercept    
         # Plot the linear fit line
         plt.plot(x_fit, y_fit, linestyle='dashed', color='violet', label='Unweighted, {}=1-({:.3e})*I'.format(r"$\overline{\epsilon_{boil}}$",abs(slope/intercept)))
-        print("Unweighted comparison of m0: yield {} - eff_boil{}".format(np.average(m0_list),abs(slope/intercept)))
+        print("Unweighted comparison of m0: yield {:.3e} - eff_boil {:.3e}".format(np.average(m0_list),abs(slope/intercept)))
 
         # Weighted
         # Perform weighted linear regression using polyfit
@@ -243,7 +243,7 @@ def plot_regress(settingList, momentumList, spec, DEBUG=False):
         y_fit = np.polyval(coefficients, x_fit)
         # Plot the linear fit line
         plt.plot(x_fit, y_fit, linestyle='dashed', color='purple', label='Weighted, {}=1-({:.3e})*I'.format(r"$\overline{\epsilon_{boil}}$",abs(slope/intercept)))
-        print("Weighted comparison of m0: yield {} - eff_boil{}".format(np.average(m0_list),abs(slope/intercept)))
+        print("Weighted comparison of m0: yield {:.3e} - eff_boil {:.3e}".format(np.average(m0_list),abs(slope/intercept)))
         
         plt.xlabel('Current')
         plt.ylabel('Boil Factor')
