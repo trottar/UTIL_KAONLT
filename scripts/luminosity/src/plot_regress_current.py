@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-09-07 15:20:50 trottar"
+# Time-stamp: "2023-09-07 15:22:53 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -69,6 +69,7 @@ def plot_regress(settingList, momentumList, spec, DEBUG=False):
             print(data.keys())
             dataDict[s]['momentum'] = momentumList[i]
             dataDict[s]['current'] = data['current']
+            dataDict[s]['rate_{}'.format(spec)] = data['rate_{}'.format(spec)]            
             dataDict[s]['run number'] = data['run number']
             dataDict[s]['rel_yield'] = data['yieldRel_{}_track'.format(spec)]
             dataDict[s]['yield'] = data['yield_{}_track'.format(spec)]
