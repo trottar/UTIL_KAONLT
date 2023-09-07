@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-09-03 18:24:57 trottar"
+# Time-stamp: "2023-09-07 15:20:50 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -262,6 +262,80 @@ def plot_regress(settingList, momentumList, spec, DEBUG=False):
 
         pdf.savefig(fig)
         plt.close(fig)
+
+
+        fig = plt.figure(figsize=(12,8))
+
+        # Initialize arrays to hold all data points for linear regression
+        rate_list = np.array([])
+        eff_boil_list = np.array([])
+        uncern_eff_boil_list = np.array([])
+        # Iterate through settings and collect data for linear regression
+        for i, s in enumerate(settingList):
+            m = dataDict[s]['reg'].params[1] # Slope
+            b = dataDict[s]['reg'].params[0] # Intercept
+            m0 = m / b
+            delta_m0 = dataDict[s]['reg'].bse[1] # Standard error of the slope
+            # Check if the slope value is infinity
+            if np.isinf(delta_m0):
+                # Calculate standard errors manually
+                X = sm.add_constant(dataDict[s]['x'])
+                weights = 1.0 / dataDict[s]['yerr']**2
+                # Calculate variance-covariance matrix
+                var_cov_matrix = np.linalg.inv(np.dot(X.T * weights, X))
+                # Standard error for the coefficient at index 1
+                delta_m0 = np.sqrt(var_cov_matrix[1, 1])
+            eff_boil = 1 - abs(m0 * dataDict[s]['current'].values)
+            # delta_eff_boil = sqrt(I^2*delta_m0^2+m0^2*delta_I^2)
+            delta_current = 0.2 # 200 ns
+            delta_eff_boil =  np.sqrt((dataDict[s]['current'].values**2)*(delta_m0**2)+(m0**2)*(delta_current**2))
+            plt.errorbar(dataDict[s]['rate_{}'.format(spec)], eff_boil, yerr=delta_eff_boil, fmt=fmt_list[i], label="{0}, P = {1}".format(s, dataDict[s]['momentum']), color=color_list[i])
+
+            # Collect data for linear regression
+            rate_list = np.concatenate((rate_list, dataDict[s]['rate_{}'.format(spec)]))
+            eff_boil_list = np.concatenate((eff_boil_list, eff_boil))
+            uncern_eff_boil_list = np.concatenate((uncern_eff_boil_list, delta_eff_boil))
+
+        # Unweighted
+        # Perform linear regression on all data points
+        slope, intercept, r_value, p_value, std_err = linregress(rate_list, eff_boil_list)
+        # Calculate the linear fit values
+        x_fit = np.linspace(min(rate_list), max(rate_list), 100)
+        y_fit = slope * x_fit + intercept    
+        # Plot the linear fit line
+        plt.plot(x_fit, y_fit, linestyle='dashed', color='violet', label='Unweighted, {}=1-|{:.3e}|*I'.format(r"$\overline{\epsilon_{boil}}$",abs(slope/intercept)))
+        print("Unweighted comparison of m0: yield {:.3e} | eff_boil {:.3e}".format(np.average(m0_list),slope/intercept))
+
+        # Weighted
+        # Perform weighted linear regression using polyfit
+        coefficients = np.polyfit(rate_list, eff_boil_list, 1, w=1/uncern_eff_boil_list)
+        slope = coefficients[0]
+        intercept = coefficients[1]
+        # Calculate the residuals
+        res = eff_boil_list - ((slope) * rate_list + intercept)
+        # Calculate the variance of the res
+        residual_variance = np.var(res, ddof=2)
+        # Calculate the uncertainty in the slope
+        slope_uncertainty = np.sqrt(1 / np.sum(1 / uncern_eff_boil_list**2) * residual_variance)
+        # Calculate the linear fit values
+        x_fit = np.linspace(min(rate_list), max(rate_list), 100)
+        y_fit = np.polyval(coefficients, x_fit)
+        
+        # Plot the linear fit line with error bands
+        plt.plot(x_fit, y_fit, linestyle='dashed', color='purple', label='Weighted, {}=1-|{:.3e}|*I'.format(r"$\overline{\epsilon_{boil}}$", abs(slope/intercept)))
+        print("Weighted comparison of m0: yield {:.3e}+/-{:.3e} | eff_boil {:.3e}+/-{:.3e}".format(np.average(m0_list),np.average(uncern_m0_list),slope/intercept,slope_uncertainty))
+        
+        plt.xlabel('rate_{}'.format(spec))
+        plt.ylabel('Boil Factor')
+        plt.ylim(0.9, 1.1)
+        plt.title('{} {} Boil Factor vs Rate'.format(target.capitalize(), spec))
+        plt.legend()
+        if DEBUG:
+            plt.show()
+        plt.show()            
+
+        pdf.savefig(fig)
+        plt.close(fig)
         
         fig = plt.figure(figsize=(12,8))
 
@@ -395,7 +469,8 @@ def plot_regress(settingList, momentumList, spec, DEBUG=False):
 
 settingList = ["10p6cl1","10p6cl2","10p6cl3","8p2cl1"]
 momentumList = [-3.266, -4.204, -6.269, -5.745] # HMS
-plot_regress(settingList, momentumList, "HMS", DEBUG=True)
+#plot_regress(settingList, momentumList, "HMS", DEBUG=True)
+plot_regress(settingList, momentumList, "HMS")
 
 ################################################################################################################################################
 
@@ -410,7 +485,8 @@ momentumList = [-3.266, -4.204, -6.269, -5.745] # HMS
 # Removing 10p6 l3 because of terrible TLT for almost all runs
 #settingList = ["10p6lh2l1","10p6lh2l2","8p2lh2l1"]
 #momentumList = [-3.266, -4.204, -5.745] # HMS
-plot_regress(settingList, momentumList, "HMS", DEBUG=True)
+#plot_regress(settingList, momentumList, "HMS", DEBUG=True)
+plot_regress(settingList, momentumList, "HMS")
 
 ################################################################################################################################################
 
