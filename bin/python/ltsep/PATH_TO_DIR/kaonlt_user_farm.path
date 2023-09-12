@@ -12,4 +12,5 @@ PARAMPATH=/group/c-kaonlt/USERS/${USER}/hallc_replay_lt/UTIL_KAONLT/DB/PARAM
 SCRIPTPATH=/group/c-kaonlt/USERS/${USER}/hallc_replay_lt/UTIL_KAONLT/scripts
 SIMCPATH=/group/c-kaonlt/USERS/${USER}/simc_gfortran
 LTANAPATH=/group/c-kaonlt/USERS/${USER}/lt_analysis
+CACHEPATH=/lustre19/expphy/cache/hallc/kaonlt
 ANATYPE=Kaon

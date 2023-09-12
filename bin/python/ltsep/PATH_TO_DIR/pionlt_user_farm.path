@@ -12,4 +12,5 @@ PARAMPATH=/group/c-pionlt/USERS/${USER}/hallc_replay_lt/UTIL_PION/DB/PARAM
 SCRIPTPATH=/group/c-pionlt/USERS/${USER}/hallc_replay_lt/UTIL_PION/scripts
 SIMCPATH=/group/c-pionlt/USERS/${USER}/simc_gfortran
 LTANAPATH=/group/c-pionlt/USERS/${USER}/lt_analysis
+CACHEPATH=/lustre19/expphy/cache/hallc/c-pionlt
 ANATYPE=Pion

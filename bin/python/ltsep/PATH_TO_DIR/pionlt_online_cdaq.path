@@ -12,4 +12,5 @@ PARAMPATH=/home/cdaq/pionLT-2021/hallc_replay_lt/UTIL_PION/DB/PARAM
 SCRIPTPATH=/home/cdaq/pionLT-2021/hallc_replay_lt/UTIL_PION/scripts
 SIMCPATH=/home/cdaq/pionLT-2021/simc_gfortran
 LTANAPATH=/home/cdaq/pionLT-2021/lt_analysis
+CACHEPATH=/lustre19/expphy/cache/hallc/c-pionlt
 ANATYPE=Pion
