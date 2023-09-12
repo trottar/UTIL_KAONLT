@@ -2,7 +2,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-09-03 13:31:05 trottar"
+# Time-stamp: "2023-09-11 23:28:12 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -58,6 +58,7 @@ class Root():
     SCRIPTPATH=lt.SCRIPTPATH
     SIMCPATH=lt.SIMCPATH
     LTANAPATH=lt.LTANAPATH
+    CACHEPATH=lt.CACHEPATH
     ANATYPE=lt.ANATYPE
     USER=lt.USER
     HOST=lt.HOST
@@ -94,6 +95,7 @@ class Root():
     SCRIPTPATH=lt.SCRIPTPATH
     SIMCPATH=lt.SIMCPATH
     LTANAPATH=lt.LTANAPATH
+    CACHEPATH=lt.CACHEPATH
     ANATYPE=lt.ANATYPE
     USER=lt.USER
     HOST=lt.HOST
@@ -131,6 +133,7 @@ class Root():
     SCRIPTPATH=lt.SCRIPTPATH
     SIMCPATH=lt.SIMCPATH
     LTANAPATH=lt.LTANAPATH
+    CACHEPATH=lt.CACHEPATH
     ANATYPE=lt.ANATYPE
     USER=lt.USER
     HOST=lt.HOST
@@ -178,6 +181,7 @@ class Root():
     SCRIPTPATH=lt.SCRIPTPATH
     SIMCPATH=lt.SIMCPATH
     LTANAPATH=lt.LTANAPATH
+    CACHEPATH=lt.CACHEPATH
     ANATYPE=lt.ANATYPE
     USER=lt.USER
     HOST=lt.HOST
@@ -257,6 +261,7 @@ class Root():
         self.SCRIPTPATH=SetPath(self.CURRENT_ENV).getPath("SCRIPTPATH")
         self.SIMCPATH=SetPath(self.CURRENT_ENV).getPath("SIMCPATH")
         self.LTANAPATH=SetPath(self.CURRENT_ENV).getPath("LTANAPATH")
+        self.CACHEPATH=SetPath(self.CURRENT_ENV).getPath("CACHEPATH")
         self.ANATYPE=SetPath(self.CURRENT_ENV).getPath("ANATYPE")
         self.USER=SetPath(self.CURRENT_ENV).getPath("USER")
         self.HOST=SetPath(self.CURRENT_ENV).getPath("HOST",self.DEBUG)
