@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-12-18 13:59:54 trottar"
+# Time-stamp: "2023-12-18 14:12:03 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -19,7 +19,7 @@ def dictionary(BCM_current,DEBUG=False):
     m0 = -7.899e-4
     dm0 = 1.829e-4
     
-    boil_eff = 1 - m0*I
+    boil_eff = 1 - abs(m0)*I
     boil_eff_err = math.sqrt((I**2)*(dm0**2)+(m0**2)*(dI**2))
     
     effDict = {
