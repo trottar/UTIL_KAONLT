@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-12-18 13:18:57 trottar"
+# Time-stamp: "2023-12-18 14:02:23 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -57,6 +57,7 @@ out_f = UTILPATH+"/scripts/efficiency/OUTPUTS/%s_%s_efficiency_data_%s.csv"  % (
 
 import efficiency_hgcer
 import efficiency_report
+import efficiency_boil
 
 DEBUG=True
 
@@ -68,12 +69,14 @@ else:
     hgcerDict = {}
     reportDict = efficiency_report.dictionary(UTILPATH,ROOTPrefix,runNum,MaxEvent)
 
+boilDict = efficiency_boil.dictionary(reportDict["BCM1_Beam_Cut_Current"])
+    
 ################################################################################################################################################
 
 data = {}
-for d in (hgcerDict, reportDict): 
+for d in (hgcerDict, reportDict, boilDict): 
     data.update(d)
-
+    
 eff_data = {i : data[i] for i in sorted(data.keys())}
 
 # Convert merged dictionary to a pandas dataframe then sort it
