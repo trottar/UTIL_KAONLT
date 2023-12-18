@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-12-18 12:31:28 trottar"
+# Time-stamp: "2023-12-18 12:36:46 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -54,7 +54,7 @@ cut_f = '/DB/CUTS/run_type/pid_eff.cuts'
 # defining Cuts
 cuts = ["p_picut_eff","p_picut_eff_no_hgcer","p_picut_eff_no_aero","p_picut_eff_no_cal","p_ecut_eff_no_hgcer","p_ecut_eff","p_kcut_eff","p_kcut_eff_no_hgcer","p_pcut_eff","p_pcut_eff_no_hgcer","p_cut_eff_no_cal_hgcer","p_cut_eff_no_hgcer_aero_cal"]
 
-if RunType == "HeePCoin":
+if "HeePCoin" in RunType:
     lt=Root(os.path.realpath(__file__),"HGCerHeeP",ROOTPrefix,runNum,MaxEvent,cut_f,cuts)
 else:
     lt=Root(os.path.realpath(__file__),"HGCer",ROOTPrefix,runNum,MaxEvent,cut_f,cuts)
