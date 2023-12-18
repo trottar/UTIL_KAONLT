@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-12-18 12:17:50 trottar"
+# Time-stamp: "2023-12-18 12:19:10 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -29,8 +29,8 @@ import matplotlib.pyplot as plt
 import sys, math, os, subprocess
 
 # Check the number of arguments provided to the script
-if len(sys.argv)-1!=3:
-    print("!!!!! ERROR !!!!!\n Expected 3 arguments\n Usage is with - ROOTfilePrefix RunNumber MaxEvents \n!!!!! ERROR !!!!!")
+if len(sys.argv)-1!=4:
+    print("!!!!! ERROR !!!!!\n Expected 4 arguments\n Usage is with - ROOTfilePrefix RunNumber MaxEvents RunType\n!!!!! ERROR !!!!!")
     sys.exit(1)
 
 # Input params - run number and max number of events
