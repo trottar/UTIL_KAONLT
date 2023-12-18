@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-12-18 17:32:23 trottar"
+# Time-stamp: "2023-12-18 17:35:46 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -748,8 +748,6 @@ plt.errorbar(efficiency_data_8p2["BCM1_Beam_Cut_Current"],efficiency_data_8p2["N
 plt.ylabel('EDTM', fontsize=12)
 plt.xlabel('Current', fontsize=12)
 plt.title('COIN %s-%s' % (int(min(efficiency_data["Run_Number"])),int(max(efficiency_data["Run_Number"]))), fontsize=12)
-
-print("\n\nI={}, boil_eff={}+/-{}".format(efficiency_data_8p2["BCM1_Beam_Cut_Current"],efficiency_data_8p2["BOIL_Eff"],efficiency_data_8p2["BOIL_Eff_ERROR"]))
 
 plt.subplot(144)
 plt.grid(zorder=1)
