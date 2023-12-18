@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-07-03 10:09:53 trottar"
+# Time-stamp: "2023-12-18 10:54:48 trottar"
 # ================================================================
 # 
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -75,27 +75,75 @@ def dictionary(UTILPATH,runNum,MaxEvent):
     cutg = ROOT.TCutG("cutg",21)
     cutg.SetVarX("P_hgcer_yAtCer")
     cutg.SetVarY("P_hgcer_xAtCer")
-    cutg.SetPoint(0,-25,2)
-    cutg.SetPoint(1,-2,2)
-    cutg.SetPoint(2,-1,2.5)
-    cutg.SetPoint(3,0,3)
-    cutg.SetPoint(4,1,3)
-    cutg.SetPoint(5,2,3.3)
-    cutg.SetPoint(6,3,3.0)
-    cutg.SetPoint(7,4,2.5)
-    cutg.SetPoint(8,5,2)
-    cutg.SetPoint(9,25,2)
-    cutg.SetPoint(10,25,0.5)
-    cutg.SetPoint(11,5,0.5)
-    cutg.SetPoint(12,4,1)
-    cutg.SetPoint(13,3,-1)
-    cutg.SetPoint(14,2,-2)
-    cutg.SetPoint(15,1,-2.3)
-    cutg.SetPoint(16,0,-1.5)
-    cutg.SetPoint(17,-1,-1)
-    cutg.SetPoint(18,-2,0.5)
-    cutg.SetPoint(19,-25,0.5)
-    cutg.SetPoint(20,-25,2)
+
+    if runNum > 0 and runNum < 10000:
+        cutg.SetPoint(0,-25,2)
+        cutg.SetPoint(1,-2,2)
+        cutg.SetPoint(2,-1,2.5)
+        cutg.SetPoint(3,0,3)
+        cutg.SetPoint(4,1,3)
+        cutg.SetPoint(5,2,3.3)
+        cutg.SetPoint(6,3,3.0)
+        cutg.SetPoint(7,4,2.5)
+        cutg.SetPoint(8,5,2)
+        cutg.SetPoint(9,25,2)
+        cutg.SetPoint(10,25,0.5)
+        cutg.SetPoint(11,5,0.5)
+        cutg.SetPoint(12,4,1)
+        cutg.SetPoint(13,3,-1)
+        cutg.SetPoint(14,2,-2)
+        cutg.SetPoint(15,1,-2.3)
+        cutg.SetPoint(16,0,-1.5)
+        cutg.SetPoint(17,-1,-1)
+        cutg.SetPoint(18,-2,0.5)
+        cutg.SetPoint(19,-25,0.5)
+        cutg.SetPoint(20,-25,2)
+
+    elif runNum > 10000 and runNum < 20000:
+        cutg.SetPoint(0,-10,2)
+        cutg.SetPoint(1,-2,2)
+        cutg.SetPoint(2,-1,2.5)
+        cutg.SetPoint(3,0,3)
+        cutg.SetPoint(4,1,3)
+        cutg.SetPoint(5,2,3.3)
+        cutg.SetPoint(6,3,3.0)
+        cutg.SetPoint(7,4,2.5)
+        cutg.SetPoint(8,5,2)
+        cutg.SetPoint(9,10,2)
+        cutg.SetPoint(10,10,1)
+        cutg.SetPoint(11,5,1)
+        cutg.SetPoint(12,4,1)
+        cutg.SetPoint(13,3,-1)
+        cutg.SetPoint(14,2,-2)
+        cutg.SetPoint(15,1,-2.3)
+        cutg.SetPoint(16,0,-1.5)
+        cutg.SetPoint(17,-1,-1)
+        cutg.SetPoint(18,-2,1)
+        cutg.SetPoint(19,-10,1)
+        cutg.SetPoint(20,-10,2)
+        
+    else:
+        cutg->SetPoint(0,-25,2);
+        cutg->SetPoint(1,-2,2);
+        cutg->SetPoint(2,-1,2.5);
+        cutg->SetPoint(3,0,3);
+        cutg->SetPoint(4,1,3);
+        cutg->SetPoint(5,2,3.3);
+        cutg->SetPoint(6,3,3.0);
+        cutg->SetPoint(7,4,2.5);
+        cutg->SetPoint(8,5,2);
+        cutg->SetPoint(9,25,2);
+        cutg->SetPoint(10,25,0.5);
+        cutg->SetPoint(11,5,0.5);
+        cutg->SetPoint(12,4,1);
+        cutg->SetPoint(13,3,-1);
+        cutg->SetPoint(14,2,-2);
+        cutg->SetPoint(15,1,-2.3);
+        cutg->SetPoint(16,0,-1.5);
+        cutg->SetPoint(17,-1,-1);
+        cutg->SetPoint(18,-2,0.5);
+        cutg->SetPoint(19,-25,0.5);
+        cutg->SetPoint(20,-25,2);
 
     cutg.SetLineColor(kRed)
     cutg.SetLineWidth(2)

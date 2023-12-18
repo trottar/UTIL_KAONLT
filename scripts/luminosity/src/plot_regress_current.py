@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-09-07 15:27:52 trottar"
+# Time-stamp: "2023-09-07 15:33:41 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -332,8 +332,7 @@ def plot_regress(settingList, momentumList, spec, DEBUG=False):
         plt.title('{} {} Boil Factor vs Rate'.format(target.capitalize(), spec))
         plt.legend()
         if DEBUG:
-            plt.show()
-        plt.show()            
+            plt.show()         
 
         pdf.savefig(fig)
         plt.close(fig)
