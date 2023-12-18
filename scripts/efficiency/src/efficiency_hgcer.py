@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-12-18 10:54:48 trottar"
+# Time-stamp: "2023-12-18 13:10:47 trottar"
 # ================================================================
 # 
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -123,27 +123,27 @@ def dictionary(UTILPATH,runNum,MaxEvent):
         cutg.SetPoint(20,-10,2)
         
     else:
-        cutg->SetPoint(0,-25,2);
-        cutg->SetPoint(1,-2,2);
-        cutg->SetPoint(2,-1,2.5);
-        cutg->SetPoint(3,0,3);
-        cutg->SetPoint(4,1,3);
-        cutg->SetPoint(5,2,3.3);
-        cutg->SetPoint(6,3,3.0);
-        cutg->SetPoint(7,4,2.5);
-        cutg->SetPoint(8,5,2);
-        cutg->SetPoint(9,25,2);
-        cutg->SetPoint(10,25,0.5);
-        cutg->SetPoint(11,5,0.5);
-        cutg->SetPoint(12,4,1);
-        cutg->SetPoint(13,3,-1);
-        cutg->SetPoint(14,2,-2);
-        cutg->SetPoint(15,1,-2.3);
-        cutg->SetPoint(16,0,-1.5);
-        cutg->SetPoint(17,-1,-1);
-        cutg->SetPoint(18,-2,0.5);
-        cutg->SetPoint(19,-25,0.5);
-        cutg->SetPoint(20,-25,2);
+        cutg.SetPoint(0,-25,2)
+        cutg.SetPoint(1,-2,2)
+        cutg.SetPoint(2,-1,2.5)
+        cutg.SetPoint(3,0,3)
+        cutg.SetPoint(4,1,3)
+        cutg.SetPoint(5,2,3.3)
+        cutg.SetPoint(6,3,3.0)
+        cutg.SetPoint(7,4,2.5)
+        cutg.SetPoint(8,5,2)
+        cutg.SetPoint(9,25,2)
+        cutg.SetPoint(10,25,0.5)
+        cutg.SetPoint(11,5,0.5)
+        cutg.SetPoint(12,4,1)
+        cutg.SetPoint(13,3,-1)
+        cutg.SetPoint(14,2,-2)
+        cutg.SetPoint(15,1,-2.3)
+        cutg.SetPoint(16,0,-1.5)
+        cutg.SetPoint(17,-1,-1)
+        cutg.SetPoint(18,-2,0.5)
+        cutg.SetPoint(19,-25,0.5)
+        cutg.SetPoint(20,-25,2)
 
     cutg.SetLineColor(kRed)
     cutg.SetLineWidth(2)
