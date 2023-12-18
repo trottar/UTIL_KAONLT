@@ -73,22 +73,22 @@ cd $REPLAYPATH
 
 # ###################################################################################################################################################
 ###################################################################################################################################################
-# if [ ! -f "$UTILPATH/ROOTfiles/Scalers/coin_replay_scalers_${RUNNUMBER}_${MAXEVENTS}.root" ]; then
-#     eval "$REPLAYPATH/hcana -l -q -b \"SCRIPTS/COIN/SCALERS/replay_coin_scalers.C($RUNNUMBER,${MAXEVENTS})\""
-#     cd "$REPLAYPATH/CALIBRATION/bcm_current_map"
-#     root -b -l<<EOF 
-# .L ScalerCalib.C
-# .x run.C("${UTILPATH}/ROOTfiles/Scalers/coin_replay_scalers_${RUNNUMBER}_${MAXEVENTS}.root")
-# .q  
-# EOF
-#     mv bcmcurrent_${RUNNUMBER}_.param $REPLAYPATH/PARAM/HMS/BCM/CALIB/bcmcurrent_$RUNNUMBER.param
-#     cd $REPLAYPATH
-# else echo "Scaler replayfile already found for this run in $REPLAYPATH/ROOTfiles/Scalers - Skipping scaler replay step"
-# fi
+if [ ! -f "$UTILPATH/ROOTfiles/Scalers/coin_replay_scalers_${RUNNUMBER}_${MAXEVENTS}.root" ]; then
+    eval "$REPLAYPATH/hcana -l -q -b \"SCRIPTS/COIN/SCALERS/replay_coin_scalers.C($RUNNUMBER,${MAXEVENTS})\""
+    cd "$REPLAYPATH/CALIBRATION/bcm_current_map"
+    root -b -l<<EOF 
+.L ScalerCalib.C
+.x run.C("${UTILPATH}/ROOTfiles/Scalers/coin_replay_scalers_${RUNNUMBER}_${MAXEVENTS}.root")
+.q  
+EOF
+    mv bcmcurrent_${RUNNUMBER}_.param $REPLAYPATH/PARAM/HMS/BCM/CALIB/bcmcurrent_$RUNNUMBER.param
+    cd $REPLAYPATH
+else echo "Scaler replayfile already found for this run in $REPLAYPATH/ROOTfiles/Scalers - Skipping scaler replay step"
+fi
 
 sleep 3
 
-if [ ! -f "$UTILPATH/ROOTfiles/Analysis/KaonLT/${ANATYPE}_replay_luminosity_${RUNNUMBER}_${MAXEVENTS}.root" ]; then
+if [ ! -f "$UTILPATH/ROOTfiles/Analysis/General/${ANATYPE}_coin_replay_production_${RUNNUMBER}_${MAXEVENTS}.root" ]; then
     if [[ "${HOSTNAME}" != *"ifarm"* ]]; then
 	if [[ "${HOSTNAME}" == *"cdaq"* ]]; then
 	    eval "$REPLAYPATH/hcana -l -q -b \"SCRIPTS/COIN/PRODUCTION/FullReplay_KaonLT_Phys_Prod.C($RUNNUMBER,$MAXEVENTS)\""| tee $UTILPATH/REPORT_OUTPUT/Analysis/KaonLT/${ANATYPE}_output_coin_production_Summary_${RUNNUMBER}_${MAXEVENTS}.report
