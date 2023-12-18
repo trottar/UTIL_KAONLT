@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-12-18 14:12:03 trottar"
+# Time-stamp: "2023-12-18 16:42:12 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -15,7 +15,7 @@ import math
 def dictionary(BCM_current,DEBUG=False):
 
     I = BCM_current
-    dI = 0.0003*I # 0.3% fitting errors (https://hallcweb.jlab.org/DocDB/0010/001034/002/BCM1and2StabilityFall18toSummer19v3.pdf)
+    dI = 0.1e-3 # 0.1 uA (https://hallcweb.jlab.org/DocDB/0010/001034/002/BCM1and2StabilityFall18toSummer19v3.pdf)
     m0 = -7.899e-4
     dm0 = 1.829e-4
     
