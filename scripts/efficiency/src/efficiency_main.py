@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2022-09-08 07:30:17 trottar"
+# Time-stamp: "2023-06-14 17:54:29 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -61,8 +61,8 @@ import efficiency_report
 DEBUG=True
 
 if "coin" in ROOTPrefix:
-    #hgcerDict = efficiency_hgcer.dictionary(UTILPATH,runNum,MaxEvent)
-    hgcerDict = {}
+    hgcerDict = efficiency_hgcer.dictionary(UTILPATH,runNum,MaxEvent)
+    #hgcerDict = {} # If no hgcer efficiency
     reportDict = efficiency_report.dictionary(UTILPATH,ROOTPrefix,runNum,MaxEvent)
 else:
     hgcerDict = {}
