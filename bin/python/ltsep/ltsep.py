@@ -2,7 +2,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-12-18 12:39:10 trottar"
+# Time-stamp: "2023-12-18 15:30:10 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -280,8 +280,6 @@ class Root():
             self.OUTPATH = "%s/OUTPUT/Analysis/HeeP" % self.LTANAPATH      # Output folder location
         elif "Prod" in self.runType:
             self.OUTPATH = "%s/OUTPUT/Analysis/%sLT" % (self.UTILPATH,self.ANATYPE)      # Output folder location
-        elif "HGCerHeeP" in self.runType:
-            self.OUTPATH = "%s/OUTPUT/Analysis/HeeP" % self.UTILPATH      # Output folder location
         elif "HGCer" in self.runType:
             self.OUTPATH = "%s/OUTPUT/Analysis/%sLT" % (self.UTILPATH,self.ANATYPE)      # Output folder location
         elif "Hodo" in self.runType:
@@ -300,8 +298,6 @@ class Root():
                 # Construct the name of the rootfile based upon the info we provided
                 if "Prod" in self.runType:
                     self.rootName = "%s/OUTPUT/Analysis/%sLT/%s_%s_%s.root" % (self.UTILPATH, self.ANATYPE, self.runNum, self.MaxEvent, self.ROOTPrefix,)     # Input file location and variables taking
-                elif "HGCerHeeP" in self.runType:
-                    self.rootName = "%s/OUTPUT/Analysis/HeeP/%s_%s_%s.root" % (self.UTILPATH, self.runNum, self.MaxEvent, self.ROOTPrefix,)     # Input file location and variables taking
                 elif "HGCer" in self.runType:
                     self.rootName = "%s/OUTPUT/Analysis/%sLT/%s_%s_%s.root" % (self.UTILPATH, self.ANATYPE, self.runNum, self.MaxEvent, self.ROOTPrefix,)     # Input file location and variables taking
                 elif "HeeP" in self.runType:
@@ -318,8 +314,6 @@ class Root():
                 # Construct the name of the rootfile based upon the info we provided
                 if "Prod" in self.runType:
                     self.rootName = "%s/ROOTfiles/Analysis/%sLT/%s_%s_%s.root" % (self.UTILPATH, self.ANATYPE, self.ROOTPrefix, self.runNum, self.MaxEvent)     # Input file location and variables taking
-                elif "HGCerHeeP" in self.runType:
-                    self.rootName = "%s/ROOTfiles/Analysis/HeeP/%s_%s_%s.root" % (self.UTILPATH, self.ROOTPrefix, self.runNum, self.MaxEvent)     # Input file location and variables taking
                 elif "HGCer" in self.runType:
                     self.rootName = "%s/ROOTfiles/Analysis/%sLT/%s_%s_%s.root" % (self.UTILPATH, self.ANATYPE, self.ROOTPrefix, self.runNum, self.MaxEvent)     # Input file location and variables taking
                 elif "Hodo" in self.runType:
