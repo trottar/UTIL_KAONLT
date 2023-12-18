@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-08-20 13:23:33 trottar"
+# Time-stamp: "2023-12-18 14:30:50 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -692,6 +692,7 @@ plt.savefig(UTILPATH+'/scripts/efficiency/OUTPUTS/plots/COIN_%s_run.png' % (ROOT
 
 plt.figure(figsize=(12,8))
 
+plt.subplot(141)
 plt.grid(zorder=1)
 #plt.xlim(0,100)
 #plt.ylim(0.9,1.1)
@@ -708,6 +709,63 @@ plt.errorbar(efficiency_data_6p2["Run_Number"],efficiency_data_6p2["Non_Scaler_E
 plt.errorbar(efficiency_data_8p2["Run_Number"],efficiency_data_8p2["Non_Scaler_EDTM_Live_Time"],yerr=efficiency_data_8p2["Non_Scaler_EDTM_Live_Time_ERROR"],color='black',linestyle='None',zorder=3)
 plt.ylabel('EDTM', fontsize=12)
 plt.xlabel('Run Number', fontsize=12)
+plt.title('COIN %s-%s' % (int(min(efficiency_data["Run_Number"])),int(max(efficiency_data["Run_Number"]))), fontsize=12)
+
+plt.subplot(142)
+plt.grid(zorder=1)
+#plt.xlim(0,100)
+#plt.ylim(0.9,1.1)
+plt.scatter(efficiency_data_10p6["Run_Number"],efficiency_data_10p6["BOIL_Eff"],color='blue',zorder=4,label='10p6')
+plt.scatter(efficiency_data_3p8["Run_Number"],efficiency_data_3p8["BOIL_Eff"],color='red',zorder=4,label='3p8')
+plt.scatter(efficiency_data_4p9["Run_Number"],efficiency_data_4p9["BOIL_Eff"],color='purple',zorder=4,label='4p9')
+plt.scatter(efficiency_data_6p2["Run_Number"],efficiency_data_6p2["BOIL_Eff"],color='orange',zorder=4,label='6p2')
+plt.scatter(efficiency_data_8p2["Run_Number"],efficiency_data_8p2["BOIL_Eff"],color='green',zorder=4,label='8p2')
+plt.legend(loc="lower right", markerscale=0.7, scatterpoints=1, fontsize=10)
+plt.errorbar(efficiency_data_10p6["Run_Number"],efficiency_data_10p6["BOIL_Eff"],yerr=efficiency_data_10p6["BOIL_Eff_ERROR"],color='black',linestyle='None',zorder=3)
+plt.errorbar(efficiency_data_3p8["Run_Number"],efficiency_data_3p8["BOIL_Eff"],yerr=efficiency_data_3p8["BOIL_Eff_ERROR"],color='black',linestyle='None',zorder=3)
+plt.errorbar(efficiency_data_4p9["Run_Number"],efficiency_data_4p9["BOIL_Eff"],yerr=efficiency_data_4p9["BOIL_Eff_ERROR"],color='black',linestyle='None',zorder=3)
+plt.errorbar(efficiency_data_6p2["Run_Number"],efficiency_data_6p2["BOIL_Eff"],yerr=efficiency_data_6p2["BOIL_Eff_ERROR"],color='black',linestyle='None',zorder=3)
+plt.errorbar(efficiency_data_8p2["Run_Number"],efficiency_data_8p2["BOIL_Eff"],yerr=efficiency_data_8p2["BOIL_Eff_ERROR"],color='black',linestyle='None',zorder=3)
+plt.ylabel('Boiling Correction', fontsize=12)
+plt.xlabel('Run Number', fontsize=12)
+plt.title('COIN %s-%s' % (int(min(efficiency_data["Run_Number"])),int(max(efficiency_data["Run_Number"]))), fontsize=12)
+
+plt.subplot(143)
+plt.grid(zorder=1)
+#plt.xlim(0,100)
+#plt.ylim(0.9,1.1)
+plt.scatter(efficiency_data_10p6["BCM1_Beam_Cut_Current"],efficiency_data_10p6["Non_Scaler_EDTM_Live_Time"],color='blue',zorder=4,label='10p6')
+plt.scatter(efficiency_data_3p8["BCM1_Beam_Cut_Current"],efficiency_data_3p8["Non_Scaler_EDTM_Live_Time"],color='red',zorder=4,label='3p8')
+plt.scatter(efficiency_data_4p9["BCM1_Beam_Cut_Current"],efficiency_data_4p9["Non_Scaler_EDTM_Live_Time"],color='purple',zorder=4,label='4p9')
+plt.scatter(efficiency_data_6p2["BCM1_Beam_Cut_Current"],efficiency_data_6p2["Non_Scaler_EDTM_Live_Time"],color='orange',zorder=4,label='6p2')
+plt.scatter(efficiency_data_8p2["BCM1_Beam_Cut_Current"],efficiency_data_8p2["Non_Scaler_EDTM_Live_Time"],color='green',zorder=4,label='8p2')
+plt.legend(loc="lower right", markerscale=0.7, scatterpoints=1, fontsize=10)
+plt.errorbar(efficiency_data_10p6["BCM1_Beam_Cut_Current"],efficiency_data_10p6["Non_Scaler_EDTM_Live_Time"],yerr=efficiency_data_10p6["Non_Scaler_EDTM_Live_Time_ERROR"],color='black',linestyle='None',zorder=3)
+plt.errorbar(efficiency_data_3p8["BCM1_Beam_Cut_Current"],efficiency_data_3p8["Non_Scaler_EDTM_Live_Time"],yerr=efficiency_data_3p8["Non_Scaler_EDTM_Live_Time_ERROR"],color='black',linestyle='None',zorder=3)
+plt.errorbar(efficiency_data_4p9["BCM1_Beam_Cut_Current"],efficiency_data_4p9["Non_Scaler_EDTM_Live_Time"],yerr=efficiency_data_4p9["Non_Scaler_EDTM_Live_Time_ERROR"],color='black',linestyle='None',zorder=3)
+plt.errorbar(efficiency_data_6p2["BCM1_Beam_Cut_Current"],efficiency_data_6p2["Non_Scaler_EDTM_Live_Time"],yerr=efficiency_data_6p2["Non_Scaler_EDTM_Live_Time_ERROR"],color='black',linestyle='None',zorder=3)
+plt.errorbar(efficiency_data_8p2["BCM1_Beam_Cut_Current"],efficiency_data_8p2["Non_Scaler_EDTM_Live_Time"],yerr=efficiency_data_8p2["Non_Scaler_EDTM_Live_Time_ERROR"],color='black',linestyle='None',zorder=3)
+plt.ylabel('EDTM', fontsize=12)
+plt.xlabel('Current', fontsize=12)
+plt.title('COIN %s-%s' % (int(min(efficiency_data["Run_Number"])),int(max(efficiency_data["Run_Number"]))), fontsize=12)
+
+plt.subplot(145)
+plt.grid(zorder=1)
+#plt.xlim(0,100)
+#plt.ylim(0.9,1.1)
+plt.scatter(efficiency_data_10p6["BCM1_Beam_Cut_Current"],efficiency_data_10p6["BOIL_Eff"],color='blue',zorder=4,label='10p6')
+plt.scatter(efficiency_data_3p8["BCM1_Beam_Cut_Current"],efficiency_data_3p8["BOIL_Eff"],color='red',zorder=4,label='3p8')
+plt.scatter(efficiency_data_4p9["BCM1_Beam_Cut_Current"],efficiency_data_4p9["BOIL_Eff"],color='purple',zorder=4,label='4p9')
+plt.scatter(efficiency_data_6p2["BCM1_Beam_Cut_Current"],efficiency_data_6p2["BOIL_Eff"],color='orange',zorder=4,label='6p2')
+plt.scatter(efficiency_data_8p2["BCM1_Beam_Cut_Current"],efficiency_data_8p2["BOIL_Eff"],color='green',zorder=4,label='8p2')
+plt.legend(loc="lower right", markerscale=0.7, scatterpoints=1, fontsize=10)
+plt.errorbar(efficiency_data_10p6["BCM1_Beam_Cut_Current"],efficiency_data_10p6["BOIL_Eff"],yerr=efficiency_data_10p6["BOIL_Eff_ERROR"],color='black',linestyle='None',zorder=3)
+plt.errorbar(efficiency_data_3p8["BCM1_Beam_Cut_Current"],efficiency_data_3p8["BOIL_Eff"],yerr=efficiency_data_3p8["BOIL_Eff_ERROR"],color='black',linestyle='None',zorder=3)
+plt.errorbar(efficiency_data_4p9["BCM1_Beam_Cut_Current"],efficiency_data_4p9["BOIL_Eff"],yerr=efficiency_data_4p9["BOIL_Eff_ERROR"],color='black',linestyle='None',zorder=3)
+plt.errorbar(efficiency_data_6p2["BCM1_Beam_Cut_Current"],efficiency_data_6p2["BOIL_Eff"],yerr=efficiency_data_6p2["BOIL_Eff_ERROR"],color='black',linestyle='None',zorder=3)
+plt.errorbar(efficiency_data_8p2["BCM1_Beam_Cut_Current"],efficiency_data_8p2["BOIL_Eff"],yerr=efficiency_data_8p2["BOIL_Eff_ERROR"],color='black',linestyle='None',zorder=3)
+plt.ylabel('Boiling Correction', fontsize=12)
+plt.xlabel('Current', fontsize=12)
 plt.title('COIN %s-%s' % (int(min(efficiency_data["Run_Number"])),int(max(efficiency_data["Run_Number"]))), fontsize=12)
 
 plt.tight_layout(rect=[0,0.03,1,0.95])
