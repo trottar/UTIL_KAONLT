@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-12-18 14:30:50 trottar"
+# Time-stamp: "2023-12-18 14:54:04 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -749,7 +749,7 @@ plt.ylabel('EDTM', fontsize=12)
 plt.xlabel('Current', fontsize=12)
 plt.title('COIN %s-%s' % (int(min(efficiency_data["Run_Number"])),int(max(efficiency_data["Run_Number"]))), fontsize=12)
 
-plt.subplot(145)
+plt.subplot(144)
 plt.grid(zorder=1)
 #plt.xlim(0,100)
 #plt.ylim(0.9,1.1)
