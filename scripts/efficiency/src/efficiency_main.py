@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-12-18 14:02:23 trottar"
+# Time-stamp: "2023-12-18 14:03:33 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -70,7 +70,9 @@ else:
     reportDict = efficiency_report.dictionary(UTILPATH,ROOTPrefix,runNum,MaxEvent)
 
 boilDict = efficiency_boil.dictionary(reportDict["BCM1_Beam_Cut_Current"])
-    
+
+
+print("boilDict",boilDict)
 ################################################################################################################################################
 
 data = {}
