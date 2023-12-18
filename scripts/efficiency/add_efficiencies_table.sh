@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2022-12-30 22:25:11 trottar"
+# Time-stamp: "2023-12-18 12:00:06 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -119,7 +119,23 @@ elif [[ $s_flag = "true" ]]; then
 	HGCERPREFIX=${ANATYPE}_${SPEC}_replay_production	
 	inputFile="${REPLAYPATH}/UTIL_BATCH/InputRunLists/KaonLT_2018_2019/ProductionLH2_ALL"
 	#inputFile="${REPLAYPATH}/UTIL_BATCH/InputRunLists/KaonLT_2018_2019/Prod_Test"
+    fi
+elif [[ $r_flag = "true" ]]; then
+    RunType=$2
+    if [[ $RunType = "HeePCoin" ]]; then
+	ROOTPREFIX=replay_coin_heep
+	HGCERPREFIX=${ANATYPE}_coin_replay_production
+	inputFile="${REPLAYPATH}/UTIL_BATCH/InputRunLists/KaonLT_2018_2019/HeePCoin_ALL"
+	#inputFile="${REPLAYPATH}/UTIL_BATCH/InputRunLists/KaonLT_2018_2019/HeePCoin_Test"
+    else
+	ROOTPREFIX=replay_coin_production
+	HGCERPREFIX=${ANATYPE}_coin_replay_production	
+	#inputFile="${REPLAYPATH}/UTIL_BATCH/InputRunLists/KaonLT_2018_2019/ProductionLH2_ALL"
+	inputFile="${REPLAYPATH}/UTIL_BATCH/InputRunLists/KaonLT_2018_2019/Prod_ALL"
+	#inputFile="${REPLAYPATH}/UTIL_BATCH/InputRunLists/KaonLT_2018_2019/Prod_Test"
     fi    
+fi
+    
 else
     RunType=$1
     if [[ $RunType = "HeePCoin" ]]; then
