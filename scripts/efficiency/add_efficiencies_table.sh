@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-12-18 12:03:28 trottar"
+# Time-stamp: "2023-12-18 12:16:39 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -70,11 +70,9 @@ if [[ $p_flag = "true" ]]; then
     RunType=$2
     DATE=$3
     if [[ $RunType = "HeePCoin" ]]; then
-	ROOTPREFIX=replay_coin_heep
-	HGCERPREFIX=${ANATYPE}_coin_replay_production
+	ROOTPREFIX=${ANATYPE}_coin_replay_production
     else
-	ROOTPREFIX=replay_coin_production
-	HGCERPREFIX=${ANATYPE}_coin_replay_production	
+	ROOTPREFIX=${ANATYPE}_coin_replay_production	
     fi
     #python3 plot/plot_efficiency.py ${ROOTPREFIX} ${RunType} ${DATE}
     python3 plot/plot_efficiency_beam.py ${ROOTPREFIX} ${RunType} ${DATE}
@@ -89,13 +87,11 @@ elif [[ $p_flag = "true" && $s_flag = "true" ]]; then
     spec=$(echo "$4" | tr '[:upper:]' '[:lower:]')
     SPEC=$(echo "$spec" | tr '[:lower:]' '[:upper:]')
     if [[ $RunType = "HeePSing" ]]; then
-	ROOTPREFIX=replay_${spec}_heep
-	HGCERPREFIX=${ANATYPE}_${SPEC}_replay_production
+	ROOTPREFIX=${ANATYPE}_${SPEC}_replay_production
 	inputFile="${REPLAYPATH}/UTIL_BATCH/InputRunLists/KaonLT_2018_2019/HeePSing_ALL"
 	#inputFile="${REPLAYPATH}/UTIL_BATCH/InputRunLists/KaonLT_2018_2019/HeePSing_Test"
     else
-	ROOTPREFIX=replay_${spec}_production
-	HGCERPREFIX=${ANATYPE}_${SPEC}_replay_production
+	ROOTPREFIX=${ANATYPE}_${SPEC}_replay_production
 	inputFile="${REPLAYPATH}/UTIL_BATCH/InputRunLists/KaonLT_2018_2019/Prod_ALL"
 	#inputFile="${REPLAYPATH}/UTIL_BATCH/InputRunLists/KaonLT_2018_2019/Prod_Test"
     fi
@@ -110,26 +106,22 @@ elif [[ $s_flag = "true" ]]; then
     spec=$(echo "$3" | tr '[:upper:]' '[:lower:]')
     SPEC=$(echo "$spec" | tr '[:lower:]' '[:upper:]')
     if [[ $RunType = "HeePSing" ]]; then
-	ROOTPREFIX=replay_${spec}_heep
-	HGCERPREFIX=${ANATYPE}_${SPEC}_replay_production
+	ROOTPREFIX=${ANATYPE}_${SPEC}_replay_production
 	inputFile="${REPLAYPATH}/UTIL_BATCH/InputRunLists/KaonLT_2018_2019/HeePSing_ALL"
 	#inputFile="${REPLAYPATH}/UTIL_BATCH/InputRunLists/KaonLT_2018_2019/HeePSing_Test"
     else
-	ROOTPREFIX=replay_${spec}_production
-	HGCERPREFIX=${ANATYPE}_${SPEC}_replay_production	
+	ROOTPREFIX=${ANATYPE}_${SPEC}_replay_production	
 	inputFile="${REPLAYPATH}/UTIL_BATCH/InputRunLists/KaonLT_2018_2019/ProductionLH2_ALL"
 	#inputFile="${REPLAYPATH}/UTIL_BATCH/InputRunLists/KaonLT_2018_2019/Prod_Test"
     fi
 elif [[ $r_flag = "true" ]]; then
     RunType=$2
     if [[ $RunType = "HeePCoin" ]]; then
-	ROOTPREFIX=replay_coin_heep
-	HGCERPREFIX=${ANATYPE}_coin_replay_production
+	ROOTPREFIX=${ANATYPE}_coin_replay_production
 	inputFile="${REPLAYPATH}/UTIL_BATCH/InputRunLists/KaonLT_2018_2019/HeePCoin_ALL"
 	#inputFile="${REPLAYPATH}/UTIL_BATCH/InputRunLists/KaonLT_2018_2019/HeePCoin_Test"
     else
-	ROOTPREFIX=replay_coin_production
-	HGCERPREFIX=${ANATYPE}_coin_replay_production	
+	ROOTPREFIX=${ANATYPE}_coin_replay_production	
 	#inputFile="${REPLAYPATH}/UTIL_BATCH/InputRunLists/KaonLT_2018_2019/ProductionLH2_ALL"
 	inputFile="${REPLAYPATH}/UTIL_BATCH/InputRunLists/KaonLT_2018_2019/Prod_ALL"
 	#inputFile="${REPLAYPATH}/UTIL_BATCH/InputRunLists/KaonLT_2018_2019/Prod_Test"
@@ -137,13 +129,11 @@ elif [[ $r_flag = "true" ]]; then
 else
     RunType=$1
     if [[ $RunType = "HeePCoin" ]]; then
-	ROOTPREFIX=replay_coin_heep
-	HGCERPREFIX=${ANATYPE}_coin_replay_production
+	ROOTPREFIX=${ANATYPE}_coin_replay_production
 	inputFile="${REPLAYPATH}/UTIL_BATCH/InputRunLists/KaonLT_2018_2019/HeePCoin_ALL"
 	#inputFile="${REPLAYPATH}/UTIL_BATCH/InputRunLists/KaonLT_2018_2019/HeePCoin_Test"
     else
-	ROOTPREFIX=replay_coin_production
-	HGCERPREFIX=${ANATYPE}_coin_replay_production	
+	ROOTPREFIX=${ANATYPE}_coin_replay_production	
 	#inputFile="${REPLAYPATH}/UTIL_BATCH/InputRunLists/KaonLT_2018_2019/ProductionLH2_ALL"
 	inputFile="${REPLAYPATH}/UTIL_BATCH/InputRunLists/KaonLT_2018_2019/Prod_ALL"
 	#inputFile="${REPLAYPATH}/UTIL_BATCH/InputRunLists/KaonLT_2018_2019/Prod_Test"
@@ -163,7 +153,7 @@ if [[ $r_flag = "true" ]]; then
 		    echo "Run number read from file: $line"
 		    echo ""
 		    cd "${SCRIPTPATH}/efficiency/src/hgcer"
-		    python3 hgcer.py ${HGCERPREFIX} $line -1
+		    python3 hgcer.py ${ROOTPREFIX} $line -1 $RunType
 		done < "$inputFile"
 		)
 		break;;

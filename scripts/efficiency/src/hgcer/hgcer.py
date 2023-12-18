@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2022-07-27 12:30:53 trottar"
+# Time-stamp: "2023-12-18 12:17:50 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -37,6 +37,7 @@ if len(sys.argv)-1!=3:
 ROOTPrefix = sys.argv[1]
 runNum = sys.argv[2]
 MaxEvent = sys.argv[3]
+RunType = sys.argv[4]
 
 ##############################################################################################################################################
 
@@ -63,6 +64,9 @@ UTILPATH=lt.UTILPATH
 ANATYPE=lt.ANATYPE
 OUTPATH=lt.OUTPATH
 
+if RunType == "HeePCoin":
+    OUTPATH = OUTPATH.replace(ANATYPE+"LT","HeeP")
+    
 proc_root = lt.setup_ana()
 c = proc_root[0] # Cut object
 tree = proc_root[1] # Dictionary of branches
