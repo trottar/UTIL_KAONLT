@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-12-18 11:02:08 trottar"
+# Time-stamp: "2023-12-18 15:45:46 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -158,6 +158,7 @@ def dictionary(UTILPATH,ROOTPrefix,runNum,MaxEvent,DEBUG=False):
             'HMS_Hodoscope_S1X_Rate' : None,
             # Calorimeter
             'HMS_Cal_ALL_Elec_Eff' : None
+            'HMS_Cal_ALL_Elec_Eff_ERROR' : None
 
         }
 
