@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-12-18 12:00:06 trottar"
+# Time-stamp: "2023-12-18 12:03:28 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -133,9 +133,7 @@ elif [[ $r_flag = "true" ]]; then
 	#inputFile="${REPLAYPATH}/UTIL_BATCH/InputRunLists/KaonLT_2018_2019/ProductionLH2_ALL"
 	inputFile="${REPLAYPATH}/UTIL_BATCH/InputRunLists/KaonLT_2018_2019/Prod_ALL"
 	#inputFile="${REPLAYPATH}/UTIL_BATCH/InputRunLists/KaonLT_2018_2019/Prod_Test"
-    fi    
-fi
-    
+    fi      
 else
     RunType=$1
     if [[ $RunType = "HeePCoin" ]]; then
