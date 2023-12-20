@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-12-20 18:24:26 trottar"
+# Time-stamp: "2023-12-20 18:29:07 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -68,13 +68,14 @@ for filename in os.listdir(REPLAYPATH + '/UTIL_BATCH/InputRunLists/KaonLT_2018_2
 
     # Check if the path is a file (not a directory)
     if os.path.isfile(file_path):
-        # Open each file and read run numbers
+        # Open each file and read run numbers, ignoring non-numeric lines
         with open(file_path, 'r') as file:
             # Assuming each line in the file contains a single Run_Number
-            run_numbers = [int(line.strip()) for line in file]
+            run_numbers = [int(line.strip()) for line in file if line.strip().isdigit()]
 
         # Use the filename as the key and store run numbers in the dictionary
         run_numbers_dict[filename] = run_numbers
+
 print(run_numbers_dict)
         
 # Update 'your_file.txt' with the actual file path
