@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-12-19 23:26:18 trottar"
+# Time-stamp: "2023-12-19 23:33:59 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -77,9 +77,15 @@ def fit_data(plt, x_name, y_name):
     # Concatenate x data from different sources
     x_data = efficiency_xdata_4p9
 
+    # Make x data
+    efficiency_ydata_4p9 = efficiency_data_4p9[y_name].copy()
+    
     # Concatenate y data from different sources
     y_data = efficiency_ydata_4p9
 
+    # Make y error
+    efficiency_yerror_4p9 = efficiency_data_4p9[y_error_name].copy()
+    
     # Concatenate y error from different sources
     y_error = efficiency_error_4p9
     y_error = y_error + 1e-10 # Prevent divide by zero
