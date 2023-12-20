@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-12-19 21:28:51 trottar"
+# Time-stamp: "2023-12-19 21:32:38 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -62,7 +62,7 @@ def fit_data(plt, x_data, y_data, x_error):
 
     # Plot the data and the fitted line
     #plt.errorbar(x_data, y_data, yerr=x_error, fmt='o', label='Data with Errors')
-    plt.plot(x_data, linear_fit(x_data, slope, intercept), label='Slope: {0:.2f}, Intercept: {1:.2f}'.format(slope, intercept), color='limegreen', linewidth=2, zorder=5)
+    plt.plot(x_data, linear_fit(x_data, slope, intercept), label='Slope: {0:.2e}, Intercept: {1:.2e}'.format(slope, intercept), color='limegreen', linewidth=2, zorder=5)
     
     # Annotate the plot with the slope and intercept
     plt.legend(loc="lower right", markerscale=0.7, scatterpoints=1, fontsize=10)
@@ -88,7 +88,7 @@ efficiency_data_8p2 = efficiency_data[(efficiency_data['Run_Number'] >= 7978)  &
 
 plt.figure(figsize=(12,8))
 
-plt.subplot(141)
+plt.subplot(221)
 plt.grid(zorder=1)
 #plt.xlim(0,100)
 #plt.ylim(0.9,1.1)
@@ -108,7 +108,7 @@ plt.ylabel('EDTM', fontsize=12)
 plt.xlabel('SHMS 3/4 Trigger Rate [kHz]', fontsize=12)
 plt.title('SHMS %s-%s' % (int(min(efficiency_data["Run_Number"])),int(max(efficiency_data["Run_Number"]))), fontsize=12)
 
-plt.subplot(142)    
+plt.subplot(222)    
 plt.grid(zorder=1)
 #plt.xlim(0,100)
 #plt.ylim(0.9,1.1)
@@ -128,7 +128,7 @@ plt.ylabel('SHMS_Pion_SING_TRACK_EFF', fontsize=12)
 plt.xlabel('SHMS 3/4 Trigger Rate [kHz]', fontsize=12)
 plt.title('SHMS %s-%s' % (int(min(efficiency_data["Run_Number"])),int(max(efficiency_data["Run_Number"]))), fontsize=12)
 
-plt.subplot(143)    
+plt.subplot(223)    
 plt.grid(zorder=1)
 #plt.xlim(0,100)
 #plt.ylim(0.9,1.1)
@@ -148,7 +148,7 @@ plt.ylabel('SHMS_Aero_SING_Pion_Eff', fontsize=12)
 plt.xlabel('SHMS 3/4 Trigger Rate [kHz]', fontsize=12)
 plt.title('SHMS %s-%s' % (int(min(efficiency_data["Run_Number"])),int(max(efficiency_data["Run_Number"]))), fontsize=12)
 
-plt.subplot(144)
+plt.subplot(224)
 plt.grid(zorder=1)
 #plt.xlim(0,100)
 #plt.ylim(0.9,1.1)
@@ -173,7 +173,7 @@ plt.savefig(UTILPATH+'/scripts/efficiency/OUTPUTS/plots/SHMS_3-4_%s.png' % (ROOT
 
 plt.figure(figsize=(12,8))
 
-plt.subplot(141)    
+plt.subplot(221)    
 plt.grid(zorder=1)
 #plt.xlim(0,100)
 #plt.ylim(0.9,1.1)
@@ -193,7 +193,7 @@ plt.ylabel('EDTM', fontsize=12)
 plt.xlabel('SHMS S1X HODO Rate [kHz]', fontsize=12)
 plt.title('SHMS %s-%s' % (int(min(efficiency_data["Run_Number"])),int(max(efficiency_data["Run_Number"]))), fontsize=12)
 
-plt.subplot(142)    
+plt.subplot(222)    
 plt.grid(zorder=1)
 #plt.xlim(0,100)
 #plt.ylim(0.9,1.1)
@@ -213,7 +213,7 @@ plt.ylabel('SHMS_Pion_SING_TRACK_EFF', fontsize=12)
 plt.xlabel('SHMS S1X HODO Rate [kHz]', fontsize=12)
 plt.title('SHMS %s-%s' % (int(min(efficiency_data["Run_Number"])),int(max(efficiency_data["Run_Number"]))), fontsize=12)
 
-plt.subplot(143)    
+plt.subplot(223)    
 plt.grid(zorder=1)
 #plt.xlim(0,100)
 #plt.ylim(0.9,1.1)
@@ -233,7 +233,7 @@ plt.ylabel('SHMS_Aero_SING_Pion_Eff', fontsize=12)
 plt.xlabel('SHMS S1X HODO Rate [kHz]', fontsize=12)
 plt.title('SHMS %s-%s' % (int(min(efficiency_data["Run_Number"])),int(max(efficiency_data["Run_Number"]))), fontsize=12)
 
-plt.subplot(144)
+plt.subplot(224)
 plt.grid(zorder=1)
 #plt.xlim(0,100)
 #plt.ylim(0.9,1.1)
@@ -258,7 +258,7 @@ plt.savefig(UTILPATH+'/scripts/efficiency/OUTPUTS/plots/SHMS_S1X_%s.png' % (ROOT
 
 plt.figure(figsize=(12,8))
 
-plt.subplot(141)    
+plt.subplot(221)    
 plt.grid(zorder=1)
 #plt.xlim(0,100)
 #plt.ylim(0.9,1.1)
@@ -278,7 +278,7 @@ plt.ylabel('EDTM', fontsize=12)
 plt.xlabel('HMS EL-REAL Trigger Rate [kHz]', fontsize=12)
 plt.title('HMS %s-%s' % (int(min(efficiency_data["Run_Number"])),int(max(efficiency_data["Run_Number"]))), fontsize=12)
 
-plt.subplot(142)    
+plt.subplot(222)    
 plt.grid(zorder=1)
 #plt.xlim(0,100)
 #plt.ylim(0.9,1.1)
@@ -298,7 +298,7 @@ plt.ylabel('HMS_Elec_SING_TRACK_EFF', fontsize=12)
 plt.xlabel('HMS EL-REAL Trigger Rate [kHz]', fontsize=12)
 plt.title('HMS %s-%s' % (int(min(efficiency_data["Run_Number"])),int(max(efficiency_data["Run_Number"]))), fontsize=12)
 
-plt.subplot(143)    
+plt.subplot(223)    
 plt.grid(zorder=1)
 #plt.xlim(0,100)
 #plt.ylim(0.9,1.1)
@@ -318,7 +318,7 @@ plt.ylabel('HMS_Cer_SING_Elec_Eff', fontsize=12)
 plt.xlabel('HMS EL-REAL Trigger Rate [kHz]', fontsize=12)
 plt.title('HMS %s-%s' % (int(min(efficiency_data["Run_Number"])),int(max(efficiency_data["Run_Number"]))), fontsize=12)
 
-plt.subplot(144)
+plt.subplot(224)
 plt.grid(zorder=1)
 #plt.xlim(0,100)
 #plt.ylim(0.9,1.1)
@@ -343,7 +343,7 @@ plt.savefig(UTILPATH+'/scripts/efficiency/OUTPUTS/plots/HMS_EL-REAL_%s.png' % (R
 
 plt.figure(figsize=(12,8))
 
-plt.subplot(141)    
+plt.subplot(221)    
 plt.grid(zorder=1)
 #plt.xlim(0,100)
 #plt.ylim(0.9,1.1)
@@ -363,7 +363,7 @@ plt.ylabel('EDTM', fontsize=12)
 plt.xlabel('HMS S1X HODO Rate [kHz]', fontsize=12)
 plt.title('HMS %s-%s' % (int(min(efficiency_data["Run_Number"])),int(max(efficiency_data["Run_Number"]))), fontsize=12)
 
-plt.subplot(142)    
+plt.subplot(222)    
 plt.grid(zorder=1)
 #plt.xlim(0,100)
 #plt.ylim(0.9,1.1)
@@ -383,7 +383,7 @@ plt.ylabel('HMS_Elec_SING_TRACK_EFF', fontsize=12)
 plt.xlabel('HMS S1X HODO Rate [kHz]', fontsize=12)
 plt.title('HMS %s-%s' % (int(min(efficiency_data["Run_Number"])),int(max(efficiency_data["Run_Number"]))), fontsize=12)
 
-plt.subplot(143)    
+plt.subplot(223)    
 plt.grid(zorder=1)
 #plt.xlim(0,100)
 #plt.ylim(0.9,1.1)
@@ -403,7 +403,7 @@ plt.ylabel('HMS_Cer_SING_Elec_Eff', fontsize=12)
 plt.xlabel('HMS S1X HODO Rate [kHz]', fontsize=12)
 plt.title('HMS %s-%s' % (int(min(efficiency_data["Run_Number"])),int(max(efficiency_data["Run_Number"]))), fontsize=12)
 
-plt.subplot(144)
+plt.subplot(224)
 plt.grid(zorder=1)
 #plt.xlim(0,100)
 #plt.ylim(0.9,1.1)
@@ -428,7 +428,7 @@ plt.savefig(UTILPATH+'/scripts/efficiency/OUTPUTS/plots/HMS_S1X_%s.png' % (ROOTP
 
 plt.figure(figsize=(12,8))
 '''
-plt.subplot(141)    
+plt.subplot(221)    
 plt.grid(zorder=1)
 #plt.xlim(0,100)
 #plt.ylim(0.9,1.1)
@@ -447,7 +447,7 @@ plt.ylabel('EDTM', fontsize=12)
 plt.xlabel('COIN Trigger Rate [kHz]', fontsize=12)
 plt.title('COIN %s-%s' % (int(min(efficiency_data["Run_Number"])),int(max(efficiency_data["Run_Number"]))), fontsize=12)
 
-plt.subplot(142)
+plt.subplot(222)
 plt.grid(zorder=1)
 #plt.xlim(0,100)
 #plt.ylim(0.9,1.1)
@@ -467,7 +467,7 @@ plt.ylabel('COIN CPULT', fontsize=12)
 plt.xlabel('COIN Trigger Rate [kHz]', fontsize=12)
 plt.title('COIN %s-%s' % (int(min(efficiency_data["Run_Number"])),int(max(efficiency_data["Run_Number"]))), fontsize=12)
 
-plt.subplot(143)
+plt.subplot(223)
 plt.grid(zorder=1)
 #plt.xlim(0,100)
 #plt.ylim(0.9,1.1)
@@ -481,7 +481,7 @@ plt.ylabel('SHMS 3/4 Trigger Rate [kHz]', fontsize=12)
 plt.xlabel('COIN Trigger Rate [kHz]', fontsize=12)
 plt.title('SHMS %s-%s' % (int(min(efficiency_data["Run_Number"])),int(max(efficiency_data["Run_Number"]))), fontsize=12)
 
-plt.subplot(144)
+plt.subplot(224)
 plt.grid(zorder=1)
 #plt.xlim(0,100)
 #plt.ylim(0.9,1.1)
@@ -501,7 +501,7 @@ plt.savefig(UTILPATH+'/scripts/efficiency/OUTPUTS/plots/COIN_%s.png' % (ROOTPref
 
 plt.figure(figsize=(12,8))
 
-plt.subplot(141)
+plt.subplot(221)
 plt.grid(zorder=1)
 #plt.xlim(0,100)
 #plt.ylim(0.9,1.1)
@@ -520,7 +520,7 @@ plt.ylabel('EDTM', fontsize=12)
 plt.xlabel('Run Number', fontsize=12)
 plt.title('SHMS %s-%s' % (int(min(efficiency_data["Run_Number"])),int(max(efficiency_data["Run_Number"]))), fontsize=12)
 
-plt.subplot(142)    
+plt.subplot(222)    
 plt.grid(zorder=1)
 #plt.xlim(0,100)
 #plt.ylim(0.9,1.1)
@@ -539,7 +539,7 @@ plt.ylabel('SHMS_Pion_SING_TRACK_EFF', fontsize=12)
 plt.xlabel('Run Number', fontsize=12)
 plt.title('SHMS %s-%s' % (int(min(efficiency_data["Run_Number"])),int(max(efficiency_data["Run_Number"]))), fontsize=12)
 
-plt.subplot(143)    
+plt.subplot(223)    
 plt.grid(zorder=1)
 #plt.xlim(0,100)
 #plt.ylim(0.9,1.1)
@@ -558,7 +558,7 @@ plt.ylabel('SHMS_Aero_SING_Pion_Eff', fontsize=12)
 plt.xlabel('Run Number', fontsize=12)
 plt.title('SHMS %s-%s' % (int(min(efficiency_data["Run_Number"])),int(max(efficiency_data["Run_Number"]))), fontsize=12)
 
-plt.subplot(144)
+plt.subplot(224)
 plt.grid(zorder=1)
 #plt.xlim(0,100)
 #plt.ylim(0.9,1.1)
@@ -582,7 +582,7 @@ plt.savefig(UTILPATH+'/scripts/efficiency/OUTPUTS/plots/SHMS_3-4_%s_run.png' % (
 
 plt.figure(figsize=(12,8))
 
-plt.subplot(141)    
+plt.subplot(221)    
 plt.grid(zorder=1)
 #plt.xlim(0,100)
 #plt.ylim(0.9,1.1)
@@ -601,7 +601,7 @@ plt.ylabel('EDTM', fontsize=12)
 plt.xlabel('Run Number', fontsize=12)
 plt.title('HMS %s-%s' % (int(min(efficiency_data["Run_Number"])),int(max(efficiency_data["Run_Number"]))), fontsize=12)
 
-plt.subplot(142)    
+plt.subplot(222)    
 plt.grid(zorder=1)
 #plt.xlim(0,100)
 #plt.ylim(0.9,1.1)
@@ -620,7 +620,7 @@ plt.ylabel('HMS_Elec_SING_TRACK_EFF', fontsize=12)
 plt.xlabel('Run Number', fontsize=12)
 plt.title('HMS %s-%s' % (int(min(efficiency_data["Run_Number"])),int(max(efficiency_data["Run_Number"]))), fontsize=12)
 
-plt.subplot(143)    
+plt.subplot(223)    
 plt.grid(zorder=1)
 #plt.xlim(0,100)
 #plt.ylim(0.9,1.1)
@@ -639,7 +639,7 @@ plt.ylabel('HMS_Cer_SING_Elec_Eff', fontsize=12)
 plt.xlabel('Run Number', fontsize=12)
 plt.title('HMS %s-%s' % (int(min(efficiency_data["Run_Number"])),int(max(efficiency_data["Run_Number"]))), fontsize=12)
 
-plt.subplot(144)
+plt.subplot(224)
 plt.grid(zorder=1)
 #plt.xlim(0,100)
 #plt.ylim(0.9,1.1)
@@ -663,7 +663,7 @@ plt.savefig(UTILPATH+'/scripts/efficiency/OUTPUTS/plots/HMS_EL-REAL_%s_run.png' 
 
 plt.figure(figsize=(12,8))
 
-plt.subplot(141)    
+plt.subplot(221)    
 plt.grid(zorder=1)
 #plt.xlim(0,100)
 #plt.ylim(0.9,1.1)
@@ -682,7 +682,7 @@ plt.ylabel('EDTM', fontsize=12)
 plt.xlabel('Run Number', fontsize=12)
 plt.title('COIN %s-%s' % (int(min(efficiency_data["Run_Number"])),int(max(efficiency_data["Run_Number"]))), fontsize=12)
 
-plt.subplot(142)
+plt.subplot(222)
 plt.grid(zorder=1)
 #plt.xlim(0,100)
 #plt.ylim(0.9,1.1)
@@ -702,7 +702,7 @@ plt.ylabel('COIN CPULT', fontsize=12)
 plt.xlabel('Run Number', fontsize=12)
 plt.title('COIN %s-%s' % (int(min(efficiency_data["Run_Number"])),int(max(efficiency_data["Run_Number"]))), fontsize=12)
 
-plt.subplot(143)
+plt.subplot(223)
 plt.grid(zorder=1)
 #plt.xlim(0,100)
 #plt.ylim(0.9,1.1)
@@ -716,7 +716,7 @@ plt.ylabel('SHMS 3/4 Trigger Rate [kHz]', fontsize=12)
 plt.xlabel('Run Number', fontsize=12)
 plt.title('SHMS %s-%s' % (int(min(efficiency_data["Run_Number"])),int(max(efficiency_data["Run_Number"]))), fontsize=12)
 
-plt.subplot(144)
+plt.subplot(224)
 plt.grid(zorder=1)
 #plt.xlim(0,100)
 #plt.ylim(0.9,1.1)
@@ -735,7 +735,7 @@ plt.savefig(UTILPATH+'/scripts/efficiency/OUTPUTS/plots/COIN_%s_run.png' % (ROOT
 
 plt.figure(figsize=(12,8))
 
-plt.subplot(141)
+plt.subplot(221)
 plt.grid(zorder=1)
 #plt.xlim(0,100)
 #plt.ylim(0.9,1.1)
@@ -754,7 +754,7 @@ plt.ylabel('EDTM', fontsize=12)
 plt.xlabel('Run Number', fontsize=12)
 plt.title('COIN %s-%s' % (int(min(efficiency_data["Run_Number"])),int(max(efficiency_data["Run_Number"]))), fontsize=12)
 
-plt.subplot(142)
+plt.subplot(222)
 plt.grid(zorder=1)
 #plt.xlim(0,100)
 #plt.ylim(0.9,1.1)
@@ -773,7 +773,7 @@ plt.ylabel('Boiling Correction', fontsize=12)
 plt.xlabel('Run Number', fontsize=12)
 plt.title('COIN %s-%s' % (int(min(efficiency_data["Run_Number"])),int(max(efficiency_data["Run_Number"]))), fontsize=12)
 
-plt.subplot(143)
+plt.subplot(223)
 plt.grid(zorder=1)
 #plt.xlim(0,100)
 #plt.ylim(0.9,1.1)
@@ -793,7 +793,7 @@ plt.ylabel('EDTM', fontsize=12)
 plt.xlabel('Current', fontsize=12)
 plt.title('COIN %s-%s' % (int(min(efficiency_data["Run_Number"])),int(max(efficiency_data["Run_Number"]))), fontsize=12)
 
-plt.subplot(144)
+plt.subplot(224)
 plt.grid(zorder=1)
 #plt.xlim(0,100)
 #plt.ylim(0.9,1.1)
