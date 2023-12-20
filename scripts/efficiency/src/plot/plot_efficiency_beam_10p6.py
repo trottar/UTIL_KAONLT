@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-12-20 00:24:40 trottar"
+# Time-stamp: "2023-12-20 18:24:26 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -58,6 +58,25 @@ print(efficiency_data.keys())
 # Including dummy
 #efficiency_data_10p6 = efficiency_data[(efficiency_data['Run_Number'] >= 4865)  & (efficiency_data['Run_Number'] <= 5334)]
 
+# Initialize an empty dictionary to store run numbers
+run_numbers_dict = {}
+
+# Loop through all files in the specified directory
+for filename in os.listdir(REPLAYPATH + '/UTIL_BATCH/InputRunLists/KaonLT_2018_2019/'):
+    # Construct the full file path
+    file_path = os.path.join(REPLAYPATH + '/UTIL_BATCH/InputRunLists/KaonLT_2018_2019/', filename)
+
+    # Check if the path is a file (not a directory)
+    if os.path.isfile(file_path):
+        # Open each file and read run numbers
+        with open(file_path, 'r') as file:
+            # Assuming each line in the file contains a single Run_Number
+            run_numbers = [int(line.strip()) for line in file]
+
+        # Use the filename as the key and store run numbers in the dictionary
+        run_numbers_dict[filename] = run_numbers
+print(run_numbers_dict)
+        
 # Update 'your_file.txt' with the actual file path
 with open(REPLAYPATH+'/UTIL_BATCH/InputRunLists/KaonLT_2018_2019/Prod_10p6_Autumn18', 'r') as file:
     # Assuming each line in the file contains a single Run_Number
