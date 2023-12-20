@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-12-19 21:56:39 trottar"
+# Time-stamp: "2023-12-19 21:59:39 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -43,6 +43,24 @@ REPLAYPATH=p.getPath("REPLAYPATH")
 UTILPATH=p.getPath("UTILPATH")
 ANATYPE=p.getPath("ANATYPE")
 SCRIPTPATH=p.getPath("SCRIPTPATH")
+
+################################################################################################################################################
+
+inp_f = UTILPATH+"/scripts/efficiency/OUTPUTS/%s_%s_efficiency_data_%s.csv"  % (ROOTPrefix.replace("replay_",""),runType,timestmp)
+
+# Converts csv data to dataframe
+try:
+    efficiency_data = pd.read_csv(inp_f)
+except IOError:
+    print("Error: %s does not appear to exist." % inp_f)
+print(efficiency_data.keys())
+
+# Including dummy
+efficiency_data_10p6 = efficiency_data[(efficiency_data['Run_Number'] >= 4865)  & (efficiency_data['Run_Number'] <= 5334)]
+efficiency_data_3p8 = efficiency_data[(efficiency_data['Run_Number'] >= 6638)  & (efficiency_data['Run_Number'] <= 6857)]
+efficiency_data_4p9 = efficiency_data[(efficiency_data['Run_Number'] >= 6885)  & (efficiency_data['Run_Number'] <= 7045)]
+efficiency_data_6p2 = efficiency_data[(efficiency_data['Run_Number'] >= 7871)  & (efficiency_data['Run_Number'] <= 7938)]
+efficiency_data_8p2 = efficiency_data[(efficiency_data['Run_Number'] >= 7978)  & (efficiency_data['Run_Number'] <= 8356)]
 
 ################################################################################################################################################
 
@@ -86,7 +104,6 @@ def fit_data(plt, x_name, y_name):
     slope = params[0]
     intercept = params[1]
 
-
     # Calculate the standard deviations of the parameters
     slope_error = np.sqrt(covariance[0, 0])
     intercept_error = np.sqrt(covariance[1, 1])
@@ -112,22 +129,6 @@ def fit_data(plt, x_name, y_name):
     
 
 ################################################################################################################################################
-
-inp_f = UTILPATH+"/scripts/efficiency/OUTPUTS/%s_%s_efficiency_data_%s.csv"  % (ROOTPrefix.replace("replay_",""),runType,timestmp)
-
-# Converts csv data to dataframe
-try:
-    efficiency_data = pd.read_csv(inp_f)
-except IOError:
-    print("Error: %s does not appear to exist." % inp_f)
-print(efficiency_data.keys())
-
-# Including dummy
-efficiency_data_10p6 = efficiency_data[(efficiency_data['Run_Number'] >= 4865)  & (efficiency_data['Run_Number'] <= 5334)]
-efficiency_data_3p8 = efficiency_data[(efficiency_data['Run_Number'] >= 6638)  & (efficiency_data['Run_Number'] <= 6857)]
-efficiency_data_4p9 = efficiency_data[(efficiency_data['Run_Number'] >= 6885)  & (efficiency_data['Run_Number'] <= 7045)]
-efficiency_data_6p2 = efficiency_data[(efficiency_data['Run_Number'] >= 7871)  & (efficiency_data['Run_Number'] <= 7938)]
-efficiency_data_8p2 = efficiency_data[(efficiency_data['Run_Number'] >= 7978)  & (efficiency_data['Run_Number'] <= 8356)]
 
 plt.figure(figsize=(12,8))
 
