@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-12-19 23:05:30 trottar"
+# Time-stamp: "2023-12-19 23:06:18 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -122,7 +122,7 @@ def fit_data(plt, x_name, y_name):
     residuals = y_data - y_fit
 
     # Calculate the chi-square value
-    chi_square = np.sum((residuals / errors)**2)
+    chi_square = np.sum((residuals / y_error)**2)
     
     # Generate x values for the error band
     x_fit = np.linspace(min(x_data), max(x_data), 100)
