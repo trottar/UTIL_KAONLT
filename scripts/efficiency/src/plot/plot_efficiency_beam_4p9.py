@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-12-19 23:33:59 trottar"
+# Time-stamp: "2023-12-19 23:36:40 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -87,7 +87,7 @@ def fit_data(plt, x_name, y_name):
     efficiency_yerror_4p9 = efficiency_data_4p9[y_error_name].copy()
     
     # Concatenate y error from different sources
-    y_error = efficiency_error_4p9
+    y_error = efficiency_yerror_4p9
     y_error = y_error + 1e-10 # Prevent divide by zero
     
     # Perform the error-weighted linear fit
