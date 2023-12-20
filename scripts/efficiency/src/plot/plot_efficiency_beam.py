@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-12-19 22:29:10 trottar"
+# Time-stamp: "2023-12-19 22:33:47 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -720,21 +720,6 @@ plt.subplot(222)
 plt.grid(zorder=1)
 #plt.xlim(0,100)
 #plt.ylim(0.9,1.1)
-#fit_data(plt, "BCM1_Beam_Cut_Current", "SHMS_Hodo_3_of_4_EFF")
-plt.scatter(efficiency_data_10p6["BCM1_Beam_Cut_Current"],efficiency_data_10p6["SHMS_Hodo_3_of_4_EFF"],color='blue',zorder=4,label='10p6')
-plt.scatter(efficiency_data_3p8["BCM1_Beam_Cut_Current"],efficiency_data_3p8["SHMS_Hodo_3_of_4_EFF"],color='red',zorder=4,label='3p8')
-plt.scatter(efficiency_data_4p9["BCM1_Beam_Cut_Current"],efficiency_data_4p9["SHMS_Hodo_3_of_4_EFF"],color='purple',zorder=4,label='4p9')
-plt.scatter(efficiency_data_6p2["BCM1_Beam_Cut_Current"],efficiency_data_6p2["SHMS_Hodo_3_of_4_EFF"],color='orange',zorder=4,label='6p2')
-plt.scatter(efficiency_data_8p2["BCM1_Beam_Cut_Current"],efficiency_data_8p2["SHMS_Hodo_3_of_4_EFF"],color='green',zorder=4,label='8p2')
-plt.legend(loc="lower right", markerscale=0.7, scatterpoints=1, fontsize=10)
-plt.ylabel('SHMS_Hodo_3_of_4_EFF', fontsize=12)
-plt.xlabel('Current', fontsize=12)
-plt.title('SHMS %s-%s' % (int(min(efficiency_data["Run_Number"])),int(max(efficiency_data["Run_Number"]))), fontsize=12)
-
-plt.subplot(223)
-plt.grid(zorder=1)
-#plt.xlim(0,100)
-#plt.ylim(0.9,1.1)
 fit_data(plt, "BCM1_Beam_Cut_Current", "HMS_Cal_ALL_Elec_Eff")
 plt.scatter(efficiency_data_10p6["BCM1_Beam_Cut_Current"],efficiency_data_10p6["HMS_Cal_ALL_Elec_Eff"],color='blue',zorder=4,label='10p6')
 plt.scatter(efficiency_data_3p8["BCM1_Beam_Cut_Current"],efficiency_data_3p8["HMS_Cal_ALL_Elec_Eff"],color='red',zorder=4,label='3p8')
@@ -746,7 +731,7 @@ plt.ylabel('HMS_Cal_ALL_Elec_Eff', fontsize=12)
 plt.xlabel('Current', fontsize=12)
 plt.title('COIN %s-%s' % (int(min(efficiency_data["Run_Number"])),int(max(efficiency_data["Run_Number"]))), fontsize=12)
 
-plt.subplot(224)
+plt.subplot(223)
 plt.grid(zorder=1)
 #plt.xlim(0,100)
 #plt.ylim(0.9,1.1)
@@ -798,5 +783,40 @@ plt.title('COIN %s-%s' % (int(min(efficiency_data["Run_Number"])),int(max(effici
 
 plt.tight_layout(rect=[0,0.03,1,0.95])
 plt.savefig(UTILPATH+'/scripts/efficiency/OUTPUTS/plots/SHMSDet_%s_run.png' % (ROOTPrefix.replace("replay_","")))
+
+plt.figure(figsize=(12,8))
+
+plt.subplot(121)
+plt.grid(zorder=1)
+#plt.xlim(0,100)
+#plt.ylim(0.9,1.1)
+fit_data(plt, "BCM1_Beam_Cut_Current", "HMS_Elec_ALL_TRACK_EFF")
+plt.scatter(efficiency_data_10p6["BCM1_Beam_Cut_Current"],efficiency_data_10p6["HMS_Elec_ALL_TRACK_EFF"],color='blue',zorder=4,label='10p6')
+plt.scatter(efficiency_data_3p8["BCM1_Beam_Cut_Current"],efficiency_data_3p8["HMS_Elec_ALL_TRACK_EFF"],color='red',zorder=4,label='3p8')
+plt.scatter(efficiency_data_4p9["BCM1_Beam_Cut_Current"],efficiency_data_4p9["HMS_Elec_ALL_TRACK_EFF"],color='purple',zorder=4,label='4p9')
+plt.scatter(efficiency_data_6p2["BCM1_Beam_Cut_Current"],efficiency_data_6p2["HMS_Elec_ALL_TRACK_EFF"],color='orange',zorder=4,label='6p2')
+plt.scatter(efficiency_data_8p2["BCM1_Beam_Cut_Current"],efficiency_data_8p2["HMS_Elec_ALL_TRACK_EFF"],color='green',zorder=4,label='8p2')
+plt.legend(loc="lower right", markerscale=0.7, scatterpoints=1, fontsize=10)
+plt.ylabel('HMS_Elec_ALL_TRACK_EFF', fontsize=12)
+plt.xlabel('Current', fontsize=12)
+plt.title('COIN %s-%s' % (int(min(efficiency_data["Run_Number"])),int(max(efficiency_data["Run_Number"]))), fontsize=12)
+
+plt.subplot(122)
+plt.grid(zorder=1)
+#plt.xlim(0,100)
+#plt.ylim(0.9,1.1)
+fit_data(plt, "BCM1_Beam_Cut_Current", "SHMS_Pion_ALL_TRACK_EFF")
+plt.scatter(efficiency_data_10p6["BCM1_Beam_Cut_Current"],efficiency_data_10p6["SHMS_Pion_ALL_TRACK_EFF"],color='blue',zorder=4,label='10p6')
+plt.scatter(efficiency_data_3p8["BCM1_Beam_Cut_Current"],efficiency_data_3p8["SHMS_Pion_ALL_TRACK_EFF"],color='red',zorder=4,label='3p8')
+plt.scatter(efficiency_data_4p9["BCM1_Beam_Cut_Current"],efficiency_data_4p9["SHMS_Pion_ALL_TRACK_EFF"],color='purple',zorder=4,label='4p9')
+plt.scatter(efficiency_data_6p2["BCM1_Beam_Cut_Current"],efficiency_data_6p2["SHMS_Pion_ALL_TRACK_EFF"],color='orange',zorder=4,label='6p2')
+plt.scatter(efficiency_data_8p2["BCM1_Beam_Cut_Current"],efficiency_data_8p2["SHMS_Pion_ALL_TRACK_EFF"],color='green',zorder=4,label='8p2')
+plt.legend(loc="lower right", markerscale=0.7, scatterpoints=1, fontsize=10)
+plt.ylabel('SHMS_Pion_ALL_TRACK_EFF', fontsize=12)
+plt.xlabel('Current', fontsize=12)
+plt.title('COIN %s-%s' % (int(min(efficiency_data["Run_Number"])),int(max(efficiency_data["Run_Number"]))), fontsize=12)
+
+plt.tight_layout(rect=[0,0.03,1,0.95])
+plt.savefig(UTILPATH+'/scripts/efficiency/OUTPUTS/plots/Track_%s_run.png' % (ROOTPrefix.replace("replay_","")))
 
 #plt.show()
