@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-12-19 22:59:18 trottar"
+# Time-stamp: "2023-12-19 23:01:21 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -105,6 +105,7 @@ def fit_data(plt, x_name, y_name):
 
     # Concatenate y error from different sources
     y_error = pd.concat([efficiency_error_10p6, efficiency_error_3p8, efficiency_error_4p9, efficiency_error_6p2, efficiency_error_8p2], ignore_index=True)
+    y_error = y_error + 1e-10 # Prevent divide by zero
     
     # Perform the error-weighted linear fit
     params, covariance = curve_fit(linear_fit, x_data, y_data, sigma=y_error, absolute_sigma=True)
