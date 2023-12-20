@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-12-20 00:17:41 trottar"
+# Time-stamp: "2023-12-20 00:22:52 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -59,7 +59,7 @@ print(efficiency_data.keys())
 #efficiency_data_4p9 = efficiency_data[(efficiency_data['Run_Number'] >= 6885)  & (efficiency_data['Run_Number'] <= 7045)]
 
 # Update 'your_file.txt' with the actual file path
-with open(REPLAYPATH'UTIL_BATCH/InputRunLists/KaonLT_2018_2019/Prod_4p9_Autumn18', 'r') as file:
+with open(REPLAYPATH+'UTIL_BATCH/InputRunLists/KaonLT_2018_2019/Prod_4p9_Autumn18', 'r') as file:
     # Assuming each line in the file contains a single Run_Number
     run_numbers = [int(line.strip()) for line in file]
 
