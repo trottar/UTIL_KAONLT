@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-12-19 21:19:45 trottar"
+# Time-stamp: "2023-12-19 21:21:25 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -62,7 +62,7 @@ def fit_data(plt, x_data, y_data, x_error):
 
     # Plot the data and the fitted line
     #plt.errorbar(x_data, y_data, yerr=x_error, fmt='o', label='Data with Errors')
-    plt.plot(x_data, linear_fit(x_data, slope, intercept), label='Error-Weighted Fit', color='limegreen', linewidth=2)
+    plt.plot(x_data, linear_fit(x_data, slope, intercept), label='Error-Weighted Fit', color='limegreen', linewidth=2, zorder=5)
     
     # Annotate the plot with the slope and intercept
     plt.legend(title='Slope: {0:.2f}, Intercept: {1:.2f}'.format(slope, intercept))
