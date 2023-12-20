@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-12-20 00:22:31 trottar"
+# Time-stamp: "2023-12-20 00:24:44 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -63,7 +63,7 @@ print(efficiency_data.keys())
 #efficiency_data_8p2 = efficiency_data[(efficiency_data['Run_Number'] >= 7978)  & (efficiency_data['Run_Number'] <= 8356)]
 
 # Update 'your_file.txt' with the actual file path
-with open(REPLAYPATH+'UTIL_BATCH/InputRunLists/KaonLT_2018_2019/Prod_10p6_Autumn18', 'r') as file:
+with open(REPLAYPATH+'/UTIL_BATCH/InputRunLists/KaonLT_2018_2019/Prod_10p6_Autumn18', 'r') as file:
     # Assuming each line in the file contains a single Run_Number
     run_numbers = [int(line.strip()) for line in file]
 
@@ -71,7 +71,7 @@ with open(REPLAYPATH+'UTIL_BATCH/InputRunLists/KaonLT_2018_2019/Prod_10p6_Autumn
 efficiency_data_10p6 = efficiency_data[efficiency_data['Run_Number'].isin(run_numbers)]    
 
 # Update 'your_file.txt' with the actual file path
-with open(REPLAYPATH+'UTIL_BATCH/InputRunLists/KaonLT_2018_2019/Prod_8p2_Spring19', 'r') as file:
+with open(REPLAYPATH+'/UTIL_BATCH/InputRunLists/KaonLT_2018_2019/Prod_8p2_Spring19', 'r') as file:
     # Assuming each line in the file contains a single Run_Number
     run_numbers = [int(line.strip()) for line in file]
 
@@ -79,7 +79,7 @@ with open(REPLAYPATH+'UTIL_BATCH/InputRunLists/KaonLT_2018_2019/Prod_8p2_Spring1
 efficiency_data_8p2 = efficiency_data[efficiency_data['Run_Number'].isin(run_numbers)]    
 
 # Update 'your_file.txt' with the actual file path
-with open(REPLAYPATH+'UTIL_BATCH/InputRunLists/KaonLT_2018_2019/Prod_6p2_Spring19', 'r') as file:
+with open(REPLAYPATH+'/UTIL_BATCH/InputRunLists/KaonLT_2018_2019/Prod_6p2_Spring19', 'r') as file:
     # Assuming each line in the file contains a single Run_Number
     run_numbers = [int(line.strip()) for line in file]
 
@@ -87,7 +87,7 @@ with open(REPLAYPATH+'UTIL_BATCH/InputRunLists/KaonLT_2018_2019/Prod_6p2_Spring1
 efficiency_data_6p2 = efficiency_data[efficiency_data['Run_Number'].isin(run_numbers)]    
 
 # Update 'your_file.txt' with the actual file path
-with open(REPLAYPATH+'UTIL_BATCH/InputRunLists/KaonLT_2018_2019/Prod_4p9_Autumn18', 'r') as file:
+with open(REPLAYPATH+'/UTIL_BATCH/InputRunLists/KaonLT_2018_2019/Prod_4p9_Autumn18', 'r') as file:
     # Assuming each line in the file contains a single Run_Number
     run_numbers = [int(line.strip()) for line in file]
 
@@ -95,7 +95,7 @@ with open(REPLAYPATH+'UTIL_BATCH/InputRunLists/KaonLT_2018_2019/Prod_4p9_Autumn1
 efficiency_data_4p9 = efficiency_data[efficiency_data['Run_Number'].isin(run_numbers)]    
 
 # Update 'your_file.txt' with the actual file path
-with open(REPLAYPATH+'UTIL_BATCH/InputRunLists/KaonLT_2018_2019/Prod_3p8_Autumn18', 'r') as file:
+with open(REPLAYPATH+'/UTIL_BATCH/InputRunLists/KaonLT_2018_2019/Prod_3p8_Autumn18', 'r') as file:
     # Assuming each line in the file contains a single Run_Number
     run_numbers = [int(line.strip()) for line in file]
 
