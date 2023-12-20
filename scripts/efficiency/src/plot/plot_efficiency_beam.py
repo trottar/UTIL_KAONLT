@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-12-19 22:55:41 trottar"
+# Time-stamp: "2023-12-19 22:56:21 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -105,7 +105,7 @@ def fit_data(plt, x_name, y_name):
 
     # Perform the error-weighted linear fit with additional error handling
     try:
-        params, covariance = curve_fit(linear_fit, x_data, y_data, sigma=errors, absolute_sigma=True)
+        params, covariance = curve_fit(linear_fit, x_data, y_data, sigma=y_error, absolute_sigma=True)
     except RuntimeError:
         print("Error: Unable to fit the data. Check for issues with data quality or initial parameters.")
         # Handle the error appropriately, such as providing default values or excluding problematic data points
