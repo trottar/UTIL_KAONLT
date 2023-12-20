@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-12-19 22:45:58 trottar"
+# Time-stamp: "2023-12-19 22:53:51 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -93,6 +93,12 @@ def fit_data(plt, x_name, y_name):
     # Concatenate y data from different sources
     y_data = pd.concat([efficiency_ydata_10p6, efficiency_ydata_3p8, efficiency_ydata_4p9, efficiency_ydata_6p2, efficiency_ydata_8p2], ignore_index=True)
 
+    # Filter out infinite values from the data
+    valid_indices = np.isfinite(y_error)
+    x_data = x_data[valid_indices]
+    y_data = y_data[valid_indices]
+    y_error = y_error[valid_indices]
+    
     # Make y error
     efficiency_error_10p6 = efficiency_data_10p6[y_error_name].copy()
     efficiency_error_3p8 = efficiency_data_3p8[y_error_name].copy()
