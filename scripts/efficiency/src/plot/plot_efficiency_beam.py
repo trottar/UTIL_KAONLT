@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-12-19 21:32:38 trottar"
+# Time-stamp: "2023-12-19 21:55:19 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -51,8 +51,35 @@ def linear_fit(x, m, b):
     return m * x + b
 
 # Error weighted fit of data
-def fit_data(plt, x_data, y_data, x_error):
+def fit_data(plt, x_name, y_name):
 
+    x_error_name = x_name+"_ERROR"
+    
+    # Make x data
+    efficiency_xdata_10p6 = efficiency_data_10p6[x_name]
+    efficiency_xdata_3p8 = efficiency_data_3p8[x_name]
+    efficiency_xdata_4p9 = efficiency_data_4p9[x_name]
+    efficiency_xdata_6p2 = efficiency_data_6p2[x_name]
+    efficiency_xdata_8p2 = efficiency_data_8p2[x_name]
+    x_data = efficiency_xdata_10p6+efficiency_xdata_3p8+efficiency_xdata_4p9+efficiency_xdata_6p2+efficiency_xdata_8p2
+
+    # Make x error
+    efficiency_error_10p6 = efficiency_data_10p6[x_error_name]
+    efficiency_error_3p8 = efficiency_data_3p8[x_error_name]
+    efficiency_error_4p9 = efficiency_data_4p9[x_error_name]
+    efficiency_error_6p2 = efficiency_data_6p2[x_error_name]
+    efficiency_error_8p2 = efficiency_data_8p2[x_error_name]
+    x_error = efficiency_error_10p6+efficiency_error_3p8+efficiency_error_4p9+efficiency_error_6p2+efficiency_error_8p2
+    
+    # Make y data
+    efficiency_ydata_10p6 = efficiency_data_10p6[y_name]
+    efficiency_ydata_3p8 = efficiency_data_3p8[y_name]
+    efficiency_ydata_4p9 = efficiency_data_4p9[y_name]
+    efficiency_ydata_6p2 = efficiency_data_6p2[y_name]
+    efficiency_ydata_8p2 = efficiency_data_8p2[y_name]
+    y_data = efficiency_ydata_10p6+efficiency_ydata_3p8+efficiency_ydata_4p9+efficiency_ydata_6p2+efficiency_ydata_8p2
+
+    
     # Perform the error-weighted linear fit
     params, covariance = curve_fit(linear_fit, x_data, y_data, sigma=x_error, absolute_sigma=True)
 
@@ -60,9 +87,26 @@ def fit_data(plt, x_data, y_data, x_error):
     slope = params[0]
     intercept = params[1]
 
+
+    # Calculate the standard deviations of the parameters
+    slope_error = np.sqrt(covariance[0, 0])
+    intercept_error = np.sqrt(covariance[1, 1])
+
+    # Generate x values for the error band
+    x_fit = np.linspace(min(x_data), max(x_data), 100)
+
+    # Calculate y values for the error band
+    y_fit = linear_fit(x_fit, slope, intercept)
+
+    # Calculate upper and lower bounds for the error band
+    y_upper = linear_fit(x_fit, slope + slope_error, intercept + intercept_error)
+    y_lower = linear_fit(x_fit, slope - slope_error, intercept - intercept_error)
+
     # Plot the data and the fitted line
     #plt.errorbar(x_data, y_data, yerr=x_error, fmt='o', label='Data with Errors')
-    plt.plot(x_data, linear_fit(x_data, slope, intercept), label='Slope: {0:.2e}, Intercept: {1:.2e}'.format(slope, intercept), color='limegreen', linewidth=2, zorder=5)
+    plt.plot(x_data, linear_fit(x_data, slope, intercept), label='m={0:.2e}±{1:.2e}, b={2:.2e}±{3:.2e}'.format(slope, slope_error, intercept_error), color='limegreen', linewidth=2, zorder=5)
+    plt.fill_between(x_fit, y_lower, y_upper, color='lightgreen', alpha=0.4, label='Error Band')
+
     
     # Annotate the plot with the slope and intercept
     plt.legend(loc="lower right", markerscale=0.7, scatterpoints=1, fontsize=10)
@@ -92,7 +136,7 @@ plt.subplot(221)
 plt.grid(zorder=1)
 #plt.xlim(0,100)
 #plt.ylim(0.9,1.1)
-fit_data(plt, efficiency_data_10p6["SHMS_3/4_Trigger_Rate"],efficiency_data_10p6["Non_Scaler_EDTM_Live_Time"], efficiency_data_10p6["Non_Scaler_EDTM_Live_Time_ERROR"])
+fit_data(plt, "SHMS_3/4_Trigger_Rate", "Non_Scaler_EDTM_Live_Time")
 plt.scatter(efficiency_data_10p6["SHMS_3/4_Trigger_Rate"],efficiency_data_10p6["Non_Scaler_EDTM_Live_Time"],color='blue',zorder=4,label='10p6')
 plt.scatter(efficiency_data_3p8["SHMS_3/4_Trigger_Rate"],efficiency_data_3p8["Non_Scaler_EDTM_Live_Time"],color='red',zorder=4,label='3p8')
 plt.scatter(efficiency_data_4p9["SHMS_3/4_Trigger_Rate"],efficiency_data_4p9["Non_Scaler_EDTM_Live_Time"],color='purple',zorder=4,label='4p9')
@@ -112,7 +156,7 @@ plt.subplot(222)
 plt.grid(zorder=1)
 #plt.xlim(0,100)
 #plt.ylim(0.9,1.1)
-fit_data(plt, efficiency_data_10p6["SHMS_3/4_Trigger_Rate"],efficiency_data_10p6["SHMS_Pion_SING_TRACK_EFF"],efficiency_data_10p6["SHMS_Pion_SING_TRACK_EFF_ERROR"])
+fit_data(plt, "SHMS_3/4_Trigger_Rate", "SHMS_Pion_SING_TRACK_EFF")
 plt.scatter(efficiency_data_10p6["SHMS_3/4_Trigger_Rate"],efficiency_data_10p6["SHMS_Pion_SING_TRACK_EFF"],color='blue',zorder=4,label='10p6')
 plt.scatter(efficiency_data_3p8["SHMS_3/4_Trigger_Rate"],efficiency_data_3p8["SHMS_Pion_SING_TRACK_EFF"],color='red',zorder=4,label='3p8')
 plt.scatter(efficiency_data_4p9["SHMS_3/4_Trigger_Rate"],efficiency_data_4p9["SHMS_Pion_SING_TRACK_EFF"],color='purple',zorder=4,label='4p9')
@@ -132,7 +176,7 @@ plt.subplot(223)
 plt.grid(zorder=1)
 #plt.xlim(0,100)
 #plt.ylim(0.9,1.1)
-fit_data(plt, efficiency_data_10p6["SHMS_3/4_Trigger_Rate"],efficiency_data_10p6["SHMS_Aero_SING_Pion_Eff"],efficiency_data_10p6["SHMS_Aero_SING_Pion_Eff_ERROR"])
+fit_data(plt, "SHMS_3/4_Trigger_Rate", "SHMS_Aero_SING_Pion_Eff")
 plt.scatter(efficiency_data_10p6["SHMS_3/4_Trigger_Rate"],efficiency_data_10p6["SHMS_Aero_SING_Pion_Eff"],color='blue',zorder=4,label='10p6')
 plt.scatter(efficiency_data_3p8["SHMS_3/4_Trigger_Rate"],efficiency_data_3p8["SHMS_Aero_SING_Pion_Eff"],color='red',zorder=4,label='3p8')
 plt.scatter(efficiency_data_4p9["SHMS_3/4_Trigger_Rate"],efficiency_data_4p9["SHMS_Aero_SING_Pion_Eff"],color='purple',zorder=4,label='4p9')
@@ -152,7 +196,7 @@ plt.subplot(224)
 plt.grid(zorder=1)
 #plt.xlim(0,100)
 #plt.ylim(0.9,1.1)
-#fit_data(plt, efficiency_data_10p6["SHMS_3/4_Trigger_Rate"],efficiency_data_10p6["SHMS_Hodo_3_of_4_EFF"],efficiency_data_10p6["SHMS_Hodo_3_of_4_EFF_ERROR"])
+#fit_data(plt, "SHMS_3/4_Trigger_Rate", "SHMS_Hodo_3_of_4_EFF")
 plt.scatter(efficiency_data_10p6["SHMS_3/4_Trigger_Rate"],efficiency_data_10p6["SHMS_Hodo_3_of_4_EFF"],color='blue',zorder=4,label='10p6')
 plt.scatter(efficiency_data_3p8["SHMS_3/4_Trigger_Rate"],efficiency_data_3p8["SHMS_Hodo_3_of_4_EFF"],color='red',zorder=4,label='3p8')
 plt.scatter(efficiency_data_4p9["SHMS_3/4_Trigger_Rate"],efficiency_data_4p9["SHMS_Hodo_3_of_4_EFF"],color='purple',zorder=4,label='4p9')
@@ -177,7 +221,7 @@ plt.subplot(221)
 plt.grid(zorder=1)
 #plt.xlim(0,100)
 #plt.ylim(0.9,1.1)
-fit_data(plt, efficiency_data_10p6["SHMS_Hodoscope_S1X_Rate"],efficiency_data_10p6["Non_Scaler_EDTM_Live_Time"],efficiency_data_10p6["Non_Scaler_EDTM_Live_Time_ERROR"])
+fit_data(plt, "SHMS_Hodoscope_S1X_Rate", "Non_Scaler_EDTM_Live_Time")
 plt.scatter(efficiency_data_10p6["SHMS_Hodoscope_S1X_Rate"],efficiency_data_10p6["Non_Scaler_EDTM_Live_Time"],color='blue',zorder=4,label='10p6')
 plt.scatter(efficiency_data_3p8["SHMS_Hodoscope_S1X_Rate"],efficiency_data_3p8["Non_Scaler_EDTM_Live_Time"],color='red',zorder=4,label='3p8')
 plt.scatter(efficiency_data_4p9["SHMS_Hodoscope_S1X_Rate"],efficiency_data_4p9["Non_Scaler_EDTM_Live_Time"],color='purple',zorder=4,label='4p9')
@@ -197,7 +241,7 @@ plt.subplot(222)
 plt.grid(zorder=1)
 #plt.xlim(0,100)
 #plt.ylim(0.9,1.1)
-fit_data(plt, efficiency_data_10p6["SHMS_Hodoscope_S1X_Rate"],efficiency_data_10p6["SHMS_Pion_SING_TRACK_EFF"],efficiency_data_10p6["SHMS_Pion_SING_TRACK_EFF_ERROR"])
+fit_data(plt, "SHMS_Hodoscope_S1X_Rate", "SHMS_Pion_SING_TRACK_EFF")
 plt.scatter(efficiency_data_10p6["SHMS_Hodoscope_S1X_Rate"],efficiency_data_10p6["SHMS_Pion_SING_TRACK_EFF"],color='blue',zorder=4,label='10p6')
 plt.scatter(efficiency_data_3p8["SHMS_Hodoscope_S1X_Rate"],efficiency_data_3p8["SHMS_Pion_SING_TRACK_EFF"],color='red',zorder=4,label='3p8')
 plt.scatter(efficiency_data_4p9["SHMS_Hodoscope_S1X_Rate"],efficiency_data_4p9["SHMS_Pion_SING_TRACK_EFF"],color='purple',zorder=4,label='4p9')
@@ -217,7 +261,7 @@ plt.subplot(223)
 plt.grid(zorder=1)
 #plt.xlim(0,100)
 #plt.ylim(0.9,1.1)
-fit_data(plt, efficiency_data_10p6["SHMS_Hodoscope_S1X_Rate"],efficiency_data_10p6["SHMS_Aero_SING_Pion_Eff"],efficiency_data_10p6["SHMS_Aero_SING_Pion_Eff_ERROR"])
+fit_data(plt, "SHMS_Hodoscope_S1X_Rate", "SHMS_Aero_SING_Pion_Eff")
 plt.scatter(efficiency_data_10p6["SHMS_Hodoscope_S1X_Rate"],efficiency_data_10p6["SHMS_Aero_SING_Pion_Eff"],color='blue',zorder=4,label='10p6')
 plt.scatter(efficiency_data_3p8["SHMS_Hodoscope_S1X_Rate"],efficiency_data_3p8["SHMS_Aero_SING_Pion_Eff"],color='red',zorder=4,label='3p8')
 plt.scatter(efficiency_data_4p9["SHMS_Hodoscope_S1X_Rate"],efficiency_data_4p9["SHMS_Aero_SING_Pion_Eff"],color='purple',zorder=4,label='4p9')
@@ -237,7 +281,7 @@ plt.subplot(224)
 plt.grid(zorder=1)
 #plt.xlim(0,100)
 #plt.ylim(0.9,1.1)
-#fit_data(plt, efficiency_data_10p6["SHMS_Hodoscope_S1X_Rate"],efficiency_data_10p6["SHMS_Hodo_3_of_4_EFF"],efficiency_data_10p6["SHMS_Hodo_3_of_4_EFF_ERROR"])
+#fit_data(plt, "SHMS_Hodoscope_S1X_Rate", "SHMS_Hodo_3_of_4_EFF")
 plt.scatter(efficiency_data_10p6["SHMS_Hodoscope_S1X_Rate"],efficiency_data_10p6["SHMS_Hodo_3_of_4_EFF"],color='blue',zorder=4,label='10p6')
 plt.scatter(efficiency_data_3p8["SHMS_Hodoscope_S1X_Rate"],efficiency_data_3p8["SHMS_Hodo_3_of_4_EFF"],color='red',zorder=4,label='3p8')
 plt.scatter(efficiency_data_4p9["SHMS_Hodoscope_S1X_Rate"],efficiency_data_4p9["SHMS_Hodo_3_of_4_EFF"],color='purple',zorder=4,label='4p9')
@@ -262,7 +306,7 @@ plt.subplot(221)
 plt.grid(zorder=1)
 #plt.xlim(0,100)
 #plt.ylim(0.9,1.1)
-fit_data(plt, efficiency_data_10p6["HMS_EL-REAL_Trigger_Rate"],efficiency_data_10p6["Non_Scaler_EDTM_Live_Time"],efficiency_data_10p6["Non_Scaler_EDTM_Live_Time_ERROR"])
+fit_data(plt, "HMS_EL-REAL_Trigger_Rate", "Non_Scaler_EDTM_Live_Time")
 plt.scatter(efficiency_data_10p6["HMS_EL-REAL_Trigger_Rate"],efficiency_data_10p6["Non_Scaler_EDTM_Live_Time"],color='blue',zorder=4,label='10p6')
 plt.scatter(efficiency_data_3p8["HMS_EL-REAL_Trigger_Rate"],efficiency_data_3p8["Non_Scaler_EDTM_Live_Time"],color='red',zorder=4,label='3p8')
 plt.scatter(efficiency_data_4p9["HMS_EL-REAL_Trigger_Rate"],efficiency_data_4p9["Non_Scaler_EDTM_Live_Time"],color='purple',zorder=4,label='4p9')
@@ -282,7 +326,7 @@ plt.subplot(222)
 plt.grid(zorder=1)
 #plt.xlim(0,100)
 #plt.ylim(0.9,1.1)
-fit_data(plt, efficiency_data_10p6["HMS_EL-REAL_Trigger_Rate"],efficiency_data_10p6["HMS_Elec_SING_TRACK_EFF"],efficiency_data_10p6["HMS_Elec_SING_TRACK_EFF_ERROR"])
+fit_data(plt, "HMS_EL-REAL_Trigger_Rate", "HMS_Elec_SING_TRACK_EFF")
 plt.scatter(efficiency_data_10p6["HMS_EL-REAL_Trigger_Rate"],efficiency_data_10p6["HMS_Elec_SING_TRACK_EFF"],color='blue',zorder=4,label='10p6')
 plt.scatter(efficiency_data_3p8["HMS_EL-REAL_Trigger_Rate"],efficiency_data_3p8["HMS_Elec_SING_TRACK_EFF"],color='red',zorder=4,label='3p8')
 plt.scatter(efficiency_data_4p9["HMS_EL-REAL_Trigger_Rate"],efficiency_data_4p9["HMS_Elec_SING_TRACK_EFF"],color='purple',zorder=4,label='4p9')
@@ -302,7 +346,7 @@ plt.subplot(223)
 plt.grid(zorder=1)
 #plt.xlim(0,100)
 #plt.ylim(0.9,1.1)
-fit_data(plt, efficiency_data_10p6["HMS_EL-REAL_Trigger_Rate"],efficiency_data_10p6["HMS_Cer_SING_Elec_Eff"],efficiency_data_10p6["HMS_Cer_SING_Elec_Eff_ERROR"])
+fit_data(plt, "HMS_EL-REAL_Trigger_Rate", "HMS_Cer_SING_Elec_Eff")
 plt.scatter(efficiency_data_10p6["HMS_EL-REAL_Trigger_Rate"],efficiency_data_10p6["HMS_Cer_SING_Elec_Eff"],color='blue',zorder=4,label='10p6')
 plt.scatter(efficiency_data_3p8["HMS_EL-REAL_Trigger_Rate"],efficiency_data_3p8["HMS_Cer_SING_Elec_Eff"],color='red',zorder=4,label='3p8')
 plt.scatter(efficiency_data_4p9["HMS_EL-REAL_Trigger_Rate"],efficiency_data_4p9["HMS_Cer_SING_Elec_Eff"],color='purple',zorder=4,label='4p9')
@@ -322,7 +366,7 @@ plt.subplot(224)
 plt.grid(zorder=1)
 #plt.xlim(0,100)
 #plt.ylim(0.9,1.1)
-#fit_data(plt, efficiency_data_10p6["HMS_EL-REAL_Trigger_Rate"],efficiency_data_10p6["HMS_Hodo_3_of_4_EFF"],efficiency_data_10p6["HMS_Hodo_3_of_4_EFF_ERROR"])
+#fit_data(plt, "HMS_EL-REAL_Trigger_Rate", "HMS_Hodo_3_of_4_EFF")
 plt.scatter(efficiency_data_10p6["HMS_EL-REAL_Trigger_Rate"],efficiency_data_10p6["HMS_Hodo_3_of_4_EFF"],color='blue',zorder=4,label='10p6')
 plt.scatter(efficiency_data_3p8["HMS_EL-REAL_Trigger_Rate"],efficiency_data_3p8["HMS_Hodo_3_of_4_EFF"],color='red',zorder=4,label='3p8')
 plt.scatter(efficiency_data_4p9["HMS_EL-REAL_Trigger_Rate"],efficiency_data_4p9["HMS_Hodo_3_of_4_EFF"],color='purple',zorder=4,label='4p9')
@@ -347,7 +391,7 @@ plt.subplot(221)
 plt.grid(zorder=1)
 #plt.xlim(0,100)
 #plt.ylim(0.9,1.1)
-fit_data(plt, efficiency_data_10p6["HMS_Hodoscope_S1X_Rate"],efficiency_data_10p6["Non_Scaler_EDTM_Live_Time"],efficiency_data_10p6["Non_Scaler_EDTM_Live_Time_ERROR"])
+fit_data(plt, "HMS_Hodoscope_S1X_Rate", "Non_Scaler_EDTM_Live_Time")
 plt.scatter(efficiency_data_10p6["HMS_Hodoscope_S1X_Rate"],efficiency_data_10p6["Non_Scaler_EDTM_Live_Time"],color='blue',zorder=4,label='10p6')
 plt.scatter(efficiency_data_3p8["HMS_Hodoscope_S1X_Rate"],efficiency_data_3p8["Non_Scaler_EDTM_Live_Time"],color='red',zorder=4,label='3p8')
 plt.scatter(efficiency_data_4p9["HMS_Hodoscope_S1X_Rate"],efficiency_data_4p9["Non_Scaler_EDTM_Live_Time"],color='purple',zorder=4,label='4p9')
@@ -367,7 +411,7 @@ plt.subplot(222)
 plt.grid(zorder=1)
 #plt.xlim(0,100)
 #plt.ylim(0.9,1.1)
-fit_data(plt, efficiency_data_10p6["HMS_Hodoscope_S1X_Rate"],efficiency_data_10p6["HMS_Elec_SING_TRACK_EFF"],efficiency_data_10p6["HMS_Elec_SING_TRACK_EFF_ERROR"])
+fit_data(plt, "HMS_Hodoscope_S1X_Rate", "HMS_Elec_SING_TRACK_EFF")
 plt.scatter(efficiency_data_10p6["HMS_Hodoscope_S1X_Rate"],efficiency_data_10p6["HMS_Elec_SING_TRACK_EFF"],color='blue',zorder=4,label='10p6')
 plt.scatter(efficiency_data_3p8["HMS_Hodoscope_S1X_Rate"],efficiency_data_3p8["HMS_Elec_SING_TRACK_EFF"],color='red',zorder=4,label='3p8')
 plt.scatter(efficiency_data_4p9["HMS_Hodoscope_S1X_Rate"],efficiency_data_4p9["HMS_Elec_SING_TRACK_EFF"],color='purple',zorder=4,label='4p9')
@@ -387,7 +431,7 @@ plt.subplot(223)
 plt.grid(zorder=1)
 #plt.xlim(0,100)
 #plt.ylim(0.9,1.1)
-fit_data(plt, efficiency_data_10p6["HMS_Hodoscope_S1X_Rate"],efficiency_data_10p6["HMS_Cer_SING_Elec_Eff"],efficiency_data_10p6["HMS_Cer_SING_Elec_Eff_ERROR"])
+fit_data(plt, "HMS_Hodoscope_S1X_Rate", "HMS_Cer_SING_Elec_Eff")
 plt.scatter(efficiency_data_10p6["HMS_Hodoscope_S1X_Rate"],efficiency_data_10p6["HMS_Cer_SING_Elec_Eff"],color='blue',zorder=4,label='10p6')
 plt.scatter(efficiency_data_3p8["HMS_Hodoscope_S1X_Rate"],efficiency_data_3p8["HMS_Cer_SING_Elec_Eff"],color='red',zorder=4,label='3p8')
 plt.scatter(efficiency_data_4p9["HMS_Hodoscope_S1X_Rate"],efficiency_data_4p9["HMS_Cer_SING_Elec_Eff"],color='purple',zorder=4,label='4p9')
@@ -407,7 +451,7 @@ plt.subplot(224)
 plt.grid(zorder=1)
 #plt.xlim(0,100)
 #plt.ylim(0.9,1.1)
-#fit_data(plt, efficiency_data_10p6["HMS_Hodoscope_S1X_Rate"],efficiency_data_10p6["HMS_Hodo_3_of_4_EFF"],efficiency_data_10p6["HMS_Hodo_3_of_4_EFF_ERROR"])
+#fit_data(plt, "HMS_Hodoscope_S1X_Rate", "HMS_Hodo_3_of_4_EFF")
 plt.scatter(efficiency_data_10p6["HMS_Hodoscope_S1X_Rate"],efficiency_data_10p6["HMS_Hodo_3_of_4_EFF"],color='blue',zorder=4,label='10p6')
 plt.scatter(efficiency_data_3p8["HMS_Hodoscope_S1X_Rate"],efficiency_data_3p8["HMS_Hodo_3_of_4_EFF"],color='red',zorder=4,label='3p8')
 plt.scatter(efficiency_data_4p9["HMS_Hodoscope_S1X_Rate"],efficiency_data_4p9["HMS_Hodo_3_of_4_EFF"],color='purple',zorder=4,label='4p9')
@@ -777,7 +821,7 @@ plt.subplot(223)
 plt.grid(zorder=1)
 #plt.xlim(0,100)
 #plt.ylim(0.9,1.1)
-fit_data(plt, efficiency_data_10p6["BCM1_Beam_Cut_Current"],efficiency_data_10p6["Non_Scaler_EDTM_Live_Time"],efficiency_data_10p6["Non_Scaler_EDTM_Live_Time_ERROR"])
+fit_data(plt, "BCM1_Beam_Cut_Current", "Non_Scaler_EDTM_Live_Time")
 plt.scatter(efficiency_data_10p6["BCM1_Beam_Cut_Current"],efficiency_data_10p6["Non_Scaler_EDTM_Live_Time"],color='blue',zorder=4,label='10p6')
 plt.scatter(efficiency_data_3p8["BCM1_Beam_Cut_Current"],efficiency_data_3p8["Non_Scaler_EDTM_Live_Time"],color='red',zorder=4,label='3p8')
 plt.scatter(efficiency_data_4p9["BCM1_Beam_Cut_Current"],efficiency_data_4p9["Non_Scaler_EDTM_Live_Time"],color='purple',zorder=4,label='4p9')
@@ -797,7 +841,7 @@ plt.subplot(224)
 plt.grid(zorder=1)
 #plt.xlim(0,100)
 #plt.ylim(0.9,1.1)
-fit_data(plt, efficiency_data_10p6["BCM1_Beam_Cut_Current"],efficiency_data_10p6["BOIL_Eff"],efficiency_data_10p6["BOIL_Eff_ERROR"])
+fit_data(plt, "BCM1_Beam_Cut_Current", "BOIL_Eff")
 plt.scatter(efficiency_data_10p6["BCM1_Beam_Cut_Current"],efficiency_data_10p6["BOIL_Eff"],color='blue',zorder=4,label='10p6')
 plt.scatter(efficiency_data_3p8["BCM1_Beam_Cut_Current"],efficiency_data_3p8["BOIL_Eff"],color='red',zorder=4,label='3p8')
 plt.scatter(efficiency_data_4p9["BCM1_Beam_Cut_Current"],efficiency_data_4p9["BOIL_Eff"],color='purple',zorder=4,label='4p9')
