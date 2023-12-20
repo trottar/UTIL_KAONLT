@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-12-19 23:30:17 trottar"
+# Time-stamp: "2023-12-19 23:38:55 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -83,35 +83,35 @@ if [[ $p_flag = "true" ]]; then
     python3 plot/plot_efficiency_beam_10p6.py ${ROOTPREFIX} ${RunType} ${DATE}
     cd "${SCRIPTPATH}/efficiency/OUTPUTS/plots"
     convert *.png "10p6_${RunType}_${DATE}.pdf"
-    evince "${RunType}_${DATE}.pdf"
+    evince "10p6_${RunType}_${DATE}.pdf"
     rm -f *.png
     cd "${SCRIPTPATH}/efficiency/src/"
     echo "Running script for 8p2..."
     python3 plot/plot_efficiency_beam_8p2.py ${ROOTPREFIX} ${RunType} ${DATE}
     cd "${SCRIPTPATH}/efficiency/OUTPUTS/plots"
     convert *.png "8p2_${RunType}_${DATE}.pdf"
-    evince "${RunType}_${DATE}.pdf"
+    evince "8p2_${RunType}_${DATE}.pdf"
     rm -f *.png
     cd "${SCRIPTPATH}/efficiency/src/"
     echo "Running script for 6p2..."
     python3 plot/plot_efficiency_beam_6p2.py ${ROOTPREFIX} ${RunType} ${DATE}
     cd "${SCRIPTPATH}/efficiency/OUTPUTS/plots"
     convert *.png "6p2_${RunType}_${DATE}.pdf"
-    evince "${RunType}_${DATE}.pdf"
+    evince "6p2_${RunType}_${DATE}.pdf"
     rm -f *.png
     cd "${SCRIPTPATH}/efficiency/src/"
     echo "Running script for 4p9..."
     python3 plot/plot_efficiency_beam_4p9.py ${ROOTPREFIX} ${RunType} ${DATE}
     cd "${SCRIPTPATH}/efficiency/OUTPUTS/plots"
     convert *.png "4p9_${RunType}_${DATE}.pdf"
-    evince "${RunType}_${DATE}.pdf"
+    evince "4p9_${RunType}_${DATE}.pdf"
     rm -f *.png
     cd "${SCRIPTPATH}/efficiency/src/"
     echo "Running script for 3p8..."
     python3 plot/plot_efficiency_beam_3p8.py ${ROOTPREFIX} ${RunType} ${DATE}
     cd "${SCRIPTPATH}/efficiency/OUTPUTS/plots"
     convert *.png "3p8_${RunType}_${DATE}.pdf"
-    evince "${RunType}_${DATE}.pdf"
+    evince "3p8_${RunType}_${DATE}.pdf"
     rm -f *.png
     exit 1
 elif [[ $p_flag = "true" && $s_flag = "true" ]]; then
