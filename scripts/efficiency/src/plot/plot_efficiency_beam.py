@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-12-19 23:06:18 trottar"
+# Time-stamp: "2023-12-19 23:12:46 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -159,7 +159,7 @@ plt.scatter(efficiency_data_8p2["SHMS_3/4_Trigger_Rate"],efficiency_data_8p2["No
 plt.legend(loc="lower right", markerscale=0.7, scatterpoints=1, fontsize=10)
 plt.ylabel('EDTM', fontsize=12)
 plt.xlabel('SHMS 3/4 Trigger Rate [kHz]', fontsize=12)
-plt.title('SHMS %s-%s' % (int(min(efficiency_data["Run_Number"])),int(max(efficiency_data["Run_Number"]))), fontsize=12)
+#plt.title('%s-%s' % (int(min(efficiency_data["Run_Number"])),int(max(efficiency_data["Run_Number"]))), fontsize=12)
 
 plt.subplot(222)    
 plt.grid(zorder=1)
@@ -174,7 +174,7 @@ plt.scatter(efficiency_data_8p2["SHMS_3/4_Trigger_Rate"],efficiency_data_8p2["SH
 plt.legend(loc="lower right", markerscale=0.7, scatterpoints=1, fontsize=10)
 plt.ylabel('SHMS_Pion_ALL_TRACK_EFF', fontsize=12)
 plt.xlabel('SHMS 3/4 Trigger Rate [kHz]', fontsize=12)
-plt.title('SHMS %s-%s' % (int(min(efficiency_data["Run_Number"])),int(max(efficiency_data["Run_Number"]))), fontsize=12)
+#plt.title('%s-%s' % (int(min(efficiency_data["Run_Number"])),int(max(efficiency_data["Run_Number"]))), fontsize=12)
 
 plt.subplot(223)    
 plt.grid(zorder=1)
@@ -189,7 +189,7 @@ plt.scatter(efficiency_data_8p2["SHMS_3/4_Trigger_Rate"],efficiency_data_8p2["SH
 plt.legend(loc="lower right", markerscale=0.7, scatterpoints=1, fontsize=10)
 plt.ylabel('SHMS_Aero_ALL_Pion_Eff', fontsize=12)
 plt.xlabel('SHMS 3/4 Trigger Rate [kHz]', fontsize=12)
-plt.title('SHMS %s-%s' % (int(min(efficiency_data["Run_Number"])),int(max(efficiency_data["Run_Number"]))), fontsize=12)
+#plt.title('%s-%s' % (int(min(efficiency_data["Run_Number"])),int(max(efficiency_data["Run_Number"]))), fontsize=12)
 
 plt.subplot(224)
 plt.grid(zorder=1)
@@ -204,7 +204,7 @@ plt.scatter(efficiency_data_8p2["SHMS_3/4_Trigger_Rate"],efficiency_data_8p2["SH
 plt.legend(loc="lower right", markerscale=0.7, scatterpoints=1, fontsize=10)
 plt.ylabel('SHMS_Hodo_3_of_4_EFF', fontsize=12)
 plt.xlabel('SHMS 3/4 Trigger Rate [kHz]', fontsize=12)
-plt.title('SHMS %s-%s' % (int(min(efficiency_data["Run_Number"])),int(max(efficiency_data["Run_Number"]))), fontsize=12)
+#plt.title('%s-%s' % (int(min(efficiency_data["Run_Number"])),int(max(efficiency_data["Run_Number"]))), fontsize=12)
 
 plt.tight_layout(rect=[0,0.03,1,0.95])   
 plt.savefig(UTILPATH+'/scripts/efficiency/OUTPUTS/plots/SHMS_3-4_%s.png' % (ROOTPrefix.replace("replay_","")))
@@ -224,7 +224,7 @@ plt.scatter(efficiency_data_8p2["SHMS_Hodoscope_S1X_Rate"],efficiency_data_8p2["
 plt.legend(loc="lower right", markerscale=0.7, scatterpoints=1, fontsize=10)
 plt.ylabel('EDTM', fontsize=12)
 plt.xlabel('SHMS S1X HODO Rate [kHz]', fontsize=12)
-plt.title('SHMS %s-%s' % (int(min(efficiency_data["Run_Number"])),int(max(efficiency_data["Run_Number"]))), fontsize=12)
+#plt.title('%s-%s' % (int(min(efficiency_data["Run_Number"])),int(max(efficiency_data["Run_Number"]))), fontsize=12)
 
 plt.subplot(222)    
 plt.grid(zorder=1)
@@ -239,7 +239,7 @@ plt.scatter(efficiency_data_8p2["SHMS_Hodoscope_S1X_Rate"],efficiency_data_8p2["
 plt.legend(loc="lower right", markerscale=0.7, scatterpoints=1, fontsize=10)
 plt.ylabel('SHMS_Pion_ALL_TRACK_EFF', fontsize=12)
 plt.xlabel('SHMS S1X HODO Rate [kHz]', fontsize=12)
-plt.title('SHMS %s-%s' % (int(min(efficiency_data["Run_Number"])),int(max(efficiency_data["Run_Number"]))), fontsize=12)
+#plt.title('%s-%s' % (int(min(efficiency_data["Run_Number"])),int(max(efficiency_data["Run_Number"]))), fontsize=12)
 
 plt.subplot(223)    
 plt.grid(zorder=1)
@@ -254,7 +254,7 @@ plt.scatter(efficiency_data_8p2["SHMS_Hodoscope_S1X_Rate"],efficiency_data_8p2["
 plt.legend(loc="lower right", markerscale=0.7, scatterpoints=1, fontsize=10)
 plt.ylabel('SHMS_Aero_ALL_Pion_Eff', fontsize=12)
 plt.xlabel('SHMS S1X HODO Rate [kHz]', fontsize=12)
-plt.title('SHMS %s-%s' % (int(min(efficiency_data["Run_Number"])),int(max(efficiency_data["Run_Number"]))), fontsize=12)
+#plt.title('%s-%s' % (int(min(efficiency_data["Run_Number"])),int(max(efficiency_data["Run_Number"]))), fontsize=12)
 
 plt.subplot(224)
 plt.grid(zorder=1)
@@ -269,7 +269,7 @@ plt.scatter(efficiency_data_8p2["SHMS_Hodoscope_S1X_Rate"],efficiency_data_8p2["
 plt.legend(loc="lower right", markerscale=0.7, scatterpoints=1, fontsize=10)
 plt.ylabel('SHMS_Hodo_3_of_4_EFF', fontsize=12)
 plt.xlabel('SHMS S1X HODO Rate [kHz]', fontsize=12)
-plt.title('SHMS %s-%s' % (int(min(efficiency_data["Run_Number"])),int(max(efficiency_data["Run_Number"]))), fontsize=12)
+#plt.title('%s-%s' % (int(min(efficiency_data["Run_Number"])),int(max(efficiency_data["Run_Number"]))), fontsize=12)
 
 plt.tight_layout(rect=[0,0.03,1,0.95])
 plt.savefig(UTILPATH+'/scripts/efficiency/OUTPUTS/plots/SHMS_S1X_%s.png' % (ROOTPrefix.replace("replay_","")))
@@ -289,7 +289,7 @@ plt.scatter(efficiency_data_8p2["HMS_EL-REAL_Trigger_Rate"],efficiency_data_8p2[
 plt.legend(loc="lower right", markerscale=0.7, scatterpoints=1, fontsize=10)
 plt.ylabel('EDTM', fontsize=12)
 plt.xlabel('HMS EL-REAL Trigger Rate [kHz]', fontsize=12)
-plt.title('HMS %s-%s' % (int(min(efficiency_data["Run_Number"])),int(max(efficiency_data["Run_Number"]))), fontsize=12)
+#plt.title('%s-%s' % (int(min(efficiency_data["Run_Number"])),int(max(efficiency_data["Run_Number"]))), fontsize=12)
 
 plt.subplot(222)    
 plt.grid(zorder=1)
@@ -304,7 +304,7 @@ plt.scatter(efficiency_data_8p2["HMS_EL-REAL_Trigger_Rate"],efficiency_data_8p2[
 plt.legend(loc="lower right", markerscale=0.7, scatterpoints=1, fontsize=10)
 plt.ylabel('HMS_Elec_ALL_TRACK_EFF', fontsize=12)
 plt.xlabel('HMS EL-REAL Trigger Rate [kHz]', fontsize=12)
-plt.title('HMS %s-%s' % (int(min(efficiency_data["Run_Number"])),int(max(efficiency_data["Run_Number"]))), fontsize=12)
+#plt.title('%s-%s' % (int(min(efficiency_data["Run_Number"])),int(max(efficiency_data["Run_Number"]))), fontsize=12)
 
 plt.subplot(223)    
 plt.grid(zorder=1)
@@ -319,7 +319,7 @@ plt.scatter(efficiency_data_8p2["HMS_EL-REAL_Trigger_Rate"],efficiency_data_8p2[
 plt.legend(loc="lower right", markerscale=0.7, scatterpoints=1, fontsize=10)
 plt.ylabel('HMS_Cer_ALL_Elec_Eff', fontsize=12)
 plt.xlabel('HMS EL-REAL Trigger Rate [kHz]', fontsize=12)
-plt.title('HMS %s-%s' % (int(min(efficiency_data["Run_Number"])),int(max(efficiency_data["Run_Number"]))), fontsize=12)
+#plt.title('%s-%s' % (int(min(efficiency_data["Run_Number"])),int(max(efficiency_data["Run_Number"]))), fontsize=12)
 
 plt.subplot(224)
 plt.grid(zorder=1)
@@ -334,7 +334,7 @@ plt.scatter(efficiency_data_8p2["HMS_EL-REAL_Trigger_Rate"],efficiency_data_8p2[
 plt.legend(loc="lower right", markerscale=0.7, scatterpoints=1, fontsize=10)
 plt.ylabel('HMS_Hodo_3_of_4_EFF', fontsize=12)
 plt.xlabel('HMS EL-REAL Trigger Rate [kHz]', fontsize=12)
-plt.title('HMS %s-%s' % (int(min(efficiency_data["Run_Number"])),int(max(efficiency_data["Run_Number"]))), fontsize=12)
+#plt.title('%s-%s' % (int(min(efficiency_data["Run_Number"])),int(max(efficiency_data["Run_Number"]))), fontsize=12)
 
 plt.tight_layout(rect=[0,0.03,1,0.95])   
 plt.savefig(UTILPATH+'/scripts/efficiency/OUTPUTS/plots/HMS_EL-REAL_%s.png' % (ROOTPrefix.replace("replay_","")))
@@ -354,7 +354,7 @@ plt.scatter(efficiency_data_8p2["HMS_Hodoscope_S1X_Rate"],efficiency_data_8p2["N
 plt.legend(loc="lower right", markerscale=0.7, scatterpoints=1, fontsize=10)
 plt.ylabel('EDTM', fontsize=12)
 plt.xlabel('HMS S1X HODO Rate [kHz]', fontsize=12)
-plt.title('HMS %s-%s' % (int(min(efficiency_data["Run_Number"])),int(max(efficiency_data["Run_Number"]))), fontsize=12)
+#plt.title('%s-%s' % (int(min(efficiency_data["Run_Number"])),int(max(efficiency_data["Run_Number"]))), fontsize=12)
 
 plt.subplot(222)    
 plt.grid(zorder=1)
@@ -369,7 +369,7 @@ plt.scatter(efficiency_data_8p2["HMS_Hodoscope_S1X_Rate"],efficiency_data_8p2["H
 plt.legend(loc="lower right", markerscale=0.7, scatterpoints=1, fontsize=10)
 plt.ylabel('HMS_Elec_ALL_TRACK_EFF', fontsize=12)
 plt.xlabel('HMS S1X HODO Rate [kHz]', fontsize=12)
-plt.title('HMS %s-%s' % (int(min(efficiency_data["Run_Number"])),int(max(efficiency_data["Run_Number"]))), fontsize=12)
+#plt.title('%s-%s' % (int(min(efficiency_data["Run_Number"])),int(max(efficiency_data["Run_Number"]))), fontsize=12)
 
 plt.subplot(223)    
 plt.grid(zorder=1)
@@ -384,7 +384,7 @@ plt.scatter(efficiency_data_8p2["HMS_Hodoscope_S1X_Rate"],efficiency_data_8p2["H
 plt.legend(loc="lower right", markerscale=0.7, scatterpoints=1, fontsize=10)
 plt.ylabel('HMS_Cer_ALL_Elec_Eff', fontsize=12)
 plt.xlabel('HMS S1X HODO Rate [kHz]', fontsize=12)
-plt.title('HMS %s-%s' % (int(min(efficiency_data["Run_Number"])),int(max(efficiency_data["Run_Number"]))), fontsize=12)
+#plt.title('%s-%s' % (int(min(efficiency_data["Run_Number"])),int(max(efficiency_data["Run_Number"]))), fontsize=12)
 
 plt.subplot(224)
 plt.grid(zorder=1)
@@ -399,7 +399,7 @@ plt.scatter(efficiency_data_8p2["HMS_Hodoscope_S1X_Rate"],efficiency_data_8p2["H
 plt.legend(loc="lower right", markerscale=0.7, scatterpoints=1, fontsize=10)
 plt.ylabel('HMS_Hodo_3_of_4_EFF', fontsize=12)
 plt.xlabel('HMS S1X HODO Rate [kHz]', fontsize=12)
-plt.title('HMS %s-%s' % (int(min(efficiency_data["Run_Number"])),int(max(efficiency_data["Run_Number"]))), fontsize=12)
+#plt.title('%s-%s' % (int(min(efficiency_data["Run_Number"])),int(max(efficiency_data["Run_Number"]))), fontsize=12)
 
 plt.tight_layout(rect=[0,0.03,1,0.95])
 plt.savefig(UTILPATH+'/scripts/efficiency/OUTPUTS/plots/HMS_S1X_%s.png' % (ROOTPrefix.replace("replay_","")))
@@ -418,7 +418,7 @@ plt.scatter(efficiency_data_8p2["COIN_Trigger_Rate"],efficiency_data_8p2["Non_Sc
 plt.legend(loc="lower right", markerscale=0.7, scatterpoints=1, fontsize=10)
 plt.ylabel('EDTM', fontsize=12)
 plt.xlabel('COIN Trigger Rate [kHz]', fontsize=12)
-plt.title('COIN %s-%s' % (int(min(efficiency_data["Run_Number"])),int(max(efficiency_data["Run_Number"]))), fontsize=12)
+#plt.title('%s-%s' % (int(min(efficiency_data["Run_Number"])),int(max(efficiency_data["Run_Number"]))), fontsize=12)
 
 plt.subplot(222)
 plt.grid(zorder=1)
@@ -433,7 +433,7 @@ plt.legend(loc="lower right", markerscale=0.7, scatterpoints=1, fontsize=10)
 
 plt.ylabel('COIN CPULT', fontsize=12)
 plt.xlabel('COIN Trigger Rate [kHz]', fontsize=12)
-plt.title('COIN %s-%s' % (int(min(efficiency_data["Run_Number"])),int(max(efficiency_data["Run_Number"]))), fontsize=12)
+#plt.title('%s-%s' % (int(min(efficiency_data["Run_Number"])),int(max(efficiency_data["Run_Number"]))), fontsize=12)
 
 plt.subplot(223)
 plt.grid(zorder=1)
@@ -447,7 +447,7 @@ plt.scatter(efficiency_data_8p2["COIN_Trigger_Rate"],efficiency_data_8p2["SHMS_3
 plt.legend(loc="lower right", markerscale=0.7, scatterpoints=1, fontsize=10)
 plt.ylabel('SHMS 3/4 Trigger Rate [kHz]', fontsize=12)
 plt.xlabel('COIN Trigger Rate [kHz]', fontsize=12)
-plt.title('SHMS %s-%s' % (int(min(efficiency_data["Run_Number"])),int(max(efficiency_data["Run_Number"]))), fontsize=12)
+#plt.title('%s-%s' % (int(min(efficiency_data["Run_Number"])),int(max(efficiency_data["Run_Number"]))), fontsize=12)
 
 plt.subplot(224)
 plt.grid(zorder=1)
@@ -461,7 +461,7 @@ plt.scatter(efficiency_data_8p2["COIN_Trigger_Rate"],efficiency_data_8p2["HMS_EL
 plt.legend(loc="lower right", markerscale=0.7, scatterpoints=1, fontsize=10)
 plt.ylabel('HMS EL-REAL Trigger Rate [kHz]', fontsize=12)
 plt.xlabel('COIN Trigger Rate [kHz]', fontsize=12)
-plt.title('HMS %s-%s' % (int(min(efficiency_data["Run_Number"])),int(max(efficiency_data["Run_Number"]))), fontsize=12)
+#plt.title('%s-%s' % (int(min(efficiency_data["Run_Number"])),int(max(efficiency_data["Run_Number"]))), fontsize=12)
 
 plt.tight_layout(rect=[0,0.03,1,0.95])
 plt.savefig(UTILPATH+'/scripts/efficiency/OUTPUTS/plots/COIN_%s.png' % (ROOTPrefix.replace("replay_","")))
@@ -481,7 +481,7 @@ plt.scatter(efficiency_data_8p2["Run_Number"],efficiency_data_8p2["Non_Scaler_ED
 plt.legend(loc="lower right", markerscale=0.7, scatterpoints=1, fontsize=10)
 plt.ylabel('EDTM', fontsize=12)
 plt.xlabel('Run Number', fontsize=12)
-plt.title('SHMS %s-%s' % (int(min(efficiency_data["Run_Number"])),int(max(efficiency_data["Run_Number"]))), fontsize=12)
+#plt.title('%s-%s' % (int(min(efficiency_data["Run_Number"])),int(max(efficiency_data["Run_Number"]))), fontsize=12)
 
 plt.subplot(222)    
 plt.grid(zorder=1)
@@ -495,7 +495,7 @@ plt.scatter(efficiency_data_8p2["Run_Number"],efficiency_data_8p2["SHMS_Pion_ALL
 plt.legend(loc="lower right", markerscale=0.7, scatterpoints=1, fontsize=10)
 plt.ylabel('SHMS_Pion_ALL_TRACK_EFF', fontsize=12)
 plt.xlabel('Run Number', fontsize=12)
-plt.title('SHMS %s-%s' % (int(min(efficiency_data["Run_Number"])),int(max(efficiency_data["Run_Number"]))), fontsize=12)
+#plt.title('%s-%s' % (int(min(efficiency_data["Run_Number"])),int(max(efficiency_data["Run_Number"]))), fontsize=12)
 
 plt.subplot(223)    
 plt.grid(zorder=1)
@@ -509,7 +509,7 @@ plt.scatter(efficiency_data_8p2["Run_Number"],efficiency_data_8p2["SHMS_Aero_ALL
 plt.legend(loc="lower right", markerscale=0.7, scatterpoints=1, fontsize=10)
 plt.ylabel('SHMS_Aero_ALL_Pion_Eff', fontsize=12)
 plt.xlabel('Run Number', fontsize=12)
-plt.title('SHMS %s-%s' % (int(min(efficiency_data["Run_Number"])),int(max(efficiency_data["Run_Number"]))), fontsize=12)
+#plt.title('%s-%s' % (int(min(efficiency_data["Run_Number"])),int(max(efficiency_data["Run_Number"]))), fontsize=12)
 
 plt.subplot(224)
 plt.grid(zorder=1)
@@ -523,7 +523,7 @@ plt.scatter(efficiency_data_8p2["Run_Number"],efficiency_data_8p2["SHMS_Hodo_3_o
 plt.legend(loc="lower right", markerscale=0.7, scatterpoints=1, fontsize=10)
 plt.ylabel('SHMS_Hodo_3_of_4_EFF', fontsize=12)
 plt.xlabel('Run Number', fontsize=12)
-plt.title('SHMS %s-%s' % (int(min(efficiency_data["Run_Number"])),int(max(efficiency_data["Run_Number"]))), fontsize=12)
+#plt.title('%s-%s' % (int(min(efficiency_data["Run_Number"])),int(max(efficiency_data["Run_Number"]))), fontsize=12)
 
 plt.tight_layout(rect=[0,0.03,1,0.95])   
 plt.savefig(UTILPATH+'/scripts/efficiency/OUTPUTS/plots/SHMS_3-4_%s_run.png' % (ROOTPrefix.replace("replay_","")))
@@ -542,7 +542,7 @@ plt.scatter(efficiency_data_8p2["Run_Number"],efficiency_data_8p2["Non_Scaler_ED
 plt.legend(loc="lower right", markerscale=0.7, scatterpoints=1, fontsize=10)
 plt.ylabel('EDTM', fontsize=12)
 plt.xlabel('Run Number', fontsize=12)
-plt.title('HMS %s-%s' % (int(min(efficiency_data["Run_Number"])),int(max(efficiency_data["Run_Number"]))), fontsize=12)
+#plt.title('%s-%s' % (int(min(efficiency_data["Run_Number"])),int(max(efficiency_data["Run_Number"]))), fontsize=12)
 
 plt.subplot(222)    
 plt.grid(zorder=1)
@@ -556,7 +556,7 @@ plt.scatter(efficiency_data_8p2["Run_Number"],efficiency_data_8p2["HMS_Elec_ALL_
 plt.legend(loc="lower right", markerscale=0.7, scatterpoints=1, fontsize=10)
 plt.ylabel('HMS_Elec_ALL_TRACK_EFF', fontsize=12)
 plt.xlabel('Run Number', fontsize=12)
-plt.title('HMS %s-%s' % (int(min(efficiency_data["Run_Number"])),int(max(efficiency_data["Run_Number"]))), fontsize=12)
+#plt.title('%s-%s' % (int(min(efficiency_data["Run_Number"])),int(max(efficiency_data["Run_Number"]))), fontsize=12)
 
 plt.subplot(223)    
 plt.grid(zorder=1)
@@ -570,7 +570,7 @@ plt.scatter(efficiency_data_8p2["Run_Number"],efficiency_data_8p2["HMS_Cer_ALL_E
 plt.legend(loc="lower right", markerscale=0.7, scatterpoints=1, fontsize=10)
 plt.ylabel('HMS_Cer_ALL_Elec_Eff', fontsize=12)
 plt.xlabel('Run Number', fontsize=12)
-plt.title('HMS %s-%s' % (int(min(efficiency_data["Run_Number"])),int(max(efficiency_data["Run_Number"]))), fontsize=12)
+#plt.title('%s-%s' % (int(min(efficiency_data["Run_Number"])),int(max(efficiency_data["Run_Number"]))), fontsize=12)
 
 plt.subplot(224)
 plt.grid(zorder=1)
@@ -584,7 +584,7 @@ plt.scatter(efficiency_data_8p2["Run_Number"],efficiency_data_8p2["HMS_Hodo_3_of
 plt.legend(loc="lower right", markerscale=0.7, scatterpoints=1, fontsize=10)
 plt.ylabel('HMS_Hodo_3_of_4_EFF', fontsize=12)
 plt.xlabel('Run Number', fontsize=12)
-plt.title('HMS %s-%s' % (int(min(efficiency_data["Run_Number"])),int(max(efficiency_data["Run_Number"]))), fontsize=12)
+#plt.title('%s-%s' % (int(min(efficiency_data["Run_Number"])),int(max(efficiency_data["Run_Number"]))), fontsize=12)
 
 plt.tight_layout(rect=[0,0.03,1,0.95])   
 plt.savefig(UTILPATH+'/scripts/efficiency/OUTPUTS/plots/HMS_EL-REAL_%s_run.png' % (ROOTPrefix.replace("replay_","")))
@@ -603,7 +603,7 @@ plt.scatter(efficiency_data_8p2["Run_Number"],efficiency_data_8p2["Non_Scaler_ED
 plt.legend(loc="lower right", markerscale=0.7, scatterpoints=1, fontsize=10)
 plt.ylabel('EDTM', fontsize=12)
 plt.xlabel('Run Number', fontsize=12)
-plt.title('COIN %s-%s' % (int(min(efficiency_data["Run_Number"])),int(max(efficiency_data["Run_Number"]))), fontsize=12)
+#plt.title('%s-%s' % (int(min(efficiency_data["Run_Number"])),int(max(efficiency_data["Run_Number"]))), fontsize=12)
 
 plt.subplot(222)
 plt.grid(zorder=1)
@@ -627,7 +627,7 @@ plt.scatter(efficiency_data_8p2["Run_Number"],efficiency_data_8p2["SHMS_3/4_Trig
 plt.legend(loc="lower right", markerscale=0.7, scatterpoints=1, fontsize=10)
 plt.ylabel('SHMS 3/4 Trigger Rate [kHz]', fontsize=12)
 plt.xlabel('Run Number', fontsize=12)
-plt.title('SHMS %s-%s' % (int(min(efficiency_data["Run_Number"])),int(max(efficiency_data["Run_Number"]))), fontsize=12)
+#plt.title('%s-%s' % (int(min(efficiency_data["Run_Number"])),int(max(efficiency_data["Run_Number"]))), fontsize=12)
 
 plt.subplot(224)
 plt.grid(zorder=1)
@@ -641,7 +641,7 @@ plt.scatter(efficiency_data_8p2["Run_Number"],efficiency_data_8p2["HMS_EL-REAL_T
 plt.legend(loc="lower right", markerscale=0.7, scatterpoints=1, fontsize=10)
 plt.ylabel('HMS EL-REAL Trigger Rate [kHz]', fontsize=12)
 plt.xlabel('Run Number', fontsize=12)
-plt.title('HMS %s-%s' % (int(min(efficiency_data["Run_Number"])),int(max(efficiency_data["Run_Number"]))), fontsize=12)
+#plt.title('%s-%s' % (int(min(efficiency_data["Run_Number"])),int(max(efficiency_data["Run_Number"]))), fontsize=12)
 
 plt.tight_layout(rect=[0,0.03,1,0.95])
 plt.savefig(UTILPATH+'/scripts/efficiency/OUTPUTS/plots/COIN_%s_run.png' % (ROOTPrefix.replace("replay_","")))
@@ -661,7 +661,7 @@ plt.scatter(efficiency_data_8p2["BCM1_Beam_Cut_Current"],efficiency_data_8p2["HM
 plt.legend(loc="lower right", markerscale=0.7, scatterpoints=1, fontsize=10)
 plt.ylabel('HMS_Hodo_3_of_4_EFF', fontsize=12)
 plt.xlabel('Current', fontsize=12)
-plt.title('HMS %s-%s' % (int(min(efficiency_data["Run_Number"])),int(max(efficiency_data["Run_Number"]))), fontsize=12)
+#plt.title('%s-%s' % (int(min(efficiency_data["Run_Number"])),int(max(efficiency_data["Run_Number"]))), fontsize=12)
 
 plt.subplot(222)
 plt.grid(zorder=1)
@@ -676,7 +676,7 @@ plt.scatter(efficiency_data_8p2["BCM1_Beam_Cut_Current"],efficiency_data_8p2["HM
 plt.legend(loc="lower right", markerscale=0.7, scatterpoints=1, fontsize=10)
 plt.ylabel('HMS_Cal_ALL_Elec_Eff', fontsize=12)
 plt.xlabel('Current', fontsize=12)
-plt.title('COIN %s-%s' % (int(min(efficiency_data["Run_Number"])),int(max(efficiency_data["Run_Number"]))), fontsize=12)
+#plt.title('%s-%s' % (int(min(efficiency_data["Run_Number"])),int(max(efficiency_data["Run_Number"]))), fontsize=12)
 
 plt.subplot(223)
 plt.grid(zorder=1)
@@ -691,7 +691,7 @@ plt.scatter(efficiency_data_8p2["BCM1_Beam_Cut_Current"],efficiency_data_8p2["HM
 plt.legend(loc="lower right", markerscale=0.7, scatterpoints=1, fontsize=10)
 plt.ylabel('HMS_Cer_ALL_Elec_Eff', fontsize=12)
 plt.xlabel('Current', fontsize=12)
-plt.title('COIN %s-%s' % (int(min(efficiency_data["Run_Number"])),int(max(efficiency_data["Run_Number"]))), fontsize=12)
+#plt.title('%s-%s' % (int(min(efficiency_data["Run_Number"])),int(max(efficiency_data["Run_Number"]))), fontsize=12)
 
 plt.tight_layout(rect=[0,0.03,1,0.95])
 plt.savefig(UTILPATH+'/scripts/efficiency/OUTPUTS/plots/HMSDet_%s_run.png' % (ROOTPrefix.replace("replay_","")))
@@ -711,7 +711,7 @@ plt.scatter(efficiency_data_8p2["BCM1_Beam_Cut_Current"],efficiency_data_8p2["SH
 plt.legend(loc="lower right", markerscale=0.7, scatterpoints=1, fontsize=10)
 plt.ylabel('SHMS_Hodo_3_of_4_EFF', fontsize=12)
 plt.xlabel('Current', fontsize=12)
-plt.title('SHMS %s-%s' % (int(min(efficiency_data["Run_Number"])),int(max(efficiency_data["Run_Number"]))), fontsize=12)
+#plt.title('%s-%s' % (int(min(efficiency_data["Run_Number"])),int(max(efficiency_data["Run_Number"]))), fontsize=12)
 
 plt.subplot(222)
 plt.grid(zorder=1)
@@ -726,7 +726,7 @@ plt.scatter(efficiency_data_8p2["BCM1_Beam_Cut_Current"],efficiency_data_8p2["SH
 plt.legend(loc="lower right", markerscale=0.7, scatterpoints=1, fontsize=10)
 plt.ylabel('SHMS_Aero_ALL_Pion_Eff', fontsize=12)
 plt.xlabel('Current', fontsize=12)
-plt.title('COIN %s-%s' % (int(min(efficiency_data["Run_Number"])),int(max(efficiency_data["Run_Number"]))), fontsize=12)
+#plt.title('%s-%s' % (int(min(efficiency_data["Run_Number"])),int(max(efficiency_data["Run_Number"]))), fontsize=12)
 
 plt.tight_layout(rect=[0,0.03,1,0.95])
 plt.savefig(UTILPATH+'/scripts/efficiency/OUTPUTS/plots/SHMSDet_%s_run.png' % (ROOTPrefix.replace("replay_","")))
@@ -746,7 +746,7 @@ plt.scatter(efficiency_data_8p2["BCM1_Beam_Cut_Current"],efficiency_data_8p2["HM
 plt.legend(loc="lower right", markerscale=0.7, scatterpoints=1, fontsize=10)
 plt.ylabel('HMS_Elec_ALL_TRACK_EFF', fontsize=12)
 plt.xlabel('Current', fontsize=12)
-plt.title('COIN %s-%s' % (int(min(efficiency_data["Run_Number"])),int(max(efficiency_data["Run_Number"]))), fontsize=12)
+#plt.title('%s-%s' % (int(min(efficiency_data["Run_Number"])),int(max(efficiency_data["Run_Number"]))), fontsize=12)
 
 plt.subplot(122)
 plt.grid(zorder=1)
@@ -761,7 +761,7 @@ plt.scatter(efficiency_data_8p2["BCM1_Beam_Cut_Current"],efficiency_data_8p2["SH
 plt.legend(loc="lower right", markerscale=0.7, scatterpoints=1, fontsize=10)
 plt.ylabel('SHMS_Pion_ALL_TRACK_EFF', fontsize=12)
 plt.xlabel('Current', fontsize=12)
-plt.title('COIN %s-%s' % (int(min(efficiency_data["Run_Number"])),int(max(efficiency_data["Run_Number"]))), fontsize=12)
+#plt.title('%s-%s' % (int(min(efficiency_data["Run_Number"])),int(max(efficiency_data["Run_Number"]))), fontsize=12)
 
 plt.tight_layout(rect=[0,0.03,1,0.95])
 plt.savefig(UTILPATH+'/scripts/efficiency/OUTPUTS/plots/Track_%s_run.png' % (ROOTPrefix.replace("replay_","")))
@@ -780,7 +780,7 @@ plt.scatter(efficiency_data_8p2["Run_Number"],efficiency_data_8p2["Non_Scaler_ED
 plt.legend(loc="lower right", markerscale=0.7, scatterpoints=1, fontsize=10)
 plt.ylabel('EDTM', fontsize=12)
 plt.xlabel('Run Number', fontsize=12)
-plt.title('COIN %s-%s' % (int(min(efficiency_data["Run_Number"])),int(max(efficiency_data["Run_Number"]))), fontsize=12)
+#plt.title('%s-%s' % (int(min(efficiency_data["Run_Number"])),int(max(efficiency_data["Run_Number"]))), fontsize=12)
 
 plt.subplot(222)
 plt.grid(zorder=1)
@@ -794,7 +794,7 @@ plt.scatter(efficiency_data_8p2["Run_Number"],efficiency_data_8p2["BOIL_Eff"],co
 plt.legend(loc="lower right", markerscale=0.7, scatterpoints=1, fontsize=10)
 plt.ylabel('BOIL_Eff', fontsize=12)
 plt.xlabel('Run Number', fontsize=12)
-plt.title('COIN %s-%s' % (int(min(efficiency_data["Run_Number"])),int(max(efficiency_data["Run_Number"]))), fontsize=12)
+#plt.title('%s-%s' % (int(min(efficiency_data["Run_Number"])),int(max(efficiency_data["Run_Number"]))), fontsize=12)
 
 plt.subplot(223)
 plt.grid(zorder=1)
@@ -809,7 +809,7 @@ plt.scatter(efficiency_data_8p2["BCM1_Beam_Cut_Current"],efficiency_data_8p2["No
 plt.legend(loc="lower right", markerscale=0.7, scatterpoints=1, fontsize=10)
 plt.ylabel('EDTM', fontsize=12)
 plt.xlabel('Current', fontsize=12)
-plt.title('COIN %s-%s' % (int(min(efficiency_data["Run_Number"])),int(max(efficiency_data["Run_Number"]))), fontsize=12)
+#plt.title('%s-%s' % (int(min(efficiency_data["Run_Number"])),int(max(efficiency_data["Run_Number"]))), fontsize=12)
 
 plt.subplot(224)
 plt.grid(zorder=1)
@@ -824,7 +824,7 @@ plt.scatter(efficiency_data_8p2["BCM1_Beam_Cut_Current"],efficiency_data_8p2["BO
 plt.legend(loc="lower right", markerscale=0.7, scatterpoints=1, fontsize=10)
 plt.ylabel('Boiling Correction', fontsize=12)
 plt.xlabel('Current', fontsize=12)
-plt.title('COIN %s-%s' % (int(min(efficiency_data["Run_Number"])),int(max(efficiency_data["Run_Number"]))), fontsize=12)
+#plt.title('%s-%s' % (int(min(efficiency_data["Run_Number"])),int(max(efficiency_data["Run_Number"]))), fontsize=12)
 
 plt.tight_layout(rect=[0,0.03,1,0.95])
 plt.savefig(UTILPATH+'/scripts/efficiency/OUTPUTS/plots/EDTM_%s_run.png' % (ROOTPrefix.replace("replay_","")))
