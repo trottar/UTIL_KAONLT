@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-12-19 21:59:39 trottar"
+# Time-stamp: "2023-12-19 22:02:11 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -74,28 +74,34 @@ def fit_data(plt, x_name, y_name):
     y_error_name = y_name+"_ERROR"
     
     # Make x data
-    efficiency_xdata_10p6 = efficiency_data_10p6[x_name]
-    efficiency_xdata_3p8 = efficiency_data_3p8[x_name]
-    efficiency_xdata_4p9 = efficiency_data_4p9[x_name]
-    efficiency_xdata_6p2 = efficiency_data_6p2[x_name]
-    efficiency_xdata_8p2 = efficiency_data_8p2[x_name]
-    x_data = efficiency_xdata_10p6+efficiency_xdata_3p8+efficiency_xdata_4p9+efficiency_xdata_6p2+efficiency_xdata_8p2
-    
+    efficiency_xdata_10p6 = efficiency_data_10p6[x_name].copy()
+    efficiency_xdata_3p8 = efficiency_data_3p8[x_name].copy()
+    efficiency_xdata_4p9 = efficiency_data_4p9[x_name].copy()
+    efficiency_xdata_6p2 = efficiency_data_6p2[x_name].copy()
+    efficiency_xdata_8p2 = efficiency_data_8p2[x_name].copy()
+
+    # Concatenate x data from different sources
+    x_data = pd.concat([efficiency_xdata_10p6, efficiency_xdata_3p8, efficiency_xdata_4p9, efficiency_xdata_6p2, efficiency_xdata_8p2], ignore_index=True)
+
     # Make y data
-    efficiency_ydata_10p6 = efficiency_data_10p6[y_name]
-    efficiency_ydata_3p8 = efficiency_data_3p8[y_name]
-    efficiency_ydata_4p9 = efficiency_data_4p9[y_name]
-    efficiency_ydata_6p2 = efficiency_data_6p2[y_name]
-    efficiency_ydata_8p2 = efficiency_data_8p2[y_name]
-    y_data = efficiency_ydata_10p6+efficiency_ydata_3p8+efficiency_ydata_4p9+efficiency_ydata_6p2+efficiency_ydata_8p2
+    efficiency_ydata_10p6 = efficiency_data_10p6[y_name].copy()
+    efficiency_ydata_3p8 = efficiency_data_3p8[y_name].copy()
+    efficiency_ydata_4p9 = efficiency_data_4p9[y_name].copy()
+    efficiency_ydata_6p2 = efficiency_data_6p2[y_name].copy()
+    efficiency_ydata_8p2 = efficiency_data_8p2[y_name].copy()
+
+    # Concatenate y data from different sources
+    y_data = pd.concat([efficiency_ydata_10p6, efficiency_ydata_3p8, efficiency_ydata_4p9, efficiency_ydata_6p2, efficiency_ydata_8p2], ignore_index=True)
 
     # Make y error
-    efficiency_error_10p6 = efficiency_data_10p6[y_error_name]
-    efficiency_error_3p8 = efficiency_data_3p8[y_error_name]
-    efficiency_error_4p9 = efficiency_data_4p9[y_error_name]
-    efficiency_error_6p2 = efficiency_data_6p2[y_error_name]
-    efficiency_error_8p2 = efficiency_data_8p2[y_error_name]
-    y_error = efficiency_error_10p6+efficiency_error_3p8+efficiency_error_4p9+efficiency_error_6p2+efficiency_error_8p2    
+    efficiency_error_10p6 = efficiency_data_10p6[y_error_name].copy()
+    efficiency_error_3p8 = efficiency_data_3p8[y_error_name].copy()
+    efficiency_error_4p9 = efficiency_data_4p9[y_error_name].copy()
+    efficiency_error_6p2 = efficiency_data_6p2[y_error_name].copy()
+    efficiency_error_8p2 = efficiency_data_8p2[y_error_name].copy()
+
+    # Concatenate y error from different sources
+    y_error = pd.concat([efficiency_error_10p6, efficiency_error_3p8, efficiency_error_4p9, efficiency_error_6p2, efficiency_error_8p2], ignore_index=True)
     
     # Perform the error-weighted linear fit
     params, covariance = curve_fit(linear_fit, x_data, y_data, sigma=y_error, absolute_sigma=True)
