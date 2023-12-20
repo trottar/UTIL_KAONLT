@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-12-19 22:06:54 trottar"
+# Time-stamp: "2023-12-19 22:10:46 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -126,13 +126,11 @@ def fit_data(plt, x_name, y_name):
 
     # Plot the data and the fitted line
     #plt.errorbar(x_data, y_data, yerr=y_error, fmt='o', label='Data with Errors')
-    plt.plot(x_fit, y_fit, label='m={0:.2e}±{1:.2e}, b={2:.2e}±{3:.2e}'.format(slope, slope_error, intercept, intercept_error), color='limegreen', linewidth=2, zorder=5)
-    plt.fill_between(x_fit, y_lower, y_upper, color='lightgreen', alpha=0.4, label='Error Band')
-
+    plt.plot(x_fit, y_fit, label='m={0:.2e}±{1:.2e}\nb={2:.2e}±{3:.2e}'.format(slope, slope_error, intercept, intercept_error), color='limegreen', linewidth=2, zorder=6)
+    plt.fill_between(x_fit, y_lower, y_upper, color='lightgreen', alpha=0.4,zorder=5)
     
     # Annotate the plot with the slope and intercept
     plt.legend(loc="lower right", markerscale=0.7, scatterpoints=1, fontsize=10)
-    
 
 ################################################################################################################################################
 
