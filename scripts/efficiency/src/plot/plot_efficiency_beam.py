@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-12-19 22:56:21 trottar"
+# Time-stamp: "2023-12-19 22:59:18 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -71,6 +71,9 @@ def linear_fit(x, m, b):
 # Error weighted fit of data
 def fit_data(plt, x_name, y_name):
 
+
+    print("Plotting {} vs {}...".format(x_name, y_name))
+    
     y_error_name = y_name+"_ERROR"
     
     # Make x data
@@ -102,15 +105,9 @@ def fit_data(plt, x_name, y_name):
 
     # Concatenate y error from different sources
     y_error = pd.concat([efficiency_error_10p6, efficiency_error_3p8, efficiency_error_4p9, efficiency_error_6p2, efficiency_error_8p2], ignore_index=True)
-
-    # Perform the error-weighted linear fit with additional error handling
-    try:
-        params, covariance = curve_fit(linear_fit, x_data, y_data, sigma=y_error, absolute_sigma=True)
-    except RuntimeError:
-        print("Error: Unable to fit the data. Check for issues with data quality or initial parameters.")
-        # Handle the error appropriately, such as providing default values or excluding problematic data points
-        params = [0, 0]
-        covariance = np.zeros((2, 2))
+    
+    # Perform the error-weighted linear fit
+    params, covariance = curve_fit(linear_fit, x_data, y_data, sigma=y_error, absolute_sigma=True)
 
     # Extract the slope and intercept from the fit
     slope = params[0]
