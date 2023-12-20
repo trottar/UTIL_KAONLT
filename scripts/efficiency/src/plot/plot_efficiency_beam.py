@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-12-19 23:01:21 trottar"
+# Time-stamp: "2023-12-19 23:05:30 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -71,7 +71,6 @@ def linear_fit(x, m, b):
 # Error weighted fit of data
 def fit_data(plt, x_name, y_name):
 
-
     print("Plotting {} vs {}...".format(x_name, y_name))
     
     y_error_name = y_name+"_ERROR"
@@ -118,6 +117,13 @@ def fit_data(plt, x_name, y_name):
     slope_error = np.sqrt(covariance[0, 0])
     intercept_error = np.sqrt(covariance[1, 1])
 
+    # Calculate the fitted values and residuals
+    y_fit = linear_fit(x_data, slope, intercept)
+    residuals = y_data - y_fit
+
+    # Calculate the chi-square value
+    chi_square = np.sum((residuals / errors)**2)
+    
     # Generate x values for the error band
     x_fit = np.linspace(min(x_data), max(x_data), 100)
 
@@ -130,7 +136,7 @@ def fit_data(plt, x_name, y_name):
 
     # Plot the data and the fitted line
     plt.errorbar(x_data, y_data, yerr=y_error, label=None,color='black',linestyle='None',zorder=3)
-    plt.plot(x_fit, y_fit, label='m={0:.2e}±{1:.2e}\nb={2:.2e}±{3:.2e}'.format(slope, slope_error, intercept, intercept_error), color='limegreen', linewidth=2, zorder=6)
+    plt.plot(x_fit, y_fit, label='m={0:.2e}±{1:.2e}\nb={2:.2e}±{3:.2e}\nchisq={4:.2e}'.format(slope, slope_error, intercept, intercept_error, chi_square), color='limegreen', linewidth=2, zorder=6)
     plt.fill_between(x_fit, y_lower, y_upper, color='lightgreen', alpha=0.4,zorder=5)
     
     # Annotate the plot with the slope and intercept
