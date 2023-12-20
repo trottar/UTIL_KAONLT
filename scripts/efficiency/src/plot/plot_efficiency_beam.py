@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-12-18 17:35:46 trottar"
+# Time-stamp: "2023-12-19 21:04:19 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -44,6 +44,29 @@ SCRIPTPATH=p.getPath("SCRIPTPATH")
 
 ################################################################################################################################################
 
+# Define the linear fit function
+def linear_fit(x, m, b):
+    return m * x + b
+
+def fit_data(plt, x_data, y_data, x_error):
+
+    # Perform the error-weighted linear fit
+    params, covariance = curve_fit(linear_fit, x_data, y_data, sigma=x_error, absolute_sigma=True)
+
+    # Extract the slope and intercept from the fit
+    slope = params[0]
+    intercept = params[1]
+
+    # Plot the data and the fitted line
+    plt.errorbar(x_data, y_data, yerr=errors, fmt='o', label='Data with Errors')
+    plt.plot(x_data, linear_fit(x_data, slope, intercept), label='Error-Weighted Fit')
+    
+    # Annotate the plot with the slope and intercept
+    plt.legend(title=f'Slope: {1:.2f}, Intercept: {2:.2f}'.format(slope, intercept))
+    
+
+################################################################################################################################################
+
 inp_f = UTILPATH+"/scripts/efficiency/OUTPUTS/%s_%s_efficiency_data_%s.csv"  % (ROOTPrefix.replace("replay_",""),runType,timestmp)
 
 # Converts csv data to dataframe
@@ -53,6 +76,7 @@ except IOError:
     print("Error: %s does not appear to exist." % inp_f)
 print(efficiency_data.keys())
 
+# Including dummy
 efficiency_data_10p6 = efficiency_data[(efficiency_data['Run_Number'] >= 4865)  & (efficiency_data['Run_Number'] <= 5334)]
 efficiency_data_3p8 = efficiency_data[(efficiency_data['Run_Number'] >= 6638)  & (efficiency_data['Run_Number'] <= 6857)]
 efficiency_data_4p9 = efficiency_data[(efficiency_data['Run_Number'] >= 6885)  & (efficiency_data['Run_Number'] <= 7045)]
@@ -65,6 +89,7 @@ plt.subplot(141)
 plt.grid(zorder=1)
 #plt.xlim(0,100)
 #plt.ylim(0.9,1.1)
+fit_data(plt, efficiency_data_10p6["SHMS_3/4_Trigger_Rate"],efficiency_data_10p6["Non_Scaler_EDTM_Live_Time"], efficiency_data_10p6["Non_Scaler_EDTM_Live_Time_ERROR"])
 plt.scatter(efficiency_data_10p6["SHMS_3/4_Trigger_Rate"],efficiency_data_10p6["Non_Scaler_EDTM_Live_Time"],color='blue',zorder=4,label='10p6')
 plt.scatter(efficiency_data_3p8["SHMS_3/4_Trigger_Rate"],efficiency_data_3p8["Non_Scaler_EDTM_Live_Time"],color='red',zorder=4,label='3p8')
 plt.scatter(efficiency_data_4p9["SHMS_3/4_Trigger_Rate"],efficiency_data_4p9["Non_Scaler_EDTM_Live_Time"],color='purple',zorder=4,label='4p9')
