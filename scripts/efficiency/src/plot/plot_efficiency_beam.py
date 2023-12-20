@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-12-19 21:55:19 trottar"
+# Time-stamp: "2023-12-19 21:56:39 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -53,7 +53,7 @@ def linear_fit(x, m, b):
 # Error weighted fit of data
 def fit_data(plt, x_name, y_name):
 
-    x_error_name = x_name+"_ERROR"
+    y_error_name = y_name+"_ERROR"
     
     # Make x data
     efficiency_xdata_10p6 = efficiency_data_10p6[x_name]
@@ -62,14 +62,6 @@ def fit_data(plt, x_name, y_name):
     efficiency_xdata_6p2 = efficiency_data_6p2[x_name]
     efficiency_xdata_8p2 = efficiency_data_8p2[x_name]
     x_data = efficiency_xdata_10p6+efficiency_xdata_3p8+efficiency_xdata_4p9+efficiency_xdata_6p2+efficiency_xdata_8p2
-
-    # Make x error
-    efficiency_error_10p6 = efficiency_data_10p6[x_error_name]
-    efficiency_error_3p8 = efficiency_data_3p8[x_error_name]
-    efficiency_error_4p9 = efficiency_data_4p9[x_error_name]
-    efficiency_error_6p2 = efficiency_data_6p2[x_error_name]
-    efficiency_error_8p2 = efficiency_data_8p2[x_error_name]
-    x_error = efficiency_error_10p6+efficiency_error_3p8+efficiency_error_4p9+efficiency_error_6p2+efficiency_error_8p2
     
     # Make y data
     efficiency_ydata_10p6 = efficiency_data_10p6[y_name]
@@ -79,9 +71,16 @@ def fit_data(plt, x_name, y_name):
     efficiency_ydata_8p2 = efficiency_data_8p2[y_name]
     y_data = efficiency_ydata_10p6+efficiency_ydata_3p8+efficiency_ydata_4p9+efficiency_ydata_6p2+efficiency_ydata_8p2
 
+    # Make y error
+    efficiency_error_10p6 = efficiency_data_10p6[y_error_name]
+    efficiency_error_3p8 = efficiency_data_3p8[y_error_name]
+    efficiency_error_4p9 = efficiency_data_4p9[y_error_name]
+    efficiency_error_6p2 = efficiency_data_6p2[y_error_name]
+    efficiency_error_8p2 = efficiency_data_8p2[y_error_name]
+    y_error = efficiency_error_10p6+efficiency_error_3p8+efficiency_error_4p9+efficiency_error_6p2+efficiency_error_8p2    
     
     # Perform the error-weighted linear fit
-    params, covariance = curve_fit(linear_fit, x_data, y_data, sigma=x_error, absolute_sigma=True)
+    params, covariance = curve_fit(linear_fit, x_data, y_data, sigma=y_error, absolute_sigma=True)
 
     # Extract the slope and intercept from the fit
     slope = params[0]
@@ -103,7 +102,7 @@ def fit_data(plt, x_name, y_name):
     y_lower = linear_fit(x_fit, slope - slope_error, intercept - intercept_error)
 
     # Plot the data and the fitted line
-    #plt.errorbar(x_data, y_data, yerr=x_error, fmt='o', label='Data with Errors')
+    #plt.errorbar(x_data, y_data, yerr=y_error, fmt='o', label='Data with Errors')
     plt.plot(x_data, linear_fit(x_data, slope, intercept), label='m={0:.2e}±{1:.2e}, b={2:.2e}±{3:.2e}'.format(slope, slope_error, intercept_error), color='limegreen', linewidth=2, zorder=5)
     plt.fill_between(x_fit, y_lower, y_upper, color='lightgreen', alpha=0.4, label='Error Band')
 
