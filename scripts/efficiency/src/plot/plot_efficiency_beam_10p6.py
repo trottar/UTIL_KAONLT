@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-12-19 23:51:24 trottar"
+# Time-stamp: "2023-12-20 00:15:52 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -56,7 +56,15 @@ except IOError:
 print(efficiency_data.keys())
 
 # Including dummy
-efficiency_data_10p6 = efficiency_data[(efficiency_data['Run_Number'] >= 4865)  & (efficiency_data['Run_Number'] <= 5334)]
+#efficiency_data_10p6 = efficiency_data[(efficiency_data['Run_Number'] >= 4865)  & (efficiency_data['Run_Number'] <= 5334)]
+
+# Update 'your_file.txt' with the actual file path
+with open(REPLAYPATH'UTIL_BATCH/InputRunLists/KaonLT_2018_2019/Prod_10p6_Autumn18', 'r') as file:
+    # Assuming each line in the file contains a single Run_Number
+    run_numbers = [int(line.strip()) for line in file]
+
+# Assuming 'efficiency_data' is a DataFrame with a column named 'Run_Number'
+efficiency_data_10p6 = efficiency_data[efficiency_data['Run_Number'].isin(run_numbers)]    
 
 ################################################################################################################################################
 
