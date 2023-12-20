@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-12-19 23:38:55 trottar"
+# Time-stamp: "2023-12-19 23:49:58 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -77,7 +77,12 @@ if [[ $p_flag = "true" ]]; then
 	HGCERPREFIX=${ANATYPE}_coin_replay_production	
     fi
     #python3 plot/plot_efficiency.py ${ROOTPREFIX} ${RunType} ${DATE}
-    #python3 plot/plot_efficiency_beam.py ${ROOTPREFIX} ${RunType} ${DATE}
+    echo "Running script for all energies..."
+    python3 plot/plot_efficiency_beam.py ${ROOTPREFIX} ${RunType} ${DATE}
+    cd "${SCRIPTPATH}/efficiency/OUTPUTS/plots"
+    convert *.png "${RunType}_${DATE}.pdf"
+    evince "${RunType}_${DATE}.pdf"
+    rm -f *.png    
     cd "${SCRIPTPATH}/efficiency/src/"
     echo "Running script for 10p6..."
     python3 plot/plot_efficiency_beam_10p6.py ${ROOTPREFIX} ${RunType} ${DATE}
