@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-12-20 23:44:35 trottar"
+# Time-stamp: "2023-12-20 23:46:50 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -97,15 +97,14 @@ def fit_data(plt, x_name, y_name):
 
     color = ['blue','red','purple','orange','pink','yellow']
 
-    x_lst = []
-    y_lst = []
-    yerr_lst = []
-
     if "Hodo" not in y_name and "Rate" not in y_name:
 
         for i,setting in enumerate(energy_settings):
             if i == int((i+1)/3)*3:
                 print("Plotting {}: {} vs {}...".format(setting, x_name, y_name))
+                x_lst = []
+                y_lst = []
+                yerr_lst = []
 
             # Make x data
             efficiency_xdata = efficiency_dict[setting][x_name].copy()
@@ -144,7 +143,7 @@ def fit_data(plt, x_name, y_name):
                         y_data = pd.concat(y_lst, ignore_index=True)
                         y_error = pd.concat(yerr_lst, ignore_index=True)
                         
-                        print("run_numbers_dict",len(run_numbers_dict[setting]))
+                        print("\n\n\nrun_numbers_dict",len(run_numbers_dict[setting]))
                         print("x_data",len(x_data))
                         
                         # Perform the error-weighted linear fit
