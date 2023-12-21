@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-12-20 23:16:59 trottar"
+# Time-stamp: "2023-12-20 23:21:15 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -73,7 +73,8 @@ for filename in os.listdir(REPLAYPATH + '/UTIL_BATCH/InputRunLists/KaonLT_2018_2
         run_numbers_dict[filename] = run_numbers
 
 print(run_numbers_dict)
-        
+
+# Energy specific
 energy_settings = ['Q5p5W3p02right_highe','Q5p5W3p02left_highe','Q5p5W3p02center_highe', \
                    'Q4p4W2p74right_highe','Q4p4W2p74left_highe','Q4p4W2p74center_highe', \
                    'Q3p0W3p14right_highe','Q3p0W3p14left_highe','Q3p0W3p14center_highe', \
