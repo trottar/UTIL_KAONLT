@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-12-20 21:54:31 trottar"
+# Time-stamp: "2023-12-20 21:56:29 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -136,11 +136,7 @@ def fit_data(plt, x_name, y_name):
             plt.errorbar(x_data, y_data, yerr=y_error, label=None,color='black',linestyle='None',zorder=3)
         else:
             plt.scatter(x_data, y_data,color='blue',zorder=4,label='10p6')
-
-    x_data = pd.concat(x_lst, ignore_index=True)
-    y_data = pd.concat(y_lst, ignore_index=True)
-    y_error = pd.concat(yerr_lst, ignore_index=True)
-                
+    
     # Annotate the plot with the slope and intercept
     plt.legend(loc="lower right", markerscale=0.7, scatterpoints=1, fontsize=10)
 
