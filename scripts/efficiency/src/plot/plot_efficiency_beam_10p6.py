@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-12-20 22:49:20 trottar"
+# Time-stamp: "2023-12-20 22:56:16 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -108,6 +108,9 @@ def fit_data(plt, x_name, y_name):
             # Make x data
             efficiency_xdata = efficiency_dict[setting][x_name].copy()
 
+            if "Run_Number" in x_name:
+                print("!!!!!!!!!!!!!!!",efficiency_xdata)
+
             # Concatenate x data from different sources
             x_data = efficiency_xdata
             x_lst.append(x_data)
@@ -171,7 +174,9 @@ def fit_data(plt, x_name, y_name):
                         y_lower = linear_fit(x_fit, slope - slope_error, intercept - intercept_error)
 
                         # Plot the data and the fitted line
-                        plt.plot(x_fit, y_fit, label='m={0:.2e}±{1:.2e}\nb={2:.2e}±{3:.2e}\nchisq={4:.2e}'.format(slope, slope_error, intercept, intercept_error, chi_square), color=color[int(i/3)], linewidth=2, zorder=6)
+                        #plt.plot(x_fit, y_fit, label='m={0:.2e}±{1:.2e}\nb={2:.2e}±{3:.2e}\nchisq={4:.2e}'.format(slope, slope_error, intercept, intercept_error, chi_square), color=color[int(i/3)], linewidth=2, zorder=6)
+                        plt.plot(x_fit, y_fit, label=None,color=color[int(i/3)], linewidth=2, zorder=6)                        
+                        print('{0}:\nm={1:.2e}±{2:.2e}\nb={3:.2e}±{4:.2e}\nchisq={5:.2e}'.format(setting[:9], slope, slope_error, intercept, intercept_error, chi_square))
                         plt.fill_between(x_fit, y_lower, y_upper, color=color[int(i/3)], alpha=0.3,zorder=5)
 
                     except ValueError:
