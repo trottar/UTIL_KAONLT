@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-12-20 23:57:59 trottar"
+# Time-stamp: "2023-12-21 00:01:56 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -116,6 +116,7 @@ def fit_data(plt, x_name, y_name):
             # Concatenate x data from different sources
             x_data = efficiency_xdata
             x_lst.append(x_data)
+            print(i,"x_lst",len(x_lst))
 
             # Make y data
             efficiency_ydata = efficiency_dict[setting][y_name].copy()
