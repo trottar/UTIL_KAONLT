@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-12-20 23:54:27 trottar"
+# Time-stamp: "2023-12-20 23:57:59 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -148,6 +148,7 @@ def fit_data(plt, x_name, y_name):
                         y_error = pd.concat(yerr_lst, ignore_index=True)
                         
                         print("\n\n\nrun_numbers_dict",len(run_numbers_dict[setting]))
+                        print("x_lst",len(x_lst))
                         print("x_data",len(x_data))
                         
                         # Perform the error-weighted linear fit
