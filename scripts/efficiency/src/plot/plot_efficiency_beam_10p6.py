@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-12-21 00:17:40 trottar"
+# Time-stamp: "2023-12-21 00:20:28 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -106,9 +106,6 @@ def fit_data(plt, x_name, y_name):
         for i,setting in enumerate(energy_settings):
             if i == int((i)/3)*3:
                 print("Plotting {}: {} vs {}...".format(setting, x_name, y_name))
-                x_lst = []
-                y_lst = []
-                yerr_lst = []
 
             # Make x data
             efficiency_xdata = efficiency_dict[setting][x_name].copy()
@@ -142,7 +139,7 @@ def fit_data(plt, x_name, y_name):
             plt.errorbar(x_data, y_data, yerr=y_error, label=None, color='black', linestyle='None', zorder=3)
 
             if "Run_Number" not in x_name:
-                if i == int((i+1)/3)*3:
+                if i == int((i)/3)*3:
                     try:
                         x_data = pd.concat(x_lst, ignore_index=True)
                         y_data = pd.concat(y_lst, ignore_index=True)
@@ -188,6 +185,10 @@ def fit_data(plt, x_name, y_name):
 
                     except ValueError:
                         print("{} failed!".format(setting))
+
+                    x_lst = []
+                    y_lst = []
+                    yerr_lst = []                        
 
     else:
 
