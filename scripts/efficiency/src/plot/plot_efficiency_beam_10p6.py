@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-12-20 23:46:50 trottar"
+# Time-stamp: "2023-12-20 23:48:37 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -97,6 +97,10 @@ def fit_data(plt, x_name, y_name):
 
     color = ['blue','red','purple','orange','pink','yellow']
 
+    x_lst = []
+    y_lst = []
+    yerr_lst = []
+    
     if "Hodo" not in y_name and "Rate" not in y_name:
 
         for i,setting in enumerate(energy_settings):
