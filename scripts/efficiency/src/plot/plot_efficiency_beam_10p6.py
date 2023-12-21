@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-12-20 22:43:32 trottar"
+# Time-stamp: "2023-12-20 22:45:05 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -135,7 +135,7 @@ def fit_data(plt, x_name, y_name):
                 plt.scatter(x_data, y_data, color=color[int(i/3)], zorder=4, label=None)
             plt.errorbar(x_data, y_data, yerr=y_error, label=None, color='black', linestyle='None', zorder=3)
 
-            if i == int((i+1)/3)*3:
+            if i+1 == int((i+1)/3)*3:
                 try:
                     x_data = pd.concat(x_lst, ignore_index=True)
                     y_data = pd.concat(y_lst, ignore_index=True)
