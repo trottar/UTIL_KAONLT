@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-12-20 21:20:04 trottar"
+# Time-stamp: "2023-12-20 21:25:13 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -85,7 +85,7 @@ efficiency_dict = {}
 for i,setting in enumerate(energy_settings):
     efficiency_dict[setting] = efficiency_data[efficiency_data['Run_Number'].isin(run_numbers_dict[setting])]
 
-    print("{}: {}".format(efficiency_dict[setting]))
+    print("{}: {}".format(setting,efficiency_dict[setting]))
 
 ################################################################################################################################################
 
