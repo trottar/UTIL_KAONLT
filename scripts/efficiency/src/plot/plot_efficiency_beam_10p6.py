@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-12-20 23:04:57 trottar"
+# Time-stamp: "2023-12-20 23:14:40 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -100,7 +100,7 @@ def fit_data(plt, x_name, y_name):
     y_lst = []
     yerr_lst = []
 
-    if "Hodo" not in y_name:
+    if "Hodo" not in y_name or "Rate" not in y_name:
         
         for i,setting in enumerate(energy_settings):
             if i+1 == int((i+1)/3)*3:
@@ -108,9 +108,6 @@ def fit_data(plt, x_name, y_name):
 
             # Make x data
             efficiency_xdata = efficiency_dict[setting][x_name].copy()
-
-            if "Run_Number" in x_name:
-                print("!!!!!!!!!!!!!!!",efficiency_xdata)
 
             # Concatenate x data from different sources
             x_data = efficiency_xdata
