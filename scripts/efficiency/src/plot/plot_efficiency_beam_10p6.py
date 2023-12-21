@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-12-20 22:12:28 trottar"
+# Time-stamp: "2023-12-20 22:17:59 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -131,12 +131,15 @@ def fit_data(plt, x_name, y_name):
             yerr_lst.append(y_error)
 
             if i == int(i/3):
-                plt.scatter(x_data, y_data,color=color[int(i/3)],zorder=4,label=setting[:9])
+                plt.scatter(x_data, y_data, color=color[int(i/3)], zorder=4, label=setting[:9])
             else:
-                plt.scatter(x_data, y_data,color=color[int(i/3)],zorder=4,label=None)
-            plt.errorbar(x_data, y_data, yerr=y_error, label=None,color='black',linestyle='None',zorder=3)
+                plt.scatter(x_data, y_data, color=color[int(i/3)], zorder=4, label=None)
+            plt.errorbar(x_data, y_data, yerr=y_error, label=None, color='black', linestyle='None', zorder=3)
         else:
-            plt.scatter(x_data, y_data,color='blue',zorder=4,label=setting)
+            if i == int(i/3):
+                plt.scatter(x_data, y_data, color=color[int(i/3)], zorder=4, label=setting[:9])
+            else:
+                plt.scatter(x_data, y_data, color=color[int(i/3)], zorder=4, label=None)
             
     if "Hodo" not in y_name:
 
