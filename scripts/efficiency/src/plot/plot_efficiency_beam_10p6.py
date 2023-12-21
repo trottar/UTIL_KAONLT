@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-12-20 21:11:34 trottar"
+# Time-stamp: "2023-12-20 21:13:58 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -133,7 +133,7 @@ def fit_data(plt, x_name, y_name):
             y_error = y_error + 1e-10 # Prevent divide by zero
             yerr_lst.append(y_error)
 
-            plt.scatter(x_data, y_data,color=color[i/3],zorder=4,label='10p6')
+            plt.scatter(x_data, y_data,color=color[int(i/3)],zorder=4,label='10p6')
             plt.errorbar(x_data, y_data, yerr=y_error, label=None,color='black',linestyle='None',zorder=3)
         else:
             plt.scatter(x_data, y_data,color='blue',zorder=4,label='10p6')
