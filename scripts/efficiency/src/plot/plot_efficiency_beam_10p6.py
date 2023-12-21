@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-12-21 00:23:53 trottar"
+# Time-stamp: "2023-12-21 00:26:29 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -113,7 +113,6 @@ def fit_data(plt, x_name, y_name):
             # Concatenate x data from different sources
             x_data = efficiency_xdata
             x_lst.append(x_data)
-            print(i,"x_lst",len(x_lst))
 
             # Make y data
             efficiency_ydata = efficiency_dict[setting][y_name].copy()
@@ -143,10 +142,6 @@ def fit_data(plt, x_name, y_name):
                     x_data = pd.concat(x_lst, ignore_index=True)
                     y_data = pd.concat(y_lst, ignore_index=True)
                     y_error = pd.concat(yerr_lst, ignore_index=True)
-
-                    print("\n\n\nrun_numbers_dict",len(run_numbers_dict[setting]))
-                    print("x_lst",len(x_lst))
-                    print("x_data",len(x_data))
 
                     # Perform the error-weighted linear fit
                     params, covariance = curve_fit(linear_fit, x_data, y_data, sigma=y_error, absolute_sigma=True)
