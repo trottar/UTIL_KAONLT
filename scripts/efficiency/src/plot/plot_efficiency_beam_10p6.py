@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-12-20 22:37:56 trottar"
+# Time-stamp: "2023-12-20 22:41:09 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -123,7 +123,6 @@ def fit_data(plt, x_name, y_name):
 
             # Make y error
             efficiency_yerror = efficiency_dict[setting][y_error_name].copy()
-            yerr_lst.append(efficiency_yerror)
 
             # Concatenate y error from different sources
             y_error = efficiency_yerror
@@ -131,10 +130,8 @@ def fit_data(plt, x_name, y_name):
             yerr_lst.append(y_error)
             
             if i == int((i+1)/3)*3:
-                print("{} == {}".format(i, int((i+1)/3)*3))
                 plt.scatter(x_data, y_data, color=color[int(i/3)], zorder=4, label=setting[:9])
             else:
-                print("{} != {}".format(i, int((i+1)/3)*3))
                 plt.scatter(x_data, y_data, color=color[int(i/3)], zorder=4, label=None)
             plt.errorbar(x_data, y_data, yerr=y_error, label=None, color='black', linestyle='None', zorder=3)
 
