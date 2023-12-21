@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-12-21 00:20:28 trottar"
+# Time-stamp: "2023-12-21 00:23:53 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -139,56 +139,55 @@ def fit_data(plt, x_name, y_name):
             plt.errorbar(x_data, y_data, yerr=y_error, label=None, color='black', linestyle='None', zorder=3)
 
             if "Run_Number" not in x_name:
-                if i == int((i)/3)*3:
-                    try:
-                        x_data = pd.concat(x_lst, ignore_index=True)
-                        y_data = pd.concat(y_lst, ignore_index=True)
-                        y_error = pd.concat(yerr_lst, ignore_index=True)
-                        
-                        print("\n\n\nrun_numbers_dict",len(run_numbers_dict[setting]))
-                        print("x_lst",len(x_lst))
-                        print("x_data",len(x_data))
-                        
-                        # Perform the error-weighted linear fit
-                        params, covariance = curve_fit(linear_fit, x_data, y_data, sigma=y_error, absolute_sigma=True)
+                try:
+                    x_data = pd.concat(x_lst, ignore_index=True)
+                    y_data = pd.concat(y_lst, ignore_index=True)
+                    y_error = pd.concat(yerr_lst, ignore_index=True)
 
-                        # Extract the slope and intercept from the fit
-                        slope = params[0]
-                        intercept = params[1]
+                    print("\n\n\nrun_numbers_dict",len(run_numbers_dict[setting]))
+                    print("x_lst",len(x_lst))
+                    print("x_data",len(x_data))
 
-                        # Calculate the standard deviations of the parameters
-                        slope_error = np.sqrt(covariance[0, 0])
-                        intercept_error = np.sqrt(covariance[1, 1])
+                    # Perform the error-weighted linear fit
+                    params, covariance = curve_fit(linear_fit, x_data, y_data, sigma=y_error, absolute_sigma=True)
 
-                        # Calculate the fitted values and residuals
-                        y_fit = linear_fit(x_data, slope, intercept)
-                        residuals = y_data - y_fit
+                    # Extract the slope and intercept from the fit
+                    slope = params[0]
+                    intercept = params[1]
 
-                        # Calculate the chi-square value
-                        chi_square = np.sum((residuals / y_error)**2)
+                    # Calculate the standard deviations of the parameters
+                    slope_error = np.sqrt(covariance[0, 0])
+                    intercept_error = np.sqrt(covariance[1, 1])
 
-                        # Generate x values for the error band
-                        x_fit = np.linspace(min(x_data), max(x_data), 100)
+                    # Calculate the fitted values and residuals
+                    y_fit = linear_fit(x_data, slope, intercept)
+                    residuals = y_data - y_fit
 
-                        # Calculate y values for the error band
-                        y_fit = linear_fit(x_fit, slope, intercept)
+                    # Calculate the chi-square value
+                    chi_square = np.sum((residuals / y_error)**2)
 
-                        # Calculate upper and lower bounds for the error band
-                        y_upper = linear_fit(x_fit, slope + slope_error, intercept + intercept_error)
-                        y_lower = linear_fit(x_fit, slope - slope_error, intercept - intercept_error)
+                    # Generate x values for the error band
+                    x_fit = np.linspace(min(x_data), max(x_data), 100)
 
-                        # Plot the data and the fitted line
-                        #plt.plot(x_fit, y_fit, label='m={0:.2e}±{1:.2e}\nb={2:.2e}±{3:.2e}\nchisq={4:.2e}'.format(slope, slope_error, intercept, intercept_error, chi_square), color=color[int(i/3)], linewidth=2, zorder=6)
-                        plt.plot(x_fit, y_fit, label=None,color=color[int(i/3)], linewidth=2, zorder=6)                        
-                        print('{0}:\nm={1:.2e}±{2:.2e}\nb={3:.2e}±{4:.2e}\nchisq={5:.2e}'.format(setting[:9], slope, slope_error, intercept, intercept_error, chi_square))
-                        plt.fill_between(x_fit, y_lower, y_upper, color=color[int(i/3)], alpha=0.3,zorder=5)
+                    # Calculate y values for the error band
+                    y_fit = linear_fit(x_fit, slope, intercept)
 
-                    except ValueError:
-                        print("{} failed!".format(setting))
+                    # Calculate upper and lower bounds for the error band
+                    y_upper = linear_fit(x_fit, slope + slope_error, intercept + intercept_error)
+                    y_lower = linear_fit(x_fit, slope - slope_error, intercept - intercept_error)
 
-                    x_lst = []
-                    y_lst = []
-                    yerr_lst = []                        
+                    # Plot the data and the fitted line
+                    #plt.plot(x_fit, y_fit, label='m={0:.2e}±{1:.2e}\nb={2:.2e}±{3:.2e}\nchisq={4:.2e}'.format(slope, slope_error, intercept, intercept_error, chi_square), color=color[int(i/3)], linewidth=2, zorder=6)
+                    plt.plot(x_fit, y_fit, label=None,color=color[int(i/3)], linewidth=2, zorder=6)                        
+                    print('{0}:\nm={1:.2e}±{2:.2e}\nb={3:.2e}±{4:.2e}\nchisq={5:.2e}'.format(setting, slope, slope_error, intercept, intercept_error, chi_square))
+                    plt.fill_between(x_fit, y_lower, y_upper, color=color[int(i/3)], alpha=0.3,zorder=5)
+
+                except ValueError:
+                    print("{} failed!".format(setting))
+
+                x_lst = []
+                y_lst = []
+                yerr_lst = []                        
 
     else:
 
