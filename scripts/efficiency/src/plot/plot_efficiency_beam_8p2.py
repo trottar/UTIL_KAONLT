@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-12-20 23:23:02 trottar"
+# Time-stamp: "2023-12-20 23:29:14 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -75,9 +75,9 @@ for filename in os.listdir(REPLAYPATH + '/UTIL_BATCH/InputRunLists/KaonLT_2018_2
 print(run_numbers_dict)
 
 # Energy specific
-energy_settings = ['Q5p5W3p02right_lowe','Q5p5W3p02left_lowe','Q5p5W3p02center_lowe', \
-                   'Q4p4W2p74right_lowe','Q4p4W2p74left_lowe','Q4p4W2p74center_lowe', \
-                   'Q3p0W3p14right_lowe','Q3p0W3p14left_lowe','Q3p0W3p14center_lowe']
+energy_settings = ['Q5p5W3p02left_lowe','Q5p5W3p02center_lowe', \
+                   'Q4p4W2p74left_lowe','Q4p4W2p74center_lowe', \
+                   'Q3p0W3p14left_lowe','Q3p0W3p14center_lowe']
     
 # Assuming 'efficiency_data' is a DataFrame with a column named 'Run_Number'
 efficiency_dict = {}
@@ -102,7 +102,7 @@ def fit_data(plt, x_name, y_name):
     if "Hodo" not in y_name and "Rate" not in y_name:
 
         for i,setting in enumerate(energy_settings):
-            if i+1 == int((i+1)/3)*3:
+            if i+1 == int((i+1)/2)*2:
                 print("Plotting {}: {} vs {}...".format(setting, x_name, y_name))
 
             # Make x data
@@ -129,14 +129,14 @@ def fit_data(plt, x_name, y_name):
             y_error = y_error + 1e-10 # Prevent divide by zero
             yerr_lst.append(y_error)
             
-            if i == int((i+1)/3)*3:
-                plt.scatter(x_data, y_data, color=color[int(i/3)], zorder=4, label=setting[:9])
+            if i == int((i+1)/2)*2:
+                plt.scatter(x_data, y_data, color=color[int(i/2)], zorder=4, label=setting[:9])
             else:
-                plt.scatter(x_data, y_data, color=color[int(i/3)], zorder=4, label=None)
+                plt.scatter(x_data, y_data, color=color[int(i/2)], zorder=4, label=None)
             plt.errorbar(x_data, y_data, yerr=y_error, label=None, color='black', linestyle='None', zorder=3)
 
             if "Run_Number" not in x_name:
-                if i+1 == int((i+1)/3)*3:
+                if i+1 == int((i+1)/2)*2:
                     try:
                         x_data = pd.concat(x_lst, ignore_index=True)
                         y_data = pd.concat(y_lst, ignore_index=True)
@@ -171,10 +171,10 @@ def fit_data(plt, x_name, y_name):
                         y_lower = linear_fit(x_fit, slope - slope_error, intercept - intercept_error)
 
                         # Plot the data and the fitted line
-                        #plt.plot(x_fit, y_fit, label='m={0:.2e}±{1:.2e}\nb={2:.2e}±{3:.2e}\nchisq={4:.2e}'.format(slope, slope_error, intercept, intercept_error, chi_square), color=color[int(i/3)], linewidth=2, zorder=6)
-                        plt.plot(x_fit, y_fit, label=None,color=color[int(i/3)], linewidth=2, zorder=6)                        
+                        #plt.plot(x_fit, y_fit, label='m={0:.2e}±{1:.2e}\nb={2:.2e}±{3:.2e}\nchisq={4:.2e}'.format(slope, slope_error, intercept, intercept_error, chi_square), color=color[int(i/2)], linewidth=2, zorder=6)
+                        plt.plot(x_fit, y_fit, label=None,color=color[int(i/2)], linewidth=2, zorder=6)                        
                         print('{0}:\nm={1:.2e}±{2:.2e}\nb={3:.2e}±{4:.2e}\nchisq={5:.2e}'.format(setting[:9], slope, slope_error, intercept, intercept_error, chi_square))
-                        plt.fill_between(x_fit, y_lower, y_upper, color=color[int(i/3)], alpha=0.3,zorder=5)
+                        plt.fill_between(x_fit, y_lower, y_upper, color=color[int(i/2)], alpha=0.3,zorder=5)
 
                     except ValueError:
                         print("{} failed!".format(setting))
@@ -182,7 +182,7 @@ def fit_data(plt, x_name, y_name):
     else:
 
         for i,setting in enumerate(energy_settings):
-            if i+1 == int((i+1)/3)*3:
+            if i+1 == int((i+1)/2)*2:
                 print("Plotting {}: {} vs {}...".format(setting, x_name, y_name))
 
             # Make x data
@@ -199,10 +199,10 @@ def fit_data(plt, x_name, y_name):
             y_data = efficiency_ydata
             y_lst.append(y_data)
 
-            if i == int((i+1)/3)*3:
-                plt.scatter(x_data, y_data, color=color[int(i/3)], zorder=4, label=setting[:9])
+            if i == int((i+1)/2)*2:
+                plt.scatter(x_data, y_data, color=color[int(i/2)], zorder=4, label=setting[:9])
             else:
-                plt.scatter(x_data, y_data, color=color[int(i/3)], zorder=4, label=None)
+                plt.scatter(x_data, y_data, color=color[int(i/2)], zorder=4, label=None)
             
     # Annotate the plot with the slope and intercept
     plt.legend(loc="lower right", markerscale=0.7, scatterpoints=1, fontsize=10)
