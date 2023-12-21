@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-12-20 21:02:53 trottar"
+# Time-stamp: "2023-12-20 21:06:01 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -78,11 +78,6 @@ for filename in os.listdir(REPLAYPATH + '/UTIL_BATCH/InputRunLists/KaonLT_2018_2
 
 print(run_numbers_dict)
         
-# Update 'your_file.txt' with the actual file path
-with open(REPLAYPATH+'/UTIL_BATCH/InputRunLists/KaonLT_2018_2019/Prod_Autumn18', 'r') as file:
-    # Assuming each line in the file contains a single Run_Number
-    run_numbers = [int(line.strip()) for line in file]
-
 energy_settings = ['Q5p5W3p02right_highe','Q5p5W3p02left_highe','Q5p5W3p02center_highe', \
                    'Q4p4W2p74right_highe','Q4p4W2p74left_highe','Q4p4W2p74center_highe', \
                    'Q3p0W3p14right_highe','Q3p0W3p14left_highe','Q3p0W3p14center_highe', \
@@ -91,8 +86,8 @@ energy_settings = ['Q5p5W3p02right_highe','Q5p5W3p02left_highe','Q5p5W3p02center
     
 # Assuming 'efficiency_data' is a DataFrame with a column named 'Run_Number'
 efficiency_data = {}
-for setting in energy_settings:
-    efficiency_data[setting] = efficiency_data[efficiency_data['Run_Number'].isin(run_numbers)]
+for i,setting in enumerate(energy_settings):
+    efficiency_data[setting] = efficiency_data[efficiency_data['Run_Number'].isin(run_numbers_dict[setting])]
 
 ################################################################################################################################################
 
@@ -109,7 +104,7 @@ def fit_data(plt, x_name, y_name):
     y_lst = []
     yerr_lst = []
     
-    for setting in energy_settings:    
+    for i,setting in enumerate(energy_settings):
         print("Plotting {}: {} vs {}...".format(setting, x_name, y_name))
 
         y_error_name = y_name+"_ERROR"
@@ -138,7 +133,7 @@ def fit_data(plt, x_name, y_name):
             y_error = y_error + 1e-10 # Prevent divide by zero
             yerr_lst.append(y_error)
 
-            plt.scatter(x_data, y_data,color='blue',zorder=4,label='10p6')
+            plt.scatter(x_data, y_data,color=color[i],zorder=4,label='10p6')
             plt.errorbar(x_data, y_data, yerr=y_error, label=None,color='black',linestyle='None',zorder=3)
         else:
             plt.scatter(x_data, y_data,color='blue',zorder=4,label='10p6')
