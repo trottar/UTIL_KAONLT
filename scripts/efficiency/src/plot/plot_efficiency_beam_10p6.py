@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-12-20 22:56:16 trottar"
+# Time-stamp: "2023-12-20 22:58:41 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -103,7 +103,8 @@ def fit_data(plt, x_name, y_name):
     if "Hodo" not in y_name:
         
         for i,setting in enumerate(energy_settings):
-            print("Plotting {}: {} vs {}...".format(setting, x_name, y_name))
+            if i+1 == int((i+1)/3)*3:
+                print("Plotting {}: {} vs {}...".format(setting, x_name, y_name))
 
             # Make x data
             efficiency_xdata = efficiency_dict[setting][x_name].copy()
@@ -185,7 +186,8 @@ def fit_data(plt, x_name, y_name):
     else:
 
         for i,setting in enumerate(energy_settings):
-            print("Plotting {}: {} vs {}...".format(setting, x_name, y_name))
+            if i+1 == int((i+1)/3)*3:
+                print("Plotting {}: {} vs {}...".format(setting, x_name, y_name))
 
             # Make x data
             efficiency_xdata = efficiency_dict[setting][x_name].copy()
