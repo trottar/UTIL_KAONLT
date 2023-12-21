@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-12-20 21:50:15 trottar"
+# Time-stamp: "2023-12-20 21:54:31 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -105,8 +105,6 @@ def fit_data(plt, x_name, y_name):
     for i,setting in enumerate(energy_settings):
         print("Plotting {}: {} vs {}...".format(setting, x_name, y_name))
 
-        y_error_name = y_name+"_ERROR"
-
         # Make x data
         efficiency_xdata = efficiency_dict[setting][x_name].copy()
         
@@ -121,7 +119,10 @@ def fit_data(plt, x_name, y_name):
         y_data = efficiency_ydata
         y_lst.append(y_data)
 
-        if "hodo" not in y_name:
+        if "Hodo" not in y_name:
+            
+            y_error_name = y_name+"_ERROR"
+
             # Make y error
             efficiency_yerror = efficiency_dict[setting][y_error_name].copy()
             yerr_lst.append(efficiency_yerror)
@@ -135,7 +136,11 @@ def fit_data(plt, x_name, y_name):
             plt.errorbar(x_data, y_data, yerr=y_error, label=None,color='black',linestyle='None',zorder=3)
         else:
             plt.scatter(x_data, y_data,color='blue',zorder=4,label='10p6')
-    
+
+    x_data = pd.concat(x_lst, ignore_index=True)
+    y_data = pd.concat(y_lst, ignore_index=True)
+    y_error = pd.concat(yerr_lst, ignore_index=True)
+                
     # Annotate the plot with the slope and intercept
     plt.legend(loc="lower right", markerscale=0.7, scatterpoints=1, fontsize=10)
 
