@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-12-20 21:15:48 trottar"
+# Time-stamp: "2023-12-20 21:20:04 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -53,10 +53,6 @@ try:
     efficiency_data = pd.read_csv(inp_f)
 except IOError:
     print("Error: %s does not appear to exist." % inp_f)
-print(efficiency_data.keys())
-
-# Including dummy
-#efficiency_data = efficiency_data[(efficiency_data['Run_Number'] >= 4865)  & (efficiency_data['Run_Number'] <= 5334)]
 
 # Initialize an empty dictionary to store run numbers
 run_numbers_dict = {}
@@ -88,6 +84,8 @@ energy_settings = ['Q5p5W3p02right_highe','Q5p5W3p02left_highe','Q5p5W3p02center
 efficiency_dict = {}
 for i,setting in enumerate(energy_settings):
     efficiency_dict[setting] = efficiency_data[efficiency_data['Run_Number'].isin(run_numbers_dict[setting])]
+
+    print("{}: {}".format(efficiency_dict[setting]))
 
 ################################################################################################################################################
 
