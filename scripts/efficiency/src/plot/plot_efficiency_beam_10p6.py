@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-12-20 23:14:40 trottar"
+# Time-stamp: "2023-12-20 23:16:59 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -100,8 +100,8 @@ def fit_data(plt, x_name, y_name):
     y_lst = []
     yerr_lst = []
 
-    if "Hodo" not in y_name or "Rate" not in y_name:
-        
+    if "Hodo" not in y_name and "Rate" not in y_name:
+
         for i,setting in enumerate(energy_settings):
             if i+1 == int((i+1)/3)*3:
                 print("Plotting {}: {} vs {}...".format(setting, x_name, y_name))
