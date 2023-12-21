@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-12-21 00:01:56 trottar"
+# Time-stamp: "2023-12-21 00:05:40 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -104,7 +104,7 @@ def fit_data(plt, x_name, y_name):
     if "Hodo" not in y_name and "Rate" not in y_name:
 
         for i,setting in enumerate(energy_settings):
-            if i == int((i)/3)*3:
+            if i == int((i+1)/3)*3:
                 print("Plotting {}: {} vs {}...".format(setting, x_name, y_name))
                 x_lst = []
                 y_lst = []
@@ -142,7 +142,7 @@ def fit_data(plt, x_name, y_name):
             plt.errorbar(x_data, y_data, yerr=y_error, label=None, color='black', linestyle='None', zorder=3)
 
             if "Run_Number" not in x_name:
-                if i == int((i)/3)*3:
+                if i == int((i+1)/3)*3:
                     try:
                         x_data = pd.concat(x_lst, ignore_index=True)
                         y_data = pd.concat(y_lst, ignore_index=True)
@@ -192,7 +192,7 @@ def fit_data(plt, x_name, y_name):
     else:
 
         for i,setting in enumerate(energy_settings):
-            if i == int((i)/3)*3:
+            if i == int((i+1)/3)*3:
                 print("Plotting {}: {} vs {}...".format(setting, x_name, y_name))
 
             # Make x data
