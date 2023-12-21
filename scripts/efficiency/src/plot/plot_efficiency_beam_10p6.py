@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-12-20 22:35:48 trottar"
+# Time-stamp: "2023-12-20 22:37:56 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -130,11 +130,11 @@ def fit_data(plt, x_name, y_name):
             y_error = y_error + 1e-10 # Prevent divide by zero
             yerr_lst.append(y_error)
             
-            if i == int(i/3)*3:
-                print("{} == {}".format(i, int(i/3)))
+            if i == int((i+1)/3)*3:
+                print("{} == {}".format(i, int((i+1)/3)*3))
                 plt.scatter(x_data, y_data, color=color[int(i/3)], zorder=4, label=setting[:9])
             else:
-                print("{} != {}".format(i, int(i/3)))
+                print("{} != {}".format(i, int((i+1)/3)*3))
                 plt.scatter(x_data, y_data, color=color[int(i/3)], zorder=4, label=None)
             plt.errorbar(x_data, y_data, yerr=y_error, label=None, color='black', linestyle='None', zorder=3)
 
@@ -197,7 +197,7 @@ def fit_data(plt, x_name, y_name):
             y_data = efficiency_ydata
             y_lst.append(y_data)
 
-            if i == int(i/3)*3:
+            if i == int((i+1)/3)*3:
                 plt.scatter(x_data, y_data, color=color[int(i/3)], zorder=4, label=setting[:9])
             else:
                 plt.scatter(x_data, y_data, color=color[int(i/3)], zorder=4, label=None)
