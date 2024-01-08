@@ -2,7 +2,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2024-01-08 18:38:04 trottar"
+# Time-stamp: "2024-01-08 18:41:12 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -430,12 +430,12 @@ class Root():
 
             # Wait for all tasks to complete and update the dictionary
             for b, future in enumerate(futures):
+                Misc.progressBar(b, len(futures)-1)
+                branch, array = future.result()
                 if self.DEBUG == True:
                     print("Saving branch {}".format(branch))
                     if branch == "P_hod_goodstarttime":
                         print("\n\n\n\HERE!")
-                Misc.progressBar(b, len(futures)-1)
-                branch, array = future.result()
                 treeDict[branch] = array
 
         # Stop measuring time
