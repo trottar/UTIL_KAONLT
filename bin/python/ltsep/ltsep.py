@@ -2,7 +2,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2024-01-08 18:41:12 trottar"
+# Time-stamp: "2024-01-08 18:46:06 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -396,54 +396,11 @@ class Root():
         
         # Initiate dictionary of root branches
         treeDict = {}
-
-        from concurrent.futures import ThreadPoolExecutor
-
-        # Function to retrieve a branch and update the dictionary
-        def get_branch(branch, tree_path):
-            array = e_tree.array(tree_path)
-            return branch, array
-
-        import time
-        # Start measuring time
-        start_time = time.time()
         
         # Grab tree from root file
         print("Grabbing branches from {}...".format(self.rootName))
         with up.open(self.rootName) as root_file:        
             e_tree = root_file["T"]
-
-        # Stop measuring time
-        end_time = time.time()
-
-        # Calculate and print the elapsed time
-        elapsed_time = end_time - start_time
-        print('e_tree-> Time elapsed: {} seconds'.format(elapsed_time))
-
-        # Start measuring time
-        start_time = time.time()
-        
-        # Use ThreadPoolExecutor to parallelize the retrieval of branches
-        with ThreadPoolExecutor(max_workers=4) as executor:
-            # List comprehension to asynchronously retrieve branches
-            futures = [executor.submit(get_branch, branch, tree_path) for branch, tree_path in branch_mapping.items() if branch in self.check_runType()]            
-
-            # Wait for all tasks to complete and update the dictionary
-            for b, future in enumerate(futures):
-                Misc.progressBar(b, len(futures)-1)
-                branch, array = future.result()
-                if self.DEBUG == True:
-                    print("Saving branch {}".format(branch))
-                    if branch == "P_hod_goodstarttime":
-                        print("\n\n\n\HERE!")
-                treeDict[branch] = array
-
-        # Stop measuring time
-        end_time = time.time()
-
-        # Calculate and print the elapsed time
-        elapsed_time = end_time - start_time
-        print('Threaded-> Time elapsed: {} seconds'.format(elapsed_time))                
 
         # Start measuring time
         start_time = time.time()
@@ -456,14 +413,6 @@ class Root():
                     print("Saving branch {}".format(branch))
                 Misc.progressBar(b, len(self.check_runType())-1)
                 treeDict[branch] = e_tree.array(branch_mapping[branch])
-
-
-        # Stop measuring time
-        end_time = time.time()
-
-        # Calculate and print the elapsed time
-        elapsed_time = end_time - start_time
-        print('Threaded-> Time elapsed: {} seconds'.format(elapsed_time))
         
         #################################################################################################################
             
