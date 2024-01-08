@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2024-01-08 17:51:14 trottar"
+# Time-stamp: "2024-01-08 18:06:38 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -18,4 +18,4 @@ from .help import Help
 __version__ = '3.3.6'
 __author__ = 'trottar'
 __license__ = 'trottar'
-__copyright__ = 'Copyright 2020-2023 trottar'
+__copyright__ = 'Copyright 2020-2024 trottar'
