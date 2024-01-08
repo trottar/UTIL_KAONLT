@@ -2,7 +2,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2024-01-08 18:16:14 trottar"
+# Time-stamp: "2024-01-08 18:17:34 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -610,7 +610,7 @@ class Root():
 
 
         # Use ThreadPoolExecutor to parallelize the retrieval of branches
-        with ThreadPoolExecutor() as executor:
+        with ThreadPoolExecutor(max_workers=4) as executor:
             # List comprehension to asynchronously retrieve branches
             futures = [executor.submit(get_branch, branch, tree_path) for branch, tree_path in branch_mapping.items()]
 
