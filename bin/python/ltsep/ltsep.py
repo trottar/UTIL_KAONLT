@@ -2,7 +2,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2024-01-08 17:59:58 trottar"
+# Time-stamp: "2024-01-08 18:06:11 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -607,6 +607,8 @@ class Root():
             # 3) Adds branch to dictionary
             for branch in self.check_runType():
                 if branch in branch_mapping:
+                    if self.DEBUG == True:
+                        print("Saving branch {}".format(branch))
                     treeDict[branch] = e_tree.array(branch_mapping[branch])
 
         #################################################################################################################
