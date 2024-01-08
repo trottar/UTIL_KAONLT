@@ -2,7 +2,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2024-01-08 18:37:28 trottar"
+# Time-stamp: "2024-01-08 18:38:04 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -404,6 +404,7 @@ class Root():
             array = e_tree.array(tree_path)
             return branch, array
 
+        import time
         # Start measuring time
         start_time = time.time()
         
