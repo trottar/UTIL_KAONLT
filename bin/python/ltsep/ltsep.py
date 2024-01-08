@@ -2,7 +2,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2024-01-08 18:54:59 trottar"
+# Time-stamp: "2024-01-08 18:59:09 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -436,6 +436,7 @@ class Root():
                 cutDict = SetCuts(self.CURRENT_ENV,importDict).readDict(cut,inputDict)
                 for j,val in enumerate(x):
                     try:
+                        print("!!!!!!!!!!!!!!!!",x[j])
                         # Evaluates the list of strings which converts them to a list of boolean values
                         # corresponding to the cuts applied
                         cutDict = SetCuts(self.CURRENT_ENV,importDict).evalDict(cut,eval(x[j]),cutDict)
