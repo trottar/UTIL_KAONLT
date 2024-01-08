@@ -2,7 +2,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2024-01-08 18:17:34 trottar"
+# Time-stamp: "2024-01-08 18:21:26 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -612,7 +612,7 @@ class Root():
         # Use ThreadPoolExecutor to parallelize the retrieval of branches
         with ThreadPoolExecutor(max_workers=4) as executor:
             # List comprehension to asynchronously retrieve branches
-            futures = [executor.submit(get_branch, branch, tree_path) for branch, tree_path in branch_mapping.items()]
+            futures = [executor.submit(get_branch, branch, tree_path) for branch, tree_path in branch_mapping.items() if branch in self.check_runType()]            
 
             # Wait for all tasks to complete and update the dictionary
             for b, future in enumerate(futures):
