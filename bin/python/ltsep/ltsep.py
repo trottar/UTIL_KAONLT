@@ -2,7 +2,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2024-01-08 18:27:44 trottar"
+# Time-stamp: "2024-01-08 18:29:47 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -16,7 +16,7 @@ import sys
 
 from .cut import SetCuts 
 from .pathing import SetPath
-from .branch_names import branch_mapping
+from .branch_names import branch_dict
 
 #########################
 # Cython implimentation #
@@ -392,7 +392,7 @@ class Root():
         '''
 
         # Grabbing branch names from branch_names.py
-        branch_mapping = branch_mapping
+        branch_mapping = branch_dict
         
         # Initiate dictionary of root branches
         treeDict = {}

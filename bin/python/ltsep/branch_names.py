@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2024-01-08 18:26:17 trottar"
+# Time-stamp: "2024-01-08 18:30:07 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -12,8 +12,8 @@
 #
 
 # Dictionary of all used branches
-# Add more if required (note: make sure to add to DB/BRANCH_DEF/<ANATYPE>LT/<RUNTYPE_FILE>)
-branch_mapping = {
+# Add more if required (note: make sure to add to DB/BRANCH_DEF/<ANATYPE>LT/<RUNTYPE_FILE> also)
+branch_dict = {
     # HMS info
     "H_dc_InsideDipoleExit" : "H.dc.InsideDipoleExit",
     "H_hod_goodscinhit" : "H.hod.goodscinhit",
