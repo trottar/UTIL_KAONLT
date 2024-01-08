@@ -2,7 +2,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2024-01-08 18:12:59 trottar"
+# Time-stamp: "2024-01-08 18:16:14 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -596,22 +596,33 @@ class Root():
         # Initiate dictionary of root branches
         treeDict = {}
 
-        '''
         from concurrent.futures import ThreadPoolExecutor
 
         # Function to retrieve a branch and update the dictionary
         def get_branch(branch, tree_path):
             array = e_tree.array(tree_path)
             return branch, array
-        '''
-
 
         # Grab tree from root file
         print("Grabbing branches from {}...".format(self.rootName))
         with up.open(self.rootName) as root_file:        
             e_tree = root_file["T"]
 
-            
+
+        # Use ThreadPoolExecutor to parallelize the retrieval of branches
+        with ThreadPoolExecutor() as executor:
+            # List comprehension to asynchronously retrieve branches
+            futures = [executor.submit(get_branch, branch, tree_path) for branch, tree_path in branch_mapping.items()]
+
+            # Wait for all tasks to complete and update the dictionary
+            for b, future in enumerate(futures):
+                if self.DEBUG == True:
+                    print("Saving branch {}".format(future))
+                Misc.progressBar(b, len(futures)-1)
+                branch, array = future.result()
+                treeDict[branch] = array
+
+        '''
         # 1) Loops over the root branches of a specific run type (defined in UTILPATH/DB/BRANCH_DEF/<RunTypeFile>)
         # 2) Grabs the branch from the root tree (defined above) and defines as array
         # 3) Adds branch to dictionary
@@ -621,7 +632,7 @@ class Root():
                     print("Saving branch {}".format(branch))
                 Misc.progressBar(b, len(self.check_runType())-1)
                 treeDict[branch] = e_tree.array(branch_mapping[branch])
-
+        '''
         #################################################################################################################
             
         # For better explaination of the methods below use the Help class defined above
