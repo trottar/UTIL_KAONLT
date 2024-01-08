@@ -2,7 +2,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2024-01-08 17:49:12 trottar"
+# Time-stamp: "2024-01-08 17:56:03 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -390,12 +390,6 @@ class Root():
         which contains the dictionary of cut boolean lists. 
         '''
 
-        # Grab tree from root file
-        e_tree = up.open(self.rootName)["T"]
-
-        # Initiate dictionary of root branches
-        treeDict = {}
-
         # Dictionary of all used branches
         # Add more if required (note: make sure to add to DB/BRANCH_DEF/<ANATYPE>LT/<RUNTYPE_FILE>)
         branch_mapping = {
@@ -515,7 +509,7 @@ class Root():
             # BPM target
             "bpm_tar_x": "P.rb.raster.fr_xbpm_tar",
             "bpm_tar_y": "P.rb.raster.fr_ybpm_tar",
-                
+
             # Kinematic quantitites
             "Q2": "H.kin.primary.Q2",
             "W": "H.kin.primary.W",
@@ -555,7 +549,7 @@ class Root():
             "H_RF_Dist": "RFTime.HMS_RFtimeDist",
             "P_RF_Dist": "RFTime.SHMS_RFtimeDist",
 
-                
+
             "T_coin_pTRIG1_ROC1_tdcTimeRaw": "T.coin.pTRIG1_ROC1_tdcTimeRaw",
             "T_coin_pTRIG1_ROC2_tdcTimeRaw": "T.coin.pTRIG1_ROC2_tdcTimeRaw",
             "T_coin_pTRIG1_ROC1_tdcTime": "T.coin.pTRIG1_ROC1_tdcTime",
@@ -592,19 +586,29 @@ class Root():
             "T_coin_hFADC_TREF_ROC1_adcPulseTimeRaw": "T.coin.hFADC_TREF_ROC1_adcPulseTimeRaw",
             "T_coin_pEDTM_tdcTimeRaw": "T.coin.pEDTM_tdcTimeRaw",
             "T_coin_pEDTM_tdcTime": "T.coin.pEDTM_tdcTime",
-                
+
             # Misc quantities
             "RFFreq": "MOFC1FREQ",
             "RFFreqDiff": "MOFC1DELTA",
             "EvtType": "fEvtHdr.fEvtType",
         }
 
-        # 1) Loops over the root branches of a specific run type (defined in UTILPATH/DB/BRANCH_DEF/<RunTypeFile>)
-        # 2) Grabs the branch from the root tree (defined above) and defines as array
-        # 3) Adds branch to dictionary
-        for branch in self.check_runType():
-            if branch in branch_mapping:
-                treeDict[branch] = e_tree.array(branch_mapping[branch])        
+
+        print("Grabbing branches from {}...".format(self.rootName))
+        with uproot.open(self.rootName) as root_file:
+        
+            # Grab tree from root file
+            e_tree = root_file["T"]
+
+            # Initiate dictionary of root branches
+            treeDict = {}
+
+            # 1) Loops over the root branches of a specific run type (defined in UTILPATH/DB/BRANCH_DEF/<RunTypeFile>)
+            # 2) Grabs the branch from the root tree (defined above) and defines as array
+            # 3) Adds branch to dictionary
+            for branch in self.check_runType():
+                if branch in branch_mapping:
+                    treeDict[branch] = e_tree.array(branch_mapping[branch])
 
         #################################################################################################################
             
