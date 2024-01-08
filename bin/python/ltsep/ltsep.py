@@ -2,7 +2,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2024-01-08 17:56:03 trottar"
+# Time-stamp: "2024-01-08 17:57:00 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -595,7 +595,7 @@ class Root():
 
 
         print("Grabbing branches from {}...".format(self.rootName))
-        with uproot.open(self.rootName) as root_file:
+        with up.open(self.rootName) as root_file:
         
             # Grab tree from root file
             e_tree = root_file["T"]
