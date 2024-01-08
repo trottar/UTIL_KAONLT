@@ -2,7 +2,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2024-01-08 18:46:06 trottar"
+# Time-stamp: "2024-01-08 18:51:37 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -402,8 +402,6 @@ class Root():
         with up.open(self.rootName) as root_file:        
             e_tree = root_file["T"]
 
-        # Start measuring time
-        start_time = time.time()
         # 1) Loops over the root branches of a specific run type (defined in UTILPATH/DB/BRANCH_DEF/<RunTypeFile>)
         # 2) Grabs the branch from the root tree (defined above) and defines as array
         # 3) Adds branch to dictionary
