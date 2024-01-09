@@ -2,7 +2,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2024-01-08 19:17:31 trottar"
+# Time-stamp: "2024-01-08 19:21:37 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -401,13 +401,11 @@ class Root():
         print("Grabbing branches from {}...".format(self.rootName))
         with up.open(self.rootName) as root_file:        
             e_tree = root_file["T"]
-
-        # Get the total number of entries in the root file
-        total_entries = e_tree.num_entries
+            # Get the total number of entries in the root file
+            total_entries = root_file.num_entries
 
         # Determine a dynamic chunk size based on the root file size
-        # You can adjust the factor as needed
-        dynamic_chunk_size = max(1, total_entries // 100000)  # Adjust the factor based on your specific case
+        dynamic_chunk_size = max(1, total_entries // 100000)  # Adjust the factor based on specific case
             
         # 1) Loops over the root branches of a specific run type (defined in UTILPATH/DB/BRANCH_DEF/<RunTypeFile>)
         # 2) Grabs the branch from the root tree (defined above) and defines as array
@@ -418,10 +416,9 @@ class Root():
                 if self.DEBUG == True:
                     print("Saving branch {}".format(branch))
                 Misc.progressBar(b, len(runType)-1)
-                # Optimize for very large branches by using array method with chunking
-                chunk_size = 1000000  # Adjust the chunk size based on your specific case
-                branch_array = e_tree.array(branch_mapping[branch], entry_start=0, entry_stop=e_tree.num_entries, chunk_size=chunk_size)
-                treeDict[branch] = branch_array                
+                # Optimize for very large branches by using array method with dynamic chunking
+                branch_array = e_tree.array(branch_mapping[branch], entry_start=0, entry_stop=total_entries, chunk_size=dynamic_chunk_size)    
+                treeDict[branch] = branch_array
         
         #################################################################################################################
             
