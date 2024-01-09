@@ -2,7 +2,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2024-01-08 19:51:47 trottar"
+# Time-stamp: "2024-01-08 19:54:24 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -407,7 +407,10 @@ class Root():
 
         # Determine a dynamic chunk size based on the root file size
         dynamic_chunk_size = max(1, total_entries // 100000)  # Adjust the factor based on specific case
-            
+
+        # Make a cache with an acceptable limit.
+        gigabyte_cache = uproot.ArrayCache("1 GB")
+        
         # 1) Loops over the root branches of a specific run type (defined in UTILPATH/DB/BRANCH_DEF/<RunTypeFile>)
         # 2) Grabs the branch from the root tree (defined above) and defines as array
         # 3) Adds branch to dictionary
@@ -418,7 +421,7 @@ class Root():
                     print("Saving branch {}".format(branch))
                 Misc.progressBar(b, len(runType)-1)
                 # Optimize for very large branches by using array method with dynamic chunking
-                branch_array = e_tree.array(branch_mapping[branch], entrystart=0, entrystop=total_entries, chunksize=dynamic_chunk_size)    
+                branch_array = e_tree.array(branch_mapping[branch], entrystart=0, entrystop=total_entries, entrysteps=dynamic_chunk_size, cache=gigabyte_cache)
                 treeDict[branch] = branch_array
         
         #################################################################################################################
