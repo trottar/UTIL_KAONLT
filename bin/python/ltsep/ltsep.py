@@ -2,7 +2,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2024-01-08 20:14:36 trottar"
+# Time-stamp: "2024-01-08 20:22:02 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -404,6 +404,8 @@ class Root():
 
         # Grab file data from cache rather than from file each time
         cache = {}
+        # Make a cache with an acceptable limit.
+        #cache = uproot.ArrayCache("1 GB")
         
         # 1) Loops over the root branches of a specific run type (defined in UTILPATH/DB/BRANCH_DEF/<RunTypeFile>)
         # 2) Grabs the branch from the root tree (defined above) and defines as array
@@ -421,12 +423,11 @@ class Root():
         #################################################################################################################
             
         # For better explaination of the methods below use the Help class defined above
-        cutNames = []        
+        cutNames = []
         cutVals = []
         if self.cuts != None:
             # read in cuts file and makes dictionary
             importDict = SetCuts(self.CURRENT_ENV).importDict(self.cuts,self.cut_f,self.runNum,self.DEBUG)
-            print("$$$$$$$$$$$$$$$",importDict)
             for i,cut in enumerate(self.cuts):
                 # Converts the dictionary to a list of strings that need to be evaluated and converted
                 # into a boolean list
@@ -440,6 +441,7 @@ class Root():
                     inputDict = {}
                 # Redefines the dictionary to be reimplemented below
                 cutDict = SetCuts(self.CURRENT_ENV,importDict).readDict(cut,inputDict)
+                print("$$$$$$$$$$$$$$$",cutDict)
                 for j,val in enumerate(x):
                     try:
                         print("!!!!!!!!!!!!!!!!",cut, x[j])
