@@ -2,7 +2,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2024-01-08 19:26:31 trottar"
+# Time-stamp: "2024-01-08 19:27:02 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -404,6 +404,8 @@ class Root():
 
         # Get the total number of entries in the root file
         total_entries = root_file.size
+
+        print("$$$$$$$$$$$$$",total_entries)
 
         # Determine a dynamic chunk size based on the root file size
         dynamic_chunk_size = max(1, total_entries // 100000)  # Adjust the factor based on specific case
