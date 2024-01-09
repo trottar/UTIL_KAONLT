@@ -2,7 +2,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2024-01-08 19:28:16 trottar"
+# Time-stamp: "2024-01-08 19:28:45 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -12,7 +12,7 @@
 from concurrent.futures import ThreadPoolExecutor
 from contextlib import contextmanager
 import uproot as up
-import sys
+import os, sys
 
 from .cut import SetCuts 
 from .pathing import SetPath
