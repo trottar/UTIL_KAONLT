@@ -2,7 +2,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2024-01-08 19:39:46 trottar"
+# Time-stamp: "2024-01-08 19:47:15 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -396,41 +396,23 @@ class Root():
         
         # Initiate dictionary of root branches
         treeDict = {}
-
-        # Import ThreadPoolExecutor
-        from concurrent.futures import ThreadPoolExecutor
         
         # Grab tree from root file
         print("Grabbing branches from {}...".format(self.rootName))
         with up.open(self.rootName) as root_file:        
             e_tree = root_file["T"]
-
-        # Get the root file size dynamically
-        root_file_size = os.path.getsize(self.rootName)
-
-        print("$$$$$$$$$$$$$",root_file_size)
-
-        # Determine a dynamic chunk size based on the root file size
-        dynamic_chunk_size = max(1, root_file_size // 100000)  # Adjust the factor based on specific case
             
         # 1) Loops over the root branches of a specific run type (defined in UTILPATH/DB/BRANCH_DEF/<RunTypeFile>)
         # 2) Grabs the branch from the root tree (defined above) and defines as array
         # 3) Adds branch to dictionary
         runType = self.check_runType()
-        # Update the loop to use ThreadPoolExecutor for optimized speed
-        with ThreadPoolExecutor(4) as executor:
-            futures = {executor.submit(e_tree.array, branch_mapping[branch]): branch for b, branch in enumerate(runType) if branch in branch_mapping}
-
-            for future in as_completed(futures):
-                branch = futures[future]
-                try:
-                    treeDict[branch] = future.result()
-                    if self.DEBUG:
-                        print("Saving branch {}".format(branch))
-                    Misc.progressBar(b, len(runType)-1)
-                except Exception as e:
-                    print("Error processing branch {}: {}".format(branch, e))
-
+        for b, branch in enumerate(runType):
+            if branch in branch_mapping:
+                if self.DEBUG:
+                    print("Saving branch {}".format(branch))
+                Misc.progressBar(b, len(runType)-1)
+                treeDict[branch] = e_tree.array(branch_mapping[branch],cache=treeDict)
+        
         #################################################################################################################
             
         # For better explaination of the methods below use the Help class defined above
