@@ -2,7 +2,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2024-01-08 22:42:12 trottar"
+# Time-stamp: "2024-01-09 12:07:12 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -403,7 +403,7 @@ class Root():
         # 3) Adds branch to dictionary
         runType = self.check_runType()
         for b, branch in enumerate(runType):
-            Misc.progressBar(b, len(runType)-1)
+            Misc.progressBar(b, len(runType)-1,bar_length=25)
 
             # HMS info
             if branch == "H_dc_InsideDipoleExit":
@@ -818,7 +818,6 @@ class Root():
             if branch == "P_RF_Dist":
                 P_RF_Dist = e_tree.array("RFTime.SHMS_RFtimeDist")  
                 treeDict.update({"P_RF_Dist" : P_RF_Dist})
-
                 
             if branch == "T_coin_pTRIG1_ROC1_tdcTimeRaw":
                 T_coin_pTRIG1_ROC1_tdcTimeRaw = e_tree.array("T.coin.pTRIG1_ROC1_tdcTimeRaw")
