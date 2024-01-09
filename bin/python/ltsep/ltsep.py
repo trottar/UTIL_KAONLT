@@ -2,7 +2,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2024-01-08 20:40:26 trottar"
+# Time-stamp: "2024-01-08 20:54:49 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -399,9 +399,8 @@ class Root():
         
         # Grab tree from root file
         print("Grabbing branches from {}...".format(self.rootName))
-        #with up.open(self.rootName) as root_file:        
-        #    e_tree = root_file["T"]
-        e_tree = up.open(self.rootName)["T"]
+        with up.open(self.rootName) as root_file:        
+            e_tree = root_file["T"]
 
         # Grab file data from cache rather than from file each time
         cache = {}
@@ -421,6 +420,7 @@ class Root():
                 branch_array = e_tree.array(branch_mapping[branch], cache=cache)
                 treeDict[branch] = branch_array
 
+        print("$$$$$$$$$$$$$$$$",treeDict["P_hod_goodstarttime"])
         #################################################################################################################
             
         # For better explaination of the methods below use the Help class defined above
