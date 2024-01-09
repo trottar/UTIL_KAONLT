@@ -2,7 +2,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2024-01-08 20:01:27 trottar"
+# Time-stamp: "2024-01-08 20:06:28 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -402,12 +402,6 @@ class Root():
         with up.open(self.rootName) as root_file:        
             e_tree = root_file["T"]
 
-        # Get the total number of entries in the root file
-        total_entries = e_tree.numentries
-
-        # Determine a dynamic chunk size based on the root file size
-        dynamic_chunk_size = max(1, total_entries // 100000)  # Adjust the factor based on specific case
-
         # Grab file data from cache rather than from file each time
         cache = {}
         
@@ -421,7 +415,7 @@ class Root():
                     print("Saving branch {}".format(branch))
                 Misc.progressBar(b, len(runType)-1)
                 # Optimize for very large branches by using array method with dynamic chunking
-                branch_array = e_tree.array(branch_mapping[branch], entrystart=0, entrystop=total_entries, cache=cache)
+                branch_array = e_tree.array(branch_mapping[branch], cache=cache)
                 treeDict[branch] = branch_array
 
         print("$$$$$$$$$$",cache)
@@ -449,7 +443,7 @@ class Root():
                 cutDict = SetCuts(self.CURRENT_ENV,importDict).readDict(cut,inputDict)
                 for j,val in enumerate(x):
                     try:
-                        print("!!!!!!!!!!!!!!!!",x[j])
+                        print("!!!!!!!!!!!!!!!!",cut, x[j])
                         # Evaluates the list of strings which converts them to a list of boolean values
                         # corresponding to the cuts applied
                         cutDict = SetCuts(self.CURRENT_ENV,importDict).evalDict(cut,eval(x[j]),cutDict)
