@@ -2,7 +2,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2024-01-08 20:54:49 trottar"
+# Time-stamp: "2024-01-08 21:23:31 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -399,8 +399,7 @@ class Root():
         
         # Grab tree from root file
         print("Grabbing branches from {}...".format(self.rootName))
-        with up.open(self.rootName) as root_file:        
-            e_tree = root_file["T"]
+        e_tree = up.open(self.rootName)["T"]
 
         # Grab file data from cache rather than from file each time
         cache = {}
