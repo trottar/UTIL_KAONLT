@@ -2,7 +2,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2024-01-08 19:54:24 trottar"
+# Time-stamp: "2024-01-08 19:54:56 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -409,7 +409,7 @@ class Root():
         dynamic_chunk_size = max(1, total_entries // 100000)  # Adjust the factor based on specific case
 
         # Make a cache with an acceptable limit.
-        gigabyte_cache = uproot.ArrayCache("1 GB")
+        gigabyte_cache = up.ArrayCache("1 GB")
         
         # 1) Loops over the root branches of a specific run type (defined in UTILPATH/DB/BRANCH_DEF/<RunTypeFile>)
         # 2) Grabs the branch from the root tree (defined above) and defines as array
