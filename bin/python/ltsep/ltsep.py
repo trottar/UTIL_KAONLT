@@ -2,7 +2,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2024-01-08 19:29:31 trottar"
+# Time-stamp: "2024-01-08 19:39:46 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -396,6 +396,9 @@ class Root():
         
         # Initiate dictionary of root branches
         treeDict = {}
+
+        # Import ThreadPoolExecutor
+        from concurrent.futures import ThreadPoolExecutor
         
         # Grab tree from root file
         print("Grabbing branches from {}...".format(self.rootName))
@@ -414,15 +417,20 @@ class Root():
         # 2) Grabs the branch from the root tree (defined above) and defines as array
         # 3) Adds branch to dictionary
         runType = self.check_runType()
-        for b, branch in enumerate(runType):
-            if branch in branch_mapping:
-                if self.DEBUG == True:
-                    print("Saving branch {}".format(branch))
-                Misc.progressBar(b, len(runType)-1)
-                # Optimize for very large branches by using array method with dynamic chunking
-                branch_array = e_tree.array(branch_mapping[branch], chunk_size=dynamic_chunk_size)    
-                treeDict[branch] = branch_array
-        
+        # Update the loop to use ThreadPoolExecutor for optimized speed
+        with ThreadPoolExecutor(4) as executor:
+            futures = {executor.submit(e_tree.array, branch_mapping[branch]): branch for b, branch in enumerate(runType) if branch in branch_mapping}
+
+            for future in as_completed(futures):
+                branch = futures[future]
+                try:
+                    treeDict[branch] = future.result()
+                    if self.DEBUG:
+                        print("Saving branch {}".format(branch))
+                    Misc.progressBar(b, len(runType)-1)
+                except Exception as e:
+                    print("Error processing branch {}: {}".format(branch, e))
+
         #################################################################################################################
             
         # For better explaination of the methods below use the Help class defined above
