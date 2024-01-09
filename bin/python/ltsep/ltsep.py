@@ -2,7 +2,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2024-01-08 18:59:09 trottar"
+# Time-stamp: "2024-01-08 19:05:34 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -402,6 +402,12 @@ class Root():
         with up.open(self.rootName) as root_file:        
             e_tree = root_file["T"]
 
+        # Get the total number of entries in the root file
+        total_entries = e_tree.num_entries
+
+        # Determine a dynamic chunk size based on the root file size
+        dynamic_chunk_size = max(1, total_entries // 100000)  # Adjust the factor based on specific case
+            
         # 1) Loops over the root branches of a specific run type (defined in UTILPATH/DB/BRANCH_DEF/<RunTypeFile>)
         # 2) Grabs the branch from the root tree (defined above) and defines as array
         # 3) Adds branch to dictionary
@@ -411,7 +417,9 @@ class Root():
                 if self.DEBUG == True:
                     print("Saving branch {}".format(branch))
                 Misc.progressBar(b, len(runType)-1)
-                treeDict[branch] = e_tree.array(branch_mapping[branch])
+                # Optimize for very large branches by using array method with dynamic chunking
+                branch_array = e_tree.array(branch_mapping[branch], entry_start=0, entry_stop=total_entries, chunk_size=dynamic_chunk_size)    
+                treeDict[branch] = branch_array
         
         #################################################################################################################
             
@@ -436,7 +444,7 @@ class Root():
                 cutDict = SetCuts(self.CURRENT_ENV,importDict).readDict(cut,inputDict)
                 for j,val in enumerate(x):
                     try:
-                        print("!!!!!!!!!!!!!!!!",x[j])
+                        print("!!!!!!!!!!!!!!!!",cut,x[j])
                         # Evaluates the list of strings which converts them to a list of boolean values
                         # corresponding to the cuts applied
                         cutDict = SetCuts(self.CURRENT_ENV,importDict).evalDict(cut,eval(x[j]),cutDict)
