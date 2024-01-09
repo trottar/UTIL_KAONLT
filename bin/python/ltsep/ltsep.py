@@ -2,7 +2,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2024-01-08 19:05:34 trottar"
+# Time-stamp: "2024-01-08 19:09:40 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -403,7 +403,9 @@ class Root():
             e_tree = root_file["T"]
 
         # Get the total number of entries in the root file
-        total_entries = e_tree.num_entries
+        total_entries = len(e_tree)
+
+        print("%%%%%%%%%%%%%%",total_entries)
 
         # Determine a dynamic chunk size based on the root file size
         dynamic_chunk_size = max(1, total_entries // 100000)  # Adjust the factor based on specific case
