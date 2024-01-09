@@ -2,7 +2,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2024-01-08 21:41:44 trottar"
+# Time-stamp: "2024-01-08 21:49:52 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -402,85 +402,85 @@ class Root():
         with up.open(self.rootName) as root_file:        
             e_tree = root_file["T"]
 
-        # Grab file data from cache rather than from file each time
-        cache = {}
-        # Make a cache with an acceptable limit.
-        #cache = uproot.ArrayCache("1 GB")
-        
-        # 1) Loops over the root branches of a specific run type (defined in UTILPATH/DB/BRANCH_DEF/<RunTypeFile>)
-        # 2) Grabs the branch from the root tree (defined above) and defines as array
-        # 3) Adds branch to dictionary
-        runType = self.check_runType()
-        for b, branch in enumerate(runType):
-            if branch in branch_mapping:
-                if self.DEBUG == True:
-                    print("Saving branch {}".format(branch))
-                Misc.progressBar(b, len(runType)-1)
-                # Optimize for very large branches by using array method with dynamic chunking
-                branch_array = e_tree.array(branch_mapping[branch], cache=cache)
-                treeDict[branch] = branch_array
+            # Grab file data from cache rather than from file each time
+            cache = {}
+            # Make a cache with an acceptable limit.
+            #cache = uproot.ArrayCache("1 GB")
 
-        for key, val in treeDict.items():
-            print(key,val)                
+            # 1) Loops over the root branches of a specific run type (defined in UTILPATH/DB/BRANCH_DEF/<RunTypeFile>)
+            # 2) Grabs the branch from the root tree (defined above) and defines as array
+            # 3) Adds branch to dictionary
+            runType = self.check_runType()
+            for b, branch in enumerate(runType):
+                if branch in branch_mapping:
+                    if self.DEBUG == True:
+                        print("Saving branch {}".format(branch))
+                    Misc.progressBar(b, len(runType)-1)
+                    # Optimize for very large branches by using array method with dynamic chunking
+                    branch_array = e_tree.array(branch_mapping[branch], cache=cache)
+                    treeDict[branch] = branch_array
 
-        #################################################################################################################
-            
-        # For better explaination of the methods below use the Help class defined above
-        cutNames = []
-        cutVals = []
-        if self.cuts != None:
-            # read in cuts file and makes dictionary
-            importDict = SetCuts(self.CURRENT_ENV).importDict(self.cuts,self.cut_f,self.runNum,self.DEBUG)
-            for i,cut in enumerate(self.cuts):
-                # Converts the dictionary to a list of strings that need to be evaluated and converted
-                # into a boolean list
-                x = SetCuts(self.CURRENT_ENV,importDict).booleanDict(cut)
-                print("\n%s" % cut)
-                print(x, "\n")
-                # Saves string names of cuts and their values
-                cutNames.append(cut)
-                cutVals.append(x)
-                if i == 0:
-                    inputDict = {}
-                # Redefines the dictionary to be reimplemented below
-                cutDict = SetCuts(self.CURRENT_ENV,importDict).readDict(cut,inputDict)
-                for j,val in enumerate(x):
-                    try:
-                        # Evaluates the list of strings which converts them to a list of boolean values
-                        # corresponding to the cuts applied
-                        cutDict = SetCuts(self.CURRENT_ENV,importDict).evalDict(cut,eval(x[j]),cutDict)
-                        # This is the cython defined version, slightly faster but 
-                        # requires it to be compiled fist
-                        #cutDict = evalDict(cut,eval(x[j]),cutDict)
-                    except NameError:
-                        if "pid" in x[j]:
-                            err_dir = self.UTILPATH+"/DB/PARAM/PID_Parameters.csv"
-                        if "track" in x[j]:
-                            err_dir = self.UTILPATH+"/DB/PARAM/Tracking_Parameters.csv"
-                        if "accept" in x[j]:
-                            err_dir = self.UTILPATH+"/DB/PARAM/Acceptance_Parameters.csv"
-                        if "coin_time" in x[j]:
-                            err_dir = self.UTILPATH+"/DB/PARAM/Timing_Parameters.csv"
-                        if "current" in x[j]:
-                            err_dir = self.UTILPATH+"/DB/PARAM/Current_Parameters.csv"
-                        if "misc" in x[j]:
-                            err_dir = self.UTILPATH+"/DB/PARAM/Misc_Parameters.csv"
-                        raise InvalidEntry('''
-                        ======================================================================
-                          ERROR: %s invalid.
+            for key, val in treeDict.items():
+                print(key,val)                
 
-                          Improperly defined cut at... 
-                          %s
-                        ----------------------------------------------------------------------
-                          Check that run number %s is properly defined in...
-                          %s
-                        ======================================================================
-                        ''' % (cut,x[j],self.runNum,err_dir))
-            strDict = dict(zip(cutNames,cutVals))
+            #################################################################################################################
 
-            return [SetCuts(self.CURRENT_ENV,cutDict),treeDict,strDict]
-        else:
-            return [SetCuts(self.CURRENT_ENV),treeDict,None]
+            # For better explaination of the methods below use the Help class defined above
+            cutNames = []
+            cutVals = []
+            if self.cuts != None:
+                # read in cuts file and makes dictionary
+                importDict = SetCuts(self.CURRENT_ENV).importDict(self.cuts,self.cut_f,self.runNum,self.DEBUG)
+                for i,cut in enumerate(self.cuts):
+                    # Converts the dictionary to a list of strings that need to be evaluated and converted
+                    # into a boolean list
+                    x = SetCuts(self.CURRENT_ENV,importDict).booleanDict(cut)
+                    print("\n%s" % cut)
+                    print(x, "\n")
+                    # Saves string names of cuts and their values
+                    cutNames.append(cut)
+                    cutVals.append(x)
+                    if i == 0:
+                        inputDict = {}
+                    # Redefines the dictionary to be reimplemented below
+                    cutDict = SetCuts(self.CURRENT_ENV,importDict).readDict(cut,inputDict)
+                    for j,val in enumerate(x):
+                        try:
+                            # Evaluates the list of strings which converts them to a list of boolean values
+                            # corresponding to the cuts applied
+                            cutDict = SetCuts(self.CURRENT_ENV,importDict).evalDict(cut,eval(x[j]),cutDict)
+                            # This is the cython defined version, slightly faster but 
+                            # requires it to be compiled fist
+                            #cutDict = evalDict(cut,eval(x[j]),cutDict)
+                        except NameError:
+                            if "pid" in x[j]:
+                                err_dir = self.UTILPATH+"/DB/PARAM/PID_Parameters.csv"
+                            if "track" in x[j]:
+                                err_dir = self.UTILPATH+"/DB/PARAM/Tracking_Parameters.csv"
+                            if "accept" in x[j]:
+                                err_dir = self.UTILPATH+"/DB/PARAM/Acceptance_Parameters.csv"
+                            if "coin_time" in x[j]:
+                                err_dir = self.UTILPATH+"/DB/PARAM/Timing_Parameters.csv"
+                            if "current" in x[j]:
+                                err_dir = self.UTILPATH+"/DB/PARAM/Current_Parameters.csv"
+                            if "misc" in x[j]:
+                                err_dir = self.UTILPATH+"/DB/PARAM/Misc_Parameters.csv"
+                            raise InvalidEntry('''
+                            ======================================================================
+                              ERROR: %s invalid.
+
+                              Improperly defined cut at... 
+                              %s
+                            ----------------------------------------------------------------------
+                              Check that run number %s is properly defined in...
+                              %s
+                            ======================================================================
+                            ''' % (cut,x[j],self.runNum,err_dir))
+                strDict = dict(zip(cutNames,cutVals))
+
+                return [SetCuts(self.CURRENT_ENV,cutDict),treeDict,strDict]
+            else:
+                return [SetCuts(self.CURRENT_ENV),treeDict,None]
         
     def csv2root(inputDict,rootName):
         '''
