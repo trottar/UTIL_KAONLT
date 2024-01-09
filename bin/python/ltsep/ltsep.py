@@ -2,7 +2,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2024-01-08 20:06:28 trottar"
+# Time-stamp: "2024-01-08 20:14:36 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -418,8 +418,6 @@ class Root():
                 branch_array = e_tree.array(branch_mapping[branch], cache=cache)
                 treeDict[branch] = branch_array
 
-        print("$$$$$$$$$$",cache)
-        
         #################################################################################################################
             
         # For better explaination of the methods below use the Help class defined above
@@ -428,6 +426,7 @@ class Root():
         if self.cuts != None:
             # read in cuts file and makes dictionary
             importDict = SetCuts(self.CURRENT_ENV).importDict(self.cuts,self.cut_f,self.runNum,self.DEBUG)
+            print("$$$$$$$$$$$$$$$",importDict)
             for i,cut in enumerate(self.cuts):
                 # Converts the dictionary to a list of strings that need to be evaluated and converted
                 # into a boolean list
