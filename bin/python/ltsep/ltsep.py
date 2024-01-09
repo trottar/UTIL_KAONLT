@@ -2,7 +2,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2024-01-08 20:36:13 trottar"
+# Time-stamp: "2024-01-08 20:37:34 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -398,8 +398,9 @@ class Root():
 
         # 1) Loops over the root branches of a specific run type (defined in UTILPATH/DB/BRANCH_DEF/<RunTypeFile>)
         # 2) Grabs the branch from the root tree (defined above) and defines as array
-        # 3) Adds branch to dictionary 
-        for b, branch in enumerate(self.check_runType()):
+        # 3) Adds branch to dictionary
+        runType = self.check_runType()
+        for b, branch in enumerate(runType):
             Misc.progressBar(b, len(runType)-1)
 
             # HMS info
