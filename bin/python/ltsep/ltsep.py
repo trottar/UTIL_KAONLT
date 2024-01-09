@@ -2,7 +2,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2024-01-08 22:22:49 trottar"
+# Time-stamp: "2024-01-08 22:42:12 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -391,7 +391,9 @@ class Root():
         '''
 
         # Grab tree from root file
-        e_tree = up.open(self.rootName)["T"]
+        print("Grabbing branches from {}...".format(self.rootName))
+        with up.open(self.rootName) as root_file:        
+            e_tree = root_file["T"]
 
         # Initiate dictionary of root branches
         treeDict = {}
