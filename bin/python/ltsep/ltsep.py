@@ -2,7 +2,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2024-01-08 22:15:36 trottar"
+# Time-stamp: "2024-01-08 22:22:22 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -417,7 +417,7 @@ class Root():
                     print("Saving branch {}".format(branch))
                 Misc.progressBar(b, len(runType)-1)
                 # Optimize for very large branches by using array method with dynamic chunking
-                treeDict[branch] = e_tree.array(branch_mapping[branch], cache=cache)
+                treeDict[branch] = e_tree.array(branch_mapping[branch])
 
         #################################################################################################################
             
