@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2022-09-09 03:26:06 trottar"
+# Time-stamp: "2024-01-11 14:27:53 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -67,10 +67,10 @@ if [[ $l_flag = "true" ]]; then
     RUNNUM=$3
     COLUMN="List"
     if [[ $RUNTYPE = "HeePCoin" ]]; then
-	TIMESTMP="2022_09_09"
+	TIMESTMP="2024_01_11"
 	ROOTPREFIX=replay_coin_heep
     else
-	TIMESTMP="2022_09_09"
+	TIMESTMP="2024_01_11"
 	ROOTPREFIX=replay_coin_production
     fi
     cd "${SCRIPTPATH}/efficiency/src/"
@@ -107,10 +107,10 @@ elif [[ $u_flag = "true" ]]; then
     RUNNUM=$3
     COLUMN=$4
     if [[ $RUNTYPE = "HeePCoin" ]]; then
-	TIMESTMP="2022_09_09"
+	TIMESTMP="2024_01_11"
 	ROOTPREFIX=replay_coin_heep
     else
-	TIMESTMP="2022_09_09"
+	TIMESTMP="2024_01_11"
 	ROOTPREFIX=replay_coin_production
     fi    
 else
@@ -118,10 +118,10 @@ else
     RUNNUM=$2
     COLUMN="All"
     if [[ $RUNTYPE = "HeePCoin" ]]; then
-	TIMESTMP="2022_09_09"
+	TIMESTMP="2024_01_11"
 	ROOTPREFIX=replay_coin_heep
     else
-	TIMESTMP="2022_09_09"
+	TIMESTMP="2024_01_11"
 	ROOTPREFIX=replay_coin_production
     fi
 fi
