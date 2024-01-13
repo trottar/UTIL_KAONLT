@@ -18,18 +18,17 @@ coin_epi_cut_rand_RF = coin_time.Coin_Pion_Rand+coin_time.SHMS_Pi_RF+misc.startt
 ##############
 # COIN kcut  #
 ##############
-# RLT (12/18/2023): Removed HGCer cut. Testing no HGCer cut with pi peak subtraction
-coin_ek_cut_all_noRF = misc.starttime+accept.delta+pid.p_coin_kcut-pid.p_coin_kcut.P_hgcer_npeSum
+coin_ek_cut_all_noRF = misc.starttime+accept.delta+pid.p_coin_kcut
 #
-coin_ek_cut_prompt_noRF = coin_time.Coin_Kaon_Prompt+misc.starttime+accept.delta+pid.p_coin_kcut-pid.p_coin_kcut.P_hgcer_npeSum
+coin_ek_cut_prompt_noRF = coin_time.Coin_Kaon_Prompt+misc.starttime+accept.delta+pid.p_coin_kcut
 #
-coin_ek_cut_rand_noRF = coin_time.Coin_Kaon_Rand+misc.starttime+accept.delta+pid.p_coin_kcut-pid.p_coin_kcut.P_hgcer_npeSum
+coin_ek_cut_rand_noRF = coin_time.Coin_Kaon_Rand+misc.starttime+accept.delta+pid.p_coin_kcut
 #
-coin_ek_cut_all_RF = coin_time.SHMS_K_RF+misc.starttime+accept.delta+pid.p_coin_kcut-pid.p_coin_kcut.P_hgcer_npeSum
+coin_ek_cut_all_RF = coin_time.SHMS_K_RF+misc.starttime+accept.delta+pid.p_coin_kcut
 #
-coin_ek_cut_prompt_RF = coin_time.Coin_Kaon_Prompt+coin_time.SHMS_K_RF+misc.starttime+accept.delta+pid.p_coin_kcut-pid.p_coin_kcut.P_hgcer_npeSum
+coin_ek_cut_prompt_RF = coin_time.Coin_Kaon_Prompt+coin_time.SHMS_K_RF+misc.starttime+accept.delta+pid.p_coin_kcut
 #
-coin_ek_cut_rand_RF = coin_time.Coin_Kaon_Rand+coin_time.SHMS_K_RF+misc.starttime+accept.delta+pid.p_coin_kcut-pid.p_coin_kcut.P_hgcer_npeSum
+coin_ek_cut_rand_RF = coin_time.Coin_Kaon_Rand+coin_time.SHMS_K_RF+misc.starttime+accept.delta+pid.p_coin_kcut
 ##############
 # COIN pcut  #
 ##############
