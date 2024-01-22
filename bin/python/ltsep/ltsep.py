@@ -2,7 +2,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2024-01-09 12:16:35 trottar"
+# Time-stamp: "2024-01-22 15:46:34 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -965,6 +965,8 @@ class Root():
                             err_dir = self.UTILPATH+"/DB/PARAM/Acceptance_Parameters.csv"
                         if "coin_time" in x[j]:
                             err_dir = self.UTILPATH+"/DB/PARAM/Timing_Parameters.csv"
+                        if "CT" in x[j]:
+                            err_dir = self.UTILPATH+"/DB/PARAM/Timing_Parameters.csv"                            
                         if "current" in x[j]:
                             err_dir = self.UTILPATH+"/DB/PARAM/Current_Parameters.csv"
                         if "misc" in x[j]:

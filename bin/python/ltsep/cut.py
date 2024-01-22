@@ -4,7 +4,7 @@
 # Description: This package will perform many tasks required for l-t separation physics analysis 
 # Analysis script required format for applying cuts.
 # ================================================================
-# Time-stamp: "2022-06-27 19:32:00 trottar"
+# Time-stamp: "2024-01-22 15:47:21 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -166,6 +166,7 @@ class SetCuts():
             "track" : self.UTILPATH+"/DB/CUTS/general/track.cuts",
             "accept" : self.UTILPATH+"/DB/CUTS/general/accept.cuts",
             "coin_time" : self.UTILPATH+"/DB/CUTS/general/coin_time.cuts",
+            "CT" : self.UTILPATH+"/DB/CUTS/general/coin_time.cuts",
             "current" : self.UTILPATH+"/DB/CUTS/general/current.cuts",
             "misc" : self.UTILPATH+"/DB/CUTS/general/misc.cuts",
         }
