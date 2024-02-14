@@ -88,51 +88,51 @@ fi
 
 sleep 3
 
-if [ ! -f "$UTILPATH/ROOTfiles/Analysis/General/${ANATYPE}_coin_replay_production_${RUNNUMBER}_${MAXEVENTS}.root" ]; then
+if [ ! -f "$UTILPATH/ROOTfiles/Analysis/${ANATYPE}LT/${ANATYPE}_coin_replay_production_${RUNNUMBER}_${MAXEVENTS}.root" ]; then
     if [[ "${HOSTNAME}" != *"ifarm"* ]]; then
 	if [[ "${HOSTNAME}" == *"cdaq"* ]]; then
-	    eval "$REPLAYPATH/hcana -l -q -b \"SCRIPTS/COIN/PRODUCTION/FullReplay_KaonLT_Phys_Prod.C($RUNNUMBER,$MAXEVENTS)\""| tee $UTILPATH/REPORT_OUTPUT/Analysis/KaonLT/${ANATYPE}_output_coin_production_Summary_${RUNNUMBER}_${MAXEVENTS}.report
+	    eval "$REPLAYPATH/hcana -l -q -b \"SCRIPTS/COIN/PRODUCTION/FullReplay_${ANATYPE}LT_Phys_Prod.C($RUNNUMBER,$MAXEVENTS)\""| tee $UTILPATH/REPORT_OUTPUT/Analysis/${ANATYPE}LT/${ANATYPE}_output_coin_production_Summary_${RUNNUMBER}_${MAXEVENTS}.report
 	else	
-	    eval "$REPLAYPATH/hcana -l -q -b \"SCRIPTS/COIN/PRODUCTION/FullReplay_KaonLT_Phys_Prod.C($RUNNUMBER,$MAXEVENTS)\"" 
+	    eval "$REPLAYPATH/hcana -l -q -b \"SCRIPTS/COIN/PRODUCTION/FullReplay_${ANATYPE}LT_Phys_Prod.C($RUNNUMBER,$MAXEVENTS)\"" 
 	fi
     elif [[ "${HOSTNAME}" == *"ifarm"* ]]; then
-	eval "$REPLAYPATH/hcana -l -q -b \"SCRIPTS/COIN/PRODUCTION/FullReplay_KaonLT_Phys_Prod.C($RUNNUMBER,$MAXEVENTS)\""| tee $UTILPATH/REPORT_OUTPUT/Analysis/KaonLT/${ANATYPE}_output_coin_production_Summary_${RUNNUMBER}_${MAXEVENTS}.report
+	eval "$REPLAYPATH/hcana -l -q -b \"SCRIPTS/COIN/PRODUCTION/FullReplay_${ANATYPE}LT_Phys_Prod.C($RUNNUMBER,$MAXEVENTS)\""| tee $UTILPATH/REPORT_OUTPUT/Analysis/${ANATYPE}LT/${ANATYPE}_output_coin_production_Summary_${RUNNUMBER}_${MAXEVENTS}.report
     fi
-else echo "Replayfile already found for this run in $UTILPATH/ROOTfiles/Analysis/KaonLT/ - Skipping replay step"
+else echo "Replayfile already found for this run in $UTILPATH/ROOTfiles/Analysis/${ANATYPE}LT/ - Skipping replay step"
 fi
 
 # sleep 3
 
 ################################################################################################################################                                                                                   
 # Section for kaon analysis script
-# if [ -f "${UTILPATH}/OUTPUT/Analysis/KaonLT/${RUNNUMBER}_${MAXEVENTS}_Analysed_Data.root" ]; then
+# if [ -f "${UTILPATH}/OUTPUT/Analysis/${ANATYPE}LT/${RUNNUMBER}_${MAXEVENTS}_Analysed_Data.root" ]; then
 #     read -p "Kaon production analysis file already exists, do you want to reprocess it? <Y/N> " option1
 #     if [[ $option1 == "y" || $option1 == "Y" || $option1 == "yes" || $option1 == "Yes" ]]; then
-# 	rm "${UTILPATH}/OUTPUT/Analysis/KaonLT/${RUNNUMBER}_${MAXEVENTS}_Analysed_Data.root"
+# 	rm "${UTILPATH}/OUTPUT/Analysis/${ANATYPE}LT/${RUNNUMBER}_${MAXEVENTS}_Analysed_Data.root"
 # 	echo "Reprocessing"
-# 	python3 ${UTILPATH}/scripts/online_physics/KaonLT/kaon_prod_analysis_sw.py Kaon_coin_replay_production ${RUNNUMBER} ${MAXEVENTS} ${TARGET}
+# 	python3 ${UTILPATH}/scripts/online_physics/${ANATYPE}LT/kaon_prod_analysis_sw.py Kaon_coin_replay_production ${RUNNUMBER} ${MAXEVENTS} ${TARGET}
 #     else
 # 	echo "Skipping python analysis script step"
 #     fi
-# elif [ ! -f "${UTILPATH}/OUTPUT/Analysis/KaonLT/${RUNNUMBER}_${MAXEVENTS}_Analysed_Data.root" ]; then
-# 	python3 ${UTILPATH}/scripts/online_physics/KaonLT/kaon_prod_analysis_sw.py Kaon_coin_replay_production ${RUNNUMBER} ${MAXEVENTS} ${TARGET}
+# elif [ ! -f "${UTILPATH}/OUTPUT/Analysis/${ANATYPE}LT/${RUNNUMBER}_${MAXEVENTS}_Analysed_Data.root" ]; then
+# 	python3 ${UTILPATH}/scripts/online_physics/${ANATYPE}LT/kaon_prod_analysis_sw.py Kaon_coin_replay_production ${RUNNUMBER} ${MAXEVENTS} ${TARGET}
 # fi
 # 
 # sleep 3
 # 
 # ##################################################################################################################################
 # # Section for kaon physics ploting script
-# if [ -f "${UTILPATH}/OUTPUT/Analysis/KaonLT/${RUNNUMBER}_${MAXEVENTS}_Output_Data.root" ]; then
+# if [ -f "${UTILPATH}/OUTPUT/Analysis/${ANATYPE}LT/${RUNNUMBER}_${MAXEVENTS}_Output_Data.root" ]; then
 #     read -p "Kaon physics plots already exits, do you want to reprocess them? <Y/N> " option2
 #     if [[ $option2 == "y" || $option2 == "Y" || $option2 == "yes" || $option2 == "Yes" ]]; then
-# 	rm "${UTILPATH}/OUTPUT/Analysis/KaonLT/${RUNNUMBER}_${MAXEVENTS}_Output_Data.root"
+# 	rm "${UTILPATH}/OUTPUT/Analysis/${ANATYPE}LT/${RUNNUMBER}_${MAXEVENTS}_Output_Data.root"
 # 	echo "Reprocessing"
-# 	python3 ${UTILPATH}/scripts/online_physics/KaonLT/PlotKaonPhysics_sw.py Analysed_Data ${RUNNUMBER} ${MAXEVENTS} ${TARGET}
+# 	python3 ${UTILPATH}/scripts/online_physics/${ANATYPE}LT/PlotKaonPhysics_sw.py Analysed_Data ${RUNNUMBER} ${MAXEVENTS} ${TARGET}
 #     else
 # 	echo "Skipping python physics plotting script step"
 #     fi
-# elif [ ! -f  "${UTILPATH}/OUTPUT/Analysis/KaonLT/${RUNNUMBER}_${MAXEVENTS}_Output_Data.root" ]; then
-# 	python3 ${UTILPATH}/scripts/online_physics/KaonLT/PlotKaonPhysics_sw.py Analysed_Data ${RUNNUMBER} ${MAXEVENTS} ${TARGET}
+# elif [ ! -f  "${UTILPATH}/OUTPUT/Analysis/${ANATYPE}LT/${RUNNUMBER}_${MAXEVENTS}_Output_Data.root" ]; then
+# 	python3 ${UTILPATH}/scripts/online_physics/${ANATYPE}LT/PlotKaonPhysics_sw.py Analysed_Data ${RUNNUMBER} ${MAXEVENTS} ${TARGET}
 # fi
-# evince "${UTILPATH}/OUTPUT/Analysis/KaonLT/${RUNNUMBER}_${MAXEVENTS}_sw_Kaon_Analysis_Distributions.pdf" &
+# evince "${UTILPATH}/OUTPUT/Analysis/${ANATYPE}LT/${RUNNUMBER}_${MAXEVENTS}_sw_Kaon_Analysis_Distributions.pdf" &
 # exit 0
