@@ -10,10 +10,11 @@ with open(file_name, 'r') as file:
 # Check if the specified number is present and 'eHadCoinTime_Offset' is present in the next line
 found_eHadCoinTime_Offset = False
 
-for line in lines:
-    if number_to_check in line:
-        print("!!!!!",line)
-        if 'eHadCoinTime_Offset' in line:
+for i in range(len(lines)):
+    if number_to_check in lines[i]:
+        print("!!!!!", lines[i])
+        if i + 1 < len(lines) and 'eHadCoinTime_Offset' in lines[i + 1]:
+            print("!!!!!", lines[i + 1])
             found_eHadCoinTime_Offset = True
             break
 
