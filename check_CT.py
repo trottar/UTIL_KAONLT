@@ -8,14 +8,14 @@ with open(file_name, 'r') as file:
     lines = file.readlines()
 
 # Check if the specified number is present and 'eHadCoinTime_Offset' is present in the next line
-found_number = False
 found_eHadCoinTime_Offset = False
 
 for line in lines:
-    if number_to_check in line and 'eHadCoinTime_Offset' in line:
-        print("!!!!!",line)
-        found_eHadCoinTime_Offset = True
-        break
+    if number_to_check in line:
+        if 'eHadCoinTime_Offset' in line:
+            print("!!!!!",line)
+            found_eHadCoinTime_Offset = True
+            break
 
 # Output to noCT_Offset_runs.txt if conditions are not met
 if not (found_eHadCoinTime_Offset):
