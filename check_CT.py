@@ -12,13 +12,11 @@ found_number = False
 found_eHadCoinTime_Offset = False
 
 for line in lines:
-    if number_to_check in line:
-        found_number = True
-    elif found_number and 'eHadCoinTime_Offset' in line:
+    if number_to_check in line and 'eHadCoinTime_Offset' in line:
         found_eHadCoinTime_Offset = True
         break
 
 # Output to noCT_Offset_runs.txt if conditions are not met
-if not (found_number and found_eHadCoinTime_Offset):
+if not (found_eHadCoinTime_Offset):
     with open('noCT_Offset_runs.txt', 'w') as output_file:
         output_file.write("{}".format(int(number_to_check)))
