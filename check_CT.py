@@ -12,8 +12,8 @@ found_eHadCoinTime_Offset = False
 
 for line in lines:
     if number_to_check in line:
+        print("!!!!!",line)
         if 'eHadCoinTime_Offset' in line:
-            print("!!!!!",line)
             found_eHadCoinTime_Offset = True
             break
 
