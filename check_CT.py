@@ -22,4 +22,4 @@ if not os.path.exists('noCT_Offset_runs.txt'):
 if not (found_eHadCoinTime_Offset):
     print("{} not found!".format(number_to_check))
     with open('noCT_Offset_runs.txt', 'a') as output_file:
-        output_file.write("{}".format(int(number_to_check)))
+        output_file.write("{}\n".format(int(number_to_check)))
