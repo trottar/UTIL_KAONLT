@@ -18,6 +18,7 @@ for i in range(len(lines)):
             found_eHadCoinTime_Offset = True
             break
 
+print(found_eHadCoinTime_Offset)
 # Output to noCT_Offset_runs.txt if conditions are not met
 if not (found_eHadCoinTime_Offset):
     with open('noCT_Offset_runs.txt', 'w') as output_file:
