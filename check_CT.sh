@@ -44,8 +44,8 @@ grab_runs () {
 #KIN="Q2p1W2p95"
 #KIN="Q3p0W3p14"
 #KIN="Q3p0W2p32"
-#KIN="Q4p4W2p74"
-KIN="Q5p5W3p02"
+KIN="Q4p4W2p74"
+#KIN="Q5p5W3p02"
 
 TARGET=("LH2" "dummy")
 EPS=("high" "low")
