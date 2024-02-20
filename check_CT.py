@@ -1,4 +1,4 @@
-import sys
+import sys, os
 
 file_name = sys.argv[1]
 number_to_check = sys.argv[2]
