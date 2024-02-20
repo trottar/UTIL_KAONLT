@@ -12,14 +12,14 @@ found_eHadCoinTime_Offset = False
 
 for i in range(len(lines)):
     if number_to_check in lines[i]:
-        print("!!!!!", lines[i])
         if i + 1 < len(lines) and 'eHadCoinTime_Offset' in lines[i + 1]:
-            print("!!!!!", lines[i + 1])
             found_eHadCoinTime_Offset = True
             break
 
-print(found_eHadCoinTime_Offset)
+if not os.path.exists('noCT_Offset_runs.txt'):
+    open('noCT_Offset_runs.txt', "w").close()
 # Output to noCT_Offset_runs.txt if conditions are not met
 if not (found_eHadCoinTime_Offset):
-    with open('noCT_Offset_runs.txt', 'w') as output_file:
+    print("{} not found!".format(number_to_check))
+    with open('noCT_Offset_runs.txt', 'a') as output_file:
         output_file.write("{}".format(int(number_to_check)))
