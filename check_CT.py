@@ -16,8 +16,7 @@ for i in range(len(lines)):
             found_eHadCoinTime_Offset = True
             break
 
-if not os.path.exists('noCT_Offset_runs.txt'):
-    open('noCT_Offset_runs.txt', "w").close()
+open('noCT_Offset_runs.txt', "w").close()
 # Output to noCT_Offset_runs.txt if conditions are not met
 if not (found_eHadCoinTime_Offset):
     print("{} not found!".format(number_to_check))
