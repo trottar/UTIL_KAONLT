@@ -54,6 +54,6 @@ p_coin_picut = {"P_gtr_beta" : ((abs(P_gtr_beta-1)) < pid.P_picut_P_beta)}, {"H_
 # RLT (4/13/2024): Updating with improved cuts to diminish pion background a bit
 #p_coin_kcut = {"P_gtr_beta" : ((abs(P_gtr_beta-1)) < pid.P_kcut_P_beta)}, {"P_hgcer_npeSum" : (P_hgcer_npeSum == 0.0)}, {"P_aero_npeSum" : (P_aero_npeSum > pid.P_kcut_P_aero)}, {"H_cal_etottracknorm" : (H_cal_etottracknorm > pid.P_kcut_H_cal)}, {"H_cer_npeSum" : (H_cer_npeSum > pid.P_kcut_H_cer)}
 # RLT (11/26/2024)
-p_coin_kcut = {"P_gtr_beta" : ((abs(P_gtr_beta-1)) < pid.P_kcut_P_beta)}, {"P_hgcer_npeSum" : (P_hgcer_npeSum == 0.0)}, {"P_aero_npeSum" : (P_aero_npeSum > pid.P_kcut_P_aero)}, {"H_cal_etottracknorm" : (H_cal_etottracknorm > pid.P_kcut_H_cal)}
+p_coin_kcut = {"P_gtr_beta" : ((abs(P_gtr_beta-1)) < pid.P_kcut_P_beta)}, {"P_hgcer_npeSum" : (P_hgcer_npeSum == 0.0)}, {"P_aero_npeSum" : (P_aero_npeSum > pid.P_kcut_P_aero)}, {"H_cer_npeSum" : (H_cer_npeSum > pid.P_kcut_H_cer)}
 #
 p_coin_pcut = {"P_gtr_beta" : ((abs(P_gtr_beta-1)) < pid.P_pcut_P_beta)}, {"P_hgcer_npeSum" : (P_hgcer_npeSum < pid.P_pcut_P_hgcer)}, {"P_aero_npeSum" : (P_aero_npeSum < pid.P_pcut_P_aero)}, {"H_cal_etottracknorm" : (H_cal_etottracknorm > pid.H_ecut_H_cal)}, {"P_cal_etottracknorm" : (P_cal_etottracknorm >= 0.0)}
