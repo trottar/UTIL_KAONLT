@@ -2,7 +2,7 @@
 # Description: This package will perform many tasks required for l-t separation physics analysis 
 # Analysis script required dynamically defining pathing.
 # ================================================================
-# Time-stamp: "2023-09-11 23:21:14 trottar"
+# Time-stamp: "2026-03-31 00:34:47 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -43,6 +43,7 @@ class SetPath():
     PACKAGEPATH=lt.PACKAGEPATH
     OUTPATH=lt.OUTPATH
     ROOTPATH=lt.ROOTPATH
+    SKIMPATH=lt.SKIMPATH
     REPORTPATH=lt.REPORTPATH
     CUTPATH=lt.CUTPATH
     PARAMPATH=lt.PARAMPATH

@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-12-20 00:24:44 trottar"
+# Time-stamp: "2024-04-25 19:29:06 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -204,7 +204,7 @@ plt.xlabel('SHMS 3/4 Trigger Rate [kHz]', fontsize=12)
 plt.subplot(222)    
 plt.grid(zorder=1)
 #plt.xlim(0,100)
-#plt.ylim(0.9,1.1)
+plt.ylim(0.90,1.0)
 fit_data(plt, "SHMS_3/4_Trigger_Rate", "SHMS_Pion_ALL_TRACK_EFF")
 plt.scatter(efficiency_data_10p6["SHMS_3/4_Trigger_Rate"],efficiency_data_10p6["SHMS_Pion_ALL_TRACK_EFF"],color='blue',zorder=4,label='10p6')
 plt.scatter(efficiency_data_3p8["SHMS_3/4_Trigger_Rate"],efficiency_data_3p8["SHMS_Pion_ALL_TRACK_EFF"],color='red',zorder=4,label='3p8')

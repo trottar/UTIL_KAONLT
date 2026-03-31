@@ -2,7 +2,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2024-07-19 13:04:44 trottar"
+# Time-stamp: "2026-03-31 00:35:49 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -52,6 +52,7 @@ class Root():
     PACKAGEPATH=lt.PACKAGEPATH
     OUTPATH=lt.OUTPATH
     ROOTPATH=lt.ROOTPATH
+    SKIMPATH=lt.SKIMPATH
     REPORTPATH=lt.REPORTPATH
     CUTPATH=lt.CUTPATH
     PARAMPATH=lt.PARAMPATH
@@ -89,6 +90,7 @@ class Root():
     PACKAGEPATH=lt.PACKAGEPATH
     OUTPATH=lt.OUTPATH
     ROOTPATH=lt.ROOTPATH
+    SKIMPATH=lt.SKIMPATH
     REPORTPATH=lt.REPORTPATH
     CUTPATH=lt.CUTPATH
     PARAMPATH=lt.PARAMPATH
@@ -127,6 +129,7 @@ class Root():
     PACKAGEPATH=lt.PACKAGEPATH
     OUTPATH=lt.OUTPATH
     ROOTPATH=lt.ROOTPATH
+    SKIMPATH=lt.SKIMPATH
     REPORTPATH=lt.REPORTPATH
     CUTPATH=lt.CUTPATH
     PARAMPATH=lt.PARAMPATH
@@ -175,6 +178,7 @@ class Root():
     PACKAGEPATH=lt.PACKAGEPATH
     OUTPATH=lt.OUTPATH
     ROOTPATH=lt.ROOTPATH
+    SKIMPATH=lt.SKIMPATH
     REPORTPATH=lt.REPORTPATH
     CUTPATH=lt.CUTPATH
     PARAMPATH=lt.PARAMPATH
@@ -255,6 +259,7 @@ class Root():
         self.PACKAGEPATH=SetPath(self.CURRENT_ENV).getPath("PACKAGEPATH")
         self.OUTPATH=SetPath(self.CURRENT_ENV).getPath("OUTPATH")
         self.ROOTPATH=SetPath(self.CURRENT_ENV).getPath("ROOTPATH")
+        self.SKIMPATH=SetPath(self.CURRENT_ENV).getPath("SKIMPATH")
         self.REPORTPATH=SetPath(self.CURRENT_ENV).getPath("REPORTPATH")
         self.CUTPATH=SetPath(self.CURRENT_ENV).getPath("CUTPATH")
         self.PARAMPATH=SetPath(self.CURRENT_ENV).getPath("PARAMPATH")

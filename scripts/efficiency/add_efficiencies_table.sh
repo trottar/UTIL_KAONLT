@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-12-19 23:49:58 trottar"
+# Time-stamp: "2024-09-17 12:54:34 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -132,8 +132,8 @@ elif [[ $p_flag = "true" && $s_flag = "true" ]]; then
     else
 	ROOTPREFIX=replay_${spec}_production
 	HGCERPREFIX=${ANATYPE}_${SPEC}_replay_production
-	inputFile="${REPLAYPATH}/UTIL_BATCH/InputRunLists/KaonLT_2018_2019/Prod_ALL"
-	#inputFile="${REPLAYPATH}/UTIL_BATCH/InputRunLists/KaonLT_2018_2019/Prod_Test"
+	#inputFile="${REPLAYPATH}/UTIL_BATCH/InputRunLists/KaonLT_2018_2019/Prod_ALL"
+	inputFile="${REPLAYPATH}/UTIL_BATCH/InputRunLists/KaonLT_2018_2019/Prod_Test"
     fi
     #python3 plot/plot_efficiency.py ${ROOTPREFIX} ${RunType} ${DATE}
     python3 plot/plot_efficiency_beam.py ${ROOTPREFIX} ${RunType} ${DATE}
@@ -167,8 +167,8 @@ elif [[ $r_flag = "true" ]]; then
 	ROOTPREFIX=replay_coin_production
 	HGCERPREFIX=${ANATYPE}_coin_replay_production	
 	#inputFile="${REPLAYPATH}/UTIL_BATCH/InputRunLists/KaonLT_2018_2019/ProductionLH2_ALL"
-	inputFile="${REPLAYPATH}/UTIL_BATCH/InputRunLists/KaonLT_2018_2019/Prod_ALL"
-	#inputFile="${REPLAYPATH}/UTIL_BATCH/InputRunLists/KaonLT_2018_2019/Prod_Test"
+	#inputFile="${REPLAYPATH}/UTIL_BATCH/InputRunLists/KaonLT_2018_2019/Prod_ALL"
+	inputFile="${REPLAYPATH}/UTIL_BATCH/InputRunLists/KaonLT_2018_2019/Prod_Test"
     fi      
 else
     RunType=$1
@@ -181,8 +181,8 @@ else
 	ROOTPREFIX=replay_coin_production
 	HGCERPREFIX=${ANATYPE}_coin_replay_production	
 	#inputFile="${REPLAYPATH}/UTIL_BATCH/InputRunLists/KaonLT_2018_2019/ProductionLH2_ALL"
-	inputFile="${REPLAYPATH}/UTIL_BATCH/InputRunLists/KaonLT_2018_2019/Prod_ALL"
-	#inputFile="${REPLAYPATH}/UTIL_BATCH/InputRunLists/KaonLT_2018_2019/Prod_Test"
+	#inputFile="${REPLAYPATH}/UTIL_BATCH/InputRunLists/KaonLT_2018_2019/Prod_ALL"
+	inputFile="${REPLAYPATH}/UTIL_BATCH/InputRunLists/KaonLT_2018_2019/Prod_Test"
     fi    
 fi
 

@@ -3,7 +3,7 @@
 #
 # Description:
 # ================================================================
-# Time-stamp: "2023-12-18 14:08:19 trottar"
+# Time-stamp: "2024-09-17 12:58:12 trottar"
 # ================================================================
 #
 # Author:  Richard L. Trotta III <trotta@cua.edu>
@@ -96,7 +96,7 @@ if file_exists:
     # Checks if run number is alread in csv and replaces it if it is there
     run_index = out_data.index[out_data["Run_Number"] == int(runNum)].tolist()
     out_data.drop(run_index, inplace=True)
-    out_data = out_data.append(table,ignore_index=True)
+    out_data = pd.concat([out_data, table], ignore_index=True)
     #print("Output efficiency values\n",out_data)
     out_data.to_csv(out_f, index = False, header=True, mode='w+',)
 else:
