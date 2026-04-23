@@ -170,7 +170,9 @@ def dictionary(UTILPATH,ROOTPrefix,runNum,MaxEvent,OUTPATH=None,DEBUG=False):
 
         # Search for keywords, then save as value in dictionary
         for line in f:
-            data = line.split(':')
+            data = line.split(':', 1)
+            if len(data) < 2:
+                continue
             for key,val in effDict.items():
                 if "ERROR" in key:
                     nkey = key.replace("_ERROR","")
