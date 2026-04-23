@@ -163,7 +163,7 @@ def dictionary(UTILPATH,ROOTPrefix,runNum,MaxEvent,OUTPATH=None,DEBUG=False):
             'HMS_Cal_ALL_Elec_Eff' : None,
             'HMS_Cal_ALL_Elec_Eff_ERROR' : None,
             # Coin block correction
-            'KLT_coinblock_corr': None,
+            'coinblock_corr': None,
             'coinblock_stat_unct': None
 
         }
