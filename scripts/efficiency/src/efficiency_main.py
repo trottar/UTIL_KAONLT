@@ -64,10 +64,10 @@ DEBUG=True
 if "coin" in ROOTPrefix:
     #hgcerDict = efficiency_hgcer.dictionary(UTILPATH,runNum,MaxEvent)
     hgcerDict = {} # If no hgcer efficiency
-    reportDict = efficiency_report.dictionary(UTILPATH,ROOTPrefix,runNum,MaxEvent)
+    reportDict = efficiency_report.dictionary(UTILPATH,ROOTPrefix,runNum,MaxEvent,OUTPATH=OUTPATH)
 else:
     hgcerDict = {}
-    reportDict = efficiency_report.dictionary(UTILPATH,ROOTPrefix,runNum,MaxEvent)
+    reportDict = efficiency_report.dictionary(UTILPATH,ROOTPrefix,runNum,MaxEvent,OUTPATH=OUTPATH)
 
 boilDict = efficiency_boil.dictionary(reportDict["BCM1_Beam_Cut_Current"])
 
