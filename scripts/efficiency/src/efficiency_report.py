@@ -16,10 +16,13 @@
 '''
 import re
 
-def dictionary(UTILPATH,ROOTPrefix,runNum,MaxEvent,DEBUG=False):
+import report_path_resolver
 
-    # Open report file to grab prescale values and tracking efficiency
-    report = UTILPATH+"/REPORT_OUTPUT/Analysis/General/%s_%s_%s.report" % (ROOTPrefix,runNum,MaxEvent)
+
+def dictionary(UTILPATH,ROOTPrefix,runNum,MaxEvent,OUTPATH=None,DEBUG=False):
+
+    # Resolve report path with /cache/ tape staging and tar fallback support
+    report = report_path_resolver.resolve_report_path(UTILPATH, ROOTPrefix, runNum, MaxEvent, outpath=OUTPATH, debug=DEBUG)
 
     with open(report) as f:
         effDict = {
@@ -158,7 +161,10 @@ def dictionary(UTILPATH,ROOTPrefix,runNum,MaxEvent,DEBUG=False):
             'HMS_Hodoscope_S1X_Rate' : None,
             # Calorimeter
             'HMS_Cal_ALL_Elec_Eff' : None,
-            'HMS_Cal_ALL_Elec_Eff_ERROR' : None
+            'HMS_Cal_ALL_Elec_Eff_ERROR' : None,
+            # Coin block correction
+            'coinblock_corr': None,
+            'coinblock_stat_unct': None
 
         }
 
