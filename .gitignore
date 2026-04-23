@@ -11,6 +11,7 @@ REPORT_OUTPUT
 HISTOGRAMS
 ROOTfiles
 OUTPUT
+Skim_ROOTfiles
 
 # python cython dir
 __pycache__
